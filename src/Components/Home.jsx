@@ -1,11 +1,16 @@
 import React from 'react'
-import { Calendar, Clock, Heart, MapPin, Music, Book, Users, ChevronDown } from 'lucide-react';
-
+import { Calendar, Heart, Book, Users, ChevronDown } from 'lucide-react';
+import {faBible, faBookOpen, faHandsPraying,  faUsers } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Footer from '../Pages/Footer';
+import Navbar from '../Pages/Navbar';
 
 function Home() {
   return (
     <>
       <div className="min-h-screen bg-white">
+      <Navbar/>
+
         {/* Hero Section */}
         <div
           className="relative h-screen bg-cover bg-center"
@@ -32,17 +37,27 @@ function Home() {
         <section className="py-16 bg-blue-50">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-blue-900 mb-4">Service Times</h2>
-              <div className="flex flex-col md:flex-row justify-center items-center gap-8">
-                <div className="bg-white p-8 rounded-lg shadow-lg flex-1 max-w-sm">
-                  <Clock className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+              <h2 className="text-4xl font-bold text-blue-900 mb-6">Service Times</h2>
+              <div className="flex flex-col md:flex-row justify-center items-center gap-8 w-full">
+                <div className="bg-white p-8 rounded-4xl shadow-2xl w-full">
+                  <FontAwesomeIcon icon={faBookOpen} className="text-blue-600 mx-auto mb-4 text-5xl" />
                   <h3 className="text-xl font-semibold mb-2">Sabbath School</h3>
-                  <p className="text-gray-600">Saturday 9:30 AM</p>
+                  <p className="text-gray-600">0900hrs - 0920hrs</p>
                 </div>
-                <div className="bg-white p-8 rounded-lg shadow-lg flex-1 max-w-sm">
-                  <Music className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">Worship Service</h3>
-                  <p className="text-gray-600">Saturday 11:00 AM</p>
+                <div className="bg-white p-8 rounded-4xl shadow-2xl w-full">
+                  <FontAwesomeIcon icon={faUsers} className="text-blue-600 mx-auto mb-4 text-5xl" />
+                  <h3 className="text-xl font-semibold mb-2">Lesson discussion</h3>
+                  <p className="text-gray-600">0920hrs - 1020hrs</p>
+                </div>
+                <div className="bg-white p-8 rounded-4xl shadow-2xl w-full">
+                  <FontAwesomeIcon icon={faHandsPraying} className="text-blue-600 mx-auto mb-4 text-5xl" />
+                  <h3 className="text-xl font-semibold mb-2">Divine Service</h3>
+                  <p className="text-gray-600">1045hrs - 1220hrs</p>
+                </div>
+                <div className="bg-white p-8 rounded-4xl shadow-2xl w-full">
+                  <FontAwesomeIcon icon={faBible} className="text-blue-600 mx-auto mb-4 text-5xl" />
+                  <h3 className="text-xl font-semibold mb-2">Bible study</h3>
+                  <p className="text-gray-600">1430hrs - 1600hrs</p>
                 </div>
               </div>
             </div>
@@ -78,13 +93,13 @@ function Home() {
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-center text-blue-900 mb-12">Upcoming Events</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="bg-white p-6 rounded-4xl shadow-2xlb">
                 <Calendar className="w-8 h-8 text-blue-600 mb-4" />
                 <h3 className="text-xl font-semibold mb-2">Youth Camp Meeting</h3>
                 <p className="text-gray-600 mb-4">Join us for our annual youth retreat filled with worship, fellowship, and outdoor activities.</p>
                 <p className="text-sm text-gray-500">March 15-17, 2024</p>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="bg-white p-6 rounded-4xl shadow-2xlb">
                 <Calendar className="w-8 h-8 text-blue-600 mb-4" />
                 <h3 className="text-xl font-semibold mb-2">Health Fair</h3>
                 <p className="text-gray-600 mb-4">Free health screenings, nutrition workshops, and wellness seminars for the community.</p>
@@ -93,41 +108,7 @@ function Home() {
             </div>
           </div>
         </section>
-
-        {/* Footer */}
-        <footer className="bg-blue-900 text-white py-12">
-          <div className="container mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <div>
-                <h3 className="text-xl font-semibold mb-4">About Us</h3>
-                <p className="text-blue-200">A welcoming Seventh-day Adventist community dedicated to sharing God's love.</p>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-4">Contact</h3>
-                <div className="flex items-center gap-2 text-blue-200">
-                  <MapPin size={20} />
-                  <p>123 Faith Street, City, State 12345</p>
-                </div>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
-                <ul className="space-y-2 text-blue-200">
-                  <li><a href="#" className="hover:text-white">Beliefs</a></li>
-                  <li><a href="#" className="hover:text-white">Ministries</a></li>
-                  <li><a href="#" className="hover:text-white">Events</a></li>
-                  <li><a href="#" className="hover:text-white">Give Online</a></li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-4">Connect</h3>
-                <p className="text-blue-200">Join us this Sabbath for worship and fellowship.</p>
-              </div>
-            </div>
-            <div className="border-t border-blue-800 mt-8 pt-8 text-center text-blue-200">
-              <p>&copy; 2024 Grace Adventist Church. All rights reserved.</p>
-            </div>
-          </div>
-        </footer>
+        <Footer/>
       </div>
     </>
   )
