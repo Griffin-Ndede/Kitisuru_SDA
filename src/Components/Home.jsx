@@ -1,6 +1,6 @@
 import React from 'react'
 import { Calendar, Heart, Book, Users, ChevronDown } from 'lucide-react';
-import {faBible, faBookOpen, faHandsPraying,  faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faBible, faBookOpen, faHandsPraying, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Footer from '../Pages/Footer';
 import Navbar from '../Pages/Navbar';
@@ -9,24 +9,25 @@ function Home() {
   return (
     <>
       <div className="min-h-screen bg-white">
-      <Navbar/>
-
+        <Navbar />
         {/* Hero Section */}
-        <div
-          className="relative h-screen bg-cover bg-center"
-          style={{
-            backgroundImage: 'url("https://images.unsplash.com/photo-1499652848871-1527a310b13a?q=80&w=3474&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
-          }}
-        >
-          <div className="absolute inset-0 bg-black bg-opacity-60">
-            <div className="max-w-5xl container mx-auto px-6 h-full flex flex-col justify-center items-center text-center">
+        <div className="relative h-screen">
+          <div className="absolute inset-0 overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1548094990-c16ca90f1f0d?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              alt="Hero"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center">
+            <div className="max-w-5xl mx-auto px-6 text-center">
               <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
                 Welcome to Seventh Day Adventist Church Kitisuru
               </h1>
               <p className="text-xl md:text-2xl text-white mb-8">
                 Where Faith Meets Community
               </p>
-              <button className="bg-white text-blue-900 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition duration-300 flex items-center gap-2">
+              <button className="bg-white text-blue-900 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition duration-300 flex items-center gap-2 mx-auto">
                 Learn More <ChevronDown size={20} />
               </button>
             </div>
@@ -108,7 +109,7 @@ function Home() {
             </div>
           </div>
         </section>
-        <Footer/>
+        <Footer />
       </div>
     </>
   )
