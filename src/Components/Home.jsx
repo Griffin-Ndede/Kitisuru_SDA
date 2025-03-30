@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Calendar, Heart, Book, Users, ChevronDown } from 'lucide-react';
 import { faBible, faBookOpen, faHandsPraying, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,6 +6,72 @@ import Footer from '../Pages/Footer';
 import Navbar from '../Pages/Navbar';
 
 function Home() {
+  const [eventName, setEventName] = useState("");
+  const [eventDate, setEventDate] = useState("");
+  const [countdownStarted, setCountdownStarted] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
+
+  const handleStartCountdown = (e) => {
+    e.preventDefault();
+    if (eventName && eventDate) {
+      setCountdownStarted(true);
+    }
+  };
+
+  const handleResetCountdown = () => {
+    setCountdownStarted(false);
+    setEventName("");
+    setEventDate("");
+    setTimeRemaining({
+      days: 0,
+      hours: 0,
+      minutes: 0,
+      seconds: 0
+    });
+    document.title = "Seventh Day Adventist Church Kitisuru";
+  };
+
+  useEffect(() => {
+    if (countdownStarted && eventDate) {
+      const countdownInterval = setInterval(() => {
+        const currentTime = new Date().getTime();
+        const eventTime = new Date(eventDate).getTime();
+        let remainingTime = eventTime - currentTime;
+
+        if (remainingTime <= 0) {
+          remainingTime = 0;
+          clearInterval(countdownInterval);
+          alert(`The event "${eventName}" has started!`);
+        }
+
+        const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+        setTimeRemaining({
+          days,
+          hours,
+          minutes,
+          seconds
+        });
+      }, 1000);
+
+      return () => clearInterval(countdownInterval);
+    }
+  }, [countdownStarted, eventDate, eventName]);
+
+  useEffect(() => {
+    if (countdownStarted) {
+      document.title = `${eventName} - ${timeRemaining.days}d ${timeRemaining.hours}h ${timeRemaining.minutes}m remaining`;
+    }
+  }, [countdownStarted, eventName, timeRemaining]);
+
   return (
     <>
       <div className="min-h-screen bg-white">
@@ -33,8 +99,83 @@ function Home() {
             </div>
           </div>
         </div>
+        {/* Event Countdown Section */}
+        <section className="py-16 bg-blue-900 text-white">
+          <div className="container mx-auto px-6">
+            <h2 className="text-3xl font-bold text-center mb-12">Event Countdown</h2>
 
-        {/* Service Times */}
+            {!countdownStarted ? (
+              <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg text-blue-900">
+                <h3 className="text-xl font-semibold mb-4">Set Up Your Event Countdown</h3>
+                <form onSubmit={handleStartCountdown}>
+                  <div className="mb-4">
+                    <label className="block text-gray-700 mb-2" htmlFor="eventName">
+                      Event Name
+                    </label>
+                    <input
+                      type="text"
+                      id="eventName"
+                      value={eventName}
+                      onChange={(e) => setEventName(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      required
+                    />
+                  </div>
+                  <div className="mb-6">
+                    <label className="block text-gray-700 mb-2" htmlFor="eventDate">
+                      Event Date & Time
+                    </label>
+                    <input
+                      type="datetime-local"
+                      id="eventDate"
+                      value={eventDate}
+                      onChange={(e) => setEventDate(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                      required
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
+                  >
+                    Start Countdown
+                  </button>
+                </form>
+              </div>
+            ) : (
+              <div className="max-w-3xl mx-auto text-center">
+                <h3 className="text-2xl font-semibold mb-6">{eventName}</h3>
+                <div className="grid grid-cols-4 gap-4 mb-8">
+                  <div className="bg-blue-800 p-4 rounded-lg">
+                    <div className="text-4xl font-bold">{timeRemaining.days}</div>
+                    <div className="text-sm">Days</div>
+                  </div>
+                  <div className="bg-blue-800 p-4 rounded-lg">
+                    <div className="text-4xl font-bold">{timeRemaining.hours}</div>
+                    <div className="text-sm">Hours</div>
+                  </div>
+                  <div className="bg-blue-800 p-4 rounded-lg">
+                    <div className="text-4xl font-bold">{timeRemaining.minutes}</div>
+                    <div className="text-sm">Minutes</div>
+                  </div>
+                  <div className="bg-blue-800 p-4 rounded-lg">
+                    <div className="text-4xl font-bold">{timeRemaining.seconds}</div>
+                    <div className="text-sm">Seconds</div>
+                  </div>
+                </div>
+                <button
+                  onClick={handleResetCountdown}
+                  className="bg-white text-blue-900 py-2 px-6 rounded-md hover:bg-gray-100 transition"
+                >
+                  Reset Countdown
+                </button>
+                <p className="mt-4 text-blue-200">
+                  Event scheduled for: {new Date(eventDate).toLocaleString()}
+                </p>
+              </div>
+            )}
+          </div>
+        </section>        {/* Service Times */}
         <section className="py-16 bg-blue-50">
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
