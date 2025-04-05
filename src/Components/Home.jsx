@@ -176,7 +176,7 @@ function Home() {
             )}
           </div>
         </section>        {/* Service Times */}
-        <section className="py-16 bg-blue-50">
+        <section className="py-16 bg-blue-50" id='services'>
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-blue-900 mb-6">Service Times</h2>
@@ -207,7 +207,7 @@ function Home() {
         </section>
 
         {/* Ministries */}
-        <section className="py-16">
+        <section className="py-16" id='ministries'>
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-center text-blue-900 mb-12">Our Ministries</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -231,7 +231,7 @@ function Home() {
         </section>
 
         {/* Upcoming Events */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-gray-50" id='upcoming'>
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-center text-blue-900 mb-12">Upcoming Events</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

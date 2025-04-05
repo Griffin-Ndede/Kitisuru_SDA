@@ -18,11 +18,11 @@ function Navbar() {
               </div>
               {/* Navigation Links */}
               <div className="flex items-center space-x-8">
-                <a href="#" className="text-blue-600 font-light hover:text-gray-200 transition-colors duration-200">Home</a>
-                <a href="#" className="text-blue-600 font-light hover:text-gray-200 transition-colors duration-200">About</a>
-                <a href="#" className="text-blue-600 font-light hover:text-gray-200 transition-colors duration-200">Ministries</a>
-                <a href="#" className="text-blue-600 font-light hover:text-gray-200 transition-colors duration-200">Events</a>
-                <a href="#" className="text-blue-600 font-light hover:text-gray-200 transition-colors duration-200">Contact</a>
+                <a href="" className="text-blue-600 font-light hover:text-black transition-colors duration-200">Home</a>
+                <a href="#" className="text-blue-600 font-light hover:text-black transition-colors duration-200">About</a>
+                <a href="#ministries" className="text-blue-600 font-light hover:text-black transition-colors duration-200">Ministries</a>
+                <a href="#upcoming" className="text-blue-600 font-light hover:text-black transition-colors duration-200">Events</a>
+                <a href="#" className="text-blue-600 font-light hover:text-black transition-colors duration-200">Contact</a>
               </div>
             </div>
           </div>
