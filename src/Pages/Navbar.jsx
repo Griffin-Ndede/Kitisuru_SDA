@@ -1,35 +1,53 @@
-import React from 'react'
-import { Church } from 'lucide-react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBible } from '@fortawesome/free-solid-svg-icons'
+import React, { useState } from 'react';
+import { Church, Menu, X } from 'lucide-react'; // Added Menu and X icons for mobile toggle
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBible } from '@fortawesome/free-solid-svg-icons';
 
 function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <>
-    
-      <nav className="fixed w-full z-50 px-4 py-5">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-black/50 backdrop-blur-md rounded-full px-10 py-8 shadow-lg mt-8">
-            <div className="flex items-center justify-between">
-              {/* Logo and Church Name */}
-              <div className="flex items-center space-x-3">
-                <FontAwesomeIcon icon={faBible} className="h-8 w-8 text-white" />
-                <span className="text-2xl font-semibold text-white">SDA Kitisuru</span>
-              </div>
-              {/* Navigation Links */}
-              <div className="flex items-center space-x-8">
-                <a href="" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Home</a>
-                <a href="#" className="text-white font-light hover:text-blue-700 transition-colors duration-200">About</a>
-                <a href="#ministries" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</a>
-                <a href="#upcoming" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Events</a>
-                <a href="#" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</a>
-              </div>
+    <nav className="fixed w-full z-50 px-4 py-5">
+      <div className="max-w-7xl mx-auto lg:rounded-full rounded-3xl">
+        <div className="bg-black/50 backdrop-blur-xs grayscale lg:rounded-full rounded-3xl px-4 sm:px-10 py-4 sm:py-8 shadow-lg mt-4 sm:mt-8">
+          <div className="flex items-center justify-between">
+            {/* Logo and Church Name - Always visible */}
+            <div className="flex items-center space-x-3">
+              <span className="text-2xl sm:text-4xl text-white">SDA Kitisuru</span>
             </div>
+
+            {/* Desktop Navigation - Hidden on mobile */}
+            <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
+              <a href="" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Home</a>
+              <a href="#" className="text-white font-light hover:text-blue-700 transition-colors duration-200">About</a>
+              <a href="#ministries" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</a>
+              <a href="#upcoming" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Events</a>
+              <a href="#" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</a>
+            </div>
+
+            {/* Mobile Menu Button - Visible only on mobile */}
+            <button 
+              className="md:hidden text-white focus:outline-none"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
+
+          {/* Mobile Menu - Slides down when open */}
+          {isOpen && (
+            <div className="md:hidden mt-4 pb-4 space-y-3">
+              <a href="" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Home</a>
+              <a href="#" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">About</a>
+              <a href="#ministries" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</a>
+              <a href="#upcoming" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Events</a>
+              <a href="#" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</a>
+            </div>
+          )}
         </div>
-      </nav>
-    </>
-  )
+      </div>
+    </nav>
+  );
 }
 
-export default Navbar
+export default Navbar;

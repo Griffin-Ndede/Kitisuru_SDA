@@ -18,25 +18,26 @@ function Home() {
         <div className="relative h-screen">
           <div className="absolute inset-0 overflow-hidden ">
             <video src={videoBg}
-            autoPlay loop muted
-            className="w-full h-full object-cover"
+              autoPlay loop muted
+              className="w-full h-full object-cover"
             />
           </div>
-          <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
             <div className="max-w-5xl mx-auto px-6 text-center">
-              <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+              <h1 className="text-5xl md:text-6xl font-bold text-white mb-10">
                 Welcome to Seventh Day Adventist Church Kitisuru
               </h1>
-              <p className="text-xl md:text-2xl text-white mb-8">
-                Where Faith Meets Community
+              <p className="text-4xl font-bold text-white mb-8 leading-10 max-w-xl mx-auto">
+                "Remember the Sabbath day, to keep it holy." <br />
+                <span className='text-2xl font-light'>Exodus 20:8</span>
               </p>
-              <button className="bg-white text-blue-900 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition duration-300 flex items-center gap-2 mx-auto">
+              {/* <button className="bg-white text-blue-900 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition duration-300 flex items-center gap-2 mx-auto">
                 Learn More <ChevronDown size={20} />
-              </button>
+              </button> */}
             </div>
           </div>
-        </div>  
-         {/* Service Times */}
+        </div>
+        {/* Service Times */}
         <section className="py-16 bg-blue-50" id='services'>
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
