@@ -18,7 +18,7 @@ function Navbar() {
 
             {/* Desktop Navigation - Hidden on mobile */}
             <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
-              <a href="" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Home</a>
+              <Link to="/" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Home</Link>
               <Link to='/about' className="text-white font-light hover:text-blue-700 transition-colors duration-200">About</Link>
               <a href="#ministries" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</a>
               <a href="#upcoming" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Events</a>
@@ -26,7 +26,7 @@ function Navbar() {
             </div>
 
             {/* Mobile Menu Button - Visible only on mobile */}
-            <button 
+            <button
               className="md:hidden text-white focus:outline-none"
               onClick={() => setIsOpen(!isOpen)}
             >
@@ -37,8 +37,8 @@ function Navbar() {
           {/* Mobile Menu - Slides down when open */}
           {isOpen && (
             <div className="md:hidden mt-4 pb-4 space-y-3">
-              <a href="" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Home</a>
-              <a href="#" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">About</a>
+              <Link to="/" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Home</Link>
+              <Link to="/about" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">About</Link>
               <a href="#ministries" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</a>
               <a href="#upcoming" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Events</a>
               <a href="#" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</a>
