@@ -167,7 +167,7 @@ const Ministries = () => {
       <Navbar/>
       <section className="py-16 bg-slate-200">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl md:text-6xl font-bold text-center mb-4 mt-32">
+          <h2 className="text-4xl md:text-6xl font-bold text-center mb-4 md:mt-32 mt-14">
             Our Ministries
           </h2>
           <p className="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-12">
