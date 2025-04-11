@@ -9,6 +9,28 @@ import videoBg from '../assets/nature video.mp4'
 
 function Home() {
 
+  const scheduleItems = [
+    {
+      icon: faBookOpen,
+      title: "Sabbath School",
+      time: "0900hrs - 0920hrs"
+    },
+    {
+      icon: faUsers,
+      title: "Lesson discussion",
+      time: "0920hrs - 1020hrs"
+    },
+    {
+      icon: faHandsPraying,
+      title: "Divine Service",
+      time: "1045hrs - 1220hrs"
+    },
+    {
+      icon: faBible,
+      title: "Bible study",
+      time: "1430hrs - 1600hrs"
+    }
+  ];
 
   return (
     <>
@@ -43,31 +65,17 @@ function Home() {
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-blue-900 mb-6">Service Times</h2>
               <div className="flex flex-col md:flex-row justify-center items-center gap-8 w-full">
-                <div className="bg-white p-8 rounded-4xl shadow-2xl w-full">
-                  <FontAwesomeIcon icon={faBookOpen} className="text-blue-600 mx-auto mb-4 text-5xl" />
-                  <h3 className="text-xl font-semibold mb-2">Sabbath School</h3>
-                  <p className="text-gray-600">0900hrs - 0920hrs</p>
-                </div>
-                <div className="bg-white p-8 rounded-4xl shadow-2xl w-full">
-                  <FontAwesomeIcon icon={faUsers} className="text-blue-600 mx-auto mb-4 text-5xl" />
-                  <h3 className="text-xl font-semibold mb-2">Lesson discussion</h3>
-                  <p className="text-gray-600">0920hrs - 1020hrs</p>
-                </div>
-                <div className="bg-white p-8 rounded-4xl shadow-2xl w-full">
-                  <FontAwesomeIcon icon={faHandsPraying} className="text-blue-600 mx-auto mb-4 text-5xl" />
-                  <h3 className="text-xl font-semibold mb-2">Divine Service</h3>
-                  <p className="text-gray-600">1045hrs - 1220hrs</p>
-                </div>
-                <div className="bg-white p-8 rounded-4xl shadow-2xl w-full">
-                  <FontAwesomeIcon icon={faBible} className="text-blue-600 mx-auto mb-4 text-5xl" />
-                  <h3 className="text-xl font-semibold mb-2">Bible study</h3>
-                  <p className="text-gray-600">1430hrs - 1600hrs</p>
-                </div>
+                {scheduleItems.map((item, index) => (
+                  <div className="bg-white p-8 rounded-4xl shadow-2xl w-full" key={index}>
+                    <FontAwesomeIcon icon={item.icon} className="text-blue-600 mx-auto mb-4 text-5xl" />
+                    <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                    <p className="text-gray-600">{item.time}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
-
         {/* Ministries */}
         <section className="py-16" id='ministries'>
           <div className="container mx-auto px-6">
@@ -91,7 +99,6 @@ function Home() {
             </div>
           </div>
         </section>
-
         {/* Upcoming Events */}
         <section className="py-16 bg-gray-50" id='upcoming'>
           <div className="container mx-auto px-6">

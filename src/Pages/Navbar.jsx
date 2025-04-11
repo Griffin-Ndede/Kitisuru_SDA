@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Church, Menu, X } from 'lucide-react'; // Added Menu and X icons for mobile toggle
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBible } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +19,7 @@ function Navbar() {
             {/* Desktop Navigation - Hidden on mobile */}
             <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
               <a href="" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Home</a>
-              <a href="#" className="text-white font-light hover:text-blue-700 transition-colors duration-200">About</a>
+              <Link to='/about' className="text-white font-light hover:text-blue-700 transition-colors duration-200">About</Link>
               <a href="#ministries" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</a>
               <a href="#upcoming" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Events</a>
               <a href="#" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</a>
