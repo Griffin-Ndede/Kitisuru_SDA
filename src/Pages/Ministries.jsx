@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Baby, Users, HeartHandshake, BookHeart, Music, Activity,
-  Soup, HandHeart, Mic2, CalendarCheck, Phone, Mail, ArrowRight
+  Soup, HandHeart, Mic2, CalendarCheck, Phone, Mail
 } from 'lucide-react';
 import Navbar from '../Components/Navbar';
 
 const Ministries = () => {
-  const [expandedMinistry, setExpandedMinistry] = useState(null);
-
   const ministries = [
     {
       id: 'children',
@@ -164,53 +162,41 @@ const Ministries = () => {
     }
   ];
 
-  const toggleMinistry = (id) => {
-    setExpandedMinistry(expandedMinistry === id ? null : id);
-  };
-
   return (
-   <>
-   <Navbar/>
-    <section  className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl md:text-6xl font-bold text-center mb-4 mt-32">
-          Our Ministries
-        </h2>
-        <p className="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-12">
-          Opportunities for spiritual growth and service in our church family
-        </p>
+    <>
+      <Navbar/>
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl md:text-6xl font-bold text-center mb-4 mt-32">
+            Our Ministries
+          </h2>
+          <p className="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-12">
+            Opportunities for spiritual growth and service in our church family
+          </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {ministries.map((ministry) => (
-            <div 
-              key={ministry.id} 
-              className="bg-white rounded-3xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-lg"
-            >
-              <div className="relative h-48 overflow-hidden">
-                <img 
-                  src={ministry.image} 
-                  alt={ministry.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                  <div className="bg-white p-3 rounded-full">
-                    {React.cloneElement(ministry.icon, { className: "w-8 h-8 text-blue-600" })}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {ministries.map((ministry) => (
+              <div 
+                key={ministry.id} 
+                className="bg-white rounded-3xl shadow-xl overflow-hidden"
+              >
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src={ministry.image} 
+                    alt={ministry.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                    <div className="bg-white p-3 rounded-full">
+                      {React.cloneElement(ministry.icon, { className: "w-8 h-8 text-blue-600" })}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="p-6">
-                <h3 className="text-xl font-bold mb-2">{ministry.title}</h3>
-                <p className="text-gray-600 mb-4">{ministry.description}</p>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2">{ministry.title}</h3>
+                  <p className="text-gray-600 mb-4">{ministry.description}</p>
 
-                <button 
-                  onClick={() => toggleMinistry(ministry.id)}
-                  className="flex items-center text-blue-600 font-medium"
-                >
-                  Learn more <ArrowRight className="ml-2 w-4 h-4" />
-                </button>
-
-                {expandedMinistry === ministry.id && (
                   <div className="mt-4 pt-4 border-t border-gray-100">
                     <div className="flex items-start mb-4">
                       <CalendarCheck className="w-5 h-5 text-blue-600 mt-1 mr-2" />
@@ -237,14 +223,13 @@ const Ministries = () => {
                       </div>
                     </div>
                   </div>
-                )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-   </>
+      </section>
+    </>
   );
 };
 
