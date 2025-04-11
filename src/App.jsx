@@ -1,7 +1,8 @@
-import Home from './Components/Home'
-import About from './Components/About'
+import Home from './Pages/Home'
+import About from './Pages/About'
 import './index.css'
 import { Route, BrowserRouter, Routes } from 'react-router-dom'
+import Ministries from './Pages/Ministries'
 
 function App() {
 
@@ -11,6 +12,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<About />} />
+          <Route path='/ministries' element={<Ministries/>}/>
         </Routes>
       </BrowserRouter>
     </>

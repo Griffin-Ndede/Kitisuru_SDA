@@ -1,7 +1,7 @@
 import React from 'react'
-import Footer from '../Pages/Footer'
+import Footer from '../Components/Footer'
 import { Church, Clock, Heart, Book, Users, Sun, Globe, History, Target } from 'lucide-react';
-import Navbar from '../Pages/Navbar';
+import Navbar from '../Components/Navbar';
 
 function About() {
     return (

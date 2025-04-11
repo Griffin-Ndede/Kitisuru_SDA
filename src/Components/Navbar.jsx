@@ -20,7 +20,7 @@ function Navbar() {
             <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
               <Link to="/" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Home</Link>
               <Link to='/about' className="text-white font-light hover:text-blue-700 transition-colors duration-200">About</Link>
-              <a href="#ministries" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</a>
+              <Link to="/ministries" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</Link>
               <a href="#upcoming" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Events</a>
               <a href="#" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</a>
             </div>
@@ -39,7 +39,7 @@ function Navbar() {
             <div className="md:hidden mt-4 pb-4 space-y-3">
               <Link to="/" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Home</Link>
               <Link to="/about" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">About</Link>
-              <a href="#ministries" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</a>
+              <Link to="/ministries" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</Link>
               <a href="#upcoming" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Events</a>
               <a href="#" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</a>
             </div>

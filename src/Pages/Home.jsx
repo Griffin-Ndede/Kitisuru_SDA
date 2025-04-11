@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Calendar, Heart, Book, Users, ChevronDown } from 'lucide-react';
 import { faBible, faBookOpen, faHandsPraying, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Footer from '../Pages/Footer';
-import Navbar from '../Pages/Navbar';
+import Footer from '../Components/Footer';
+import Navbar from '../Components/Navbar';
 import videoBg from '../assets/nature video.mp4'
 
 
