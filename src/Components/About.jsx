@@ -3,24 +3,25 @@ import Footer from '../Pages/Footer'
 import { Church, Clock, Heart, Book, Users, Sun, Globe, History, School, Target } from 'lucide-react';
 import Navbar from '../Pages/Navbar';
 
-
 function About() {
     return (
         <>
-        <Navbar/>
+            <Navbar />
             <div className="min-h-screen bg-gray-50">
                 {/* Hero Section */}
-                <div
-                    className="relative h-[500px] bg-cover bg-center"
-                    style={{
-                        backgroundImage: 'url("https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&q=80&w=1920")',
-                    }}
-                >
-                    <div className="absolute inset-0 bg-black bg-opacity-60">
-                        <div className="container mx-auto px-6 h-full flex items-center">
-                            <div className="text-white max-w-2xl">
-                                <h1 className="text-5xl font-bold mb-4">Welcome to Kitisuru</h1>
-                                <p className="text-xl">A community rooted in Christ, devoted to truth, and driven by service</p>
+                <div className="relative h-[75vh]"> {/* Changed from h-screen to 3/4 viewport height */}
+                    <div className="absolute inset-0 overflow-hidden">
+                        <img
+                            src="https://www.briellemag.com/wp-content/uploads/2021/11/gracious-adebayo-AWIyDHiNKk-unsplash-1600x1067.jpg"
+                            alt="prayer"
+                            className='w-full h-full object-cover'
+                        />
+                    </div>
+                    <div className="absolute inset-0 bg-black/60 flex items-center">
+                        <div className="container mx-auto px-6">
+                            <div className="text-white max-w-2xl text-left">
+                                <h1 className="text-4xl md:text-5xl font-bold mb-4">Welcome to Kitisuru</h1>
+                                <p className="text-lg md:text-xl">A community rooted in Christ, devoted to truth, and driven by service</p>
                             </div>
                         </div>
                     </div>
