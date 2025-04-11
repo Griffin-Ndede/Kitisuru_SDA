@@ -7,22 +7,22 @@ function Navbar() {
   return (
     <>
     
-      <nav className="fixed w-full z-50 px-4 py-4">
+      <nav className="fixed w-full z-50 px-4 py-5">
         <div className="max-w-7xl mx-auto">
-          <div className="bg-white/20 backdrop-blur-md rounded-full px-8 py-6 shadow-lg mt-8">
+          <div className="bg-black/50 backdrop-blur-md rounded-full px-10 py-8 shadow-lg mt-8">
             <div className="flex items-center justify-between">
               {/* Logo and Church Name */}
               <div className="flex items-center space-x-3">
-                <FontAwesomeIcon icon={faBible} className="h-8 w-8 text-blue-600" />
-                <span className="text-2xl font-semibold text-blue-600">SDA Kitisuru</span>
+                <FontAwesomeIcon icon={faBible} className="h-8 w-8 text-white" />
+                <span className="text-2xl font-semibold text-white">SDA Kitisuru</span>
               </div>
               {/* Navigation Links */}
               <div className="flex items-center space-x-8">
-                <a href="" className="text-blue-600 font-light hover:text-black transition-colors duration-200">Home</a>
-                <a href="#" className="text-blue-600 font-light hover:text-black transition-colors duration-200">About</a>
-                <a href="#ministries" className="text-blue-600 font-light hover:text-black transition-colors duration-200">Ministries</a>
-                <a href="#upcoming" className="text-blue-600 font-light hover:text-black transition-colors duration-200">Events</a>
-                <a href="#" className="text-blue-600 font-light hover:text-black transition-colors duration-200">Contact</a>
+                <a href="" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Home</a>
+                <a href="#" className="text-white font-light hover:text-blue-700 transition-colors duration-200">About</a>
+                <a href="#ministries" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</a>
+                <a href="#upcoming" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Events</a>
+                <a href="#" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</a>
               </div>
             </div>
           </div>
