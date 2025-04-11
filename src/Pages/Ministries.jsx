@@ -165,7 +165,7 @@ const Ministries = () => {
   return (
     <>
       <Navbar/>
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-slate-200">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl md:text-6xl font-bold text-center mb-4 mt-32">
             Our Ministries
