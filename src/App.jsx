@@ -4,7 +4,7 @@ import './index.css'
 import { Route, BrowserRouter, Routes } from 'react-router-dom'
 import Ministries from './Pages/Ministries'
 import GetInvolved from './Pages/GetInvolved'
-
+import  Giving from './Pages/Giving'
 function App() {
 
   return (
@@ -15,6 +15,7 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/ministries' element={<Ministries/>}/>
           <Route path='/getinvolved' element={<GetInvolved/>}/>
+          <Route path='/giving' element={<Giving/>}/>
         </Routes>
       </BrowserRouter>
     </>

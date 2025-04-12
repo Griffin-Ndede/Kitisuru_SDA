@@ -21,6 +21,7 @@ function Navbar() {
               <Link to="/" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Home</Link>
               <Link to='/about' className="text-white font-light hover:text-blue-700 transition-colors duration-200">About</Link>
               <Link to="/ministries" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</Link>
+              <Link to='/giving' className='text-white font-light hover:text-blue-700 transition-colors duration-200'>Giving</Link>
               <a href="#upcoming" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Events</a>
               <a href="#" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</a>
               <Link to='/getinvolved'>
@@ -43,6 +44,7 @@ function Navbar() {
               <Link to="/" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Home</Link>
               <Link to="/about" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">About</Link>
               <Link to="/ministries" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</Link>
+              <Link to='/giving' className='text-white font-light hover:text-blue-700 transition-colors duration-200'>Giving</Link>
               <a href="#upcoming" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Events</a>
               <a href="#" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</a>
               <Link to='/getinvolved' className='text-white font-light hover:text-blue-700 transition-colors duration-200'><button>Get Involved</button></Link>

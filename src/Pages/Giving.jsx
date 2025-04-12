@@ -1,0 +1,227 @@
+import React, { useState } from 'react';
+import {
+  Wallet,
+  Building2,
+  CreditCard,
+  Phone,
+  Building,
+  HelpCircle,
+  ShieldCheck,
+  ChevronDown,
+  ExternalLink,
+} from 'lucide-react';
+import Navbar from '../Components/Navbar';
+
+
+
+function GivingOption({ icon: Icon, title, description, methods }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <div className="bg-white rounded-4xl shadow-2xl p-6 transition-all">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center">
+          <div className="bg-green-50 p-3 rounded-full mr-4">
+            <Icon className="w-6 h-6 text-green-600" />
+          </div>
+          <h3 className="text-xl font-semibold text-gray-800">{title}</h3>
+        </div>
+        <button 
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="text-gray-500 hover:text-gray-700"
+        >
+          <ChevronDown className={`w-5 h-5 transform transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+        </button>
+      </div>
+      <p className="text-gray-600 mb-4">{description}</p>
+      {isExpanded && (
+        <div className="space-y-3 mt-4 border-t pt-4">
+          {methods.map((method, index) => (
+            <div key={index} className="bg-gray-50 p-4 rounded-4xl">
+              <h4 className="font-medium text-gray-800 mb-1">{method.name}</h4>
+              <p className="text-gray-600 text-sm">{method.details}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function FAQ({ question, answer }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="border-b border-gray-200 py-4">
+      <button
+        className="flex justify-between items-center w-full text-left"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <span className="font-medium text-gray-800">{question}</span>
+        <ChevronDown className={`w-5 h-5 text-gray-500 transform transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+      {isOpen && (
+        <p className="mt-2 text-gray-600">{answer}</p>
+      )}
+    </div>
+  );
+}
+
+function Giving() {
+  const givingOptions = [
+    {
+      icon: Wallet,
+      title: "Tithes & Offerings",
+      description: "Return your tithe and give offerings to support God's work worldwide.",
+      methods: [
+        { name: "M-PESA", details: "Till Number: 123456" },
+        { name: "Adventist Giving", details: "Give securely through the official Adventist Giving platform" },
+        { name: "PayPal", details: "Contribute through our secure PayPal link" }
+      ]
+    },
+    {
+      icon: Building2,
+      title: "Local Church Projects",
+      description: "Support our local initiatives and community outreach programs.",
+      methods: [
+        { name: "Building Fund", details: "Help us maintain and improve our church facilities" },
+        { name: "Community Services", details: "Support our local charity and outreach programs" },
+        { name: "Youth Ministry", details: "Invest in our youth programs and activities" }
+      ]
+    }
+  ];
+
+  const faqs = [
+    {
+      question: "How is my tithe used?",
+      answer: "Your tithe supports the worldwide mission of the Seventh-day Adventist Church, including pastoral ministry, evangelism, and education."
+    },
+    {
+      question: "What's the difference between tithe and offerings?",
+      answer: "Tithe is 10% of your income returned to God, while offerings are additional voluntary gifts for specific purposes or projects."
+    },
+    {
+      question: "Are my donations tax-deductible?",
+      answer: "Yes, all donations are tax-deductible. You will receive a yearly statement for your tax records."
+    },
+    {
+      question: "Is online giving secure?",
+      answer: "Yes, we use industry-standard encryption and secure payment processors to protect your financial information."
+    }
+  ];
+
+  return (
+  <>
+  <Navbar/>
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Section */}
+      <div 
+        className="relative bg-cover bg-center py-24"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80")',
+        }}
+      >
+        <div className="container mx-auto px-4 mt-8 md:mt-32">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Supporting God's Work Through Giving
+            </h1>
+            <p className="text-xl text-gray-200 mb-8">
+              "Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver." - 2 Corinthians 9:7
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-16">
+        {/* Giving Options */}
+        <div className="space-y-6 mb-16">
+          {givingOptions.map((option, index) => (
+            <GivingOption key={index} {...option} />
+          ))}
+        </div>
+
+        {/* Payment Methods */}
+        <div className="bg-white rounded-4xl shadow-2xl p-8 mb-16">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">Payment Methods</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex items-start space-x-4">
+              <Phone className="w-6 h-6 text-green-600 mt-1" />
+              <div>
+                <h3 className="font-semibold text-gray-800 mb-2">M-PESA</h3>
+                <p className="text-gray-600">Till Number: 123456</p>
+                <p className="text-gray-600">Business Name: SDA Church</p>
+              </div>
+            </div>
+            <div className="flex items-start space-x-4">
+              <Building className="w-6 h-6 text-green-600 mt-1" />
+              <div>
+                <h3 className="font-semibold text-gray-800 mb-2">Bank Transfer</h3>
+                <p className="text-gray-600">Account: 1234567890</p>
+                <p className="text-gray-600">Bank: Example Bank</p>
+              </div>
+            </div>
+            <div className="flex items-start space-x-4">
+              <CreditCard className="w-6 h-6 text-green-600 mt-1" />
+              <div>
+                <h3 className="font-semibold text-gray-800 mb-2">Online Platforms</h3>
+                <div className="space-y-2">
+                  <a href="#" className="flex items-center text-blue-600 hover:text-blue-700">
+                    Adventist Giving <ExternalLink className="w-4 h-4 ml-1" />
+                  </a>
+                  <a href="#" className="flex items-center text-blue-600 hover:text-blue-700">
+                    PayPal <ExternalLink className="w-4 h-4 ml-1" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* FAQs */}
+        <div className="bg-white rounded-4xl shadow-2xl p-8 mb-16">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">Frequently Asked Questions</h2>
+          <div className="space-y-2">
+            {faqs.map((faq, index) => (
+              <FAQ key={index} {...faq} />
+            ))}
+          </div>
+        </div>
+
+        {/* Accountability Section */}
+        <div className="bg-white rounded-4xl shadow-2xl p-8">
+          <div className="flex items-start space-x-4">
+            <div className="bg-green-50 p-3 rounded-full">
+              <ShieldCheck className="w-6 h-6 text-green-600" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">Our Commitment to Financial Accountability</h2>
+              <p className="text-gray-600 mb-4">
+                We are committed to the highest standards of financial accountability and transparency. All funds are carefully managed and audited according to Seventh-day Adventist Church policy.
+              </p>
+              <ul className="list-disc list-inside text-gray-600 space-y-2">
+                <li>Regular financial reports to church board and business meetings</li>
+                <li>Annual audits by conference auditors</li>
+                <li>Detailed tracking of designated funds</li>
+                <li>Multiple signatories for all accounts</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white py-8 mt-16">
+        <div className="container mx-auto px-4 text-center">
+          <p >
+            "Bring the whole tithe into the storehouse..." - Malachi 3:10
+          </p>
+        </div>
+      </footer>
+    </div>
+  </>
+  );
+}
+
+export default Giving;
