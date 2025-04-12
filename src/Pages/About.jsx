@@ -9,7 +9,7 @@ function About() {
             <Navbar />
             <div className="min-h-screen bg-gray-50">
                 {/* Hero Section */}
-                <div className="relative h-[75vh]"> {/* Changed from h-screen to 3/4 viewport height */}
+                <div className="relative h-[50vh]"> {/* Changed from h-screen to 3/4 viewport height */}
                     <div className="absolute inset-0 overflow-hidden">
                         <img
                             src="https://www.briellemag.com/wp-content/uploads/2021/11/gracious-adebayo-AWIyDHiNKk-unsplash-1600x1067.jpg"
