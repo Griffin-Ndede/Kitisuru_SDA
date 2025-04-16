@@ -23,7 +23,7 @@ function Navbar() {
               <Link to="/ministries" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</Link>
               <Link to='/giving' className='text-white font-light hover:text-blue-700 transition-colors duration-200'>Giving</Link>
               <a href="#upcoming" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Events</a>
-              <a href="#" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</a>
+              <Link to='/contact' className="text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</Link>
               <Link to='/getinvolved'>
                 <button className='bg-white text-blue-700 py-2 px-3 rounded-3xl cursor-pointer transition-all duration-200 ease-in-out'>Get Involved</button>
               </Link>
@@ -46,7 +46,7 @@ function Navbar() {
               <Link to="/ministries" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</Link>
               <Link to='/giving' className='text-white font-light hover:text-blue-700 transition-colors duration-200'>Giving</Link>
               <a href="#upcoming" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Events</a>
-              <a href="#" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</a>
+              <Link to='/contact' className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</Link>
               <Link to='/getinvolved' className='text-white font-light hover:text-blue-700 transition-colors duration-200'><button>Get Involved</button></Link>
             </div>
           )}

@@ -5,6 +5,7 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom'
 import Ministries from './Pages/Ministries'
 import GetInvolved from './Pages/GetInvolved'
 import  Giving from './Pages/Giving'
+import Contact from './Pages/Contact'
 function App() {
 
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/about' element={<About />} />
           <Route path='/ministries' element={<Ministries/>}/>
+          <Route path='/contact' element={<Contact/>}/>
           <Route path='/getinvolved' element={<GetInvolved/>}/>
           <Route path='/giving' element={<Giving/>}/>
         </Routes>
