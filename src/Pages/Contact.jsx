@@ -47,7 +47,7 @@ const Contact = () => {
       <main className="container mx-auto px-4 py-12">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Contact Form */}
-          <div className="lg:w-1/2 bg-white p-8 rounded-lg shadow-md">
+          <div className="lg:w-1/2 bg-white p-8 rounded-4xl shadow-2xl">
             <h2 className="text-2xl font-semibold text-blue-800 mb-6">Send Us a Message</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
@@ -61,7 +61,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
 
@@ -76,7 +76,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
 
@@ -90,7 +90,7 @@ const Contact = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
 
@@ -103,7 +103,7 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="general">General Inquiry</option>
                   <option value="prayer">Prayer Request</option>
@@ -125,13 +125,13 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-blue-500 focus:border-blue-500"
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-blue-700 hover:bg-blue-800 text-white font-medium py-3 px-4 rounded-md transition duration-300"
+                className="w-full bg-blue-700 hover:bg-blue-800 text-white font-medium py-3 px-4 rounded-4xl transition duration-300"
               >
                 Send Message
               </button>
@@ -139,7 +139,7 @@ const Contact = () => {
           </div>
 
           {/* Contact Information */}
-          <div className="lg:w-1/2 bg-white p-8 rounded-lg shadow-md">
+          <div className="lg:w-1/2 bg-white p-8 rounded-4xl shadow-2xl">
             <h2 className="text-2xl font-semibold text-blue-800 mb-6">Our Information</h2>
             
             <div className="space-y-6">
@@ -164,7 +164,7 @@ const Contact = () => {
                 <h3 className="text-lg font-medium text-blue-800 mb-2">Contact Details</h3>
                 <p className="text-gray-600">
                   Phone: (123) 456-7890<br />
-                  Email: info@yourchurch.org<br />
+                  Email: info@KitisuruSDA.org<br />
                   Office Hours: Mon-Thu 9am-4pm
                 </p>
               </div>
@@ -197,7 +197,7 @@ const Contact = () => {
         </div>
 
         {/* Map */}
-        <div className="mt-12 bg-white p-8 rounded-lg shadow-md">
+        <div className="mt-12 bg-white p-8 rounded-4xl shadow-2xl">
           <h2 className="text-2xl font-semibold text-blue-800 mb-6">Find Us</h2>
           <div className="aspect-w-16 aspect-h-9">
             <iframe
@@ -207,7 +207,7 @@ const Contact = () => {
               style={{ border: 0 }}
               allowFullScreen=""
               loading="lazy"
-              className="rounded-lg"
+              className="rounded-4xl"
             ></iframe>
           </div>
         </div>
