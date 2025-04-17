@@ -40,7 +40,7 @@ function Navbar() {
 
           {/* Mobile Menu - Slides down when open */}
           {isOpen && (
-            <div className="md:hidden mt-4 pb-4 space-y-3">
+            <div className="md:hidden mt-4 pb-4 space-y-3 rounded-3xl">
               <Link to="/" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Home</Link>
               <Link to="/about" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">About</Link>
               <Link to="/ministries" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</Link>

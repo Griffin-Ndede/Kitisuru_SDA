@@ -5,7 +5,6 @@ import {
   CreditCard,
   Phone,
   Building,
-  HelpCircle,
   ShieldCheck,
   ChevronDown,
   ExternalLink,
