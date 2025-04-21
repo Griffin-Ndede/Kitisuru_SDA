@@ -1,36 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Document, Page, pdfjs } from 'react-pdf';
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
-import 'react-pdf/dist/esm/Page/TextLayer.css';
 import Navbar from '../Components/Navbar';
 import BASE_URL from '../../config';
 
-// Set up the PDF worker
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
-
 const Resources = () => {
-  // State for documents and loading status
   const [documents, setDocuments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-  // State for the currently viewed document
   const [currentDocument, setCurrentDocument] = useState(null);
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
 
   // Fetch documents from Django backend
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
         const response = await fetch(`${BASE_URL}/documents/`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch documents');
-        }
+        if (!response.ok) throw new Error('Failed to fetch documents');
         const data = await response.json();
         setDocuments(data);
         setIsLoading(false);
-        console.log(data)
       } catch (err) {
         setError(err.message);
         setIsLoading(false);
@@ -42,21 +28,6 @@ const Resources = () => {
   // Handle document selection
   const handleDocumentSelect = (doc) => {
     setCurrentDocument(doc);
-    setPageNumber(1);
-  };
-
-  // Handle PDF load success
-  const onDocumentLoadSuccess = ({ numPages }) => {
-    setNumPages(numPages);
-  };
-
-  // Navigation functions
-  const goToPrevPage = () => {
-    setPageNumber(prevPage => Math.max(prevPage - 1, 1));
-  };
-
-  const goToNextPage = () => {
-    setPageNumber(prevPage => Math.min(prevPage + 1, numPages));
   };
 
   // Render loading state
@@ -114,51 +85,31 @@ const Resources = () => {
           {/* PDF Viewer */}
           <div className="md:w-2/3">
             {currentDocument ? (
-              <div className="bg-white rounded-3xl shadow-sm border border-gray-200">
+              <div className="bg-white rounded-3xl shadow-sm border border-gray-200 h-full">
                 <div className="p-4 border-b border-gray-200">
                   <h3 className="text-xl font-medium text-black">{currentDocument.title}</h3>
                 </div>
                 
                 <div className="p-4 flex justify-center bg-gray-50 min-h-[500px]">
-                  <Document
-                    file={`${BASE_URL}${currentDocument.file_url}`}
-                    onLoadSuccess={onDocumentLoadSuccess}
-                    onLoadError={(error) => setError(`Failed to load PDF: ${error.message}`)}
-                    className="shadow-md"
+                  <iframe 
+                    src={`${currentDocument.file_url}#toolbar=0&navpanes=0`}
+                    className="w-full h-full min-h-[500px] border border-gray-200"
+                    title={currentDocument.title}
                   >
-                    <Page 
-                      pageNumber={pageNumber} 
-                      className="border border-gray-200"
-                    />
-                  </Document>
+                    <p>Your browser does not support PDFs. 
+                      <a href={currentDocument.file_url}>Download the PDF</a> instead.
+                    </p>
+                  </iframe>
                 </div>
                 
-                <div className="p-4 border-t border-gray-200 flex items-center justify-center gap-4">
-                  <button 
-                    onClick={goToPrevPage} 
-                    disabled={pageNumber <= 1}
-                    className={`px-4 py-2 rounded-md ${
-                      pageNumber <= 1 
-                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                        : 'bg-blue-500 text-white hover:bg-blue-600'
-                    }`}
+                <div className="p-4 border-t border-gray-200">
+                  <a 
+                    href={currentDocument.file_url}
+                    download
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                   >
-                    Previous
-                  </button>
-                  <span className="text-sm text-gray-600">
-                    Page {pageNumber} of {numPages || '--'}
-                  </span>
-                  <button 
-                    onClick={goToNextPage} 
-                    disabled={pageNumber >= (numPages || 0)}
-                    className={`px-4 py-2 rounded-md ${
-                      pageNumber >= (numPages || 0)
-                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                        : 'bg-blue-500 text-white hover:bg-blue-600'
-                    }`}
-                  >
-                    Next
-                  </button>
+                    Download PDF
+                  </a>
                 </div>
               </div>
             ) : (
