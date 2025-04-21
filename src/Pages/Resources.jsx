@@ -8,7 +8,6 @@ const Resources = () => {
     const [error, setError] = useState(null);
     const [currentDocument, setCurrentDocument] = useState(null);
 
-    // Fetch documents from Django backend
     useEffect(() => {
         const fetchDocuments = async () => {
             try {
@@ -17,7 +16,6 @@ const Resources = () => {
                 const data = await response.json();
                 setDocuments(data);
                 setIsLoading(false);
-                console.log(data);
             } catch (err) {
                 setError(err.message);
                 setIsLoading(false);
@@ -26,31 +24,27 @@ const Resources = () => {
         fetchDocuments();
     }, []);
 
-    // Handle document selection
     const handleDocumentSelect = (doc) => {
         setCurrentDocument(doc);
     };
 
-    // Small component for each book/document
     const BookItem = ({ doc, currentDocument, handleDocumentSelect }) => {
         const [isExpanded, setIsExpanded] = useState(false);
 
         const toggleExpand = (e) => {
-            e.stopPropagation(); // Don't trigger document selection when clicking "Read More"
+            e.stopPropagation();
             setIsExpanded(!isExpanded);
         };
 
         const truncateText = (text, maxLength) => {
-            if (text.length <= maxLength) {
-                return text;
-            }
+            if (text.length <= maxLength) return text;
             return text.substring(0, maxLength) + '...';
         };
 
         return (
             <li
                 key={doc.id}
-                className={`p-4 rounded-3xl border cursor-pointer transition-colors ${
+                className={`p-4 rounded-3xl border mb-4 cursor-pointer transition-colors ${
                     currentDocument?.id === doc.id
                         ? 'bg-blue-50 border-blue-200'
                         : 'bg-white border-gray-200 hover:bg-gray-50 hover:shadow-xl'
@@ -64,7 +58,7 @@ const Resources = () => {
                 {doc.description.length > 100 && (
                     <button
                         onClick={toggleExpand}
-                        className="mt-2 text-blue-600 text-sm focus:outline-none hover:cursor-pointer "
+                        className="mt-2 text-blue-600 text-sm focus:outline-none hover:cursor-pointer"
                     >
                         {isExpanded ? 'Show Less' : 'Read More'}
                     </button>
@@ -79,7 +73,6 @@ const Resources = () => {
         );
     };
 
-    // Render loading state
     if (isLoading) {
         return (
             <div className="flex justify-center items-center h-64">
@@ -88,7 +81,6 @@ const Resources = () => {
         );
     }
 
-    // Render error state
     if (error) {
         return (
             <div className="flex justify-center items-center h-64">
@@ -99,15 +91,13 @@ const Resources = () => {
 
     return (
         <>
-            <Navbar />
-            <div className="container mx-auto px-4 py-8 max-w-8xl">
-                <h2 className="text-2xl font-bold text-black mb-6 mt-12 md:mt-32 ml-4">Church Documents</h2>
-
-                <div className="flex flex-col md:flex-row gap-6">
-                    {/* Document List */}
-                    <div className="md:w-1/3">
-                        <h3 className="text-xl font-semibold mb-4 ml-4">Available Documents</h3>
-                        <ul className="space-y-3">
+            <div className=" h-screen overflow-hidden">
+                <Navbar />
+                <div className="flex pt-28 h-full">
+                    {/* Left side: Document List */}
+                    <div className="w-1/3 bg-white h-full overflow-y-auto p-6">
+                        <h2 className="text-2xl font-bold mb-6 text-black">Church Documents</h2>
+                        <ul className="space-y-4">
                             {documents.map((doc) => (
                                 <BookItem
                                     key={doc.id}
@@ -119,18 +109,17 @@ const Resources = () => {
                         </ul>
                     </div>
 
-                    {/* PDF Viewer */}
-                    <div className="md:w-2/3">
+                    {/* Right side: PDF Viewer */}
+                    <div className="w-2/3 h-full overflow-y-auto p-6">
                         {currentDocument ? (
-                            <div className="bg-white rounded-3xl shadow-sm border border-gray-200 h-full">
+                            <div className="bg-white rounded-3xl shadow-sm border border-gray-200 h-full flex flex-col">
                                 <div className="p-4 border-b border-gray-200">
                                     <h3 className="text-xl font-medium text-black">{currentDocument.title}</h3>
                                 </div>
-
-                                <div className="p-4 flex justify-center bg-gray-50 min-h-fit">
+                                <div className="flex-1 p-4">
                                     <iframe
                                         src={`${BASE_URL}/resources/documents/${currentDocument.slug}/#toolbar=1&navpanes=0&scrollbar=1&zoom=100`}
-                                        className="w-full h-full min-h-[600px] rounded-xl"
+                                        className="w-full h-full rounded-xl"
                                         allowFullScreen
                                         title={currentDocument.title}
                                     >
@@ -141,7 +130,7 @@ const Resources = () => {
                                 </div>
                             </div>
                         ) : (
-                            <div className="flex flex-col items-center justify-center h-64 bg-white rounded-3xl border border-gray-200">
+                            <div className="flex flex-col items-center justify-center h-full bg-white rounded-3xl border border-gray-200">
                                 <svg
                                     className="w-12 h-12 text-gray-400 mb-3"
                                     fill="none"
