@@ -17,7 +17,7 @@ const Resources = () => {
                 const data = await response.json();
                 setDocuments(data);
                 setIsLoading(false);
-                console.log(data)
+                console.log(data);
             } catch (err) {
                 setError(err.message);
                 setIsLoading(false);
@@ -29,6 +29,54 @@ const Resources = () => {
     // Handle document selection
     const handleDocumentSelect = (doc) => {
         setCurrentDocument(doc);
+    };
+
+    // Small component for each book/document
+    const BookItem = ({ doc, currentDocument, handleDocumentSelect }) => {
+        const [isExpanded, setIsExpanded] = useState(false);
+
+        const toggleExpand = (e) => {
+            e.stopPropagation(); // Don't trigger document selection when clicking "Read More"
+            setIsExpanded(!isExpanded);
+        };
+
+        const truncateText = (text, maxLength) => {
+            if (text.length <= maxLength) {
+                return text;
+            }
+            return text.substring(0, maxLength) + '...';
+        };
+
+        return (
+            <li
+                key={doc.id}
+                className={`p-4 rounded-3xl border cursor-pointer transition-colors ${
+                    currentDocument?.id === doc.id
+                        ? 'bg-blue-50 border-blue-200'
+                        : 'bg-white border-gray-200 hover:bg-gray-50 hover:shadow-xl'
+                }`}
+                onClick={() => handleDocumentSelect(doc)}
+            >
+                <h4 className="font-medium text-gray-900">{doc.title}</h4>
+                <p className="text-sm text-gray-600 mt-1">
+                    {isExpanded ? doc.description : truncateText(doc.description, 100)}
+                </p>
+                {doc.description.length > 100 && (
+                    <button
+                        onClick={toggleExpand}
+                        className="mt-2 text-blue-600 text-sm focus:outline-none hover:cursor-pointer "
+                    >
+                        {isExpanded ? 'Show Less' : 'Read More'}
+                    </button>
+                )}
+                <div className="flex justify-between items-center mt-2">
+                    <span className="text-xs text-gray-500">{doc.publish_date || doc.date}</span>
+                    <span className="text-xs px-2 py-1 bg-blue-600 rounded-full text-white">
+                        {doc.category?.name || doc.category}
+                    </span>
+                </div>
+            </li>
+        );
     };
 
     // Render loading state
@@ -60,24 +108,13 @@ const Resources = () => {
                     <div className="md:w-1/3">
                         <h3 className="text-xl font-semibold mb-4 ml-4">Available Documents</h3>
                         <ul className="space-y-3">
-                            {documents.map(doc => (
-                                <li
+                            {documents.map((doc) => (
+                                <BookItem
                                     key={doc.id}
-                                    className={`p-4 rounded-3xl border cursor-pointer transition-colors ${currentDocument?.id === doc.id
-                                        ? 'bg-blue-50 border-blue-200'
-                                        : 'bg-white border-gray-200 hover:bg-gray-50 hover:shadow-xl'
-                                        }`}
-                                    onClick={() => handleDocumentSelect(doc)}
-                                >
-                                    <h4 className="font-medium text-gray-900">{doc.title}</h4>
-                                    <p className="text-sm text-gray-600 mt-1">{doc.description}</p>
-                                    <div className="flex justify-between items-center mt-2">
-                                        <span className="text-xs text-gray-500">{doc.publish_date || doc.date}</span>
-                                        <span className="text-xs px-2 py-1 bg-blue-600 rounded-full text-white">
-                                            {doc.category?.name || doc.category}
-                                        </span>
-                                    </div>
-                                </li>
+                                    doc={doc}
+                                    currentDocument={currentDocument}
+                                    handleDocumentSelect={handleDocumentSelect}
+                                />
                             ))}
                         </ul>
                     </div>
@@ -101,19 +138,7 @@ const Resources = () => {
                                             <a href={`${BASE_URL}/resources/documents/${currentDocument.slug}/`}>Download the PDF</a> instead.
                                         </p>
                                     </iframe>
-
                                 </div>
-
-                                {/* <div className="p-4 border-t border-gray-200">
-                                    <a
-                                        href={`${BASE_URL}/resources/documents/${currentDocument.slug}/`}
-                                        download
-                                        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                                    >
-                                        Download PDF
-                                    </a>
-
-                                </div> */}
                             </div>
                         ) : (
                             <div className="flex flex-col items-center justify-center h-64 bg-white rounded-3xl border border-gray-200">
