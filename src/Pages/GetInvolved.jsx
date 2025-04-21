@@ -9,6 +9,8 @@ import {
     HandHeart,
     ChevronRight,
 } from 'lucide-react';
+import Navbar from '../Components/Navbar';
+
 
 function GetInvolvedCard({ icon: Icon, title, description, buttonText }) {
     return (
@@ -31,6 +33,7 @@ function GetInvolvedCard({ icon: Icon, title, description, buttonText }) {
 function GetInvolved() {
     return (
         <>
+        <Navbar/>
             <div className="min-h-screen bg-gray-50">
                 {/* Hero Section */}
                 <div
@@ -39,7 +42,7 @@ function GetInvolved() {
                         backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://www.briellemag.com/wp-content/uploads/2021/11/gracious-adebayo-AWIyDHiNKk-unsplash-1600x1067.jpg")',
                     }}
                 >
-                    <div className="container mx-auto px-4">
+                    <div className="container mx-auto px-4 mt-12 md:mt-32">
                         <div className="max-w-3xl mx-auto text-center">
                             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
                                 Get Involved at Our Church

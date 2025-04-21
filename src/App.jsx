@@ -6,6 +6,7 @@ import Ministries from './Pages/Ministries'
 import GetInvolved from './Pages/GetInvolved'
 import  Giving from './Pages/Giving'
 import Contact from './Pages/Contact'
+import Resources from './Pages/Resources'
 function App() {
 
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/contact' element={<Contact/>}/>
           <Route path='/getinvolved' element={<GetInvolved/>}/>
           <Route path='/giving' element={<Giving/>}/>
+          <Route path='/resources' element={<Resources/>}/>
         </Routes>
       </BrowserRouter>
     </>
