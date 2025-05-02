@@ -155,25 +155,26 @@ function Giving() {
               <div className="flex items-start space-x-4">
                 <Building className="w-6 h-6 text-green-600 mt-1" />
                 <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">Bank Transfer</h3>
-                  <p className="text-gray-600">Account: 1234567890</p>
-                  <p className="text-gray-600">Bank: Example Bank</p>
+                  <h3 className="font-semibold text-gray-800 mb-2">Bank Transfer (ABSA bank)</h3>
+                  <p className="text-gray-600">Kshs acc: 204 532 686 6</p>
+                  <p className="text-gray-600">Usd acc: 204 532 684 8</p>
                 </div>
               </div>
-              {/* <div className="flex items-start space-x-4">
+              <div className="flex items-start space-x-4">
                 <CreditCard className="w-6 h-6 text-green-600 mt-1" />
                 <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">Online Platforms</h3>
+                  <h3 className="font-semibold text-gray-800 mb-2">Development account (Unaitas Sacco)</h3>
                   <div className="space-y-2">
-                    <a href="#" className="flex items-center text-blue-600 hover:text-blue-700">
-                      Adventist Giving <ExternalLink className="w-4 h-4 ml-1" />
-                    </a>
-                    <a href="#" className="flex items-center text-blue-600 hover:text-blue-700">
-                      PayPal <ExternalLink className="w-4 h-4 ml-1" />
-                    </a>
+                    <p className="flex items-center text-gray-800">
+                      Dev Acc. Pesalink Pay bill 4068949.
+                      <br />1023286088
+                    </p>
+                    <p className="flex items-center text-gray-800">
+                      Paybill 544600 A/C 863441# your name
+                    </p>
                   </div>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
 
