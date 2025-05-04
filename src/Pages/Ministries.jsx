@@ -14,10 +14,22 @@ const Ministries = () => {
       description: 'Nurturing young hearts in faith through engaging Bible stories, activities, and worship designed for children ages 3-12.',
       image: 'https://images.unsplash.com/photo-1601758003122-53c40e686a19',
       activities: [
-        'Vacation Bible School - June 10-14',
-        'Children\'s Sabbath - July 20',
-        'Weekly Saturday classes - 9:30am'
+        "Sabbath Morning Schedule:",
+        "9:00 - 9:30 AM: Communal Sabbath School (Mission Story)",
+        "9:30 - 10:30 AM: Individual Sabbath Classes:",
+        "1) Beginner's (Below 3 years)",
+        "2) Kindergarten (3-4 years)",
+        "3) Primary A (5-6 years)",
+        "4) Primary B (7-9 years)",
+        "5) PowerPoint (10-12 years)",
+        "6) Realtime (13-15 years)",
+        "7) Cornerstone (16-18 years)",
+        "Sabbath Afternoon Schedule (Every 2nd & 4th Sabbaths):",
+        "2:30 - 3:00 PM: Bible Study / Memory Verse",
+        "3:00 - 3:30 PM: Children’s Choir",
+        "3:30 - 4:30 PM: Individual Class Lesson / Activity"
       ],
+      
       contact: {
         name: 'Sister Grace Mwangi',
       }
