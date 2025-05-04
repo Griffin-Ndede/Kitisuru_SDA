@@ -20,8 +20,6 @@ const Ministries = () => {
       ],
       contact: {
         name: 'Sister Grace Mwangi',
-        phone: '+254 712 345 678',
-        email: 'children@kitisurusda.org'
       }
     },
     {
@@ -37,8 +35,6 @@ const Ministries = () => {
       ],
       contact: {
         name: 'Brother David Omondi',
-        phone: '+254 723 456 789',
-        email: 'youth@kitisurusda.org'
       }
     },
     {
@@ -54,8 +50,6 @@ const Ministries = () => {
       ],
       contact: {
         name: 'Sister Esther Wambui',
-        phone: '+254 734 567 890',
-        email: 'women@kitisurusda.org'
       }
     },
     {
@@ -71,8 +65,6 @@ const Ministries = () => {
       ],
       contact: {
         name: 'Brother James Kamau',
-        phone: '+254 756 789 012',
-        email: 'men@kitisurusda.org'
       }
     },
     {
@@ -88,8 +80,6 @@ const Ministries = () => {
       ],
       contact: {
         name: 'Brother Peter Maina',
-        phone: '+254 767 890 123',
-        email: 'ay@kitisurusda.org'
       }
     },
     {
@@ -105,8 +95,6 @@ const Ministries = () => {
       ],
       contact: {
         name: 'Brother Mark Ngugi',
-        phone: '+254 745 678 901',
-        email: 'music@kitisurusda.org'
       }
     },
     {
@@ -122,8 +110,6 @@ const Ministries = () => {
       ],
       contact: {
         name: 'Dr. Sarah Kibuchi',
-        phone: '+254 778 901 234',
-        email: 'health@kitisurusda.org'
       }
     },
     {
@@ -139,8 +125,6 @@ const Ministries = () => {
       ],
       contact: {
         name: 'Sister Ruth Atieno',
-        phone: '+254 789 012 345',
-        email: 'community@kitisurusda.org'
       }
     },
     {
@@ -156,8 +140,6 @@ const Ministries = () => {
       ],
       contact: {
         name: 'Pastor John Mwangi',
-        phone: '+254 790 123 456',
-        email: 'outreach@kitisurusda.org'
       }
     }
   ];
@@ -212,14 +194,10 @@ const Ministries = () => {
 
                     <div className="flex items-start">
                       <div className="mr-2">
-                        <Phone className="w-5 h-5 text-blue-600 mt-1 mr-2" />
-                        <Mail className="w-5 h-5 text-blue-600 mt-2 mr-2" />
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-1">Contact</h4>
+                        <h4 className="font-semibold mb-1">In Charge</h4>
                         <p className="text-gray-600">{ministry.contact.name}</p>
-                        <p className="text-gray-600">{ministry.contact.phone}</p>
-                        <p className="text-gray-600">{ministry.contact.email}</p>
                       </div>
                     </div>
                   </div>
