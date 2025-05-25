@@ -13,7 +13,7 @@ function Navbar() {
           <div className="flex items-center justify-between">
             {/* Logo and Church Name - Always visible */}
             <div className="flex items-center space-x-3">
-              <Link to="/"> <span className="text-2xl sm:text-4xl text-white">SDA Kitisuru</span></Link>
+              <Link to="/"> <span className="text-2xl font-extralight sm:text-4xl text-white">SDA Kitisuru</span></Link>
             </div>
 
             {/* Desktop Navigation - Hidden on mobile */}
