@@ -35,18 +35,14 @@ function About() {
                                 <Church className="w-12 h-12 mx-auto mb-6 text-blue-600" />
                                 <h2 className="text-3xl font-bold mb-8">Our Mission</h2>
                                 <blockquote className="text-lg text-gray-600 leading-relaxed italic border-l-4 border-blue-600 pl-4">
-                                    To proclaim to all peoples the everlasting gospel in the context of the Three Angels' Messages of
-                                    Revelation 14:6-12, leading them to accept Jesus as their personal Savior and unite with His remnant
-                                    church, nurturing them in preparation for His soon return.
+                                    Make disciples of Jesus Christ who live as His loving witnesses and proclaim to all people the everlasting gospel of the Three Angels&apos; Messages in preparation for His soon return
                                 </blockquote>
                             </div>
                             <div className="text-center mt-16">
                                 <Target className="w-12 h-12 mx-auto mb-6 text-blue-600" />
                                 <h2 className="text-3xl font-bold mb-8">Our Vision</h2>
                                 <blockquote className="text-lg text-gray-600 leading-relaxed italic border-l-4 border-blue-600 pl-4">
-                                    A Christ-centered, Spirit-filled church, prepared for the second coming of Jesus Christ, ministering
-                                    hope and wholeness to our local community and the world.
-                                </blockquote>
+                                    In harmony with Bible revelation, Seventh-day Adventists see as the climax of God&apos;s plan the restoration of all His creation to full harmony with His perfect will and righteousness.                                </blockquote>
                             </div>
                         </div>
                     </div>
