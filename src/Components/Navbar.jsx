@@ -7,9 +7,8 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed w-full z-50 px-4 py-5">
-      <div className="max-w-7xl mx-auto lg:rounded-full rounded-3xl">
-        <div className="bg-black/50 backdrop-blur-xs lg:rounded-full rounded-3xl px-2 sm:px-6 py-4 sm:py-5 shadow-lg mt-4 sm:mt-8">
+    <nav className="fixed w-full z-50 ">
+        <div className="bg-black/50 backdrop-blur-xs  py-6 px-4 shadow-lg ">
           <div className="flex items-center justify-between">
             {/* Logo and Church Name - Always visible */}
             <div className="flex items-center space-x-3">
@@ -51,7 +50,6 @@ function Navbar() {
             </div>
           )}
         </div>
-      </div>
     </nav>
   );
 }

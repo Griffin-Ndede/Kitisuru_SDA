@@ -66,10 +66,10 @@ function Home() {
               <h2 className="text-4xl font-bold text-blue-900 mb-6">Service Times</h2>
               <div className="flex flex-col md:flex-row justify-center items-center gap-8 w-full">
                 {scheduleItems.map((item, index) => (
-                  <div className="bg-white p-8 rounded-4xl shadow-2xl w-full" key={index}>
+                  <div className="p-8  w-full" key={index}>
                     <FontAwesomeIcon icon={item.icon} className="text-blue-600 mx-auto mb-4 text-5xl" />
-                    <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-                    <p className="text-gray-600">{item.time}</p>
+                    <h3 className="text-xl font-semibold mb-2 text-black">{item.title}</h3>
+                    <p className="text-black font-light text-lg ">{item.time}</p>
                   </div>
                 ))}
               </div>
