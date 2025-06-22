@@ -120,11 +120,11 @@ function Giving() {
           }}
         >
           <div className="container mx-auto px-4 mt-8 md:mt-32">
-            <div className="max-w-3xl mx-auto text-center">
+            <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
                 Supporting God's Work Through Giving
               </h1>
-              <p className="text-xl text-gray-200 mb-8">
+              <p className="text-xl mx-auto font-light text-gray-200 mb-8">
                 "Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver." - 2 Corinthians 9:7
               </p>
             </div>
@@ -189,7 +189,7 @@ function Giving() {
           </div>
 
           {/* Accountability Section */}
-          <div className="bg-white rounded-4xl shadow-2xl p-8">
+          <div className="bg-white rounded-4xl shadow-2xl p-8 mb-20">
             <div className="flex items-start space-x-4">
               <div className="bg-green-50 p-3 rounded-full">
                 <ShieldCheck className="w-6 h-6 text-green-600" />
@@ -211,8 +211,8 @@ function Giving() {
         </div>
 
         {/* Footer */}
-        <footer className="bg-gray-800 text-white py-8 mt-16">
-          <div className="container mx-auto px-4 text-center">
+        <footer className="bg-black fixed bottom-0 w-full text-white py-8 mt-16">
+          <div className="container text-lg text-white font-light mx-auto px-4 text-center">
             <p >
               "Bring the whole tithe into the storehouse..." - Malachi 3:10
             </p>
