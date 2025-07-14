@@ -11,10 +11,11 @@ const Resources = () => {
     useEffect(() => {
         const fetchDocuments = async () => {
             try {
-                const response = await fetch(`${BASE_URL}/resources/documents/`);
+                const response = await fetch(`${BASE_URL}/library/documents/`);
                 if (!response.ok) throw new Error('Failed to fetch documents');
                 const data = await response.json();
                 setDocuments(data);
+                console.log(response.data)
                 setIsLoading(false);
             } catch (err) {
                 setError(err.message);
