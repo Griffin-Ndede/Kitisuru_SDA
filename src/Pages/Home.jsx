@@ -83,18 +83,18 @@ function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center rounded-4xl p-4 shadow-2xl">
                 <Users className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2 border-b-blue-600 border-b-2 w-1/2 mx-auto">Community Outreach</h3>
-                <p className="text-gray-600">Serving our community through various programs and initiatives.</p>
+                <h3 className="text-xl font-semibold mb-2  mx-auto">Community Outreach</h3>
+                <p className="text-gray-600 font-light">Serving our community through various programs and initiatives.</p>
               </div>
               <div className="text-center  rounded-4xl p-4 shadow-2xl">
                 <Heart className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2 border-b-blue-600 border-b-2 w-1/2 mx-auto">Health Ministry</h3>
-                <p className="text-gray-600">Promoting wholistic health and wellness through education and support.</p>
+                <h3 className="text-xl font-semibold mb-2  mx-auto">Health Ministry</h3>
+                <p className="text-gray-600 font-light">Promoting wholistic health and wellness through education and support.</p>
               </div>
               <div className="text-center rounded-4xl p-4 shadow-2xl">
                 <Book className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2 border-b-blue-600 border-b-2 w-1/2 mx-auto">Bible Study</h3>
-                <p className="text-gray-600">Deep dive into Scripture through various study groups and classes.</p>
+                <h3 className="text-xl font-semibold mb-2  mx-auto">Bible Study</h3>
+                <p className="text-gray-600 font-light">Deep dive into Scripture through various study groups and classes.</p>
               </div>
             </div>
           </div>
