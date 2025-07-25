@@ -10,6 +10,7 @@ import {
     ChevronRight,
 } from 'lucide-react';
 import Navbar from '../Components/Navbar';
+import { Link } from 'react-router-dom';
 
 
 function GetInvolvedCard({ icon: Icon, title, description, buttonText }) {
@@ -108,9 +109,12 @@ function GetInvolved() {
                         <p className="text-gray-600 mb-8">
                             Our pastoral team is here to help you find your place in our church family.
                         </p>
-                        <button className="bg-blue-600 text-white px-8 py-3 rounded-4xl font-medium hover:bg-blue-700 transition-colors">
+                        <Link to="/contact">
+                        <button className="bg-blue-500 text-white px-8 py-3 rounded-4xl font-medium hover:bg-blue-700 hover:cursor-pointer transition-colors">
                             Contact Us
                         </button>
+                        </Link>
+                        
                     </div>
                 </div>
 

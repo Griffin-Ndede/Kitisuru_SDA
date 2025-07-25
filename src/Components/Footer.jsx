@@ -1,5 +1,6 @@
 import React from 'react'
 import { MapPin } from 'lucide-react'
+import { Link } from 'react-router-dom'
 function Footer() {
     return (
         <>
@@ -13,11 +14,12 @@ function Footer() {
 
                         <div>
                             <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
-                            <ul className="space-y-2 text-blue-200">
-                                <li><a href="#" className="hover:text-white">Beliefs</a></li>
-                                <li><a href="#" className="hover:text-white">Ministries</a></li>
-                                <li><a href="#" className="hover:text-white">Events</a></li>
-                                <li><a href="#" className="hover:text-white">Give Online</a></li>
+                            <ul className="space-y-2 text-blue-400">
+                                <Link to="/about"><li className="hover:text-white">Beliefs</li></Link>
+                                <Link to="/ministries"><li className="hover:text-white">Ministries</li></Link>
+                                <Link to="/giving"><li className='hover:text-white'>Give online</li></Link>
+                                <Link to="/resources"><li className='hover:text-white'>Library</li></Link>
+                                <Link to='/contact'><li className='hover:text-white'>Get in touch</li></Link>
                             </ul>
                         </div>
                         <div>

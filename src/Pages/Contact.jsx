@@ -211,11 +211,11 @@ const Contact = () => {
         {/* Footer */}
         <footer className="bg-white py-8 text-center border-t border-gray-200">
           <div className="container mx-auto px-4">
-            <p className="text-gray-600">
-              [Your Church Name] • Loving God, Loving People, Serving Our Community
+            <p className="text-black">
+              SDA Kitisuru • Loving God, Loving People, Serving Our Community
             </p>
             <p className="text-gray-500 mt-2">
-              &copy; {new Date().getFullYear()} [Your Church Name]. All rights reserved.
+              &copy; {new Date().getFullYear()} SDA Kitisuru. All rights reserved.
             </p>
           </div>
         </footer>
