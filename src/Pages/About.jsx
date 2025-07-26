@@ -53,22 +53,22 @@ function About() {
                     <div className="container mx-auto px-6">
                         <h2 className="text-3xl font-bold text-center mb-12">Our Core Beliefs</h2>
                         <div className="grid md:grid-cols-4 gap-8">
-                            <div className="bg-white p-8 rounded-lg shadow-sm text-center">
+                            <div className="bg-white p-8 rounded-3xl shadow-2xl text-center">
                                 <Book className="w-10 h-10 mx-auto mb-4 text-blue-600" />
                                 <h3 className="text-xl font-semibold mb-3">The Trinity</h3>
                                 <p className="text-gray-600">God the Father, Son, and Holy Spirit</p>
                             </div>
-                            <div className="bg-white p-8 rounded-lg shadow-sm text-center">
+                            <div className="bg-white p-8 rounded-3xl shadow-2xl text-center">
                                 <Heart className="w-10 h-10 mx-auto mb-4 text-blue-600" />
                                 <h3 className="text-xl font-semibold mb-3">Salvation</h3>
                                 <p className="text-gray-600">Through Jesus Christ alone</p>
                             </div>
-                            <div className="bg-white p-8 rounded-lg shadow-sm text-center">
+                            <div className="bg-white p-8 rounded-3xl shadow-2xl text-center">
                                 <Sun className="w-10 h-10 mx-auto mb-4 text-blue-600" />
                                 <h3 className="text-xl font-semibold mb-3">The Sabbath</h3>
                                 <p className="text-gray-600">Seventh day of rest and worship</p>
                             </div>
-                            <div className="bg-white p-8 rounded-lg shadow-sm text-center">
+                            <div className="bg-white p-8 rounded-3xl shadow-2xl text-center">
                                 <Users className="w-10 h-10 mx-auto mb-4 text-blue-600" />
                                 <h3 className="text-xl font-semibold mb-3">Second Coming</h3>
                                 <p className="text-gray-600">Awaiting Christ's return</p>
@@ -90,7 +90,7 @@ function About() {
                                 </p>
                             </div>
                             <div className="grid md:grid-cols-2 gap-6">
-                                <div className="p-6 bg-gray-50 rounded-lg">
+                                <div className="p-6 bg-gray-50 rounded-3xl">
                                     <h3 className="font-semibold text-lg mb-4">Our Ministries</h3>
                                     <ul className="space-y-2 text-gray-600">
                                         <li>• Children & Youth Ministries</li>
@@ -101,7 +101,7 @@ function About() {
                                         <li>• Community Development Initiatives</li>
                                     </ul>
                                 </div>
-                                <div className="p-6 bg-gray-50 rounded-lg">
+                                <div className="p-6 bg-gray-50 rounded-3xl">
                                     <h3 className="font-semibold text-lg mb-4">Service Times</h3>
                                     <div className="space-y-4">
                                         <div>

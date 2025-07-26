@@ -104,13 +104,13 @@ function Home() {
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-center text-blue-900 mb-12">Upcoming Events</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white p-6 rounded-4xl shadow-2xlb">
+              <div className="bg-white p-6 rounded-4xl shadow-2xl">
                 <Calendar className="w-8 h-8 text-blue-600 mb-4" />
                 <h3 className="text-xl font-semibold mb-2">Youth Camp Meeting</h3>
                 <p className="text-gray-600 mb-4">Join us for our annual youth retreat filled with worship, fellowship, and outdoor activities.</p>
                 <p className="text-sm text-gray-500">March 15-17, 2024</p>
               </div>
-              <div className="bg-white p-6 rounded-4xl shadow-2xlb">
+              <div className="bg-white p-6 rounded-4xl shadow-2xl">
                 <Calendar className="w-8 h-8 text-blue-600 mb-4" />
                 <h3 className="text-xl font-semibold mb-2">Health Fair</h3>
                 <p className="text-gray-600 mb-4">Free health screenings, nutrition workshops, and wellness seminars for the community.</p>
