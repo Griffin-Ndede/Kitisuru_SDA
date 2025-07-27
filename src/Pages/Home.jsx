@@ -63,7 +63,7 @@ function Home() {
         <section className="py-16 bg-blue-50" id='services'>
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-blue-900 mb-6">Service Times</h2>
+              <h2 className="text-4xl font-bold text-blue-600 mb-6">Service Times</h2>
               <div className="flex flex-col md:flex-row justify-center items-center gap-8 w-full">
                 {scheduleItems.map((item, index) => (
                   <div className="p-8  w-full" key={index}>
@@ -79,20 +79,20 @@ function Home() {
         {/* Ministries */}
         <section className="py-16" id='ministries'>
           <div className="container mx-auto px-6">
-            <h2 className="text-3xl font-bold text-center text-blue-900 mb-12">Our Ministries</h2>
+            <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Our Ministries</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center rounded-4xl p-4 shadow-2xl">
-                <Users className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                <Users strokeWidth={1.5}className="w-12 h-12 text-blue-600 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold mb-2  mx-auto">Community Outreach</h3>
                 <p className="text-gray-600 font-light">Serving our community through various programs and initiatives.</p>
               </div>
               <div className="text-center  rounded-4xl p-4 shadow-2xl">
-                <Heart className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                <Heart strokeWidth={1.5} className="w-12 h-12 text-blue-600 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold mb-2  mx-auto">Health Ministry</h3>
                 <p className="text-gray-600 font-light">Promoting wholistic health and wellness through education and support.</p>
               </div>
               <div className="text-center rounded-4xl p-4 shadow-2xl">
-                <Book className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                <Book strokeWidth={1.5} className="w-12 h-12 text-blue-600 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold mb-2  mx-auto">Bible Study</h3>
                 <p className="text-gray-600 font-light">Deep dive into Scripture through various study groups and classes.</p>
               </div>
