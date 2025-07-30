@@ -53,7 +53,7 @@ function Home() {
                 "Remember the Sabbath day, to keep it holy." <br />
                 <span className='text-2xl font-light'>Exodus 20:8</span>
               </p>
-              {/* <button className="bg-white text-blue-900 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition duration-300 flex items-center gap-2 mx-auto">
+              {/* <button className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition duration-300 flex items-center gap-2 mx-auto">
                 Learn More <ChevronDown size={20} />
               </button> */}
             </div>
@@ -102,7 +102,7 @@ function Home() {
         {/* Upcoming Events */}
         <section className="py-16 bg-gray-50" id='upcoming'>
           <div className="container mx-auto px-6">
-            <h2 className="text-3xl font-bold text-center text-blue-900 mb-12">Upcoming Events</h2>
+            <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Upcoming Events</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-white p-6 rounded-4xl shadow-2xl">
                 <Calendar className="w-8 h-8 text-blue-600 mb-4" />

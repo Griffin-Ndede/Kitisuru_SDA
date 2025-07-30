@@ -32,14 +32,14 @@ function About() {
                     <div className="container mx-auto px-6">
                         <div className="max-w-3xl mx-auto">
                             <div className="text-center mb-12">
-                                <Church className="w-12 h-12 mx-auto mb-6 text-blue-600" />
+                                <Church  strokeWidth={1.5} className="w-12 h-12 mx-auto mb-6 text-blue-600" />
                                 <h2 className="text-3xl font-bold mb-8">Our Mission</h2>
                                 <blockquote className="text-lg text-gray-600 leading-relaxed italic border-l-4 border-blue-600 pl-4">
                                     Make disciples of Jesus Christ who live as His loving witnesses and proclaim to all people the everlasting gospel of the Three Angels&apos; Messages in preparation for His soon return
                                 </blockquote>
                             </div>
                             <div className="text-center mt-16">
-                                <Target className="w-12 h-12 mx-auto mb-6 text-blue-600" />
+                                <Target strokeWidth={1.5} className="w-12 h-12 mx-auto mb-6 text-blue-600" />
                                 <h2 className="text-3xl font-bold mb-8">Our Vision</h2>
                                 <blockquote className="text-lg text-gray-600 leading-relaxed italic border-l-4 border-blue-600 pl-4">
                                     In harmony with Bible revelation, Seventh-day Adventists see as the climax of God&apos;s plan the restoration of all His creation to full harmony with His perfect will and righteousness.                                </blockquote>
@@ -54,22 +54,22 @@ function About() {
                         <h2 className="text-3xl font-bold text-center mb-12">Our Core Beliefs</h2>
                         <div className="grid md:grid-cols-4 gap-8">
                             <div className="bg-white p-8 rounded-3xl shadow-2xl text-center">
-                                <Book className="w-10 h-10 mx-auto mb-4 text-blue-600" />
+                                <Book strokeWidth={1.5} className="w-10 h-10 mx-auto mb-4 text-blue-600" />
                                 <h3 className="text-xl font-semibold mb-3">The Trinity</h3>
                                 <p className="text-gray-600">God the Father, Son, and Holy Spirit</p>
                             </div>
                             <div className="bg-white p-8 rounded-3xl shadow-2xl text-center">
-                                <Heart className="w-10 h-10 mx-auto mb-4 text-blue-600" />
+                                <Heart strokeWidth={1.5} className="w-10 h-10 mx-auto mb-4 text-blue-600" />
                                 <h3 className="text-xl font-semibold mb-3">Salvation</h3>
                                 <p className="text-gray-600">Through Jesus Christ alone</p>
                             </div>
                             <div className="bg-white p-8 rounded-3xl shadow-2xl text-center">
-                                <Sun className="w-10 h-10 mx-auto mb-4 text-blue-600" />
+                                <Sun strokeWidth={1.5} className="w-10 h-10 mx-auto mb-4 text-blue-600" />
                                 <h3 className="text-xl font-semibold mb-3">The Sabbath</h3>
                                 <p className="text-gray-600">Seventh day of rest and worship</p>
                             </div>
                             <div className="bg-white p-8 rounded-3xl shadow-2xl text-center">
-                                <Users className="w-10 h-10 mx-auto mb-4 text-blue-600" />
+                                <Users strokeWidth={1.5} className="w-10 h-10 mx-auto mb-4 text-blue-600" />
                                 <h3 className="text-xl font-semibold mb-3">Second Coming</h3>
                                 <p className="text-gray-600">Awaiting Christ's return</p>
                             </div>
@@ -128,7 +128,7 @@ function About() {
                     <div className="container mx-auto px-6">
                         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
                             <div>
-                                <History className="w-12 h-12 mb-6 text-blue-600" />
+                                <History strokeWidth={1.5} className="w-12 h-12 mb-6 text-blue-600" />
                                 <h2 className="text-2xl font-bold mb-6">Our History</h2>
                                 <p className="text-gray-600 leading-relaxed">
                                     The Seventh-day Adventist Church began in the mid-19th century during the Second Great
@@ -137,7 +137,7 @@ function About() {
                                 </p>
                             </div>
                             <div>
-                                <Globe className="w-12 h-12 mb-6 text-blue-600" />
+                                <Globe strokeWidth={1.5} className="w-12 h-12 mb-6 text-blue-600" />
                                 <h2 className="text-2xl font-bold mb-6">Global Church, Local Impact</h2>
                                 <p className="text-gray-600 leading-relaxed">
                                     We are part of a global denomination with over 22 million members worldwide. The SDA Church
