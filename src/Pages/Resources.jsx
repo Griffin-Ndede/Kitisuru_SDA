@@ -119,13 +119,13 @@ const Resources = () => {
                                 </div>
                                 <div className="flex-1 p-4">
                                     <iframe
-                                        src={`${BASE_URL}/resources/documents/${currentDocument.slug}/#toolbar=1&navpanes=0&scrollbar=1&zoom=100`}
+                                        src={`${BASE_URL}/library/documents/${currentDocument.slug}/#toolbar=1&navpanes=0&scrollbar=1&zoom=100`}
                                         className="w-full h-full rounded-xl"
                                         allowFullScreen
                                         title={currentDocument.title}
                                     >
                                         <p>Your browser does not support PDFs.
-                                            <a href={`${BASE_URL}/resources/documents/${currentDocument.slug}/`}>Download the PDF</a> instead.
+                                            <a href={`${BASE_URL}/library/documents/${currentDocument.slug}/`}>Download the PDF</a> instead.
                                         </p>
                                     </iframe>
                                 </div>
