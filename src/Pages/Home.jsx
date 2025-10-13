@@ -131,6 +131,53 @@ function Home() {
             </div>
           </div>
         </section>
+        <section className='h-fit bg-gray-200 p-10'>
+          <h1 className='text-center font-bold text-4xl text-blue-600'>Latest sermons</h1>
+          <div className='flex items-center gap-10 mx-auto justify-center mt-4'>
+            <video
+              src={videoBg}
+              autoPlay
+              loop
+              muted
+              className="w-96 h-fit rounded-3xl object-cover hidden sm:block"
+            />
+            <h1 className='font-light text-xl'>Title: Lorem ipsum dolor sit amet.</h1>
+            <p className='w-1/3 bg-blue-100 p-10 rounded-3xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero. Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui, dolorum ullam.</p>
+          </div>
+             <div className='flex items-center gap-10 mx-auto justify-center mt-4'>
+            <video
+              src={videoBg}
+              autoPlay
+              loop
+              muted
+              className="w-96 h-fit rounded-3xl object-cover hidden sm:block"
+            />
+            <h1 className='font-light text-xl'>Title: Lorem ipsum dolor sit amet.</h1>
+            <p className='w-1/3 bg-blue-100 p-10 rounded-3xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero. Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui, dolorum ullam.</p>
+          </div>
+             <div className='flex items-center gap-10 mx-auto justify-center mt-4'>
+            <video
+              src={videoBg}
+              autoPlay
+              loop
+              muted
+              className="w-96 h-fit rounded-3xl object-cover hidden sm:block"
+            />
+            <h1 className='font-light text-xl'>Title: Lorem ipsum dolor sit amet.</h1>
+            <p className='w-1/3 bg-blue-100 p-10 rounded-3xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero. Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui, dolorum ullam.</p>
+          </div>
+             <div className='flex items-center gap-10 mx-auto justify-center mt-4'>
+            <video
+              src={videoBg}
+              autoPlay
+              loop
+              muted
+              className="w-96 h-fit rounded-3xl object-cover hidden sm:block"
+            />
+            <h1 className='font-light text-xl'>Title: Lorem ipsum dolor sit amet.</h1>
+            <p className='w-1/3 bg-blue-100 p-10 rounded-3xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero. Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui, dolorum ullam.</p>
+          </div>
+        </section>
         <Footer />
       </div>
     </>
