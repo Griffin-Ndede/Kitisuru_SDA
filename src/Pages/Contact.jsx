@@ -179,7 +179,7 @@ const Contact = () => {
                     <a href="#" className="text-red-600 hover:text-blue-800 transition duration-300">
                     <Facebook />
                     </a>
-                    <a href="#" className="text-red-600 hover:text-blue-800 transition duration-300">
+                    <a href="https://youtube.com/@sdachurchkitisuru?si=G-N85sdrGISWHe-g" target="blank" className="text-red-600 hover:text-blue-800 transition duration-300">
                      <Youtube/>
                     </a>
                     <a href="#" className="text-red-600 hover:text-blue-800 transition duration-300">
