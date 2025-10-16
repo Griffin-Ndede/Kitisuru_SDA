@@ -1,5 +1,5 @@
 import React from 'react'
-import { Calendar, Heart, Book, Users, ChevronDown } from 'lucide-react';
+import { Calendar, Heart, Book, Users, ChevronDown, MapPin } from 'lucide-react';
 import { faBible, faBookOpen, faHandsPraying, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Footer from '../Components/Footer';
@@ -32,6 +32,55 @@ function Home() {
     }
   ];
 
+  const upcomingEvents = [
+    {
+      title: "Youth Camp Meeting",
+      description:
+        "A weekend of worship, bonding, and adventure for all youth members. Don’t forget your camping gear!",
+      startDate: "2025-12-05",
+      endDate: "2025-12-08",
+      location: "Naivasha Adventist Camp Grounds",
+      category: "Youth Ministry"
+    },
+    {
+      title: "Church Music Day",
+      description:
+        "A day dedicated to praising God through song. Choirs and soloists from across the district will participate.",
+      startDate: "2025-11-09",
+      endDate: "2025-11-09",
+      location: "Nairobi Central SDA Church",
+      category: "Music Ministry"
+    },
+    {
+      title: "Community Outreach Sabbath",
+      description:
+        "Join us in visiting nearby hospitals and children’s homes to share hope and kindness.",
+      startDate: "2025-11-23",
+      endDate: "2025-11-23",
+      location: "Kayole Community Center",
+      category: "Outreach"
+    },
+    {
+      title: "Women’s Prayer Breakfast",
+      description:
+        "An inspiring morning of fellowship, testimonies, and prayer led by the Women’s Ministry department.",
+      startDate: "2025-12-14",
+      endDate: "2025-12-14",
+      location: "Parklands SDA Church Hall",
+      category: "Women's Ministry"
+    },
+    {
+      title: "Pathfinder Hike and Adventure",
+      description:
+        "Pathfinders will explore Karura Forest in this year’s adventure outing — filled with teamwork and fun challenges.",
+      startDate: "2026-01-18",
+      endDate: "2026-01-19",
+      location: "Karura Forest, Nairobi",
+      category: "Pathfinder Club"
+    }
+  ];
+
+
   return (
     <>
       <div className="min-h-screen bg-white">
@@ -41,7 +90,7 @@ function Home() {
           <div className="absolute inset-0 overflow-hidden">
             {/* Image for small screens */}
             <img
-              src="https://images.unsplash.com/photo-1601758003122-53c40e686a19"
+              src="https://media.istockphoto.com/id/522403165/photo/praying-hands-with-bible.jpg?s=612x612&w=0&k=20&c=-5H0OP-7GKsglDbxalhBUl9klbhImkXjJrsTl7p52J0="
               alt="background"
               className="w-full h-full object-cover block sm:hidden"
             />
@@ -65,9 +114,6 @@ function Home() {
                 "Remember the Sabbath day, to keep it holy." <br />
                 <span className='text-2xl font-light'>Exodus 20:8</span>
               </p>
-              {/* <button className="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition duration-300 flex items-center gap-2 mx-auto">
-                Learn More <ChevronDown size={20} />
-              </button> */}
             </div>
           </div>
         </div>
@@ -89,7 +135,7 @@ function Home() {
           </div>
         </section>
         {/* Ministries */}
-        <section className="py-16" id='ministries'>
+        {/* <section className="py-16" id='ministries'>
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Our Ministries</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -110,25 +156,53 @@ function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         {/* Upcoming Events */}
+
         <section className="py-16 bg-gray-50" id='upcoming'>
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Upcoming Events</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white p-6 rounded-4xl shadow-2xl">
-                <Calendar className="w-8 h-8 text-blue-600 mb-4" />
-                <h3 className="text-xl font-semibold mb-2">Youth Camp Meeting</h3>
-                <p className="text-gray-600 mb-4">Join us for our annual youth retreat filled with worship, fellowship, and outdoor activities.</p>
-                <p className="text-sm text-gray-500">March 15-17, 2024</p>
-              </div>
-              <div className="bg-white p-6 rounded-4xl shadow-2xl">
-                <Calendar className="w-8 h-8 text-blue-600 mb-4" />
-                <h3 className="text-xl font-semibold mb-2">Health Fair</h3>
-                <p className="text-gray-600 mb-4">Free health screenings, nutrition workshops, and wellness seminars for the community.</p>
-                <p className="text-sm text-gray-500">April 5, 2024</p>
-              </div>
+              {upcomingEvents.map((event, index) => (
+                <div
+                  key={index}
+                  className="relative bg-white p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
+                >
+                  {/* Category Badge */}
+                  <span className="absolute top-4 right-4 bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">
+                    {event.category}
+                  </span>
+
+                  {/* Icon */}
+                  <Calendar className="w-8 h-8 text-blue-600 mb-4" />
+
+                  {/* Title */}
+                  <h3 className="text-xl font-semibold mb-2">{event.title}</h3>
+
+                  {/* Description */}
+                  <p className="text-gray-600 mb-6">{event.description}</p>
+
+                  {/* Location & Dates */}
+                  <div className="border-t border-gray-100 pt-4 flex flex-col md:flex-row md:items-center md:justify-between text-sm text-gray-600">
+                    {/* Location */}
+                    <div className="flex items-center gap-2 mb-2 md:mb-0">
+                     <MapPin strokeWidth={1} size={30} className='text-blue-600'/>
+                      <span className="font-light text-base">{event.location}</span>
+                    </div>
+
+                    {/* Dates */}
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-gray-500" />
+                      <span className="text-gray-700">
+                        {event.startDate} <span className="text-gray-400">–</span> {event.endDate}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
+
+
           </div>
         </section>
         <section className='h-fit bg-gray-200 p-10'>
@@ -144,7 +218,7 @@ function Home() {
             <h1 className='font-light text-xl'>Title: Lorem ipsum dolor sit amet.</h1>
             <p className='w-1/3 bg-blue-100 p-10 rounded-3xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero. Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui, dolorum ullam.</p>
           </div>
-             <div className='flex items-center gap-10 mx-auto justify-center mt-4'>
+          <div className='flex items-center gap-10 mx-auto justify-center mt-4'>
             <video
               src={videoBg}
               autoPlay
@@ -155,7 +229,7 @@ function Home() {
             <h1 className='font-light text-xl'>Title: Lorem ipsum dolor sit amet.</h1>
             <p className='w-1/3 bg-blue-100 p-10 rounded-3xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero. Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui, dolorum ullam.</p>
           </div>
-             <div className='flex items-center gap-10 mx-auto justify-center mt-4'>
+          <div className='flex items-center gap-10 mx-auto justify-center mt-4'>
             <video
               src={videoBg}
               autoPlay
@@ -166,7 +240,7 @@ function Home() {
             <h1 className='font-light text-xl'>Title: Lorem ipsum dolor sit amet.</h1>
             <p className='w-1/3 bg-blue-100 p-10 rounded-3xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero. Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui, dolorum ullam.</p>
           </div>
-             <div className='flex items-center gap-10 mx-auto justify-center mt-4'>
+          <div className='flex items-center gap-10 mx-auto justify-center mt-4'>
             <video
               src={videoBg}
               autoPlay
