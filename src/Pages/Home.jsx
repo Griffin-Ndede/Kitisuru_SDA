@@ -205,39 +205,39 @@ function Home() {
             </div>
           </div>
         </section>
-       <section className="min-h-fit bg-gray-200 p-6 sm:p-10">
-  <h1 className="text-center font-bold text-3xl sm:text-4xl text-blue-600 mb-8">
-    Latest Sermons
-  </h1>
+        <section className="min-h-fit bg-gray-200 p-6 sm:p-10">
+          <h1 className="text-center font-bold text-3xl sm:text-4xl text-blue-600 mb-8">
+            Latest Sermons
+          </h1>
 
-  {/* Sermon Item */}
-  {Array(4).fill(0).map((_, i) => (
-    <div
-      key={i}
-      className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 mx-auto justify-center mt-6 bg-white/50 rounded-3xl p-6 shadow-sm"
-    >
-      <video
-        src={videoBg}
-        autoPlay
-        loop
-        muted
-        className="w-full sm:w-96 h-56 sm:h-fit rounded-3xl object-cover"
-      />
-      <div className="flex flex-col items-center sm:items-start gap-4 sm:w-1/2">
-        <h2 className="font-semibold text-lg sm:text-xl text-gray-800 text-center sm:text-left">
-          Title: Lorem ipsum dolor sit amet.
-        </h2>
-        <p className="bg-blue-100 p-4 sm:p-6 rounded-2xl text-gray-700 leading-relaxed text-sm sm:text-base text-center sm:text-left">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis
-          doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas
-          asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero.
-          Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui,
-          dolorum ullam.
-        </p>
-      </div>
-    </div>
-  ))}
-</section>
+          {/* Sermon Item */}
+          {Array(4).fill(0).map((_, i) => (
+            <div
+              key={i}
+              className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 mx-auto justify-center mt-6 bg-white/50 rounded-3xl p-6 shadow-sm"
+            >
+              <video
+                src={videoBg}
+                autoPlay
+                loop
+                muted
+                className="w-full sm:w-96 h-56 sm:h-fit rounded-3xl object-cover"
+              />
+              <div className="flex flex-col items-center sm:items-start gap-4 sm:w-1/2">
+                <h2 className="font-semibold text-lg sm:text-xl text-gray-800 text-center sm:text-left">
+                  Title: Lorem ipsum dolor sit amet.
+                </h2>
+                <p className="bg-blue-100 p-4 sm:p-6 rounded-2xl text-gray-700 leading-relaxed text-sm sm:text-base text-center sm:text-left">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis
+                  doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas
+                  asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero.
+                  Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui,
+                  dolorum ullam.
+                </p>
+              </div>
+            </div>
+          ))}
+        </section>
 
         <Footer />
       </div>

@@ -114,7 +114,7 @@ function About() {
                                         </div>
                                         <div>
                                             <p className="font-medium">Afternoon Programs</p>
-                                            <p className="text-gray-600">2:30 PM</p>
+                                            <p className="text-gray-600">2:00 PM</p>
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +148,6 @@ function About() {
                         </div>
                     </div>
                 </div>
-
             </div>
             <Footer />
         </>
