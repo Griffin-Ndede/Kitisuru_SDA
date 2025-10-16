@@ -1,9 +1,59 @@
 import React from 'react'
 import Footer from '../Components/Footer'
-import { Church, Clock, Heart, Book, Users, Sun, Globe, History, Target } from 'lucide-react';
+import { Clock, History, } from 'lucide-react';
+import { Book, Users, Cross, Heart, Sun, CloudSun, Moon, Church, Target, Globe } from "lucide-react";
+
 import Navbar from '../Components/Navbar';
 
 function About() {
+
+
+    const coreBeliefs = [
+        {
+            title: "The Bible",
+            description:
+                "The inspired, infallible Word of God and our ultimate authority for faith and life.",
+            icon: Book,
+        },
+        {
+            title: "The Trinity",
+            description:
+                "One God in three co-eternal persons: Father, Son, and Holy Spirit.",
+            icon: Users,
+        },
+        {
+            title: "Jesus Christ",
+            description:
+                "Fully God and fully man — the eternal Son who became our Savior.",
+            icon: Cross,
+        },
+        {
+            title: "Salvation",
+            description:
+                "A free gift of grace received through faith in Jesus Christ.",
+            icon: Heart,
+        },
+        {
+            title: "The Sabbath",
+            description:
+                "The seventh day, Saturday — a memorial of creation and rest in God.",
+            icon: Sun,
+        },
+        {
+            title: "Second Coming",
+            description:
+                "We eagerly await the imminent return of Jesus Christ to Earth.",
+            icon: CloudSun,
+        },
+        {
+            title: "State of the Dead",
+            description:
+                "The dead rest unconsciously until the resurrection at Christ’s return.",
+            icon: Moon,
+        },
+    ];
+
+
     return (
         <>
             <Navbar />
@@ -32,7 +82,7 @@ function About() {
                     <div className="container mx-auto px-6">
                         <div className="max-w-3xl mx-auto">
                             <div className="text-center mb-12">
-                                <Church  strokeWidth={1.5} className="w-12 h-12 mx-auto mb-6 text-blue-600" />
+                                <Church strokeWidth={1.5} className="w-12 h-12 mx-auto mb-6 text-blue-600" />
                                 <h2 className="text-3xl font-bold mb-8">Our Mission</h2>
                                 <blockquote className="text-lg text-gray-600 leading-relaxed italic border-l-4 border-blue-600 pl-4">
                                     Make disciples of Jesus Christ who live as His loving witnesses and proclaim to all people the everlasting gospel of the Three Angels&apos; Messages in preparation for His soon return
@@ -52,27 +102,17 @@ function About() {
                 <div className="py-16 bg-gray-50">
                     <div className="container mx-auto px-6">
                         <h2 className="text-3xl font-bold text-center mb-12">Our Core Beliefs</h2>
-                        <div className="grid md:grid-cols-4 gap-8">
-                            <div className="bg-white p-8 rounded-3xl shadow-2xl text-center">
-                                <Book strokeWidth={1.5} className="w-10 h-10 mx-auto mb-4 text-blue-600" />
-                                <h3 className="text-xl font-semibold mb-3">The Trinity</h3>
-                                <p className="text-gray-600">God the Father, Son, and Holy Spirit</p>
-                            </div>
-                            <div className="bg-white p-8 rounded-3xl shadow-2xl text-center">
-                                <Heart strokeWidth={1.5} className="w-10 h-10 mx-auto mb-4 text-blue-600" />
-                                <h3 className="text-xl font-semibold mb-3">Salvation</h3>
-                                <p className="text-gray-600">Through Jesus Christ alone</p>
-                            </div>
-                            <div className="bg-white p-8 rounded-3xl shadow-2xl text-center">
-                                <Sun strokeWidth={1.5} className="w-10 h-10 mx-auto mb-4 text-blue-600" />
-                                <h3 className="text-xl font-semibold mb-3">The Sabbath</h3>
-                                <p className="text-gray-600">Seventh day of rest and worship</p>
-                            </div>
-                            <div className="bg-white p-8 rounded-3xl shadow-2xl text-center">
-                                <Users strokeWidth={1.5} className="w-10 h-10 mx-auto mb-4 text-blue-600" />
-                                <h3 className="text-xl font-semibold mb-3">Second Coming</h3>
-                                <p className="text-gray-600">Awaiting Christ's return</p>
-                            </div>
+                        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
+                            {coreBeliefs.map((belief, index) => {
+                                const Icon = belief.icon
+                                return (
+                                    <div key={index} className="bg-white p-8 rounded-3xl shadow-2xl text-center">
+                                        <Icon strokeWidth={1.5} className="w-10 h-10 mx-auto mb-4 text-blue-600" />
+                                        <h3 className="text-xl font-semibold mb-3">{belief.title}</h3>
+                                        <p className="text-gray-600">{belief.description}</p>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
