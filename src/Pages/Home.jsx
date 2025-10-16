@@ -159,99 +159,86 @@ function Home() {
         </section> */}
         {/* Upcoming Events */}
 
-        <section className="py-16 bg-gray-50" id='upcoming'>
+        <section className="bg-gray-50" id='upcoming'>
           <div className="container mx-auto px-6">
             <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Upcoming Events</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {upcomingEvents.map((event, index) => (
-                <div
-                  key={index}
-                  className="relative bg-white p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
-                >
-                  {/* Category Badge */}
-                  <span className="absolute top-4 right-4 bg-blue-100 text-blue-700 text-xs font-semibold px-3 py-1 rounded-full">
-                    {event.category}
-                  </span>
+              {upcomingEvents
+                .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+                .map((event, index) => (
+                  <div
+                    key={index}
+                    className="relative bg-white p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
+                  >
+                    {/* Category Badge */}
+                    <span className="absolute top-4 right-4 bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">
+                      {event.category}
+                    </span>
 
-                  {/* Icon */}
-                  <Calendar className="w-8 h-8 text-blue-600 mb-4" />
+                    {/* Icon */}
+                    <Calendar className="w-8 h-8 text-blue-600 mb-4" />
 
-                  {/* Title */}
-                  <h3 className="text-xl font-semibold mb-2">{event.title}</h3>
+                    {/* Title */}
+                    <h3 className="text-xl font-bold mb-2">{event.title}</h3>
 
-                  {/* Description */}
-                  <p className="text-gray-600 mb-6">{event.description}</p>
+                    {/* Description */}
+                    <p className=" mb-6">{event.description}</p>
 
-                  {/* Location & Dates */}
-                  <div className="border-t border-gray-100 pt-4 flex flex-col md:flex-row md:items-center md:justify-between text-sm text-gray-600">
-                    {/* Location */}
-                    <div className="flex items-center gap-2 mb-2 md:mb-0">
-                     <MapPin strokeWidth={1} size={30} className='text-blue-600'/>
-                      <span className="font-light text-base">{event.location}</span>
-                    </div>
+                    {/* Location & Dates */}
+                    <div className="border-t border-gray-100 pt-4 flex flex-col md:flex-row md:items-center md:justify-between text-sm text-gray-600">
+                      {/* Location */}
+                      <div className="flex items-center gap-2 mb-2 md:mb-0">
+                        <MapPin strokeWidth={1} size={24} absoluteStrokeWidth className='text-blue-600' />
+                        <span className="font-light text-base">{event.location}</span>
+                      </div>
 
-                    {/* Dates */}
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-gray-500" />
-                      <span className="text-gray-700">
-                        {event.startDate} <span className="text-gray-400">–</span> {event.endDate}
-                      </span>
+                      {/* Dates */}
+                      <div className="flex items-center gap-2">
+                        <Calendar strokeWidth={1} size={24} absoluteStrokeWidth className="text-blue-600" />
+                        <span className="text-gray-700">
+                          {event.startDate} <span className="text-gray-400">–</span> {event.endDate}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
-
-
           </div>
         </section>
-        <section className='h-fit bg-gray-200 p-10'>
-          <h1 className='text-center font-bold text-4xl text-blue-600'>Latest sermons</h1>
-          <div className='flex items-center gap-10 mx-auto justify-center mt-4'>
-            <video
-              src={videoBg}
-              autoPlay
-              loop
-              muted
-              className="w-96 h-fit rounded-3xl object-cover hidden sm:block"
-            />
-            <h1 className='font-light text-xl'>Title: Lorem ipsum dolor sit amet.</h1>
-            <p className='w-1/3 bg-blue-100 p-10 rounded-3xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero. Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui, dolorum ullam.</p>
-          </div>
-          <div className='flex items-center gap-10 mx-auto justify-center mt-4'>
-            <video
-              src={videoBg}
-              autoPlay
-              loop
-              muted
-              className="w-96 h-fit rounded-3xl object-cover hidden sm:block"
-            />
-            <h1 className='font-light text-xl'>Title: Lorem ipsum dolor sit amet.</h1>
-            <p className='w-1/3 bg-blue-100 p-10 rounded-3xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero. Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui, dolorum ullam.</p>
-          </div>
-          <div className='flex items-center gap-10 mx-auto justify-center mt-4'>
-            <video
-              src={videoBg}
-              autoPlay
-              loop
-              muted
-              className="w-96 h-fit rounded-3xl object-cover hidden sm:block"
-            />
-            <h1 className='font-light text-xl'>Title: Lorem ipsum dolor sit amet.</h1>
-            <p className='w-1/3 bg-blue-100 p-10 rounded-3xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero. Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui, dolorum ullam.</p>
-          </div>
-          <div className='flex items-center gap-10 mx-auto justify-center mt-4'>
-            <video
-              src={videoBg}
-              autoPlay
-              loop
-              muted
-              className="w-96 h-fit rounded-3xl object-cover hidden sm:block"
-            />
-            <h1 className='font-light text-xl'>Title: Lorem ipsum dolor sit amet.</h1>
-            <p className='w-1/3 bg-blue-100 p-10 rounded-3xl'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero. Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui, dolorum ullam.</p>
-          </div>
-        </section>
+       <section className="min-h-fit bg-gray-200 p-6 sm:p-10">
+  <h1 className="text-center font-bold text-3xl sm:text-4xl text-blue-600 mb-8">
+    Latest Sermons
+  </h1>
+
+  {/* Sermon Item */}
+  {Array(4).fill(0).map((_, i) => (
+    <div
+      key={i}
+      className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 mx-auto justify-center mt-6 bg-white/50 rounded-3xl p-6 shadow-sm"
+    >
+      <video
+        src={videoBg}
+        autoPlay
+        loop
+        muted
+        className="w-full sm:w-96 h-56 sm:h-fit rounded-3xl object-cover"
+      />
+      <div className="flex flex-col items-center sm:items-start gap-4 sm:w-1/2">
+        <h2 className="font-semibold text-lg sm:text-xl text-gray-800 text-center sm:text-left">
+          Title: Lorem ipsum dolor sit amet.
+        </h2>
+        <p className="bg-blue-100 p-4 sm:p-6 rounded-2xl text-gray-700 leading-relaxed text-sm sm:text-base text-center sm:text-left">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis
+          doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas
+          asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero.
+          Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui,
+          dolorum ullam.
+        </p>
+      </div>
+    </div>
+  ))}
+</section>
+
         <Footer />
       </div>
     </>
