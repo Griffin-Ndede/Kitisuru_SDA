@@ -7,154 +7,104 @@ import Navbar from '../Components/Navbar';
 
 const Ministries = () => {
   const ministries = [
-    {
-      id: 'children',
-      title: 'Children\'s Ministry',
-      icon: <Baby className="w-8 h-8" />,
-      description: 'Nurturing young hearts in faith through engaging Bible stories, activities, and worship designed for children ages 3-12.',
-      image: 'https://images.unsplash.com/photo-1601758003122-53c40e686a19',
-      activities: [
-        "Sabbath Morning Schedule:",
-        "9:00 - 9:30 AM: Communal Sabbath School (Mission Story)",
-        "9:30 - 10:30 AM: Individual Sabbath Classes:",
-        "1) Beginner's (Below 3 years)",
-        "2) Kindergarten (3-4 years)",
-        "3) Primary A (5-6 years)",
-        "4) Primary B (7-9 years)",
-        "5) PowerPoint (10-12 years)",
-        "6) Realtime (13-15 years)",
-        "7) Cornerstone (16-18 years)",
-        "Sabbath Afternoon Schedule (Every 2nd & 4th Sabbaths):",
-        "2:30 - 3:00 PM: Bible Study / Memory Verse",
-        "3:00 - 3:30 PM: Children’s Choir",
-        "3:30 - 4:30 PM: Individual Class Lesson / Activity"
-      ],
-      
-      contact: {
-        name: 'Sister Grace Mwangi',
-      }
+  {
+    id: 'children',
+    title: "Children's Ministry",
+    icon: <Baby className="w-8 h-8" />,
+    description:
+      'Nurturing young hearts in faith through engaging Bible stories, songs, and creative activities for children ages 3-12.',
+    image: 'https://images.unsplash.com/photo-1601758003122-53c40e686a19',
+    activities: [
+      'Sabbath School classes (Ages 3–12) - Every Sabbath 9:00–10:30 AM',
+      'Children’s Choir - Every 2nd & 4th Sabbath 3:00 PM',
+      'Bible Memory Verses & Games - Every Sabbath Afternoon',
+    ],
+    contact: {
+      name: 'Sister Grace Mwangi',
     },
-    {
-      id: 'youth',
-      title: 'Youth & Pathfinder Club',
-      icon: <Users className="w-8 h-8" />,
-      description: 'Empowering teens through spiritual growth, leadership development, and outdoor adventures in the Pathfinder pledge and law.',
-      image: 'https://images.unsplash.com/photo-1549060279-7e168fcee0c2',
-      activities: [
-        'Camporee preparation - Every Sunday',
-        'Bible Bowl Competition - August 15',
-        'Missionary trip - September 5-7'
-      ],
-      contact: {
-        name: 'Brother David Omondi',
-      }
+  },
+  {
+    id: 'pathfinders',
+    title: 'Pathfinder Club',
+    icon: <Users className="w-8 h-8" />,
+    description:
+      'Empowering young people ages 10–15 through leadership, discipline, outdoor adventure, and service under the Pathfinder law.',
+    image: 'https://images.unsplash.com/photo-1549060279-7e168fcee0c2',
+    activities: [
+      'Club Meetings - Sundays 9:00 AM',
+      'Drill Practice & Camping Skills - Monthly',
+      'Pathfinder Camporee - July 2025',
+    ],
+    contact: {
+      name: 'Brother David Omondi',
     },
-    {
-      id: 'women',
-      title: 'Women\'s Ministries',
-      icon: <HeartHandshake className="w-8 h-8" />,
-      description: 'Strengthening and encouraging women in their spiritual journey through fellowship, Bible study, and service projects.',
-      image: 'https://images.unsplash.com/photo-1545231027-637d2f6210f8',
-      activities: [
-        'Monthly prayer breakfast - First Sunday',
-        'Women\'s retreat - October 12-14',
-        'Community outreach - Every Wednesday'
-      ],
-      contact: {
-        name: 'Sister Esther Wambui',
-      }
+  },
+  {
+    id: 'women',
+    title: "Women's Ministries",
+    icon: <HeartHandshake className="w-8 h-8" />,
+    description:
+      'Encouraging women to grow spiritually and support one another through prayer, service, and empowerment programs.',
+    image: 'https://images.unsplash.com/photo-1545231027-637d2f6210f8',
+    activities: [
+      'Prayer Breakfast - First Sunday of every month',
+      'Community Outreach - Wednesdays 3:00 PM',
+      'Women’s Retreat - September 12–14',
+    ],
+    contact: {
+      name: 'Sister Esther Wambui',
     },
-    {
-      id: 'men',
-      title: 'Men\'s Ministries',
-      icon: <BookHeart className="w-8 h-8" />,
-      description: 'Building godly men through accountability, discipleship, and service opportunities in the church and community.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
-      activities: [
-        'Men\'s prayer meeting - Fridays 6am',
-        'Workday projects - Third Sunday',
-        'Father/Son campout - November 8-10'
-      ],
-      contact: {
-        name: 'Brother James Kamau',
-      }
+  },
+  {
+    id: 'men',
+    title: 'Adventist Men’s Organization (AMO)',
+    icon: <BookHeart className="w-8 h-8" />,
+    description:
+      'Developing godly men who lead with integrity through fellowship, mentorship, and acts of service.',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d',
+    activities: [
+      'Men’s Prayer Breakfast - Every Friday 6:00 AM',
+      'Work Projects & Maintenance Days - 3rd Sunday Monthly',
+      'Father-Son Fellowship - August 18',
+    ],
+    contact: {
+      name: 'Brother James Kamau',
     },
-    {
-      id: 'ay',
-      title: 'Adventist Youth (AY)',
-      icon: <Activity className="w-8 h-8" />,
-      description: 'Dynamic programs for young adults including worship, outreach, and social activities centered on Christ.',
-      image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87',
-      activities: [
-        'AY Program - Every Saturday 4pm',
-        'Youth Evangelism Series - August 20-25',
-        'Sports Fellowship - Sundays 2pm'
-      ],
-      contact: {
-        name: 'Brother Peter Maina',
-      }
+  },
+  {
+    id: 'youth',
+    title: 'Youths & Young Adults Ministry',
+    icon: <Activity className="w-8 h-8" />,
+    description:
+      'Creating a space for young adults to grow in faith, leadership, and fellowship through worship and community engagement.',
+    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87',
+    activities: [
+      'AY Fellowship - Every Sabbath 4:00 PM',
+      'Youth Bible Study & Discussion - Fridays 6:30 PM',
+      'Social Sundays - Last Sunday of the Month',
+    ],
+    contact: {
+      name: 'Brother Peter Maina',
     },
-    {
-      id: 'music',
-      title: 'Music Ministry',
-      icon: <Music className="w-8 h-8" />,
-      description: 'Leading the congregation in worship through music and developing talents for God\'s glory.',
-      image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',
-      activities: [
-        'Choir practice - Thursdays 5pm',
-        'Music Workshop - August 3',
-        'Christmas Cantata rehearsals start Nov 1'
-      ],
-      contact: {
-        name: 'Brother Mark Ngugi',
-      }
+  },
+  {
+    id: 'welfare',
+    title: 'Welfare Ministry',
+    icon: <HandHeart className="w-8 h-8" />,
+    description:
+      'Extending Christ’s compassion through support and practical help to members and the surrounding community.',
+    image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216',
+    activities: [
+      'Food & Clothing Distribution - Last Sunday of each month',
+      'Visitation & Support for the Sick - Ongoing',
+      'Member Assistance Fund - Active Throughout the Year',
+    ],
+    contact: {
+      name: 'Sister Ruth Atieno',
     },
-    {
-      id: 'health',
-      title: 'Health Ministry',
-      icon: <Soup className="w-8 h-8" />,
-      description: 'Promoting wholistic health through education, screenings, and lifestyle programs based on biblical principles.',
-      image: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528',
-      activities: [
-        'Cooking classes - Second Sunday',
-        'Health Expo - September 14',
-        'Walking club - Daily 6am'
-      ],
-      contact: {
-        name: 'Dr. Sarah Kibuchi',
-      }
-    },
-    {
-      id: 'community',
-      title: 'Community Services',
-      icon: <HandHeart className="w-8 h-8" />,
-      description: 'Showing Christ\'s love through practical assistance to those in need within our community.',
-      image: 'https://images.unsplash.com/photo-1521791136064-7986c2920216',
-      activities: [
-        'Food distribution - Last Sunday',
-        'Clothing drive - Ongoing',
-        'Literacy program - Tuesdays 3pm'
-      ],
-      contact: {
-        name: 'Sister Ruth Atieno',
-      }
-    },
-    {
-      id: 'outreach',
-      title: 'Personal Ministries (Outreach & Evangelism)',
-      icon: <Mic2 className="w-8 h-8" />,
-      description: 'Equipping members to share their faith through Bible studies, evangelism, and discipleship programs.',
-      image: 'https://images.unsplash.com/photo-1544717305-2782549b5136',
-      activities: [
-        'Door-to-door outreach - Saturdays 10am',
-        'Bible study training - August 10',
-        'Crusade meetings - October 20-27'
-      ],
-      contact: {
-        name: 'Pastor John Mwangi',
-      }
-    }
-  ];
+  },
+];
+
 
   return (
     <>
@@ -191,7 +141,7 @@ const Ministries = () => {
                   <h3 className="text-xl font-bold mb-2">{ministry.title}</h3>
                   <p className="text-gray-600 mb-4">{ministry.description}</p>
 
-                  <div className="mt-4 pt-4 border-t border-gray-100">
+                  {/* <div className="mt-4 pt-4 border-t border-gray-100">
                     <div className="flex items-start mb-4">
                       <CalendarCheck className="w-5 h-5 text-blue-600 mt-1 mr-2" />
                       <div>
@@ -212,7 +162,7 @@ const Ministries = () => {
                         <p className="text-gray-600">{ministry.contact.name}</p>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             ))}

@@ -7,6 +7,7 @@ import GetInvolved from './Pages/GetInvolved'
 import  Giving from './Pages/Giving'
 import Contact from './Pages/Contact'
 import Resources from './Pages/Resources'
+import MinistriesDetails from './Pages/MinistriesDetails'
 function App() {
 
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path='/getinvolved' element={<GetInvolved/>}/>
           <Route path='/giving' element={<Giving/>}/>
           <Route path='/resources' element={<Resources/>}/>
+          <Route path='/ministriesdetail' element= {<MinistriesDetails/>}/>
         </Routes>
       </BrowserRouter>
     </>
