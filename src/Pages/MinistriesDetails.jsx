@@ -3,6 +3,7 @@ import {
   ArrowLeft, Calendar, Clock, MapPin, Users, Phone, Mail, 
   UserPlus, Target, Heart, CheckCircle 
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function MinistriesDetail() {
   const sampleGallery = [
@@ -52,12 +53,14 @@ export default function MinistriesDetail() {
       {/* Header */}
       <div className="bg-white shadow-sm">
         <div className="container mx-auto px-6 py-4">
+          <Link to='/ministries'>
           <button
             className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
             Back to Ministries
           </button>
+          </Link>
         </div>
       </div>
 
@@ -67,7 +70,7 @@ export default function MinistriesDetail() {
         style={{ backgroundImage: `url('https://images.unsplash.com/photo-1601758003122-53c40e686a19')` }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center">
-          <div className="container mx-auto px-6 text-white max-w-3xl">
+          <div className="container mx-auto px-6 text-white">
             <div className="flex items-center gap-4 mb-4">
               <Heart className="w-8 h-8 text-white" />
               <h1 className="text-4xl font-bold">Children’s Ministry</h1>
@@ -105,7 +108,7 @@ export default function MinistriesDetail() {
               </div>
               <div className="grid md:grid-cols-2 gap-6">
                 {samplePrograms.map((program, index) => (
-                  <div key={index} className="bg-white p-6 rounded-lg shadow-sm border">
+                  <div key={index} className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
                     <h3 className="text-lg font-semibold mb-3">{program.title}</h3>
                     <p className="text-gray-600 mb-3">{program.description}</p>
                     <div className="flex items-center gap-2 text-sm text-blue-600">
@@ -122,7 +125,7 @@ export default function MinistriesDetail() {
               <h2 className="text-2xl font-bold mb-6">Photo Gallery</h2>
               <div className="grid md:grid-cols-3 gap-4">
                 {sampleGallery.map((img, index) => (
-                  <div key={index} className="aspect-square overflow-hidden rounded-lg">
+                  <div key={index} className="aspect-square overflow-hidden rounded-3xl">
                     <img 
                       src={img} 
                       alt={`Children Ministry ${index + 1}`} 
@@ -141,7 +144,7 @@ export default function MinistriesDetail() {
               </div>
               <div className="space-y-6">
                 {sampleEvents.map((event) => (
-                  <div key={event.id} className="bg-white p-6 rounded-lg shadow-sm border-l-4 border-blue-600">
+                  <div key={event.id} className="bg-white p-6 rounded-3xl shadow-sm ">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                       <h3 className="text-xl font-semibold">{event.title}</h3>
                       {event.registrationRequired && (
@@ -176,7 +179,7 @@ export default function MinistriesDetail() {
           <div className="space-y-8">
             
             {/* Meeting Info */}
-            <div className="bg-white p-6 rounded-lg shadow-sm">
+            <div className="bg-white p-6 rounded-3xl shadow-sm">
               <h3 className="text-lg font-semibold mb-4">Regular Meetings</h3>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
@@ -191,7 +194,7 @@ export default function MinistriesDetail() {
             </div>
 
             {/* Contacts */}
-            <div className="bg-white p-6 rounded-lg shadow-sm">
+            <div className="bg-white p-6 rounded-3xl shadow-sm">
               <div className="flex items-center gap-3 mb-4">
                 <UserPlus className="w-5 h-5 text-blue-600" />
                 <h3 className="text-lg font-semibold">Get Involved</h3>
@@ -216,7 +219,7 @@ export default function MinistriesDetail() {
             </div>
 
             {/* CTA */}
-            <div className="bg-blue-600 text-white p-6 rounded-lg">
+            <div className="bg-blue-600 text-white p-6 rounded-3xl">
               <div className="flex items-center gap-3 mb-4">
                 <Users className="w-6 h-6" />
                 <h3 className="text-lg font-semibold">Join Our Ministry</h3>
@@ -224,7 +227,7 @@ export default function MinistriesDetail() {
               <p className="mb-4 text-blue-100">
                 Ready to get involved? Visit us or reach out to our ministry leader.
               </p>
-              <button className="w-full bg-white text-blue-600 py-2 px-4 rounded-lg font-semibold hover:bg-blue-50 transition">
+              <button className="w-full bg-white text-blue-600 py-2 px-4 rounded-3xl font-semibold hover:bg-blue-50 transition">
                 Get Started Today
               </button>
             </div>

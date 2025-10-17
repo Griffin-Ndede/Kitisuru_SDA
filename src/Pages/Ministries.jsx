@@ -4,6 +4,7 @@ import {
   Soup, HandHeart, Mic2, CalendarCheck, Phone, Mail
 } from 'lucide-react';
 import Navbar from '../Components/Navbar';
+import { Link } from 'react-router-dom';
 
 const Ministries = () => {
   const ministries = [
@@ -120,6 +121,8 @@ const Ministries = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {ministries.map((ministry) => (
+             <Link to='/ministriesdetail'>
+             
               <div 
                 key={ministry.id} 
                 className="bg-white rounded-3xl shadow-xl overflow-hidden"
@@ -165,6 +168,7 @@ const Ministries = () => {
                   </div> */}
                 </div>
               </div>
+              </Link>
             ))}
           </div>
         </div>
