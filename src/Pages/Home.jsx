@@ -80,7 +80,6 @@ function Home() {
     }
   ];
 
-
   return (
     <>
       <div className="min-h-screen bg-white">
@@ -160,7 +159,7 @@ function Home() {
         {/* Upcoming Events */}
 
         <section className="bg-gray-50" id='upcoming'>
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-6 py-10">
             <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Upcoming Events</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {upcomingEvents
