@@ -161,13 +161,13 @@ function Home() {
         <section className="bg-gray-50" id='upcoming'>
           <div className="container mx-auto px-6 py-10">
             <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Upcoming Events</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="flex flex-wrap gap-8">
               {upcomingEvents
                 .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
                 .map((event, index) => (
                   <div
                     key={index}
-                    className="relative bg-white p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
+                    className="relative bg-white p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 w-xl mx-auto"
                   >
                     {/* Category Badge */}
                     <span className="absolute top-4 right-4 bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">
