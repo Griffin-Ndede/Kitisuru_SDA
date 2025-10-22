@@ -7,6 +7,7 @@ import Navbar from '../Components/Navbar';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+
 const Ministries = () => {
   // const ministries = [
   //   {
@@ -111,7 +112,7 @@ const Ministries = () => {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/ministries/ministries/")
+      .get('http://127.0.0.1:8000/ministries/ministries/')
       .then((response) => {
         setMinistries(response.data);
       })
@@ -135,7 +136,7 @@ console.log(ministries)
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {ministries.map((ministry) => (
-              <Link to='/ministriesdetail'>
+              <Link to={`/ministries/${ministry.id}/`}>
                 <div
                   key={ministry.id}
                   className="bg-white rounded-3xl shadow-xl overflow-hidden"

@@ -21,7 +21,7 @@ function App() {
           <Route path='/getinvolved' element={<GetInvolved/>}/>
           <Route path='/giving' element={<Giving/>}/>
           <Route path='/resources' element={<Resources/>}/>
-          <Route path='/ministriesdetail' element= {<MinistriesDetails/>}/>
+          <Route path='/ministries/:id' element= {<MinistriesDetails/>}/>
         </Routes>
       </BrowserRouter>
     </>
