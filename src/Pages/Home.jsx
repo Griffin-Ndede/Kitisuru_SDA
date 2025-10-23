@@ -1,10 +1,11 @@
-import React from 'react'
+import { React, useEffect, useState } from 'react'
 import { Calendar, Heart, Book, Users, ChevronDown, MapPin } from 'lucide-react';
 import { faBible, faBookOpen, faHandsPraying, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Footer from '../Components/Footer';
 import Navbar from '../Components/Navbar';
 import videoBg from '../assets/nature video.mp4'
+import axios from 'axios';
 
 
 function Home() {
@@ -31,55 +32,65 @@ function Home() {
       time: "1430hrs - 1600hrs"
     }
   ];
+  const [events, setEvents] = useState([])
 
-  const upcomingEvents = [
-    {
-      title: "Youth Camp Meeting",
-      description:
-        "A weekend of worship, bonding, and adventure for all youth members. Don’t forget your camping gear!",
-      startDate: "2025-12-05",
-      endDate: "2025-12-08",
-      location: "Naivasha Adventist Camp Grounds",
-      category: "Youth Ministry"
-    },
-    {
-      title: "Church Music Day",
-      description:
-        "A day dedicated to praising God through song. Choirs and soloists from across the district will participate.",
-      startDate: "2025-11-09",
-      endDate: "2025-11-09",
-      location: "Nairobi Central SDA Church",
-      category: "Music Ministry"
-    },
-    {
-      title: "Community Outreach Sabbath",
-      description:
-        "Join us in visiting nearby hospitals and children’s homes to share hope and kindness.",
-      startDate: "2025-11-23",
-      endDate: "2025-11-23",
-      location: "Kayole Community Center",
-      category: "Outreach"
-    },
-    {
-      title: "Women’s Prayer Breakfast",
-      description:
-        "An inspiring morning of fellowship, testimonies, and prayer led by the Women’s Ministry department.",
-      startDate: "2025-12-14",
-      endDate: "2025-12-14",
-      location: "Parklands SDA Church Hall",
-      category: "Women's Ministry"
-    },
-    {
-      title: "Pathfinder Hike and Adventure",
-      description:
-        "Pathfinders will explore Karura Forest in this year’s adventure outing — filled with teamwork and fun challenges.",
-      startDate: "2026-01-18",
-      endDate: "2026-01-19",
-      location: "Karura Forest, Nairobi",
-      category: "Pathfinder Club"
-    }
-  ];
-
+  // const upcomingEvents = [
+  //   {
+  //     title: "Youth Camp Meeting",
+  //     description:
+  //       "A weekend of worship, bonding, and adventure for all youth members. Don’t forget your camping gear!",
+  //     startDate: "2025-12-05",
+  //     endDate: "2025-12-08",
+  //     location: "Naivasha Adventist Camp Grounds",
+  //     category: "Youth Ministry"
+  //   },
+  //   {
+  //     title: "Church Music Day",
+  //     description:
+  //       "A day dedicated to praising God through song. Choirs and soloists from across the district will participate.",
+  //     startDate: "2025-11-09",
+  //     endDate: "2025-11-09",
+  //     location: "Nairobi Central SDA Church",
+  //     category: "Music Ministry"
+  //   },
+  //   {
+  //     title: "Community Outreach Sabbath",
+  //     description:
+  //       "Join us in visiting nearby hospitals and children’s homes to share hope and kindness.",
+  //     startDate: "2025-11-23",
+  //     endDate: "2025-11-23",
+  //     location: "Kayole Community Center",
+  //     category: "Outreach"
+  //   },
+  //   {
+  //     title: "Women’s Prayer Breakfast",
+  //     description:
+  //       "An inspiring morning of fellowship, testimonies, and prayer led by the Women’s Ministry department.",
+  //     startDate: "2025-12-14",
+  //     endDate: "2025-12-14",
+  //     location: "Parklands SDA Church Hall",
+  //     category: "Women's Ministry"
+  //   },
+  //   {
+  //     title: "Pathfinder Hike and Adventure",
+  //     description:
+  //       "Pathfinders will explore Karura Forest in this year’s adventure outing — filled with teamwork and fun challenges.",
+  //     startDate: "2026-01-18",
+  //     endDate: "2026-01-19",
+  //     location: "Karura Forest, Nairobi",
+  //     category: "Pathfinder Club"
+  //   }
+  // ];
+  useEffect(() => {
+    axios
+      .get('http://127.0.0.1:8000/video-library/upcoming-events/')
+      .then((response) => {
+        setEvents(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching events:", error);
+      });
+  }, []);
   return (
     <>
       <div className="min-h-screen bg-white">
@@ -162,7 +173,7 @@ function Home() {
           <div className="container mx-auto px-6 py-10">
             <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Upcoming Events</h2>
             <div className="flex flex-wrap gap-8">
-              {upcomingEvents
+              {events
                 .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
                 .map((event, index) => (
                   <div
@@ -195,7 +206,7 @@ function Home() {
                       <div className="flex items-center gap-2">
                         <Calendar strokeWidth={1} size={24} absoluteStrokeWidth className="text-blue-600" />
                         <span className="text-gray-700">
-                          {event.startDate} <span className="text-gray-400">–</span> {event.endDate}
+                          {event.start_date} <span className="text-gray-400">–</span> {event.end_date}
                         </span>
                       </div>
                     </div>
