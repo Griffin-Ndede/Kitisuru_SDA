@@ -83,7 +83,7 @@ function Home() {
   // ];
   useEffect(() => {
     axios
-      .get('http://127.0.0.1:8000/video-library/upcoming-events/')
+      .get('http://127.0.0.1:8000/content-library/upcoming-events/')
       .then((response) => {
         setEvents(response.data);
       })
@@ -172,47 +172,62 @@ function Home() {
         <section className="bg-gray-50" id='upcoming'>
           <div className="container mx-auto px-6 py-10">
             <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Upcoming Events</h2>
-            <div className="flex flex-wrap gap-8">
-              {events
-                .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
-                .map((event, index) => (
-                  <div
-                    key={index}
-                    className="relative bg-white p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 w-xl mx-auto"
-                  >
-                    {/* Category Badge */}
-                    <span className="absolute top-4 right-4 bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">
-                      {event.category}
-                    </span>
+            {events.length === 0 ? (
+               
+                <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-fit mx-auto border border-slate-200">
+                  <div className="bg-blue-100  rounded-full mb-4">
+                    <Calendar className="w-10 h-10 text-blue-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold">No Events Yet!</h3>
+                  <p className="text-gray-600 mt-2 text-center px-3 w-2/3">
+                    Looks like there are no upcoming events at the moment. Stay tuned — new events will appear here soon!
+                  </p>
+                </div>
 
-                    {/* Icon */}
-                    <Calendar className="w-8 h-8 text-blue-600 mb-4" />
+            ) : (
+              <div className="flex flex-wrap gap-8">
+                {events
+                  .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+                  .map((event, index) => (
+                    <div
+                      key={index}
+                      className="relative bg-white p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 w-xl mx-auto"
+                    >
+                      {/* Category Badge */}
+                      <span className="absolute top-4 right-4 bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">
+                        {event.category}
+                      </span>
 
-                    {/* Title */}
-                    <h3 className="text-xl font-bold mb-2">{event.title}</h3>
+                      {/* Icon */}
+                      <Calendar className="w-8 h-8 text-blue-600 mb-4" />
 
-                    {/* Description */}
-                    <p className=" mb-6">{event.description}</p>
+                      {/* Title */}
+                      <h3 className="text-xl font-bold mb-2">{event.title}</h3>
 
-                    {/* Location & Dates */}
-                    <div className="border-t border-gray-100 pt-4 flex flex-col md:flex-row md:items-center md:justify-between text-sm text-gray-600">
-                      {/* Location */}
-                      <div className="flex items-center gap-2 mb-2 md:mb-0">
-                        <MapPin strokeWidth={1} size={24} absoluteStrokeWidth className='text-blue-600' />
-                        <span className="font-light text-base">{event.location}</span>
-                      </div>
+                      {/* Description */}
+                      <p className=" mb-6">{event.description}</p>
 
-                      {/* Dates */}
-                      <div className="flex items-center gap-2">
-                        <Calendar strokeWidth={1} size={24} absoluteStrokeWidth className="text-blue-600" />
-                        <span className="text-gray-700">
-                          {event.start_date} <span className="text-gray-400">–</span> {event.end_date}
-                        </span>
+                      {/* Location & Dates */}
+                      <div className="border-t border-gray-100 pt-4 flex flex-col md:flex-row md:items-center md:justify-between text-sm text-gray-600">
+                        {/* Location */}
+                        <div className="flex items-center gap-2 mb-2 md:mb-0">
+                          <MapPin strokeWidth={1} size={24} absoluteStrokeWidth className='text-blue-600' />
+                          <span className="font-light text-base">{event.location}</span>
+                        </div>
+
+                        {/* Dates */}
+                        <div className="flex items-center gap-2">
+                          <Calendar strokeWidth={1} size={24} absoluteStrokeWidth className="text-blue-600" />
+                          <span className="text-gray-700">
+                            {event.start_date} <span className="text-gray-400">–</span> {event.end_date}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-            </div>
+                  ))}
+              </div>
+            )}
+
           </div>
         </section>
         <section className="min-h-fit bg-gray-200 p-6 sm:p-10">
