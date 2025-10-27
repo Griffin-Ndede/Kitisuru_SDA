@@ -7,11 +7,7 @@ export default function MinistriesDetail() {
   const [ministry, setMinistry] = useState(null);
   const { id } = useParams()
 
-  const sampleGallery =
-    ['https://images.unsplash.com/photo-1601758003122-53c40e686a19',
-      'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4',
-      'https://images.unsplash.com/photo-1540575467063-178a50c2df87'
-    ];
+ 
 
   useEffect(() => {
     axios
@@ -23,6 +19,8 @@ export default function MinistriesDetail() {
   if (!ministry) {
     return <div className="text-center mt-20">Loading ministry details...</div>;
   }
+ const cloudName = "dfycvaiv7";
+  const imageUrl = `https://res.cloudinary.com/${cloudName}`;
 
   console.log(ministry);
 
@@ -99,8 +97,8 @@ export default function MinistriesDetail() {
             <section>
               <h2 className="text-2xl font-bold mb-6">Photo Gallery</h2>
               <div className="grid md:grid-cols-3 gap-4">
-                {sampleGallery.map((img, index) => (<div key={index} className="aspect-square overflow-hidden rounded-3xl">
-                  <img src={img} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                {ministry.gallery_images?.map((img, index) => (<div key={index} className="aspect-square overflow-hidden rounded-3xl">
+                  <img src={`${imageUrl}/${img.image}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
                 </div>
                 ))}
               </div>
@@ -152,7 +150,7 @@ export default function MinistriesDetail() {
               {ministry.contacts?.map((contact) => (
                 <div key={contact.id} className="flex items-start gap-4">
                   <img
-                    src={contact.photo || "https://randomuser.me/api/portraits/men/32.jpg"}
+                    src={`${imageUrl}/${contact.image}`}
                     alt={contact.name}
                     className="w-12 h-12 rounded-full object-cover"
                   />
