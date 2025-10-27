@@ -61,8 +61,7 @@ export default function MinistriesDetail() {
         <div className="grid lg:grid-cols-3 gap-12">
 
           {/* Left Column */}
-          <div className="lg:col-span-2 space-y-12">
-
+          <div className="lg:col-span-2 space-y-12 w-full">
             {/* Mission */}
             <section>
               <div className="flex items-center gap-3 mb-6">
@@ -93,11 +92,11 @@ export default function MinistriesDetail() {
                 ) : (
                   <div>Failed to load programs</div>
                 )}
-
               </div>
             </section>
 
-            {/* Gallery */} <section>
+            {/* Gallery */} 
+            <section>
               <h2 className="text-2xl font-bold mb-6">Photo Gallery</h2>
               <div className="grid md:grid-cols-3 gap-4">
                 {sampleGallery.map((img, index) => (<div key={index} className="aspect-square overflow-hidden rounded-3xl">
@@ -140,7 +139,6 @@ export default function MinistriesDetail() {
                 ))}
               </div>
             </section>
-
           </div>
 
           {/* Sidebar */}

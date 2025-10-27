@@ -14,6 +14,9 @@ const Ministries = () => {
       .catch((error) => console.error("Error fetching ministries:", error));
   }, []);
 
+  const cloudName = "dfycvaiv7";
+  const imageUrl = `https://res.cloudinary.com/${cloudName}`;
+
   return (
     <>
       <Navbar />
@@ -30,18 +33,19 @@ const Ministries = () => {
           </div>
 
           {/* Ministries Grid */}
-         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {ministries
               .sort((a, b) => a.title.localeCompare(b.title))
               .map((ministry) => (
-                <Link to={`/ministries/${ministry.id}/`}>
+                <Link
+                  key={ministry.id}
+                  to={`/ministries/${ministry.id}/`}>
                   <div
-                    key={ministry.id}
                     className="bg-white rounded-3xl shadow-xl overflow-hidden h-64"
                   >
                     <div className="group relative block rounded-3xl shadow-sm  overflow-hidden">
                       <img
-                        src={ministry.image}
+                        src={`${imageUrl}/${ministry.image}`}
                         alt={ministry.title}
                         className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500"
                       />
@@ -59,9 +63,9 @@ const Ministries = () => {
                       </div>
                     </div>
                   </div>
-                   <h3 className="mt-3 font-semibold text-lg px-2 text-center">
-                      {ministry.title}
-                    </h3>
+                  <h3 className="mt-3 font-semibold text-lg px-2 text-center">
+                    {ministry.title}
+                  </h3>
                 </Link>
               ))}
           </div>
