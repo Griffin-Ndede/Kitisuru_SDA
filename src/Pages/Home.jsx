@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from 'react'
-import { Calendar, Heart, Book, Users, ChevronDown, MapPin } from 'lucide-react';
+import { Calendar, Heart, Book, Users, ChevronDown, Play, Clock, MapPin, CirclePlay } from 'lucide-react';
 import { faBible, faBookOpen, faHandsPraying, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Footer from '../Components/Footer';
@@ -33,54 +33,8 @@ function Home() {
     }
   ];
   const [events, setEvents] = useState([])
+  const [youtubeContent, setYoutubeContent] = useState([])
 
-  // const upcomingEvents = [
-  //   {
-  //     title: "Youth Camp Meeting",
-  //     description:
-  //       "A weekend of worship, bonding, and adventure for all youth members. Don’t forget your camping gear!",
-  //     startDate: "2025-12-05",
-  //     endDate: "2025-12-08",
-  //     location: "Naivasha Adventist Camp Grounds",
-  //     category: "Youth Ministry"
-  //   },
-  //   {
-  //     title: "Church Music Day",
-  //     description:
-  //       "A day dedicated to praising God through song. Choirs and soloists from across the district will participate.",
-  //     startDate: "2025-11-09",
-  //     endDate: "2025-11-09",
-  //     location: "Nairobi Central SDA Church",
-  //     category: "Music Ministry"
-  //   },
-  //   {
-  //     title: "Community Outreach Sabbath",
-  //     description:
-  //       "Join us in visiting nearby hospitals and children’s homes to share hope and kindness.",
-  //     startDate: "2025-11-23",
-  //     endDate: "2025-11-23",
-  //     location: "Kayole Community Center",
-  //     category: "Outreach"
-  //   },
-  //   {
-  //     title: "Women’s Prayer Breakfast",
-  //     description:
-  //       "An inspiring morning of fellowship, testimonies, and prayer led by the Women’s Ministry department.",
-  //     startDate: "2025-12-14",
-  //     endDate: "2025-12-14",
-  //     location: "Parklands SDA Church Hall",
-  //     category: "Women's Ministry"
-  //   },
-  //   {
-  //     title: "Pathfinder Hike and Adventure",
-  //     description:
-  //       "Pathfinders will explore Karura Forest in this year’s adventure outing — filled with teamwork and fun challenges.",
-  //     startDate: "2026-01-18",
-  //     endDate: "2026-01-19",
-  //     location: "Karura Forest, Nairobi",
-  //     category: "Pathfinder Club"
-  //   }
-  // ];
   useEffect(() => {
     axios
       .get('http://127.0.0.1:8000/content-library/upcoming-events/')
@@ -91,6 +45,32 @@ function Home() {
         console.error("Error fetching events:", error);
       });
   }, []);
+
+  useEffect(() => {
+    axios
+      .get('http://127.0.0.1:8000/content-library/youtube-links/')
+      .then((response) => {
+        setYoutubeContent(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching events:", error);
+      });
+  }, []);
+  if (!youtubeContent) return <p>Loading...</p>;
+
+
+  // Helper function to extract video ID from any YouTube URL
+  const getYoutubeVideoId = (url) => {
+    if (!url) return null;
+
+    const regExp =
+      /(?:youtube\.com\/(?:watch\?v=|embed\/|live\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(regExp);
+    return match ? match[1] : null;
+  };
+
+
+
   return (
     <>
       <div className="min-h-screen bg-white">
@@ -144,45 +124,22 @@ function Home() {
             </div>
           </div>
         </section>
-        {/* Ministries */}
-        {/* <section className="py-16" id='ministries'>
-          <div className="container mx-auto px-6">
-            <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Our Ministries</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center rounded-4xl p-4 shadow-2xl">
-                <Users strokeWidth={1.5} className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2  mx-auto">Community Outreach</h3>
-                <p className="text-gray-600 font-light">Serving our community through various programs and initiatives.</p>
-              </div>
-              <div className="text-center  rounded-4xl p-4 shadow-2xl">
-                <Heart strokeWidth={1.5} className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2  mx-auto">Health Ministry</h3>
-                <p className="text-gray-600 font-light">Promoting wholistic health and wellness through education and support.</p>
-              </div>
-              <div className="text-center rounded-4xl p-4 shadow-2xl">
-                <Book strokeWidth={1.5} className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold mb-2  mx-auto">Bible Study</h3>
-                <p className="text-gray-600 font-light">Deep dive into Scripture through various study groups and classes.</p>
-              </div>
-            </div>
-          </div>
-        </section> */}
-        {/* Upcoming Events */}
 
+        {/* Upcoming Events */}
         <section className="bg-gray-50" id='upcoming'>
           <div className="container mx-auto px-6 py-10">
             <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Upcoming Events</h2>
             {events.length === 0 ? (
-               
-                <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-fit mx-auto border border-slate-200">
-                  <div className="bg-blue-100  rounded-full mb-4">
-                    <Calendar className="w-10 h-10 text-blue-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold">No Events Yet!</h3>
-                  <p className="text-gray-600 mt-2 text-center px-3 w-2/3">
-                    Looks like there are no upcoming events at the moment. Stay tuned — new events will appear here soon!
-                  </p>
+
+              <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-fit mx-auto">
+                <div className="bg-blue-100  rounded-full mb-4">
+                  <Calendar className="w-10 h-10 text-blue-600" />
                 </div>
+                <h3 className="text-2xl font-bold">No Events Yet!</h3>
+                <p className="text-gray-600 mt-2 text-center px-3 w-2/3">
+                  Looks like there are no upcoming events at the moment. Stay tuned — new events will appear here soon!
+                </p>
+              </div>
 
             ) : (
               <div className="flex flex-wrap gap-8">
@@ -208,7 +165,7 @@ function Home() {
                       <p className=" mb-6">{event.description}</p>
 
                       {/* Location & Dates */}
-                      <div className="border-t border-gray-100 pt-4 flex flex-col md:flex-row md:items-center md:justify-between text-sm text-gray-600">
+                      <div className="border-t border-gray-200 w-full pt-4 flex flex-col md:flex-row md:items-center md:justify-between text-sm text-gray-600">
                         {/* Location */}
                         <div className="flex items-center gap-2 mb-2 md:mb-0">
                           <MapPin strokeWidth={1} size={24} absoluteStrokeWidth className='text-blue-600' />
@@ -230,40 +187,59 @@ function Home() {
 
           </div>
         </section>
-        <section className="min-h-fit bg-gray-200 p-6 sm:p-10">
-          <h1 className="text-center font-bold text-3xl sm:text-4xl text-blue-600 mb-8">
-            Latest Sermons
-          </h1>
+        {/* 🎥 Video Gallery Section */}
+        <section className="min-h-screen bg-white" id="videos">
+          <div className=" mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <header className="mb-16 text-center">
+              <h1 className="text-5xl font-bold text-slate-900 mb-4">Video Gallery</h1>
+              <p className="text-slate-600 text-xl max-w-2xl mx-auto">
+                Discover our curated collection of sermons and inspirational videos
+              </p>
+            </header>
 
-          {/* Sermon Item */}
-          {Array(4).fill(0).map((_, i) => (
-            <div
-              key={i}
-              className="flex flex-col sm:flex-row items-center gap-6 sm:gap-10 mx-auto justify-center mt-6 bg-white/50 rounded-3xl p-6 shadow-sm"
-            >
-              <video
-                src={videoBg}
-                autoPlay
-                loop
-                muted
-                className="w-full sm:w-96 h-56 sm:h-fit rounded-3xl object-cover"
-              />
-              <div className="flex flex-col items-center sm:items-start gap-4 sm:w-1/2">
-                <h2 className="font-semibold text-lg sm:text-xl text-gray-800 text-center sm:text-left">
-                  Title: Lorem ipsum dolor sit amet.
-                </h2>
-                <p className="bg-blue-100 p-4 sm:p-6 rounded-2xl text-gray-700 leading-relaxed text-sm sm:text-base text-center sm:text-left">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit dicta veritatis
-                  doloremque quaerat, dolorum corrupti omnis rerum quo natus placeat illo. Dicta quas
-                  asperiores laborum sequi rem illum autem suscipit in! Inventore nisi architecto vero.
-                  Adipisci obcaecati exercitationem, totam cum unde vero labore id eos a alias? Qui,
-                  dolorum ullam.
+            {youtubeContent.length === 0 ? (
+              <div className="flex items-center justify-center py-20">
+                <p className="text-red-600 text-lg">
+                  No videos available yet. Check back soon!
                 </p>
               </div>
-            </div>
-          ))}
-        </section>
+            ) : (
+              <div className="gap-8 grid md:grid-cols-3">
+                {youtubeContent.map((video, index) => {
+                  const videoId = getYoutubeVideoId(video.youtube_url);
 
+                  return (
+                    <div
+                      key={video.id}
+                      className="rounded-3xl overflow-hidden  border border-slate-200 hover:shadow-2xl transition-all duration-500"
+                    >
+                      <div className="">
+                        {/* 🎞️ Embedded Player */}
+                        <div className="relative aspect-video">
+                          <iframe
+                            className="w-full h-full rounded-none"
+                            src={`https://www.youtube.com/embed/${videoId}`}
+                            title={video.title}
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                          />
+                        </div>
+                      </div>
+                      <div className=" p-2 justify-center text-center border-t border-t-slate-200">
+                        <h3 className="text-2xl font-bold mb-3">
+                          {video.title}
+                        </h3>
+                        <p className=" text-base text-blue-600 leading-relaxed line-clamp-2">
+                          {video.description}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </section>
         <Footer />
       </div>
     </>
