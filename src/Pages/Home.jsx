@@ -1,12 +1,10 @@
-import { React, useEffect, useState } from 'react'
-import { Calendar, Heart, Book, Users, ChevronDown, Play, Clock, MapPin, CirclePlay } from 'lucide-react';
+import { Calendar, MapPin} from 'lucide-react';
 import { faBible, faBookOpen, faHandsPraying, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Footer from '../Components/Footer';
 import Navbar from '../Components/Navbar';
 import videoBg from '../assets/nature video.mp4'
-import axios from 'axios';
-
+import { useLoaderData } from 'react-router';
 
 function Home() {
 
@@ -32,32 +30,10 @@ function Home() {
       time: "1430hrs - 1600hrs"
     }
   ];
-  const [events, setEvents] = useState([])
-  const [youtubeContent, setYoutubeContent] = useState([])
 
-  useEffect(() => {
-    axios
-      .get('http://127.0.0.1:8000/content-library/upcoming-events/')
-      .then((response) => {
-        setEvents(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching events:", error);
-      });
-  }, []);
+  const { youtubeContent, upcomingEvents } = useLoaderData()
 
-  useEffect(() => {
-    axios
-      .get('http://127.0.0.1:8000/content-library/youtube-links/')
-      .then((response) => {
-        setYoutubeContent(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching events:", error);
-      });
-  }, []);
   if (!youtubeContent) return <p>Loading...</p>;
-
 
   // Helper function to extract video ID from any YouTube URL
   const getYoutubeVideoId = (url) => {
@@ -68,8 +44,6 @@ function Home() {
     const match = url.match(regExp);
     return match ? match[1] : null;
   };
-
-
 
   return (
     <>
@@ -129,8 +103,7 @@ function Home() {
         <section className="bg-gray-50" id='upcoming'>
           <div className="container mx-auto px-6 py-10">
             <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Upcoming Events</h2>
-            {events.length === 0 ? (
-
+            {upcomingEvents.length === 0 ? (
               <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-fit mx-auto">
                 <div className="bg-blue-100  rounded-full mb-4">
                   <Calendar className="w-10 h-10 text-blue-600" />
@@ -143,7 +116,7 @@ function Home() {
 
             ) : (
               <div className="flex flex-wrap gap-8">
-                {events
+                {upcomingEvents
                   .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
                   .map((event, index) => (
                     <div

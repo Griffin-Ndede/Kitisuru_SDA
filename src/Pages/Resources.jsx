@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../Components/Navbar';
-import BASE_URL from '../../config';
+import BASE_URL from '../config';
 
 const Resources = () => {
     const [documents, setDocuments] = useState([]);

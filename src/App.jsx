@@ -4,47 +4,48 @@ import About from './Pages/About'
 import './index.css'
 import Ministries from './Pages/Ministries'
 import GetInvolved from './Pages/GetInvolved'
-import  Giving from './Pages/Giving'
+import Giving from './Pages/Giving'
 import Contact from './Pages/Contact'
 import Resources from './Pages/Resources'
 import MinistriesDetails from './Pages/MinistriesDetails'
+import { homeLoader } from './Loaders/Homeloader'
 function App() {
 
   const Router = createBrowserRouter([
-     {
+    {
       path: "/",
       element: <Home />,
+      loader: homeLoader
     },
     {
       path: '/about',
-      element:<About/>
+      element: <About />
     },
     {
       path: '/ministries',
-      element: <Ministries/>
+      element: <Ministries />
     },
     {
       path: '/contact',
-      element: <Contact/>
+      element: <Contact />
     },
     {
       path: '/getinvolved',
-      element: <GetInvolved/>
+      element: <GetInvolved />
     },
     {
       path: '/giving',
-      element: <Giving/>
+      element: <Giving />
     },
     {
       path: '/resources',
-      element: <Resources/>
+      element: <Resources />
     },
     {
       path: '/ministries/:id',
-      element: <MinistriesDetails/>
+      element: <MinistriesDetails />
     }
   ])
- 
 
   return (
     <>
