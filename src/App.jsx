@@ -9,6 +9,8 @@ import Contact from './Pages/Contact'
 import Resources from './Pages/Resources'
 import MinistriesDetails from './Pages/MinistriesDetails'
 import { homeLoader } from './Loaders/Homeloader'
+import { ministriesLoader } from './Loaders/MinistriesLoader'
+import { ministriesDetailsLoader } from './Loaders/MinistriesDetailsLoader'
 function App() {
 
   const Router = createBrowserRouter([
@@ -19,11 +21,13 @@ function App() {
     },
     {
       path: '/about',
-      element: <About />
+      element: <About />,
+
     },
     {
       path: '/ministries',
-      element: <Ministries />
+      element: <Ministries />,
+      loader: ministriesLoader
     },
     {
       path: '/contact',
@@ -43,7 +47,8 @@ function App() {
     },
     {
       path: '/ministries/:id',
-      element: <MinistriesDetails />
+      element: <MinistriesDetails />,
+      loader: ministriesDetailsLoader
     }
   ])
 

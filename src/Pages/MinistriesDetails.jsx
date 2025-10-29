@@ -1,25 +1,14 @@
-import { useEffect, useState } from 'react';
 import { ArrowLeft, Calendar, Clock, MapPin, Users, Phone, Mail, UserPlus, Target, Heart } from 'lucide-react';
-import { Link, useParams } from 'react-router';
-import axios from 'axios';
+import { Link, useLoaderData, useParams } from 'react-router';
 
 export default function MinistriesDetail() {
-  const [ministry, setMinistry] = useState(null);
-  const { id } = useParams()
 
- 
-
-  useEffect(() => {
-    axios
-      .get(`http://127.0.0.1:8000/ministries/ministries/${id}/`)
-      .then((response) => setMinistry(response.data))
-      .catch((error) => console.error("Error fetching ministry:", error));
-  }, [id]);
+  const { ministry } = useLoaderData()
 
   if (!ministry) {
     return <div className="text-center mt-20">Loading ministry details...</div>;
   }
- const cloudName = "dfycvaiv7";
+  const cloudName = "dfycvaiv7";
   const imageUrl = `https://res.cloudinary.com/${cloudName}`;
 
   console.log(ministry);
@@ -49,7 +38,7 @@ export default function MinistriesDetail() {
               <Heart className="w-8 h-8 text-white" />
               <h1 className="text-4xl font-bold">{ministry?.title}</h1>
             </div>
-            <p className="text-xl leading-relaxed">{ministry?.description}</p>
+            <p className="md:text-lg text-smbase font-extralight leading-relaxed md:w-4/6">{ministry?.description}</p>
           </div>
         </div>
       </div>
@@ -93,7 +82,7 @@ export default function MinistriesDetail() {
               </div>
             </section>
 
-            {/* Gallery */} 
+            {/* Gallery */}
             <section>
               <h2 className="text-2xl font-bold mb-6">Photo Gallery</h2>
               <div className="grid md:grid-cols-3 gap-4">

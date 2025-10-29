@@ -35,6 +35,8 @@ function Home() {
 
   if (!youtubeContent) return <p>Loading...</p>;
 
+  console.log(youtubeContent)
+
   // Helper function to extract video ID from any YouTube URL
   const getYoutubeVideoId = (url) => {
     if (!url) return null;

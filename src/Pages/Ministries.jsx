@@ -1,18 +1,10 @@
 
-import { React, useState, useEffect } from 'react';
-import { Link } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import axios from 'axios';
 import Navbar from '../Components/Navbar';
 
 const Ministries = () => {
-  const [ministries, setMinistries] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get('http://127.0.0.1:8000/ministries/ministries/')
-      .then((response) => setMinistries(response.data))
-      .catch((error) => console.error("Error fetching ministries:", error));
-  }, []);
+  const {ministries} = useLoaderData();
 
   const cloudName = "dfycvaiv7";
   const imageUrl = `https://res.cloudinary.com/${cloudName}`;
