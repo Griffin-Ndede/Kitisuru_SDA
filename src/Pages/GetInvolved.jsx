@@ -10,7 +10,7 @@ import {
     ChevronRight,
 } from 'lucide-react';
 import Navbar from '../Components/Navbar';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 
 function GetInvolvedCard({ icon: Icon, title, description, buttonText }) {

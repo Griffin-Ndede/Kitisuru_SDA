@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ArrowLeft, Calendar, Clock, MapPin, Users, Phone, Mail, UserPlus, Target, Heart } from 'lucide-react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router';
 import axios from 'axios';
 
 export default function MinistriesDetail() {

@@ -1,7 +1,7 @@
+import { createBrowserRouter, RouterProvider } from 'react-router'
 import Home from './Pages/Home'
 import About from './Pages/About'
 import './index.css'
-import { Route, BrowserRouter, Routes } from 'react-router-dom'
 import Ministries from './Pages/Ministries'
 import GetInvolved from './Pages/GetInvolved'
 import  Giving from './Pages/Giving'
@@ -10,20 +10,45 @@ import Resources from './Pages/Resources'
 import MinistriesDetails from './Pages/MinistriesDetails'
 function App() {
 
+  const Router = createBrowserRouter([
+     {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: '/about',
+      element:<About/>
+    },
+    {
+      path: '/ministries',
+      element: <Ministries/>
+    },
+    {
+      path: '/contact',
+      element: <Contact/>
+    },
+    {
+      path: '/getinvolved',
+      element: <GetInvolved/>
+    },
+    {
+      path: '/giving',
+      element: <Giving/>
+    },
+    {
+      path: '/resources',
+      element: <Resources/>
+    },
+    {
+      path: '/ministries/:id',
+      element: <MinistriesDetails/>
+    }
+  ])
+ 
+
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/ministries' element={<Ministries/>}/>
-          <Route path='/contact' element={<Contact/>}/>
-          <Route path='/getinvolved' element={<GetInvolved/>}/>
-          <Route path='/giving' element={<Giving/>}/>
-          <Route path='/resources' element={<Resources/>}/>
-          <Route path='/ministries/:id' element= {<MinistriesDetails/>}/>
-        </Routes>
-      </BrowserRouter>
+      <RouterProvider router={Router} />
     </>
   )
 }

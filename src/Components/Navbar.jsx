@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Church, Menu, X } from 'lucide-react'; // Added Menu and X icons for mobile toggle
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
