@@ -5,7 +5,7 @@ export async function ministriesLoader() {
     const ministries = await getMinistries();
   return { ministries }; 
   } catch (error){
-    console.error("❌ Home loader error:", error.message);
+    console.error("❌ Ministries loader error:", error.message);
   }
 }
 

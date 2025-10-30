@@ -1,4 +1,4 @@
-import { ArrowLeft, Calendar, Clock, MapPin, Users, Phone, Mail, UserPlus, Target, Heart } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, MapPin, Users, Phone, Mail, UserPlus, Target, Heart, Image } from 'lucide-react';
 import { Link, useLoaderData, useParams } from 'react-router';
 
 export default function MinistriesDetail() {
@@ -85,11 +85,28 @@ export default function MinistriesDetail() {
             {/* Gallery */}
             <section>
               <h2 className="text-2xl font-bold mb-6">Photo Gallery</h2>
-              <div className="grid md:grid-cols-3 gap-4">
-                {ministry.gallery_images?.map((img, index) => (<div key={index} className="aspect-square overflow-hidden rounded-3xl">
-                  <img src={`${imageUrl}/${img.image}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
-                </div>
-                ))}
+              <div className="grid md:grid-cols-2 gap-4">
+                {ministry.gallery_images?.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-full mx-auto border border-slate-200">
+                    <div className="bg-red-600 rounded-full mb-4 p-4">
+                      <Image className="w-10 h-10 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-red-600">No Photos available yet!</h3>
+                    <p className="mt-2 text-center px-3">
+                      It looks like we haven&apos;t added any photos for this ministry yet.
+                    </p>
+                    <span className="text-blue-600 mt-2 text-center">
+                      Check back soon—we&apos;ll be uploading new photos shortly!
+                    </span>
+                  </div>
+                ) : (
+                  <div>
+                    {ministry.gallery_images?.map((img, index) => (<div key={index} className="aspect-square overflow-hidden rounded-3xl">
+                      <img src={`${imageUrl}/${img.image}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                    </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </section>
 
@@ -101,14 +118,15 @@ export default function MinistriesDetail() {
               </div>
               <div className="space-y-6">
                 {ministry.events?.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-fit mx-auto">
-                    <div className="bg-blue-100  rounded-full mb-4">
-                      <Calendar className="w-10 h-10 text-blue-600" />
+                  <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg md:w-2/3 w-full border border-slate-200">
+                    <div className="bg-red-600 rounded-full mb-4 p-4">
+                      <Calendar className="w-10 h-10 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold">No Events Yet!</h3>
-                    <p className="text-gray-600 mt-2 text-center px-3 w-2/3">
-                      Looks like there are no upcoming events at the moment. Stay tuned — new events will appear here soon!
+                    <h3 className="text-2xl font-bold text-red-600">No Events Yet!</h3>
+                    <p className="mt-2 text-center px-3">
+                      Looks like there are no upcoming events at the moment.
                     </p>
+                    <span className="text-blue-600 mt-2 text-center">Stay tuned — new events will appear here soon!</span>
                   </div>
                 ) : (
                   <div>
@@ -120,18 +138,12 @@ export default function MinistriesDetail() {
                         <p className="text-gray-600 mb-4">{event.description}</p>
                         <div className="grid md:grid-cols-3 gap-4 text-sm">
                           <div className="flex items-center gap-2">
-                            <Calendar className="w-4 h-4 text-blue-600" />
-                            <span>{event.date}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Clock className="w-4 h-4 text-blue-600" />
-                            <span>
-                              {event.start_time} - {event.end_time}
-                            </span>
-                          </div>
-                          <div className="flex items-center gap-2">
                             <MapPin className="w-4 h-4 text-blue-600" />
                             <span>{event.location}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4 text-blue-600" />
+                            <span>{event.start_date}</span> - <span>{event.end_date}</span>
                           </div>
                         </div>
                       </div>

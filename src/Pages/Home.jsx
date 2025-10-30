@@ -34,13 +34,13 @@ function Home() {
   const { youtubeContent, upcomingEvents } = useLoaderData()
 
   const futureEvents = upcomingEvents.filter(
-  (event) => new Date(event.end_date) >= new Date()
-);
+    (event) => new Date(event.end_date) >= new Date()
+  );
 
 
   if (!youtubeContent) return <p>Loading...</p>;
 
-  console.log(youtubeContent)
+  console.log(upcomingEvents)
 
   // Helper function to extract video ID from any YouTube URL
   const getYoutubeVideoId = (url) => {
@@ -109,19 +109,23 @@ function Home() {
         {/* Upcoming Events */}
         <section className="bg-gray-50" id='upcoming'>
           <div className="container mx-auto px-6 py-10">
-            <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Upcoming Events</h2>
+            <header className="mb-16 text-center">
+              <h1 className="text-5xl font-bold text-blue-600 mb-4">Upcoming events</h1>
+              <p className="text-slate-600 text-xl max-w-2xl mx-auto">
+                Keep up to date with church events
+              </p>
+            </header>
             {futureEvents.length === 0 ? (
-              <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-2/3 mx-auto border border-slate-200">
+              <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg md:w-2/3 w-full mx-auto border border-slate-200">
                 <div className="bg-red-600 rounded-full mb-4 p-4">
                   <Calendar className="w-10 h-10 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-red-600">No Events Yet!</h3>
-                <p className="text-gray-600 mt-2 text-center px-3">
+                <p className="mt-2 text-center px-3">
                   Looks like there are no upcoming events at the moment.
                 </p>
-                <span className="text-blue-600 mt-2">Stay tuned — new events will appear here soon!</span>
+                <span className="text-blue-600 mt-2 text-center">Stay tuned — new events will appear here soon!</span>
               </div>
-
             ) : (
               <div className="flex flex-wrap gap-8">
                 {futureEvents
@@ -134,7 +138,7 @@ function Home() {
                     >
                       {/* Category Badge */}
                       <span className="absolute top-4 right-4 bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">
-                        {event.category}
+                        {event.ministry_title}
                       </span>
 
                       {/* Icon */}
@@ -170,21 +174,21 @@ function Home() {
           </div>
         </section>
         {/* 🎥 Video Gallery Section */}
-        <section className="min-h-screen bg-white" id="videos">
+        <section className="min-h-fit bg-white" id="videos">
           <div className=" mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <header className="mb-16 text-center">
-              <h1 className="text-5xl font-bold text-slate-900 mb-4">Video Gallery</h1>
+              <h1 className="text-5xl font-bold text-blue-600 mb-4">Video Gallery</h1>
               <p className="text-slate-600 text-xl max-w-2xl mx-auto">
-                Discover our curated collection of sermons and inspirational videos
+                In case you missed it
               </p>
             </header>
             {youtubeContent.length === 0 ? (
-              <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-2/3 mx-auto">
+              <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg md:w-2/3 w-full mx-auto border border-slate-200">
                 <div className="bg-red-600 rounded-full mb-4 p-4">
                   <Play className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="text-2xl font-semibold text-red-600">No Videos Available</h3>
-                <p className="text-gray-600 mt-2 text-center px-3">
+                <h3 className="text-2xl font-bold text-red-600">No Videos Available</h3>
+                <p className="mt-2 text-center px-3">
                   There are currently no YouTube links uploaded for this ministry.
                 </p>
                 <span className="text-blue-600 mt-2">Please check back later.</span>
@@ -196,7 +200,7 @@ function Home() {
                   return (
                     <div
                       key={video.id}
-                      className="rounded-3xl overflow-hidden  border border-slate-200 hover:shadow-2xl transition-all duration-500"
+                      className="rounded-3xl overflow-hidden  h-fit border border-slate-200 hover:shadow-2xl transition-all duration-500"
                     >
                       <div className="">
                         {/* 🎞️ Embedded Player */}
@@ -211,10 +215,10 @@ function Home() {
                         </div>
                       </div>
                       <div className=" p-2 justify-center text-center border-t border-t-slate-200">
-                        <h3 className="text-2xl font-bold mb-3">
+                        <h3 className="text-lg font-bold mb-3 w-2/3 mx-auto">
                           {video.title}
                         </h3>
-                        <p className=" text-base text-blue-600 leading-relaxed line-clamp-2">
+                        <p className=" text-sm w-2/3 mx-auto text-blue-600 leading-relaxed line-clamp-2">
                           {video.description}
                         </p>
                       </div>
