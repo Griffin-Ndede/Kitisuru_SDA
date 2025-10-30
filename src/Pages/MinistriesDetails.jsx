@@ -38,7 +38,7 @@ export default function MinistriesDetail() {
               <Heart className="w-8 h-8 text-white" />
               <h1 className="text-4xl font-bold">{ministry?.title}</h1>
             </div>
-            <p className="md:text-lg text-smbase font-extralight leading-relaxed md:w-4/6">{ministry?.description}</p>
+            <p className="text-lg leading-relaxed">{ministry?.mission}</p>
           </div>
         </div>
       </div>
@@ -53,9 +53,9 @@ export default function MinistriesDetail() {
             <section>
               <div className="flex items-center gap-3 mb-6">
                 <Target className="w-6 h-6 text-blue-600" />
-                <h2 className="text-2xl font-bold">Our Mission</h2>
+                <h2 className="text-2xl font-bold">About us</h2>
               </div>
-              <p className="text-gray-600 text-lg leading-relaxed">{ministry?.mission}</p>
+              <p className=" md:text-lg text-smbase font-light leading-relaxed md:w-5/6">{ministry?.description}</p>
             </section>
 
             {/* Programs */}
@@ -100,30 +100,45 @@ export default function MinistriesDetail() {
                 <h2 className="text-2xl font-bold">Upcoming Events</h2>
               </div>
               <div className="space-y-6">
-                {ministry.events?.map((event) => (
-                  <div key={event.id} className="bg-white p-6 rounded-3xl shadow-sm">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                      <h3 className="text-xl font-semibold">{event.title}</h3>
+                {ministry.events?.length === 0 ? (
+                  <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-fit mx-auto">
+                    <div className="bg-blue-100  rounded-full mb-4">
+                      <Calendar className="w-10 h-10 text-blue-600" />
                     </div>
-                    <p className="text-gray-600 mb-4">{event.description}</p>
-                    <div className="grid md:grid-cols-3 gap-4 text-sm">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-blue-600" />
-                        <span>{event.date}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4 text-blue-600" />
-                        <span>
-                          {event.start_time} - {event.end_time}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-blue-600" />
-                        <span>{event.location}</span>
-                      </div>
-                    </div>
+                    <h3 className="text-2xl font-bold">No Events Yet!</h3>
+                    <p className="text-gray-600 mt-2 text-center px-3 w-2/3">
+                      Looks like there are no upcoming events at the moment. Stay tuned — new events will appear here soon!
+                    </p>
                   </div>
-                ))}
+                ) : (
+                  <div>
+                    {ministry.events?.map((event) => (
+                      <div key={event.id} className="bg-white p-6 rounded-3xl shadow-sm">
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                          <h3 className="text-xl font-semibold">{event.title}</h3>
+                        </div>
+                        <p className="text-gray-600 mb-4">{event.description}</p>
+                        <div className="grid md:grid-cols-3 gap-4 text-sm">
+                          <div className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4 text-blue-600" />
+                            <span>{event.date}</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Clock className="w-4 h-4 text-blue-600" />
+                            <span>
+                              {event.start_time} - {event.end_time}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <MapPin className="w-4 h-4 text-blue-600" />
+                            <span>{event.location}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
               </div>
             </section>
           </div>

@@ -49,7 +49,7 @@ const Ministries = () => {
                             {ministry.title}
                           </h3>
                           <h3 className="text-sm font-light leading-loose text-white line-clamp-4">
-                            {ministry.description}
+                            {ministry.mission}
                           </h3>
                         </div>
                       </div>

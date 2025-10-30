@@ -1,4 +1,4 @@
-import { Calendar, MapPin} from 'lucide-react';
+import { Calendar, MapPin, Play } from 'lucide-react';
 import { faBible, faBookOpen, faHandsPraying, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Footer from '../Components/Footer';
@@ -32,6 +32,11 @@ function Home() {
   ];
 
   const { youtubeContent, upcomingEvents } = useLoaderData()
+
+  const futureEvents = upcomingEvents.filter(
+  (event) => new Date(event.end_date) >= new Date()
+);
+
 
   if (!youtubeContent) return <p>Loading...</p>;
 
@@ -105,20 +110,22 @@ function Home() {
         <section className="bg-gray-50" id='upcoming'>
           <div className="container mx-auto px-6 py-10">
             <h2 className="text-3xl font-bold text-center text-blue-600 mb-12">Upcoming Events</h2>
-            {upcomingEvents.length === 0 ? (
-              <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-fit mx-auto">
-                <div className="bg-blue-100  rounded-full mb-4">
-                  <Calendar className="w-10 h-10 text-blue-600" />
+            {futureEvents.length === 0 ? (
+              <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-2/3 mx-auto border border-slate-200">
+                <div className="bg-red-600 rounded-full mb-4 p-4">
+                  <Calendar className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold">No Events Yet!</h3>
-                <p className="text-gray-600 mt-2 text-center px-3 w-2/3">
-                  Looks like there are no upcoming events at the moment. Stay tuned — new events will appear here soon!
+                <h3 className="text-2xl font-bold text-red-600">No Events Yet!</h3>
+                <p className="text-gray-600 mt-2 text-center px-3">
+                  Looks like there are no upcoming events at the moment.
                 </p>
+                <span className="text-blue-600 mt-2">Stay tuned — new events will appear here soon!</span>
               </div>
 
             ) : (
               <div className="flex flex-wrap gap-8">
-                {upcomingEvents
+                {futureEvents
+                  .filter((event) => new Date(event.end_date) >= new Date())
                   .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
                   .map((event, index) => (
                     <div
@@ -171,18 +178,21 @@ function Home() {
                 Discover our curated collection of sermons and inspirational videos
               </p>
             </header>
-
             {youtubeContent.length === 0 ? (
-              <div className="flex items-center justify-center py-20">
-                <p className="text-red-600 text-lg">
-                  No videos available yet. Check back soon!
+              <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-2/3 mx-auto">
+                <div className="bg-red-600 rounded-full mb-4 p-4">
+                  <Play className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-2xl font-semibold text-red-600">No Videos Available</h3>
+                <p className="text-gray-600 mt-2 text-center px-3">
+                  There are currently no YouTube links uploaded for this ministry.
                 </p>
+                <span className="text-blue-600 mt-2">Please check back later.</span>
               </div>
             ) : (
               <div className="gap-8 grid md:grid-cols-3">
                 {youtubeContent.map((video, index) => {
                   const videoId = getYoutubeVideoId(video.youtube_url);
-
                   return (
                     <div
                       key={video.id}
