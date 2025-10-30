@@ -11,8 +11,7 @@ export default function MinistriesDetail() {
   const cloudName = "dfycvaiv7";
   const imageUrl = `https://res.cloudinary.com/${cloudName}`;
 
-  console.log(ministry);
-
+  console.log(ministry.contacts.photo)
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -102,7 +101,9 @@ export default function MinistriesDetail() {
                 ) : (
                   <div>
                     {ministry.gallery_images?.map((img, index) => (<div key={index} className="aspect-square overflow-hidden rounded-3xl">
-                      <img src={`${imageUrl}/${img.image}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                      <img
+                        src={`${imageUrl}/${img.image}`}
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
                     </div>
                     ))}
                   </div>
@@ -166,7 +167,7 @@ export default function MinistriesDetail() {
               {ministry.contacts?.map((contact) => (
                 <div key={contact.id} className="flex items-start gap-4">
                   <img
-                    src={`${imageUrl}/${contact.image}`}
+                    src='https://static.vecteezy.com/system/resources/previews/039/845/007/non_2x/placeholder-avatar-female-person-default-woman-avatar-image-gray-profile-anonymous-face-picture-illustration-isolated-on-white-vector.jpg'
                     alt={contact.name}
                     className="w-12 h-12 rounded-full object-cover"
                   />
