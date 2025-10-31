@@ -84,32 +84,36 @@ export default function MinistriesDetail() {
             {/* Gallery */}
             <section>
               <h2 className="text-2xl font-bold mb-6">Photo Gallery</h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                {ministry.gallery_images?.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-full mx-auto border border-slate-200">
-                    <div className="bg-red-600 rounded-full mb-4 p-4">
-                      <Image className="w-10 h-10 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-red-600">No Photos available yet!</h3>
-                    <p className="mt-2 text-center px-3">
-                      It looks like we haven&apos;t added any photos for this ministry yet.
-                    </p>
-                    <span className="text-blue-600 mt-2 text-center">
-                      Check back soon—we&apos;ll be uploading new photos shortly!
-                    </span>
+              {ministry.gallery_images?.length === 0 ? (
+                <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-full mx-auto border border-slate-200">
+                  <div className="bg-red-600 rounded-full mb-4 p-4">
+                    <Image className="w-10 h-10 text-white" />
                   </div>
-                ) : (
-                  <div>
-                    {ministry.gallery_images?.map((img, index) => (<div key={index} className="aspect-square overflow-hidden rounded-3xl">
+                  <h3 className="text-2xl font-bold text-red-600">No Photos available yet!</h3>
+                  <p className="mt-2 text-center px-3">
+                    It looks like we haven&apos;t added any photos for this ministry yet.
+                  </p>
+                  <span className="text-blue-600 mt-2 text-center">
+                    Check back soon—we&apos;ll be uploading new photos shortly!
+                  </span>
+                </div>
+              ) : (
+                <div className="flex gap-4 overflow-x-auto scrollbar-hide py-2">
+                  {ministry.gallery_images?.map((img, index) => (
+                    <div
+                      key={index}
+                      className="min-w-[200px] h-[200px] rounded-3xl overflow-hidden flex-shrink-0"
+                    >
                       <img
                         src={`${imageUrl}/${img.image}`}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+                  ))}
+                </div>
+              )}
             </section>
+
 
             {/* Events */}
             <section>

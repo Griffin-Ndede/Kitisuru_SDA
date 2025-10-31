@@ -127,14 +127,14 @@ function Home() {
                 <span className="text-blue-600 mt-2 text-center">Stay tuned — new events will appear here soon!</span>
               </div>
             ) : (
-              <div className="flex flex-wrap gap-8">
+              <div className="grid grid-cols-3 gap-8">
                 {futureEvents
                   .filter((event) => new Date(event.end_date) >= new Date())
                   .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
                   .map((event, index) => (
                     <div
                       key={index}
-                      className="relative bg-white p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 w-xl mx-auto"
+                      className="relative bg-white p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300  mx-auto"
                     >
                       {/* Category Badge */}
                       <span className="absolute top-4 right-4 bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">
@@ -148,7 +148,7 @@ function Home() {
                       <h3 className="text-xl font-bold mb-2">{event.title}</h3>
 
                       {/* Description */}
-                      <p className=" mb-6">{event.description}</p>
+                      <p className="font-light mb-6">{event.description}</p>
 
                       {/* Location & Dates */}
                       <div className="border-t border-gray-200 w-full pt-4 flex flex-col md:flex-row md:items-center md:justify-between text-sm text-gray-600">
