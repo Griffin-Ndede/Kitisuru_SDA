@@ -127,7 +127,7 @@ function Home() {
                 <span className="text-blue-600 mt-2 text-center">Stay tuned — new events will appear here soon!</span>
               </div>
             ) : (
-              <div className="grid grid-cols-3 gap-8">
+              <div className="grid md:grid-cols-3 gap-8">
                 {futureEvents
                   .filter((event) => new Date(event.end_date) >= new Date())
                   .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))

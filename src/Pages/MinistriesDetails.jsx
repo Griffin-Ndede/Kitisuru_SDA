@@ -45,7 +45,6 @@ export default function MinistriesDetail() {
       {/* Body Content */}
       <div className="container mx-auto px-6 py-12">
         <div className="grid lg:grid-cols-3 gap-12">
-
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-12 w-full">
             {/* Mission */}
@@ -98,15 +97,15 @@ export default function MinistriesDetail() {
                   </span>
                 </div>
               ) : (
-                <div className="flex gap-4 overflow-x-auto scrollbar-hide py-2">
+                <div className="flex flex-col md:flex-row gap-4 overflow-x-auto  py-2">
                   {ministry.gallery_images?.map((img, index) => (
                     <div
                       key={index}
-                      className="min-w-[200px] h-[200px] rounded-3xl overflow-hidden flex-shrink-0"
+                      className="w-full md:w-1/3 md:min-w-[300px] md:h-[300px] rounded-3xl overflow-hidden flex-shrink-0"
                     >
                       <img
                         src={`${imageUrl}/${img.image}`}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        className="w-full h-[300px] object-cover hover:scale-105 transition-transform duration-300"
                       />
                     </div>
                   ))}
@@ -134,25 +133,26 @@ export default function MinistriesDetail() {
                     <span className="text-blue-600 mt-2 text-center">Stay tuned — new events will appear here soon!</span>
                   </div>
                 ) : (
-                  <div>
-                    {ministry.events?.map((event) => (
-                      <div key={event.id} className="bg-white p-6 rounded-3xl shadow-sm">
-                        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                          <h3 className="text-xl font-semibold">{event.title}</h3>
-                        </div>
-                        <p className="text-gray-600 mb-4">{event.description}</p>
-                        <div className="grid md:grid-cols-3 gap-4 text-sm">
-                          <div className="flex items-center gap-2">
-                            <MapPin className="w-4 h-4 text-blue-600" />
-                            <span>{event.location}</span>
+                  <div className='grid md:grid-cols-2 gap-4 py-2'>
+                    {ministry.events ?.sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+                      .map((event) => (
+                        <div key={event.id} className=" p-6 rounded-3xl shadow-sm mb-4" >
+                          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <h3 className="text-xl font-semibold">{event.title}</h3>
                           </div>
-                          <div className="flex items-center gap-2">
-                            <Calendar className="w-4 h-4 text-blue-600" />
-                            <span>{event.start_date}</span> - <span>{event.end_date}</span>
+                          <p className=" mb-4">{event.description}</p>
+                          <div className="flex gap-4 text-sm">
+                            <div className="flex items-center gap-2">
+                              <MapPin className="w-4 h-4 text-blue-600" />
+                              <span className='text-blue-600'>{event.location}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Calendar className="w-4 h-4 text-blue-600" />
+                              <span className='text-blue-600'>{event.start_date} - {event.end_date}</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
                   </div>
                 )}
 
