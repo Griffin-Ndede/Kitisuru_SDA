@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Wallet,
   Building2,
@@ -107,6 +107,24 @@ function Giving() {
       answer: "Yes, we use industry-standard encryption and secure payment processors to protect your financial information."
     }
   ];
+  const [value, setValue] = useState(0);
+
+  // Example data: total goal and amount raised so far
+  const totalGoal = 375000;
+  const amountRaised = 37500;
+
+  // Function to calculate progress
+  function calculateProgress(raised, goal) {
+    if (goal <= 0) return 0;
+    return Math.min(Math.round((raised / goal) * 100), 100);
+  }
+
+  // Automatically calculate when data changes
+  useEffect(() => {
+    const progress = calculateProgress(amountRaised, totalGoal);
+    setValue(progress);
+  }, [amountRaised, totalGoal]);
+
 
   return (
     <>
@@ -138,6 +156,13 @@ function Giving() {
             {givingOptions.map((option, index) => (
               <GivingOption key={index} {...option} />
             ))}
+          </div>
+
+          <div className="h-96 flex flex-col items-center justify-center space-y-4">
+            <progress value={value} max={100} className="w-1/2 h-6 rounded-full overflow-hidden" />
+            <p className="text-xl font-semibold text-green-700">
+              {value}% of goal reached
+            </p>
           </div>
 
           {/* Payment Methods */}
@@ -177,6 +202,7 @@ function Giving() {
               </div>
             </div>
           </div>
+
 
           {/* FAQs */}
           <div className="bg-white rounded-4xl shadow-2xl p-8 mb-16">

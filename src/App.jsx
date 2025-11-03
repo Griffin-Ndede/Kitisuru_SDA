@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import Home from './Pages/Home'
 import About from './Pages/About'
 import './index.css'
+import 'antd/dist/reset.css'; 
 import Ministries from './Pages/Ministries'
 import GetInvolved from './Pages/GetInvolved'
 import Giving from './Pages/Giving'
