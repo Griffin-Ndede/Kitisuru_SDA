@@ -26,7 +26,7 @@ function GivingOption({ icon: Icon, title, description, methods }) {
         </div>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="text-gray-500 hover:text-gray-700"
+          className="text-white hover:text-gray-700"
         >
           <ChevronDown className={`w-5 h-5 transform transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
         </button>
@@ -56,7 +56,7 @@ function FAQ({ question, answer }) {
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="font-medium text-gray-800">{question}</span>
-        <ChevronDown className={`w-5 h-5 text-gray-500 transform transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-5 h-5 text-white transform transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
       {isOpen && (
         <p className="mt-2 text-gray-600">{answer}</p>
@@ -157,12 +157,12 @@ function Giving() {
             ))}
           </div>
 
-          <div className="w-full max-w-6xl mx-auto p-6 rounded-2xl shadow-lg bg-white space-y-6">
+          <div className="w-full max-w-6xl mx-auto p-6 rounded-2xl shadow-lg bg-white space-y-6 mb-10">
             <h2 className="text-2xl font-bold text-center text-gray-800">Fundraising Progress</h2>
 
             {/* Progress Summary */}
             <div className="text-center">
-              <p className="text-sm text-gray-500">Total fundraising progress</p>
+              <p className="text-sm text-white">Total fundraising progress</p>
               <p className="font-medium text-gray-700">
                 {amountRaised} of {totalGoal}
               </p>
@@ -183,17 +183,17 @@ function Giving() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-4 text-center py-4 border-t">
-              <div className="space-y-1">
-                <p className="text-sm text-gray-500">Raised</p>
+            <div className=" flex justify-between gap-4 text-center py-4 ">
+              <div className="space-y-1 bg-green-300 p-5 rounded-3xl w-full">
+                <p className="text-sm w">Raised</p>
                 <p className="font-semibold text-gray-800">{amountRaised}</p>
               </div>
-              <div className="space-y-1">
-                <p className="text-sm text-gray-500">Target</p>
+              <div className="space-y-1 bg-amber-300 p-5 rounded-3xl w-full">
+                <p className="text-sm ">Target</p>
                 <p className="font-semibold text-gray-800">{totalGoal}</p>
               </div>
-              <div className="space-y-1">
-                <p className="text-sm text-gray-500">Balance</p>
+              <div className="space-y-1 bg-red-300 p-5 rounded-3xl w-full">
+                <p className="text-sm w">Balance</p>
                 <p className="font-semibold text-gray-800">{totalGoal - amountRaised}</p>
               </div>
             </div>
