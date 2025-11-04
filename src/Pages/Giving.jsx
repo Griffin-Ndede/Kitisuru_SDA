@@ -7,7 +7,6 @@ import {
   Building,
   ShieldCheck,
   ChevronDown,
-  ExternalLink,
 } from 'lucide-react';
 import Navbar from '../Components/Navbar';
 
@@ -111,7 +110,7 @@ function Giving() {
 
   // Example data: total goal and amount raised so far
   const totalGoal = 375000;
-  const amountRaised = 37500;
+  const amountRaised = 234353;
 
   // Function to calculate progress
   function calculateProgress(raised, goal) {
@@ -158,12 +157,49 @@ function Giving() {
             ))}
           </div>
 
-          <div className="h-96 flex flex-col items-center justify-center space-y-4">
-            <progress value={value} max={100} className="w-1/2 h-6 rounded-full overflow-hidden" />
-            <p className="text-xl font-semibold text-green-700">
-              {value}% of goal reached
-            </p>
+          <div className="w-full max-w-6xl mx-auto p-6 rounded-2xl shadow-lg bg-white space-y-6">
+            <h2 className="text-2xl font-bold text-center text-gray-800">Fundraising Progress</h2>
+
+            {/* Progress Summary */}
+            <div className="text-center">
+              <p className="text-sm text-gray-500">Total fundraising progress</p>
+              <p className="font-medium text-gray-700">
+                {amountRaised} of {totalGoal}
+              </p>
+            </div>
+
+            {/* Progress Bar */}
+            <div className="w-full">
+              <div className="flex justify-between text-sm mb-1 font-medium text-gray-600">
+                <span>{value}%</span>
+                <span>{value}% of goal reached</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                <div
+                  className="h-4 rounded-full bg-green-600 transition-all duration-500"
+                  style={{ width: `${value}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-4 text-center py-4 border-t">
+              <div className="space-y-1">
+                <p className="text-sm text-gray-500">Raised</p>
+                <p className="font-semibold text-gray-800">{amountRaised}</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-sm text-gray-500">Target</p>
+                <p className="font-semibold text-gray-800">{totalGoal}</p>
+              </div>
+              <div className="space-y-1">
+                <p className="text-sm text-gray-500">Balance</p>
+                <p className="font-semibold text-gray-800">{totalGoal - amountRaised}</p>
+              </div>
+            </div>
           </div>
+
+
 
           {/* Payment Methods */}
           <div className="bg-white rounded-4xl shadow-2xl p-8 mb-16">
