@@ -184,17 +184,17 @@ function Giving() {
 
             {/* Stats */}
             <div className=" flex justify-between gap-4 text-center py-4 ">
-              <div className="space-y-1 bg-green-300 p-5 rounded-3xl w-full">
-                <p className="text-sm w">Raised</p>
-                <p className="font-semibold text-gray-800">{amountRaised}</p>
+              <div className="space-y-1 bg-green-600 p-5 rounded-3xl w-full">
+                <p className="text-lg">Raised</p>
+                <p className="font-bold ">{amountRaised}</p>
               </div>
-              <div className="space-y-1 bg-amber-300 p-5 rounded-3xl w-full">
-                <p className="text-sm ">Target</p>
-                <p className="font-semibold text-gray-800">{totalGoal}</p>
+              <div className="space-y-1 bg-amber-400 p-5 rounded-3xl w-full">
+                <p className="text-lg  ">Target</p>
+                <p className="font-bold ">{totalGoal}</p>
               </div>
-              <div className="space-y-1 bg-red-300 p-5 rounded-3xl w-full">
-                <p className="text-sm w">Balance</p>
-                <p className="font-semibold text-gray-800">{totalGoal - amountRaised}</p>
+              <div className="space-y-1 bg-red-600 p-5 rounded-3xl w-full">
+                <p className="text-lg">Balance</p>
+                <p className="font-bold ">{totalGoal - amountRaised}</p>
               </div>
             </div>
           </div>
