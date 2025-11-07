@@ -11,7 +11,6 @@ function Footer() {
                             <h3 className="text-xl font-semibold mb-4">About Us</h3>
                             <p className="text-blue-200">A welcoming Seventh-day Adventist community dedicated to sharing God's love.</p>
                         </div>
-
                         <div>
                             <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
                             <ul className="space-y-2 text-blue-400">

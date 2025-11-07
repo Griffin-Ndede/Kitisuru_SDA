@@ -93,7 +93,7 @@ function Home() {
           <div className="container mx-auto px-6">
             <div className="text-center mb-12">
               <h2 className="text-4xl font-bold text-blue-600 mb-6">Service Times</h2>
-              <div className="flex flex-col md:flex-row justify-center items-center gap-8 w-full">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  justify-center items-center gap-8 w-full">
                 {scheduleItems.map((item, index) => (
                   <div className="p-8  w-full" key={index}>
                     <FontAwesomeIcon icon={item.icon} className="text-blue-600 mx-auto mb-4 text-5xl" />
@@ -116,7 +116,7 @@ function Home() {
               </p>
             </header>
             {futureEvents.length === 0 ? (
-              <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg md:w-2/3 w-full mx-auto border border-slate-200">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  items-center justify-center rounded-3xl py-16 shadow-lg md:w-2/3 w-full mx-auto border border-slate-200">
                 <div className="bg-red-600 rounded-full mb-4 p-4">
                   <Calendar className="w-10 h-10 text-white" />
                 </div>
@@ -127,7 +127,7 @@ function Home() {
                 <span className="text-blue-600 mt-2 text-center">Stay tuned — new events will appear here soon!</span>
               </div>
             ) : (
-              <div className="grid md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-8">
                 {futureEvents
                   .filter((event) => new Date(event.end_date) >= new Date())
                   .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
@@ -137,7 +137,7 @@ function Home() {
                       className="relative bg-white p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300  mx-auto"
                     >
                       {/* Category Badge */}
-                      <span className="absolute top-4 right-4 bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">
+                      <span className="absolute top-4 right-4 bg-blue-100 text-custom-orange text-xs font-bold px-3 py-1 rounded-full">
                         {event.ministry_title}
                       </span>
 
@@ -170,7 +170,6 @@ function Home() {
                   ))}
               </div>
             )}
-
           </div>
         </section>
         {/* 🎥 Video Gallery Section */}
