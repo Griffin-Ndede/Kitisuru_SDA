@@ -17,14 +17,14 @@ function Navbar() {
 
             {/* Desktop Navigation - Hidden on mobile */}
             <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
-              <Link to="/" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Home</Link>
-              <Link to='/about' className="text-white font-light hover:text-blue-700 transition-colors duration-200">About</Link>
-              <Link to="/ministries" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</Link>
-              <Link to='/giving' className='text-white font-light hover:text-blue-700 transition-colors duration-200'>Giving</Link>
-              {/* <a href="/resources" className="text-white font-light hover:text-blue-700 transition-colors duration-200">Library</a> */}
-              <Link to='/contact' className="text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</Link>
+              <Link to="/" className="text-white font-light hover:text-custom-blue transition-colors duration-200">Home</Link>
+              <Link to='/about' className="text-white font-light hover:text-custom-blue transition-colors duration-200">About</Link>
+              <Link to="/ministries" className="text-white font-light hover:text-custom-blue transition-colors duration-200">Ministries</Link>
+              <Link to='/giving' className='text-white font-light hover:text-custom-blue transition-colors duration-200'>Giving</Link>
+              {/* <a href="/resources" className="text-white font-light hover:text-custom-blue transition-colors duration-200">Library</a> */}
+              <Link to='/contact' className="text-white font-light hover:text-custom-blue transition-colors duration-200">Contact</Link>
               <Link to='/getinvolved'>
-                <button className='bg-white text-blue-700 py-2 px-3 rounded-3xl cursor-pointer transition-all duration-200 ease-in-out'>Get Involved</button>
+                <button className='bg-white text-custom-blue py-2 px-3 rounded-3xl cursor-pointer transition-all duration-200 ease-in-out'>Get Involved</button>
               </Link>
             </div>
 
@@ -40,13 +40,13 @@ function Navbar() {
           {/* Mobile Menu - Slides down when open */}
           {isOpen && (
             <div className="md:hidden mt-4 pb-4 space-y-3 rounded-3xl">
-              <Link to="/" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Home</Link>
-              <Link to="/about" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">About</Link>
-              <Link to="/ministries" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Ministries</Link>
-              <Link to='/giving' className='text-white font-light hover:text-blue-700 transition-colors duration-200'>Giving</Link>
-              {/* <a href="/resources" className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Library</a> */}
-              <Link to='/contact' className="block text-white font-light hover:text-blue-700 transition-colors duration-200">Contact</Link>
-              <Link to='/getinvolved' className='text-white font-light hover:text-blue-700 transition-colors duration-200'><button>Get Involved</button></Link>
+              <Link to="/" className="block text-white font-light hover:text-custom-blue transition-colors duration-200">Home</Link>
+              <Link to="/about" className="block text-white font-light hover:text-custom-blue transition-colors duration-200">About</Link>
+              <Link to="/ministries" className="block text-white font-light hover:text-custom-blue transition-colors duration-200">Ministries</Link>
+              <Link to='/giving' className='text-white font-light hover:text-custom-blue transition-colors duration-200'>Giving</Link>
+              {/* <a href="/resources" className="block text-white font-light hover:text-custom-blue transition-colors duration-200">Library</a> */}
+              <Link to='/contact' className="block text-white font-light hover:text-custom-blue transition-colors duration-200">Contact</Link>
+              <Link to='/getinvolved' className='text-white font-light hover:text-custom-blue transition-colors duration-200'><button>Get Involved</button></Link>
             </div>
           )}
         </div>

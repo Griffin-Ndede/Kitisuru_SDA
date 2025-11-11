@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+
 html {
   scroll-behavior: smooth;
+}
+
+@theme {
+  --color-custom-blue: #2e8eb4;
+  --color-custom-yellow: #ffc700;
 }

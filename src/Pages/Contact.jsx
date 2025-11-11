@@ -1,4 +1,6 @@
+import React from 'react'
 import { useState } from 'react';
+
 import Navbar from '../Components/Navbar'
 import { Facebook , Instagram, Youtube, } from 'lucide-react';
 
@@ -40,7 +42,7 @@ const Contact = () => {
         {/* Header */}
         <header className="bg-white py-12 text-center shadow-sm">
           <div className="container mx-auto px-4 mt-16 md:mt-32">
-            <h1 className="text-3xl md:text-4xl font-bold text-blue-800 mb-3">Contact Our Church</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-custom-blue mb-3">Contact Our Church</h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               We'd love to hear from you! Reach out with questions, prayer requests, or to learn more about our ministries.
             </p>
@@ -52,7 +54,7 @@ const Contact = () => {
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Contact Form */}
             <div className="lg:w-1/2 bg-white p-8 rounded-4xl shadow-2xl">
-              <h2 className="text-2xl font-semibold text-blue-800 mb-6">Send Us a Message</h2>
+              <h2 className="text-2xl font-semibold text-custom-blue mb-6">Send Us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
@@ -65,7 +67,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-custom-blue focus:border-custom-blue"
                   />
                 </div>
 
@@ -80,7 +82,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-custom-blue focus:border-custom-blue"
                   />
                 </div>
 
@@ -94,7 +96,7 @@ const Contact = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-custom-blue focus:border-custom-blue"
                   />
                 </div>
 
@@ -107,7 +109,7 @@ const Contact = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-custom-blue focus:border-custom-blue"
                   >
                     <option value="general">General Inquiry</option>
                     <option value="prayer">Prayer Request</option>
@@ -129,13 +131,13 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-4xl focus:ring-custom-blue focus:border-custom-blue"
                   ></textarea>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-700 hover:bg-blue-800 text-white font-medium py-3 px-4 rounded-4xl transition duration-300"
+                  className="w-full bg-custom-blue hover:bg-custom-blue text-white font-medium py-3 px-4 rounded-4xl transition duration-300"
                 >
                   Send Message
                 </button>
@@ -144,11 +146,11 @@ const Contact = () => {
 
             {/* Contact Information */}
             <div className="lg:w-1/2 bg-white p-8 rounded-4xl shadow-2xl">
-              <h2 className="text-2xl font-semibold text-blue-800 mb-6">Our Information</h2>
+              <h2 className="text-2xl font-semibold text-custom-blue mb-6">Our Information</h2>
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium text-blue-800 mb-2">Address</h3>
+                  <h3 className="text-lg font-medium text-custom-blue mb-2">Address</h3>
                   <p className="text-gray-600">
                     SDA Church Kitisuru<br />
                     Farasi Lane primary school<br />
@@ -157,7 +159,7 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium text-blue-800 mb-2">Service Times</h3>
+                  <h3 className="text-lg font-medium text-custom-blue mb-2">Service Times</h3>
                   <p className="text-gray-600">
                     Saturday: 9:00am & 5:00pm<br />
                     Friday Vespers: 8:00pm
@@ -165,7 +167,7 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium text-blue-800 mb-2">Contact Details</h3>
+                  <h3 className="text-lg font-medium text-custom-blue mb-2">Contact Details</h3>
                   <p className="text-gray-600">
                     Phone: (123) 456-7890<br />
                     Email: info@KitisuruSDA.org<br />
@@ -174,15 +176,15 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-medium text-blue-800 mb-2">Follow Us</h3>
+                  <h3 className="text-lg font-medium text-custom-blue mb-2">Follow Us</h3>
                   <div className="flex space-x-4">
-                    <a href="#" className="text-red-600 hover:text-blue-800 transition duration-300">
+                    <a href="#" className="text-red-600 hover:text-custom-blue transition duration-300">
                     <Facebook />
                     </a>
-                    <a href="https://youtube.com/@sdachurchkitisuru?si=G-N85sdrGISWHe-g" target="blank" className="text-red-600 hover:text-blue-800 transition duration-300">
+                    <a href="https://youtube.com/@sdachurchkitisuru?si=G-N85sdrGISWHe-g" target="blank" className="text-red-600 hover:text-custom-blue transition duration-300">
                      <Youtube/>
                     </a>
-                    <a href="#" className="text-red-600 hover:text-blue-800 transition duration-300">
+                    <a href="#" className="text-red-600 hover:text-custom-blue transition duration-300">
                     <Instagram />
                     </a>
                   </div>
@@ -193,7 +195,7 @@ const Contact = () => {
 
           {/* Map */}
           <div className="mt-12 bg-white p-8 rounded-4xl shadow-2xl">
-            <h2 className="text-2xl font-semibold text-blue-800 mb-6">Find Us</h2>
+            <h2 className="text-2xl font-semibold text-custom-blue mb-6">Find Us</h2>
             <div className="aspect-w-16 aspect-h-9">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.879664540299!2d36.7588812749656!3d-1.2428615987453007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1837ea6db27b%3A0x44df5a87efb12b5e!2sFarasi%20Lane%20Primary%20School%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1750013053272!5m2!1sen!2ske"  

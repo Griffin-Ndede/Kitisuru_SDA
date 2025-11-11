@@ -1,3 +1,4 @@
+import React from 'react';
 import { ArrowLeft, Calendar, Clock, MapPin, Users, Phone, Mail, UserPlus, Target, Heart, Image } from 'lucide-react';
 import { Link, useLoaderData, useParams } from 'react-router';
 
@@ -18,7 +19,7 @@ export default function MinistriesDetail() {
       <div className="bg-white shadow-sm">
         <div className="container mx-auto px-6 py-4">
           <Link to='/ministries'>
-            <button className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors">
+            <button className="flex items-center gap-2 text-custom-blue hover:text-custom-blue transition-colors">
               <ArrowLeft className="w-5 h-5" />
               Back to Ministries
             </button>
@@ -50,7 +51,7 @@ export default function MinistriesDetail() {
             {/* Mission */}
             <section>
               <div className="flex items-center gap-3 mb-6">
-                <Target className="w-6 h-6 text-blue-600" />
+                <Target className="w-6 h-6 text-custom-blue" />
                 <h2 className="text-2xl font-bold">About us</h2>
               </div>
               <p className=" md:text-lg text-smbase font-light leading-relaxed md:w-5/6">{ministry?.description}</p>
@@ -59,7 +60,7 @@ export default function MinistriesDetail() {
             {/* Programs */}
             <section>
               <div className="flex items-center gap-3 mb-6">
-                <Heart className="w-6 h-6 text-blue-600" />
+                <Heart className="w-6 h-6 text-custom-blue" />
                 <h2 className="text-2xl font-bold">Our Programs</h2>
               </div>
               <div className="grid md:grid-cols-2 gap-6">
@@ -68,7 +69,7 @@ export default function MinistriesDetail() {
                     <div key={program.id} className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200">
                       <h3 className="text-lg font-semibold mb-3">{program.title}</h3>
                       <p className="text-gray-600 mb-3">{program.description}</p>
-                      <div className="flex items-center gap-2 text-sm text-blue-600">
+                      <div className="flex items-center gap-2 text-sm text-custom-blue">
                         <Clock className="w-4 h-4" />
                         {program.schedule}
                       </div>
@@ -92,7 +93,7 @@ export default function MinistriesDetail() {
                   <p className="mt-2 text-center px-3">
                     It looks like we haven&apos;t added any photos for this ministry yet.
                   </p>
-                  <span className="text-blue-600 mt-2 text-center">
+                  <span className="text-custom-blue mt-2 text-center">
                     Check back soon—we&apos;ll be uploading new photos shortly!
                   </span>
                 </div>
@@ -117,7 +118,7 @@ export default function MinistriesDetail() {
             {/* Events */}
             <section>
               <div className="flex items-center gap-3 mb-6">
-                <Calendar className="w-6 h-6 text-blue-600" />
+                <Calendar className="w-6 h-6 text-custom-blue" />
                 <h2 className="text-2xl font-bold">Upcoming Events</h2>
               </div>
               <div className="space-y-6">
@@ -130,7 +131,7 @@ export default function MinistriesDetail() {
                     <p className="mt-2 text-center px-3">
                       Looks like there are no upcoming events at the moment.
                     </p>
-                    <span className="text-blue-600 mt-2 text-center">Stay tuned — new events will appear here soon!</span>
+                    <span className="text-custom-blue mt-2 text-center">Stay tuned — new events will appear here soon!</span>
                   </div>
                 ) : (
                   <div className='grid md:grid-cols-2 gap-4 py-2'>
@@ -143,12 +144,12 @@ export default function MinistriesDetail() {
                           <p className=" mb-4">{event.description}</p>
                           <div className="flex gap-4 text-sm">
                             <div className="flex items-center gap-2">
-                              <MapPin className="w-4 h-4 text-blue-600" />
-                              <span className='text-blue-600'>{event.location}</span>
+                              <MapPin className="w-4 h-4 text-custom-blue" />
+                              <span className='text-custom-blue'>{event.location}</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <Calendar className="w-4 h-4 text-blue-600" />
-                              <span className='text-blue-600'>{event.start_date} - {event.end_date}</span>
+                              <Calendar className="w-4 h-4 text-custom-blue" />
+                              <span className='text-custom-blue'>{event.start_date} - {event.end_date}</span>
                             </div>
                           </div>
                         </div>
@@ -165,7 +166,7 @@ export default function MinistriesDetail() {
             {/* Contacts */}
             <div className="bg-white p-6 rounded-3xl shadow-sm">
               <div className="flex items-center gap-3 mb-4">
-                <UserPlus className="w-5 h-5 text-blue-600" />
+                <UserPlus className="w-5 h-5 text-custom-blue" />
                 <h3 className="text-lg font-semibold">Get Involved</h3>
               </div>
               {ministry.contacts?.map((contact) => (
@@ -179,10 +180,10 @@ export default function MinistriesDetail() {
                     <h4 className="font-semibold">{contact.name}</h4>
                     <p className="text-sm text-gray-600 mb-2">{contact.role}</p>
                     <div className="space-y-1">
-                      <a href={`mailto:${contact.email}`} className="flex items-center gap-2 text-blue-600 text-sm">
+                      <a href={`mailto:${contact.email}`} className="flex items-center gap-2 text-custom-blue text-sm">
                         <Mail className="w-4 h-4" /> {contact.email}
                       </a>
-                      <a href={`tel:${contact.phone}`} className="flex items-center gap-2 text-blue-600 text-sm">
+                      <a href={`tel:${contact.phone}`} className="flex items-center gap-2 text-custom-blue text-sm">
                         <Phone className="w-4 h-4" /> {contact.phone}
                       </a>
                     </div>
@@ -192,7 +193,7 @@ export default function MinistriesDetail() {
             </div>
 
             {/* CTA */}
-            <div className="bg-blue-600 text-white p-6 rounded-3xl">
+            <div className="bg-custom-blue text-white p-6 rounded-3xl">
               <div className="flex items-center gap-3 mb-4">
                 <Users className="w-6 h-6" />
                 <h3 className="text-lg font-semibold">Join Our Ministry</h3>
@@ -200,7 +201,7 @@ export default function MinistriesDetail() {
               <p className="mb-4 text-blue-100">
                 Ready to get involved Visit us or reach out to our ministry leader.
               </p>
-              <button className="w-full bg-white text-blue-600 py-2 px-4 rounded-3xl font-semibold hover:bg-blue-50 transition">
+              <button className="w-full bg-white text-custom-blue py-2 px-4 rounded-3xl font-semibold hover:bg-blue-50 transition">
                 Get Started Today
               </button>
             </div>

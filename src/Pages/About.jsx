@@ -82,16 +82,16 @@ function About() {
                     <div className="container mx-auto px-6">
                         <div className="max-w-3xl mx-auto">
                             <div className="text-center mb-12">
-                                <Church strokeWidth={1.5} size={64} absoluteStrokeWidth className=" mx-auto mb-6 text-blue-600" />
+                                <Church strokeWidth={1.5} size={64} absoluteStrokeWidth className=" mx-auto mb-6 text-custom-blue" />
                                 <h2 className="text-3xl font-bold mb-8">Our Mission</h2>
-                                <blockquote className="text-lg text-gray-600 leading-relaxed italic border-l-4 border-blue-600 pl-4">
+                                <blockquote className="text-lg text-gray-600 leading-relaxed italic border-l-4 border-custom-blue pl-4">
                                     Make disciples of Jesus Christ who live as His loving witnesses and proclaim to all people the everlasting gospel of the Three Angels&apos; Messages in preparation for His soon return
                                 </blockquote>
                             </div>
                             <div className="text-center mt-16">
-                                <Target strokeWidth={1.5} size={64} absoluteStrokeWidth className=" mx-auto mb-6 text-blue-600" />
+                                <Target strokeWidth={1.5} size={64} absoluteStrokeWidth className=" mx-auto mb-6 text-custom-blue" />
                                 <h2 className="text-3xl font-bold mb-8">Our Vision</h2>
-                                <blockquote className="text-lg text-gray-600 leading-relaxed italic border-l-4 border-blue-600 pl-4">
+                                <blockquote className="text-lg text-gray-600 leading-relaxed italic border-l-4 border-custom-blue pl-4">
                                     In harmony with Bible revelation, Seventh-day Adventists see as the climax of God&apos;s plan the restoration of all His creation to full harmony with His perfect will and righteousness.                                </blockquote>
                             </div>
                         </div>
@@ -107,7 +107,7 @@ function About() {
                                 const Icon = belief.icon
                                 return (
                                     <div key={index} className="bg-white p-6 rounded-3xl shadow-2xl text-center md:w-84 w-full mx-auto">
-                                        <Icon strokeWidth={1.5} className="w-10 h-10 mx-auto mb-4 text-blue-600" />
+                                        <Icon strokeWidth={1.5} className="w-10 h-10 mx-auto mb-4 text-custom-blue" />
                                         <h3 className="text-xl font-semibold mb-3">{belief.title}</h3>
                                         <p className="text-gray-600">{belief.description}</p>
                                     </div>
@@ -122,7 +122,7 @@ function About() {
                     <div className="container mx-auto px-6">
                         <div className="max-w-3xl mx-auto">
                             <div className="text-center mb-12">
-                                <Users size={64} absoluteStrokeWidth strokeWidth={1.5} className=" mx-auto mb-6 text-blue-600" />
+                                <Users size={64} absoluteStrokeWidth strokeWidth={1.5} className=" mx-auto mb-6 text-custom-blue" />
                                 <h2 className="text-3xl font-bold mb-8">Who We Are</h2>
                                 <p className="text-lg text-gray-600 mb-8">
                                     Kitisuru SDA Church is more than a congregation — we are a family. We gather each Sabbath to
@@ -168,7 +168,7 @@ function About() {
                     <div className="container mx-auto px-6">
                         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
                             <div>
-                                <History strokeWidth={1.5} size={64} absoluteStrokeWidth className=" mb-6 text-blue-600" />
+                                <History strokeWidth={1.5} size={64} absoluteStrokeWidth className=" mb-6 text-custom-blue" />
                                 <h2 className="text-2xl font-bold mb-6">Our History</h2>
                                 <p className="text-gray-600 leading-relaxed">
                                     The Seventh-day Adventist Church began in the mid-19th century during the Second Great
@@ -177,7 +177,7 @@ function About() {
                                 </p>
                             </div>
                             <div>
-                                <Globe strokeWidth={1.5} size={64} absoluteStrokeWidth className=" mb-6 text-blue-600" />
+                                <Globe strokeWidth={1.5} size={64} absoluteStrokeWidth className=" mb-6 text-custom-blue" />
                                 <h2 className="text-2xl font-bold mb-6">Global Church, Local Impact</h2>
                                 <p className="text-gray-600 leading-relaxed">
                                     We are part of a global denomination with over 22 million members worldwide. The SDA Church

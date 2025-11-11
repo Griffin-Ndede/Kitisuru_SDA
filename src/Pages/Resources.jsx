@@ -59,14 +59,14 @@ const Resources = () => {
                 {doc.description.length > 100 && (
                     <button
                         onClick={toggleExpand}
-                        className="mt-2 text-blue-600 text-sm focus:outline-none hover:cursor-pointer"
+                        className="mt-2 text-custom-blue text-sm focus:outline-none hover:cursor-pointer"
                     >
                         {isExpanded ? 'Show Less' : 'Read More'}
                     </button>
                 )}
                 <div className="flex justify-between items-center mt-2">
                     <span className="text-xs text-gray-500">{doc.publish_date || doc.date}</span>
-                    <span className="text-xs px-2 py-1 bg-blue-600 rounded-full text-white">
+                    <span className="text-xs px-2 py-1 bg-custom-blue rounded-full text-white">
                         {doc.category?.name || doc.category}
                     </span>
                 </div>

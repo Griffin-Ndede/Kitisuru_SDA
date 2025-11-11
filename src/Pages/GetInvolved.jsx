@@ -18,12 +18,12 @@ function GetInvolvedCard({ icon: Icon, title, description, buttonText }) {
         <div className="bg-white rounded-4xl shadow-md p-6 transition-all hover:shadow-2xl text-center">
             <div className="flex items-center mb-4">
                 <div className="bg-blue-50 p-3 rounded-full mx-auto">
-                    <Icon className="w-6 h-6 text-blue-600" />
+                    <Icon className="w-6 h-6 text-custom-blue" />
                 </div>
             </div>
             <h3 className="text-xl font-semibold mb-2 text-gray-800 text-center">{title}</h3>
             <p className="text-gray-600 mb-4 text-center">{description}</p>
-            <button className="flex items-center text-blue-600 hover:text-blue-700 font-medium mx-auto hover:cursor-pointer">
+            <button className="flex items-center text-custom-blue hover:text-custom-blue font-medium mx-auto hover:cursor-pointer">
                 {buttonText}
                 <ChevronRight className="w-4 h-4 ml-1" />
             </button>
@@ -110,7 +110,7 @@ function GetInvolved() {
                             Our pastoral team is here to help you find your place in our church family.
                         </p>
                         <Link to="/contact">
-                        <button className="bg-blue-500 text-white px-8 py-3 rounded-4xl font-medium hover:bg-blue-700 hover:cursor-pointer transition-colors">
+                        <button className="bg-custom-blue text-white px-8 py-3 rounded-4xl font-medium hover:bg-custom-blue hover:cursor-pointer transition-colors">
                             Contact Us
                         </button>
                         </Link>

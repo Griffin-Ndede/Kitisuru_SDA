@@ -1,4 +1,4 @@
-
+import React from 'react';
 import { Link, useLoaderData } from 'react-router';
 import axios from 'axios';
 import Navbar from '../Components/Navbar';
@@ -43,7 +43,7 @@ const Ministries = () => {
                       />
                       <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                       </div>
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                      <div className="absolute inset-0  from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                         <div className="absolute bottom-0 left-0 right-0 p-6 space-y-2">
                           <h3 className="text-xl font-bold text-white line-clamp-2">
                             {ministry.title}
