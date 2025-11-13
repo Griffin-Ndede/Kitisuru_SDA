@@ -38,7 +38,7 @@ function Footer() {
                         </div>
                     </div>
                     <div className="border-t border-white mt-8 pt-8 text-center text-blue-200 text-xs font-light">
-                        <p>&copy; 2024 Seventh Day Adventist Church Kitisuru. All rights reserved.</p>
+                        <p>&copy; {new Date().getFullYear()}  Seventh Day Adventist Church Kitisuru. All rights reserved.</p>
                     </div>
                 </div>
             </footer>

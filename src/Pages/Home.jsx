@@ -127,14 +127,14 @@ function Home() {
                 <span className="text-custom-blue mt-2">Stay tuned — new events will appear here soon!</span>
               </div>
             ) : (
-              <div className="flex justify-center mx-auto gap-8">
+              <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grids-cols-3 mx-auto gap-8">
                 {futureEvents
                   .filter((event) => new Date(event.end_date) >= new Date())
                   .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
                   .map((event, index) => (
                     <div
                       key={index}
-                      className="relative bg-white p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300  mx-auto w-1/3"
+                      className="relative bg-white p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 mx-auto mb-6"
                     >
                       {/* Category Badge */}
                       <span className="absolute top-4 right-4 bg-blue-100 text-custom-orange text-xs font-bold px-3 py-1 rounded-full">

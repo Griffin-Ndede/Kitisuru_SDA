@@ -102,7 +102,7 @@ export default function MinistriesDetail() {
                   {ministry.gallery_images?.map((img, index) => (
                     <div
                       key={index}
-                      className="w-full md:w-1/3 md:min-w-[300px] md:h-[300px] rounded-3xl overflow-hidden flex-shrink-0"
+                      className="w-full md:w-1/3 md:min-w-[300px] md:h-[300px] rounded-3xl overflow-hidden"
                     >
                       <img
                         src={`${imageUrl}/${img.image}`}
@@ -167,7 +167,7 @@ export default function MinistriesDetail() {
             <div className="bg-white p-6 rounded-3xl shadow-sm">
               <div className="flex items-center gap-3 mb-4">
                 <UserPlus className="w-5 h-5 text-custom-blue" />
-                <h3 className="text-lg font-semibold">Get Involved</h3>
+                <h3 className="text-lg font-semibold">Get in touch</h3>
               </div>
               {ministry.contacts?.map((contact) => (
                 <div key={contact.id} className="flex items-start gap-4">

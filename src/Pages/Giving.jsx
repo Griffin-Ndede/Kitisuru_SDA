@@ -165,13 +165,14 @@ function Giving() {
             <div className="flex items-start space-x-4">
               <CreditCard className="w-6 h-6 text-green-600 mt-1" />
               <div>
-                <h3 className="font-semibold text-gray-800 mb-2">Development account (Unaitas Sacco)</h3>
+                <h3 className="font-semibold text-gray-800 mb-2">Development account</h3>
                 <p className="text-gray-800">
-                  Dev Acc. Pesalink Paybill 4068949.<br />1023286088
+                  ABSA Account
                 </p>
-                <p className="text-gray-800">
-                  Paybill 544600 A/C 863441# your name
+                <p className="text-gray-800 items-center">
+                  M-pesa Paybill <span className='text-lg font-bold text-custom-blue'>303030</span> 
                 </p>
+                <p>Account Number <span  className='text-lg font-bold text-custom-blue'>204 532 6813</span></p>
               </div>
             </div>
           </div>
