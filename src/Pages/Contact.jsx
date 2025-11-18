@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 
 import Navbar from '../Components/Navbar'
-import { Facebook , Instagram, Youtube, } from 'lucide-react';
+import { Facebook, Instagram, Youtube, } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -53,7 +53,7 @@ const Contact = () => {
         <main className="container mx-auto px-4 py-12">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Contact Form */}
-            <div className="lg:w-1/2 bg-white p-8 rounded-4xl shadow-2xl">
+            <div className="lg:w-2/3 bg-white p-8 rounded-4xl shadow-2xl">
               <h2 className="text-2xl font-semibold text-custom-blue mb-6">Send Us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
@@ -145,23 +145,22 @@ const Contact = () => {
             </div>
 
             {/* Contact Information */}
-            <div className="lg:w-1/2 bg-white p-8 rounded-4xl shadow-2xl">
+            <div className="lg:w-fit bg-white p-8 rounded-4xl shadow-2xl h-fit">
               <h2 className="text-2xl font-semibold text-custom-blue mb-6">Our Information</h2>
 
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-medium text-custom-blue mb-2">Address</h3>
+                  <h3 className="text-lg font-medium text-custom-blue mb-2">Physical address</h3>
                   <p className="text-gray-600">
                     SDA Church Kitisuru<br />
-                    Farasi Lane primary school<br />
-                    Off Lower Kabete Road
+                    Kirawa rd, Kiambu<br />
                   </p>
                 </div>
 
                 <div>
                   <h3 className="text-lg font-medium text-custom-blue mb-2">Service Times</h3>
                   <p className="text-gray-600">
-                    Saturday: 9:00am & 5:00pm<br />
+                    Saturday: 9:00am to 5:00pm<br />
                     Friday Vespers: 8:00pm
                   </p>
                 </div>
@@ -179,13 +178,13 @@ const Contact = () => {
                   <h3 className="text-lg font-medium text-custom-blue mb-2">Follow Us</h3>
                   <div className="flex space-x-4">
                     <a href="#" className="text-red-600 hover:text-custom-blue transition duration-300">
-                    <Facebook />
+                      <Facebook />
                     </a>
                     <a href="https://youtube.com/@sdachurchkitisuru?si=G-N85sdrGISWHe-g" target="blank" className="text-red-600 hover:text-custom-blue transition duration-300">
-                     <Youtube/>
+                      <Youtube />
                     </a>
                     <a href="#" className="text-red-600 hover:text-custom-blue transition duration-300">
-                    <Instagram />
+                      <Instagram />
                     </a>
                   </div>
                 </div>
@@ -198,7 +197,7 @@ const Contact = () => {
             <h2 className="text-2xl font-semibold text-custom-blue mb-6">Find Us</h2>
             <div className="aspect-w-16 aspect-h-9">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.879664540299!2d36.7588812749656!3d-1.2428615987453007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1837ea6db27b%3A0x44df5a87efb12b5e!2sFarasi%20Lane%20Primary%20School%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1750013053272!5m2!1sen!2ske"  
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1388.0664428512541!2d36.75646564290673!3d-1.2255396003921943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f197536c093d1%3A0x9030e99db5586283!2sKitisuru%20SDA%20Church!5e1!3m2!1sen!2ske!4v1762853012881!5m2!1sen!2ske"
                 width="100%"
                 height="400"
                 style={{ border: 0 }}

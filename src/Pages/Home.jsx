@@ -6,6 +6,8 @@ import Footer from '../Components/Footer';
 import Navbar from '../Components/Navbar';
 import videoBg from '../assets/nature video.mp4'
 import { useLoaderData } from 'react-router';
+import { motion } from "framer-motion";
+
 
 function Home() {
 
@@ -77,7 +79,14 @@ function Home() {
           </div>
 
           <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-            <div className="max-w-5xl mx-auto px-6 text-center">
+           
+
+            <motion.div 
+             initial={{ opacity: 0, y: 100 }}
+            whileInView={{ opacity: 1, y: 2 }}
+            transition={{ duration: 1.5 }}
+            viewport={{ once: true }}
+            className="max-w-5xl mx-auto px-6 text-center">
               <h1 className="text-5xl md:text-6xl font-bold text-white mb-10">
                 Welcome to Seventh Day Adventist Church Kitisuru
               </h1>
@@ -85,7 +94,7 @@ function Home() {
                 "Remember the Sabbath day, to keep it holy." <br />
                 <span className='text-2xl font-light'>Exodus 20:8</span>
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
         {/* Service Times */}

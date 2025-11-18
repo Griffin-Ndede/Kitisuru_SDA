@@ -95,7 +95,7 @@ function Giving() {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-16">
+      <div className=" mx-auto p-16">
 
         {/* Giving Options */}
         <div className="space-y-6 mb-16">
@@ -118,9 +118,8 @@ function Giving() {
                     className="text-white hover:text-gray-700"
                   >
                     <ChevronDown
-                      className={`w-5 h-5 transform transition-transform ${
-                        isExpanded ? "rotate-180" : ""
-                      }`}
+                      className={`w-5 h-5 transform transition-transform ${isExpanded ? "rotate-180" : ""
+                        }`}
                     />
                   </button>
                 </div>
@@ -141,15 +140,15 @@ function Giving() {
         </div>
 
         {/* Payment Methods */}
-        <div className="bg-white rounded-4xl shadow-2xl p-8 mb-16">
+        <div className="bg-white rounded-4xl shadow-2xl py-8 px-4 mb-16">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">Payment Methods</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="flex items-start space-x-4">
               <Phone className="w-6 h-6 text-green-600 mt-1" />
               <div>
                 <h3 className="font-semibold text-gray-800 mb-2">M-PESA</h3>
-                <p className="text-gray-600">Church Paybill: 406 894 9</p>
-                <p className="text-gray-600">A/c name - LCB, Tithe or Offering</p>
+                <p className="text-gray-600">Church Paybill: <span className='text-lg font-bold text-custom-blue'>406 894 9</span></p>
+                <p className="text-gray-600">Account Name:<span className='text-lg font-bold text-custom-blue'> LCB, Tithe or Offering</span> </p>
               </div>
             </div>
 
@@ -157,8 +156,8 @@ function Giving() {
               <Building className="w-6 h-6 text-green-600 mt-1" />
               <div>
                 <h3 className="font-semibold text-gray-800 mb-2">Bank Transfer (ABSA bank)</h3>
-                <p className="text-gray-600">Kshs acc: 204 532 686 6</p>
-                <p className="text-gray-600">Usd acc: 204 532 684 8</p>
+                <p className="text-gray-600">Kshs acc: <span className='text-lg font-bold text-custom-blue'>204 532 686 6</span></p>
+                <p className="text-gray-600">Usd acc: <span className='text-lg font-bold text-custom-blue'>204 532 684 8</span> </p>
               </div>
             </div>
 
@@ -170,9 +169,22 @@ function Giving() {
                   ABSA Account
                 </p>
                 <p className="text-gray-800 items-center">
-                  M-pesa Paybill <span className='text-lg font-bold text-custom-blue'>303030</span> 
+                  M-pesa Paybill: <span className='text-lg font-bold text-custom-blue'>303030</span>
                 </p>
-                <p>Account Number <span  className='text-lg font-bold text-custom-blue'>204 532 6813</span></p>
+                <p>Account Number: <span className='text-lg font-bold text-custom-blue'>204 532 6813</span></p>
+              </div>
+            </div>
+            <div className="flex items-start space-x-4">
+              <CreditCard className="w-6 h-6 text-green-600 mt-1" />
+              <div>
+                <h3 className="font-semibold text-gray-800 mb-2">Development account </h3>
+                <p className="text-gray-800">
+                  Unaitas Sacco
+                </p>
+                <p className="text-gray-800 items-center">
+                  M-pesa Paybill: <span className='text-lg font-bold text-custom-blue'>544600</span>
+                </p>
+                <p>Account Number: <span className='text-lg font-bold text-custom-blue'>863441#your name</span></p>
               </div>
             </div>
           </div>
@@ -192,9 +204,8 @@ function Giving() {
                   >
                     <span className="font-medium text-gray-800">{faq.question}</span>
                     <ChevronDown
-                      className={`w-5 h-5 text-white transform transition-transform ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
+                      className={`w-5 h-5 text-white transform transition-transform ${isOpen ? "rotate-180" : ""
+                        }`}
                     />
                   </button>
                   {isOpen && <p className="mt-2 text-gray-600">{faq.answer}</p>}
