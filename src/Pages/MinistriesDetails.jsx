@@ -19,7 +19,7 @@ export default function MinistriesDetail() {
       <div className="bg-white shadow-sm">
         <div className="container mx-auto px-6 py-4">
           <Link to='/ministries'>
-            <button className="flex items-center gap-2 text-custom-blue hover:text-custom-blue transition-colors">
+            <button className="flex items-center gap-2 text-custom-blue hover:text-custom-blue transition-colors cursor-pointer">
               <ArrowLeft className="w-5 h-5" />
               Back to Ministries
             </button>
