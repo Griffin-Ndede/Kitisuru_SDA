@@ -1,3 +1,3 @@
-// const BASE_URL = "http://127.0.0.1:8000"; // local host url
-const BASE_URL = "https://api.kitisurusda.org" // production url
+const BASE_URL = "http://127.0.0.1:8000"; // local host url
+// const BASE_URL = "https://api.kitisurusda.org" // production url
 export default BASE_URL;

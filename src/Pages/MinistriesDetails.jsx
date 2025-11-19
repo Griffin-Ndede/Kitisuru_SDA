@@ -76,8 +76,16 @@ export default function MinistriesDetail() {
                     </div>
                   ))
                 ) : (
-                  <div>Failed to load programs</div>
-                )}
+                  <div className="flex flex-col items-center justify-center rounded-3xl py-16 shadow-lg w-full border border-slate-200">
+                    <div className="bg-red-600 rounded-full mb-4 p-4">
+                      <Calendar className="w-10 h-10 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-red-600">No programs yet!</h3>
+                    <p className="mt-2 text-center px-3">
+                      Looks like there are no programs listed under this ministry.
+                    </p>
+                    <span className="text-custom-blue mt-2 text-center">Stay tuned — The programs will be updated soon!</span>
+                  </div>)}
               </div>
             </section>
 
@@ -135,7 +143,7 @@ export default function MinistriesDetail() {
                   </div>
                 ) : (
                   <div className='grid md:grid-cols-2 gap-4 py-2'>
-                    {ministry.events ?.sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+                    {ministry.events?.sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
                       .map((event) => (
                         <div key={event.id} className=" p-6 rounded-3xl shadow-sm mb-4" >
                           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
