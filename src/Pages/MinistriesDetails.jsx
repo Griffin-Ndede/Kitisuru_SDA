@@ -12,7 +12,6 @@ export default function MinistriesDetail() {
   const cloudName = "dfycvaiv7";
   const imageUrl = `https://res.cloudinary.com/${cloudName}`;
 
-  console.log(ministry.contacts.photo)
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
