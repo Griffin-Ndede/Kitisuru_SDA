@@ -79,7 +79,7 @@ export default function MinistriesDetail() {
                     <div className="bg-red-600 rounded-full mb-4 p-4">
                       <Calendar className="w-10 h-10 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-red-600">No programs yet!</h3>
+                    <h3 className="text-2xl font-bold text-red-600">No programs yet for {ministry.title}!</h3>
                     <p className="mt-2 text-center px-3">
                       Looks like there are no programs listed under this ministry.
                     </p>
@@ -96,7 +96,7 @@ export default function MinistriesDetail() {
                   <div className="bg-red-600 rounded-full mb-4 p-4">
                     <Image className="w-10 h-10 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-red-600">No Photos available yet!</h3>
+                  <h3 className="text-2xl font-bold text-red-600">No Photos available yet for {ministry.title}!</h3>
                   <p className="mt-2 text-center px-3">
                     It looks like we haven&apos;t added any photos for this ministry yet.
                   </p>
@@ -134,7 +134,7 @@ export default function MinistriesDetail() {
                     <div className="bg-red-600 rounded-full mb-4 p-4">
                       <Calendar className="w-10 h-10 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-red-600">No Events Yet!</h3>
+                    <h3 className="text-2xl font-bold text-red-600">No Events yet for {ministry.title}!</h3>
                     <p className="mt-2 text-center px-3">
                       Looks like there are no upcoming events at the moment.
                     </p>
