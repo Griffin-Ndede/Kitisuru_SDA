@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Calendar, Clock, MapPin, Users, Phone, Mail, UserPlus, Target, Heart, Image } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, MapPin, Users, Phone, Mail, UserPlus, Target, Heart, Image, CircleCheckBig } from 'lucide-react';
 import { Link, useLoaderData, useParams } from 'react-router';
 
 export default function MinistriesDetail() {
@@ -142,26 +142,42 @@ export default function MinistriesDetail() {
                   </div>
                 ) : (
                   <div className='grid md:grid-cols-2 gap-4 py-2'>
-                    {ministry.events?.sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
-                      .map((event) => (
-                        <div key={event.id} className=" p-6 rounded-3xl shadow-sm mb-4" >
-                          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                            <h3 className="text-xl font-semibold">{event.title}</h3>
-                          </div>
-                          <p className=" mb-4">{event.description}</p>
-                          <div className="flex gap-4 text-sm">
-                            <div className="flex items-center gap-2">
-                              <MapPin className="w-4 h-4 text-custom-blue" />
-                              <span className='text-custom-blue'>{event.location}</span>
+                    {ministry.events
+                      ?.sort((a, b) => new Date(a.start_date) - new Date(b.start_date))
+                      .map((event) => {
+                        const eventEnded = new Date(event.end_date) < new Date();
+                        return (
+                          <div key={event.id} className="p-6 rounded-3xl shadow-sm mb-4">
+                            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                              <h3 className="text-xl font-semibold">{event.title}</h3>
+
+                              {eventEnded && (
+                                <div>
+                                  <CircleCheckBig size={24} strokeWidth={2} className='text-green-600' />
+                                </div>
+                              )}
                             </div>
-                            <div className="flex items-center gap-2">
-                              <Calendar className="w-4 h-4 text-custom-blue" />
-                              <span className='text-custom-blue'>{event.start_date} - {event.end_date}</span>
+
+                            <p className="mb-4">{event.description}</p>
+
+                            <div className="flex gap-4 text-sm">
+                              <div className="flex items-center gap-2">
+                                <MapPin className="w-4 h-4 text-custom-blue" />
+                                <span className='text-custom-blue'>{event.location}</span>
+                              </div>
+
+                              <div className="flex items-center gap-2">
+                                <Calendar className="w-4 h-4 text-custom-blue" />
+                                <span className='text-custom-blue'>
+                                  {event.start_date} - {event.end_date}
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                   </div>
+
                 )}
 
               </div>
