@@ -7,6 +7,7 @@ import Navbar from '../Components/Navbar';
 import videoBg from '../assets/nature video.mp4'
 import { useLoaderData } from 'react-router';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 function Home() {
 
@@ -34,6 +35,8 @@ function Home() {
   ];
 
   const { youtubeContent, upcomingEvents } = useLoaderData()
+  const [fullscreenImage, setFullscreenImage] = useState(null);
+
 
   const futureEvents = upcomingEvents.filter(
     (event) => new Date(event.end_date) >= new Date()
@@ -53,6 +56,9 @@ function Home() {
     const match = url.match(regExp);
     return match ? match[1] : null;
   };
+
+  const cloudName = "dfycvaiv7";
+  const imageUrl = `https://res.cloudinary.com/${cloudName}`;
 
   return (
     <>
@@ -133,14 +139,14 @@ function Home() {
                 <span className="text-custom-blue mt-2">Stay tuned — new events will appear here soon!</span>
               </div>
             ) : (
-              <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grids-cols-3 mx-auto gap-8">
+              <div className="flex flex-wrap mx-auto gap-8">
                 {futureEvents
                   .filter((event) => new Date(event.end_date) >= new Date())
                   .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
                   .map((event, index) => (
                     <div
                       key={index}
-                      className="relative bg-white p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 mx-auto mb-6"
+                      className="relative bg-white  p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 mx-auto w-1/3 mb-6"
                     >
                       {/* Category Badge */}
                       <span className="absolute top-4 right-4 bg-blue-100 text-custom-orange text-xs font-bold px-3 py-1 rounded-full">
@@ -150,20 +156,23 @@ function Home() {
                       {/* Icon */}
                       <Calendar className="w-8 h-8 text-custom-blue mb-4" />
 
+                      <img
+                        src={`${imageUrl}/${event.image}`}
+                        alt={event.title}
+                        className="w-fit h-64 rounded-xl shadow-md mb-4 mx-auto hover:cursor-pointer"
+                        onClick={() => setFullscreenImage(`${imageUrl}/${event.image}`)}
+                      />
                       {/* Title */}
-                      <h3 className="text-xl font-bold mb-2">{event.title}</h3>
-
+                      <h3 className="text-xl font-bold mb-2 text-center">{event.title}</h3>
                       {/* Description */}
-                      <p className="font-light mb-6">{event.description}</p>
-
+                      <p className="font-light mb-6 text-center text-base">{event.description}</p>
                       {/* Location & Dates */}
-                      <div className="border-t border-gray-200 w-full pt-4 flex flex-col md:flex-row md:items-center md:justify-between text-sm text-gray-600">
+                      <div className="border-t border-gray-200 w-full pt-4 flex flex-col md:justify-between text-sm text-gray-600">
                         {/* Location */}
                         <div className="flex items-center gap-2 mb-2 md:mb-0">
                           <MapPin strokeWidth={1} size={24} absoluteStrokeWidth className='text-custom-blue' />
                           <span className="font-light text-base">{event.location}</span>
                         </div>
-
                         {/* Dates */}
                         <div className="flex items-center gap-2">
                           <Calendar strokeWidth={1} size={24} absoluteStrokeWidth className="text-custom-blue" />
@@ -234,6 +243,21 @@ function Home() {
             )}
           </div>
         </section>
+        {
+          fullscreenImage && (
+            <div
+              className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+              onClick={() => setFullscreenImage(null)} // Close when clicked
+            >
+              <img
+                src={fullscreenImage}
+                alt="Fullscreen"
+                onContextMenu={(e) => e.preventDefault()}
+                className="w-full max-h-full object-contain"
+              />
+            </div>
+          )
+        }
         <Footer />
       </div>
     </>
