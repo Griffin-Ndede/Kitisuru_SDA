@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { ArrowLeft, Calendar, Clock, MapPin, Users, Phone, Mail, UserPlus, Target, Heart, Image, CircleCheckBig } from 'lucide-react';
 import { Link, useLoaderData, useParams } from 'react-router';
 
@@ -11,6 +12,10 @@ export default function MinistriesDetail() {
   }
   const cloudName = "dfycvaiv7";
   const imageUrl = `https://res.cloudinary.com/${cloudName}`;
+
+  const [fullscreenImage, setFullscreenImage] = useState(null);
+
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -114,6 +119,8 @@ export default function MinistriesDetail() {
                       <img
                         src={`${imageUrl}/${img.image}`}
                         className="w-full h-[300px] object-cover hover:scale-105 transition-transform duration-300"
+                        onClick={() => setFullscreenImage(`${imageUrl}/${img.image}`)}
+
                       />
                     </div>
                   ))}
@@ -232,6 +239,22 @@ export default function MinistriesDetail() {
 
         </div>
       </div>
+      {
+        fullscreenImage && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+            onClick={() => setFullscreenImage(null)} // Close when clicked
+          >
+            <img
+              src={fullscreenImage}
+              alt="Fullscreen"
+              onContextMenu={(e) => e.preventDefault()}
+              className="w-full max-h-full object-contain"
+            />
+          </div>
+        )
+      }
     </div>
+
   );
 }
