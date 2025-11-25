@@ -139,14 +139,14 @@ function Home() {
                 <span className="text-custom-blue mt-2">Stay tuned — new events will appear here soon!</span>
               </div>
             ) : (
-              <div className="flex flex-wrap mx-auto gap-8">
+              <div className="flex flex-wrap mx-auto gap-8 h-fit">
                 {futureEvents
                   .filter((event) => new Date(event.end_date) >= new Date())
                   .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
                   .map((event, index) => (
                     <div
                       key={index}
-                      className="relative bg-white  p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 mx-auto w-1/3 mb-6"
+                      className="relative bg-white  p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 mx-auto w-fit h-fit md:w-1/3 mb-6"
                     >
                       {/* Category Badge */}
                       <span className="absolute top-4 right-4 bg-blue-100 text-custom-orange text-xs font-bold px-3 py-1 rounded-full">
@@ -159,7 +159,7 @@ function Home() {
                       <img
                         src={`${imageUrl}/${event.image}`}
                         alt={event.title}
-                        className="w-fit h-64 rounded-xl shadow-md mb-4 mx-auto hover:cursor-pointer"
+                        className="md:h-fit w-full mx-auto object-cover rounded-2xl shadow-sm mb-4 cursor-pointer"
                         onClick={() => setFullscreenImage(`${imageUrl}/${event.image}`)}
                       />
                       {/* Title */}
@@ -232,7 +232,7 @@ function Home() {
                         <h3 className="text-lg font-bold mb-3 w-2/3 mx-auto">
                           {video.title}
                         </h3>
-                        <p className=" text-sm w-2/3 mx-auto text-custom-blue leading-relaxed line-clamp-2">
+                        <p className=" text-sm mx-auto text-custom-blue leading-relaxed">
                           {video.description}
                         </p>
                       </div>
