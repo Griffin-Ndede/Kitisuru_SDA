@@ -152,8 +152,9 @@ const Contact = () => {
                 <div>
                   <h3 className="text-lg font-medium text-custom-blue mb-2">Physical address</h3>
                   <p className="text-gray-600">
-                    SDA Church Kitisuru<br />
-                    Kirawa rd, Kiambu<br />
+                    Seventh Day Adventist <br />
+                     Church Kitisuru<br />
+                    Kirawa rd, Kitisuru<br />
                   </p>
                 </div>
 
@@ -169,8 +170,7 @@ const Contact = () => {
                   <h3 className="text-lg font-medium text-custom-blue mb-2">Contact Details</h3>
                   <p className="text-gray-600">
                     Phone: (123) 456-7890<br />
-                    Email: info@KitisuruSDA.org<br />
-                    Office Hours: Mon-Thu 9am-4pm
+                    Email: kitisurusda@gmail.com<br />
                   </p>
                 </div>
 

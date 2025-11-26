@@ -159,7 +159,7 @@ function Home() {
                       <img
                         src={`${imageUrl}/${event.image}`}
                         alt={event.title}
-                        className="md:h-fit w-full mx-auto object-cover rounded-2xl shadow-sm mb-4 cursor-pointer"
+                        className="h-64 w-fit mx-auto object-cover rounded-2xl shadow-sm mb-4 cursor-pointer"
                         onClick={() => setFullscreenImage(`${imageUrl}/${event.image}`)}
                       />
                       {/* Title */}
