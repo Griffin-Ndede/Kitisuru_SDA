@@ -133,7 +133,7 @@ export default function MinistriesDetail() {
             <section>
               <div className="flex items-center gap-3 mb-6">
                 <Calendar className="w-6 h-6 text-custom-blue" />
-                <h2 className="text-2xl font-bold">Upcoming Events</h2>
+                <h2 className="text-2xl font-bold">Ministry Events</h2>
               </div>
               <div className="space-y-6">
                 {ministry.events?.length === 0 ? (
