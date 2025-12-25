@@ -95,7 +95,7 @@ function Giving() {
       </div>
 
       {/* Main Content */}
-      <div className=" mx-auto p-16">
+      <div className=" mx-auto p-6 mb:p-16">
 
         {/* Giving Options */}
         <div className="space-y-6 mb-16">
