@@ -217,8 +217,8 @@ function Giving() {
 
         {/* Accountability Section */}
         <div className="bg-white rounded-4xl shadow-2xl p-8 mb-20">
-          <div className="flex items-start space-x-4">
-            <div className="bg-green-50 p-3 rounded-full">
+          <div className="items-start space-x-4">
+            <div className="bg-green-50 p-3 rounded-full w-fit flex mx-auto">
               <ShieldCheck className="w-6 h-6 text-green-600" />
             </div>
             <div>
