@@ -17,15 +17,14 @@ function GetInvolved() {
                 "If you would like to have your child dedicated at Kitisuru Seventh-day Adventist Church please submit one form per child.",
             buttonText: "Fill out the form",
             icon: <Baby className="w-6 h-6 text-custom-blue" />
-
         },
         {
-            key: "baptism",
-            title: "Baptism Interest",
+            key: "commitment_form",
+            title: "Commitment & Spiritual Support",
             description:
-                "Take the next step in your spiritual journey and learn more about baptism in the Adventist faith.",
-            buttonText: "Learn More",
-            icon: <Droplets className='w-6 h-6 text-custom-blue' />
+                "Let us know how you would like to take your next step in your faith journey or how we can support you spiritually.",
+            buttonText: "Express commitment",
+            icon: <HandHeart className="w-6 h-6 text-custom-blue" />
         },
         {
             key: "membership_transfer",
@@ -35,7 +34,7 @@ function GetInvolved() {
             buttonText: "Start Transfer",
             icon: <UserPlus className='w-6 h-6 text-custom-blue' />
         },
-    
+
     ];
 
     return (
@@ -86,7 +85,7 @@ function GetInvolved() {
 
                 {/* popup modal */}
                 {selectedActivity && (
-                    <div className="fixed inset-0  z-50 md:z-25 flex items-center justify-center bg-black/30 backdrop-blur-xs">
+                    <div className="fixed inset-0  z-50  flex items-center justify-center bg-black/30 backdrop-blur-xs">
                         <div className="bg-white rounded-4xl shadow-lg p-6 w-full max-w-xl mx-4 sm:mx-6 md:mx-0 relative overflow-y-auto max-h-[90vh]">
                             {/* Close button */}
                             <X
@@ -102,7 +101,6 @@ function GetInvolved() {
                         </div>
                     </div>
                 )}
-
 
             </div>
             {/* Contact Section */}

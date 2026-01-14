@@ -1,76 +1,124 @@
 export const activityFields = {
-  Child_dedication: [
-  {
-    name: "child_name",
-    type: "text",
-    label: "Full Name of Child",
-    placeholder: "Enter child's full name",
-    required: true,
-  },
-  {
-    name: "child_dob",
-    type: "date",
-    label: "Date of Birth",
-    required: true,
-  },
-  {
-    name: "child_gender",
-    type: "select",
-    label: "Gender",
-    placeholder: "Select gender",
-    required: true,
-    options: [
-      { label: "Male", value: "male" },
-      { label: "Female", value: "female" },
-    ],
-  },
-
-  /* Parents Section */
-  {
-    name: "mother_name",
-    type: "text",
-    label: "Mother's Full Name",
-    placeholder: "Enter mother's full name",
-  },
-  {
-    name: "mother_phone",
-    type: "text",
-    label: "Mother's Phone Number",
-    placeholder: "Enter mother's phone number",
-  },
-  {
-    name: "mother_email",
-    type: "email",
-    label: "Mother's Email (optional)",
-    placeholder: "Enter mother's email",
-  },
-
-  {
-    name: "father_name",
-    type: "text",
-    label: "Father's Full Name",
-    placeholder: "Enter father's full name",
-  },
-  {
-    name: "father_phone",
-    type: "text",
-    label: "Father's Phone Number",
-    placeholder: "Enter father's phone number",
-  },
-  {
-    name: "father_email",
-    type: "email",
-    label: "Father's Email (optional)",
-    placeholder: "Enter father's email",
-  },
-  ],
-
-    baptism: [
+    Child_dedication: [
         {
-            name: "preferred_date",
-            type: "date",
-            placeholder: "Preferred Baptism Date"
+            name: "child_name",
+            type: "text",
+            label: "Full Name of Child",
+            placeholder: "Enter child's full name",
+            required: true,
         },
+        {
+            name: "child_dob",
+            type: "date",
+            label: "Date of Birth",
+            required: true,
+        },
+        {
+            name: "child_gender",
+            type: "select",
+            label: "Gender",
+            placeholder: "Select gender",
+            required: true,
+            options: [
+                { label: "Male", value: "male" },
+                { label: "Female", value: "female" },
+            ],
+        },
+
+        /* Parents Section */
+        {
+            name: "mother_name",
+            type: "text",
+            label: "Mother's Full Name",
+            placeholder: "Enter mother's full name",
+        },
+        {
+            name: "mother_phone",
+            type: "text",
+            label: "Mother's Phone Number",
+            placeholder: "Enter mother's phone number",
+        },
+        {
+            name: "mother_email",
+            type: "email",
+            label: "Mother's Email (optional)",
+            placeholder: "Enter mother's email",
+        },
+
+        {
+            name: "father_name",
+            type: "text",
+            label: "Father's Full Name",
+            placeholder: "Enter father's full name",
+        },
+        {
+            name: "father_phone",
+            type: "text",
+            label: "Father's Phone Number",
+            placeholder: "Enter father's phone number",
+        },
+        {
+            name: "father_email",
+            type: "email",
+            label: "Father's Email (optional)",
+            placeholder: "Enter father's email",
+        },
+    ],
+
+    commitment_form: [
+        {
+            name: "Full_name",
+            type: "text",
+            label: "Full Name",
+            placeholder: "Enter your full name",
+            required: true,
+        },
+        {
+            name: "Email",
+            type: "email",
+            label: "Email address",
+            placeholder: "Enter your email address",
+        },
+        {
+            name: "Phone_number",
+            type: "text",
+            label: "Phone number",
+            placeholder: "Enter your phone number"
+        },
+          {
+        name: "commitment_type",
+        type: "checkbox_group",
+        label: "What would you like to do?",
+        options: [
+            {
+                label: "Renew my commitment to God",
+                value: "renew_commitment",
+            },
+            {
+                label: "Join a Bible study class",
+                value: "bible_study",
+            },
+            {
+                label: "Be baptised",
+                value: "baptism",
+            },
+            {
+                label: "Talk to a pastor",
+                value: "talk_to_pastor",
+            },
+            {
+                label: "Submit a prayer request",
+                value: "prayer_request",
+            },
+        ],
+        required: true,
+    },
+       {
+        name: "message",
+        type: "textarea",
+        label: "Additional Information / Prayer Request",
+        placeholder: "Share any details you would like us to know",
+    },
     ],
     membership_transfer: [
         {

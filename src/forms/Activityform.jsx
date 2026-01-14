@@ -27,44 +27,6 @@ function Activityform({ activity }) {
 
                 {/* Form */}
                 <form className="space-y-5">
-                    {/* Full Name */}
-                    {/* <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Full Name
-                        </label>
-                        <input
-                            name="name"
-                            placeholder="John Doe"
-                            required
-                            className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-custom-blue focus:border-custom-blue"
-                        />
-                    </div> */}
-
-                    {/* Email */}
-                    {/* <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Email Address
-                        </label>
-                        <input
-                            name="email"
-                            type="email"
-                            placeholder="john@example.com"
-                            required
-                            className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-custom-blue focus:border-custom-blue"
-                        />
-                    </div> */}
-
-                    {/* Phone */}
-                    {/* <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Phone Number <span className="text-gray-400">(optional)</span>
-                        </label>
-                        <input
-                            name="phone"
-                            placeholder="0712 345 678"
-                            className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-custom-blue focus:border-custom-blue"
-                        />
-                    </div> */}
                     {/* Activity-specific extra fields */}
                     {(activityFields[activity.key] || []).map((field) => (
                         <div key={field.name} className="mb-4">
@@ -128,7 +90,9 @@ function Activityform({ activity }) {
 
                             {/* Checkbox Group */}
                             {field.type === "checkbox_group" && field.options && (
+
                                 <div>
+                                    <label>{field.label}</label>
                                     {field.options.map((opt) => (
                                         <label key={opt.value} className="flex items-center gap-2">
                                             <input
@@ -144,21 +108,6 @@ function Activityform({ activity }) {
                             )}
                         </div>
                     ))}
-
-
-
-                    {/* Message */}
-                    {/* <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Why are you interested?
-                        </label>
-                        <textarea
-                            name="message"
-                            rows="4"
-                            placeholder="Tell us a bit about your interest..."
-                            className="w-full rounded-xl border border-gray-300 px-4 py-3 resize-none focus:outline-none focus:ring-2 focus:ring-custom-blue focus:border-custom-blue"
-                        />
-                    </div> */}
                     {/* Submit Button */}
                     <button
                         type="submit"
