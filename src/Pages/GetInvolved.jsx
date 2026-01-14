@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Users, BookOpen, Droplets, UserPlus, Calendar, MessageSquareText, HandHeart, ChevronRight, } from 'lucide-react';
+import { BookOpen, Droplets, UserPlus, Calendar, MessageSquareText, HandHeart, ChevronRight, X, Baby, } from 'lucide-react';
 import Navbar from '../Components/Navbar';
 import { Link } from 'react-router';
 import ActivityForm from '../forms/Activityform';
@@ -11,21 +11,13 @@ function GetInvolved() {
 
     const activities = [
         {
-            key: "volunteer",
-            title: "Volunteer Opportunities",
+            key: "Child_dedication",
+            title: "Child dedication",
             description:
-                "Share your time and talents to serve our church and community through various ministries and outreach programs.",
-            buttonText: "View Opportunities",
-            icon: <HandHeart className="w-6 h-6 text-custom-blue" />
+                "If you would like to have your child dedicated at Kitisuru Seventh-day Adventist Church please submit one form per child.",
+            buttonText: "Fill out the form",
+            icon: <Baby className="w-6 h-6 text-custom-blue" />
 
-        },
-        {
-            key: "bible_study",
-            title: "Bible Study Groups",
-            description:
-                "Deepen your understanding of Scripture by joining one of our weekly Bible study groups or Sabbath School classes.",
-            buttonText: "Find a Group",
-            icon: <BookOpen className='w-6 h-6 text-custom-blue' />
         },
         {
             key: "baptism",
@@ -43,22 +35,7 @@ function GetInvolved() {
             buttonText: "Start Transfer",
             icon: <UserPlus className='w-6 h-6 text-custom-blue' />
         },
-        {
-            key: "event_suggestion",
-            title: "Suggest an Event",
-            description:
-                "Have an idea for a church event or ministry? Share your suggestions with our leadership team.",
-            buttonText: "Submit Idea",
-            icon: <Calendar className='w-6 h-6 text-custom-blue' />
-        },
-        {
-            key: "testimony",
-            title: "Share Your Testimony",
-            description:
-                "Inspire others by sharing how God has worked in your life through our testimony submission form.",
-            buttonText: "Share Story",
-            icon: <MessageSquareText className='w-6 h-6 text-custom-blue' />
-        },
+    
     ];
 
     return (
@@ -83,7 +60,7 @@ function GetInvolved() {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 md:gap-12 md:p-20">
                     {activities.map((activity) => (
                         <div
                             key={activity.key}
@@ -109,15 +86,13 @@ function GetInvolved() {
 
                 {/* popup modal */}
                 {selectedActivity && (
-                    <div className="fixed inset-0 z-25 flex items-center justify-center bg-black/30">
-                        <div className="bg-white rounded-4xl shadow-lg p-8 max-w-xl w-full relative">
+                    <div className="fixed inset-0  z-50 md:z-25 flex items-center justify-center bg-black/30 backdrop-blur-xs">
+                        <div className="bg-white rounded-4xl shadow-lg p-6 w-full max-w-xl mx-4 sm:mx-6 md:mx-0 relative overflow-y-auto max-h-[90vh]">
                             {/* Close button */}
-                            <button
-                                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+                            <X
+                                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 hover:cursor-pointer"
                                 onClick={() => setSelectedActivity(null)}
-                            >
-                                ✕
-                            </button>
+                            />
 
                             {/* Your form */}
                             <ActivityForm
