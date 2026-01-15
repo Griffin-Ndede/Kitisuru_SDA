@@ -160,7 +160,7 @@ function Activityform({ activity }) {
                                     <input
                                         type="checkbox"
                                         name={field.name}
-                                        checked={!!formData[field.name]}
+  checked={Boolean(formData[field.name])}
                                         onChange={handleChange}
                                         required={field.required}
                                     />
@@ -181,7 +181,7 @@ function Activityform({ activity }) {
                                                 type="checkbox"
                                                 name={field.name}
                                                 value={opt.value}
-                                                checked={formData[field.name]?.includes(opt.value)}
+  checked={(formData[field.name] || []).includes(opt.value)}
                                                 onChange={handleChange}
                                             />
                                             <span>{opt.label}</span>
