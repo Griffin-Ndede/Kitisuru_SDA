@@ -121,11 +121,88 @@ export const activityFields = {
     },
     ],
     membership_transfer: [
-        {
-            name: "previous_church",
+       {
+            name: "Full_name",
             type: "text",
-            placeholder: "Previous Church Name"
+            label: "Full Name",
+            placeholder: "Enter your full name",
+            required: true,
         },
-    ],
+        {
+            name: "Email",
+            type: "email",
+            label: "Email address",
+            placeholder: "Enter your email address",
+        },
+        {
+            name: "Phone_number",
+            type: "text",
+            label: "Phone number",
+            placeholder: "Enter your phone number"
+        },
+           {
+        name: "transfer_type",
+        type: "radio",
+        label: "What would you like to do?",
+        options: [
+            {
+                label: "Transfer my membership from another church to Newlife SDA Church Nairobi",
+                value: "transfer_in",
+            },
+            {
+                label: "Transfer my membership from Newlife SDA Church Nairobi to another church",
+                value: "transfer_out",
+            },
+        ],
+        required: true,
+    },
+
+    // FROM CHURCH
+    {
+        name: "from_church_name",
+        type: "text",
+        label: "Church You Are Transferring From – Church Name",
+        placeholder: "Enter church name",
+    },
+    {
+        name: "from_church_district",
+        type: "text",
+        label: "Church You Are Transferring From – District",
+        placeholder: "Enter district",
+    },
+    {
+        name: "from_church_conference",
+        type: "text",
+        label: "Church You Are Transferring From – Conference",
+        placeholder: "Enter conference",
+    },
+
+    // TO CHURCH
+    {
+        name: "to_church_name",
+        type: "text",
+        label: "Church You Are Transferring To – Church Name",
+        placeholder: "Enter church name",
+    },
+    {
+        name: "to_church_district",
+        type: "text",
+        label: "Church You Are Transferring To – District",
+        placeholder: "Enter district",
+    },
+    {
+        name: "to_church_conference",
+        type: "text",
+        label: "Church You Are Transferring To – Conference",
+        placeholder: "Enter conference",
+    },
+
+    {
+        name: "additional_notes",
+        type: "textarea",
+        label: "Additional Information (optional)",
+        placeholder: "Any additional details we should know",
+    },
+]
 
 };

@@ -1,17 +1,65 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { activityFields } from "./ActivitySchema";
 
 function Activityform({ activity }) {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        message: "",
-    });
+    const [formData, setFormData] = useState({});
 
 
+    useEffect(() => {
+        const initialData = {};
+
+        (activityFields[activity.key] || []).forEach(field => {
+            if (field.type === "checkbox_group") {
+                initialData[field.name] = [];
+            } else if (field.type === "checkbox") {
+                initialData[field.name] = false;
+            } else {
+                initialData[field.name] = "";
+            }
+        });
+
+        setFormData(initialData);
+    }, [activity.key]);
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+
+        setFormData(prev => {
+            // Single checkbox
+            if (type === "checkbox" && !Array.isArray(prev[name])) {
+                return { ...prev, [name]: checked };
+            }
+
+            // Checkbox group
+            if (type === "checkbox" && Array.isArray(prev[name])) {
+                return {
+                    ...prev,
+                    [name]: checked
+                        ? [...prev[name], value]
+                        : prev[name].filter(v => v !== value),
+                };
+            }
+
+            // Everything else (text, email, select, radio, textarea)
+            return { ...prev, [name]: value };
+        });
+    };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const payload = {
+            activity: activity.key,
+            submittedAt: new Date().toISOString(),
+            data: formData,
+        };
+
+        console.log("FINAL PAYLOAD", payload);
+
+        // Send to EmailJS, Django API, Firebase, etc
+    };
 
 
+    console.log(formData)
     return (
         <>
             <div className="max-w-xl mx-auto bg-white rounded-4xl p-8">
@@ -26,10 +74,11 @@ function Activityform({ activity }) {
                 </div>
 
                 {/* Form */}
-                <form className="space-y-5">
-                    {/* Activity-specific extra fields */}
+                <form onSubmit={handleSubmit}
+                    className="space-y-5">
                     {(activityFields[activity.key] || []).map((field) => (
                         <div key={field.name} className="mb-4">
+
                             {/* Label */}
                             {field.label && field.type !== "checkbox" && field.type !== "checkbox_group" && (
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -37,14 +86,16 @@ function Activityform({ activity }) {
                                 </label>
                             )}
 
-                            {/* Text, Email, Number, Date */}
+                            {/* Text / Email / Number / Date */}
                             {["text", "email", "number", "date"].includes(field.type) && (
                                 <input
                                     type={field.type}
                                     name={field.name}
                                     placeholder={field.placeholder}
                                     required={field.required}
-                                    className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-custom-blue focus:border-custom-blue"
+                                    value={formData[field.name] || ""}
+                                    onChange={handleChange}
+                                    className="w-full rounded-xl border border-gray-300 px-4 py-3"
                                 />
                             )}
 
@@ -55,7 +106,9 @@ function Activityform({ activity }) {
                                     rows={4}
                                     placeholder={field.placeholder}
                                     required={field.required}
-                                    className="w-full rounded-xl border border-gray-300 px-4 py-3 resize-none focus:outline-none focus:ring-2 focus:ring-custom-blue focus:border-custom-blue"
+                                    value={formData[field.name] || ""}
+                                    onChange={handleChange}
+                                    className="w-full rounded-xl border border-gray-300 px-4 py-3"
                                 />
                             )}
 
@@ -64,9 +117,13 @@ function Activityform({ activity }) {
                                 <select
                                     name={field.name}
                                     required={field.required}
-                                    className="w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-custom-blue focus:border-custom-blue"
+                                    value={formData[field.name] || ""}
+                                    onChange={handleChange}
+                                    className="w-full rounded-xl border border-gray-300 px-4 py-3"
                                 >
-                                    <option value="">{field.placeholder || `Select ${field.label}`}</option>
+                                    <option value="">
+                                        {field.placeholder || `Select ${field.label}`}
+                                    </option>
                                     {field.options.map((opt) => (
                                         <option key={opt.value} value={opt.value}>
                                             {opt.label}
@@ -75,31 +132,57 @@ function Activityform({ activity }) {
                                 </select>
                             )}
 
+                            {/* Radio */}
+                            {field.type === "radio" && (
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        {field.label}
+                                    </label>
+
+                                    {field.options.map((option) => (
+                                        <label key={option.value} className="flex items-center gap-2">
+                                            <input
+                                                type="radio"
+                                                name={field.name}
+                                                value={option.value}
+                                                checked={formData[field.name] === option.value}
+                                                onChange={handleChange}
+                                            />
+                                            <span>{option.label}</span>
+                                        </label>
+                                    ))}
+                                </div>
+                            )}
+
                             {/* Single Checkbox */}
                             {field.type === "checkbox" && (
-                                <label className="flex items-center space-x-2">
+                                <label className="flex items-center gap-2">
                                     <input
                                         type="checkbox"
                                         name={field.name}
+                                        checked={!!formData[field.name]}
+                                        onChange={handleChange}
                                         required={field.required}
-                                        className="rounded border-gray-300 focus:ring-2 focus:ring-custom-blue"
                                     />
                                     <span>{field.label}</span>
                                 </label>
                             )}
 
                             {/* Checkbox Group */}
-                            {field.type === "checkbox_group" && field.options && (
-
+                            {field.type === "checkbox_group" && (
                                 <div>
-                                    <label>{field.label}</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                        {field.label}
+                                    </label>
+
                                     {field.options.map((opt) => (
                                         <label key={opt.value} className="flex items-center gap-2">
                                             <input
                                                 type="checkbox"
                                                 name={field.name}
                                                 value={opt.value}
-                                                className="rounded border-gray-300 focus:ring-2 focus:ring-custom-blue"
+                                                checked={formData[field.name]?.includes(opt.value)}
+                                                onChange={handleChange}
                                             />
                                             <span>{opt.label}</span>
                                         </label>
@@ -108,14 +191,15 @@ function Activityform({ activity }) {
                             )}
                         </div>
                     ))}
-                    {/* Submit Button */}
+
                     <button
                         type="submit"
-                        className="w-full bg-custom-blue text-white py-3 rounded-xl font-medium hover:bg-custom-blue/90 transition-colors"
+                        className="w-full bg-custom-blue text-white py-3 rounded-xl font-medium"
                     >
                         Submit
                     </button>
                 </form>
+
             </div>
         </>
 
