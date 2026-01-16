@@ -48,21 +48,35 @@ function Activityform({ activity }) {
     };
 
 
+    const fields = activityFields[activity.key] || [];
+
+    // field name -> field label
     const fieldLabelMap = Object.fromEntries(
-        (activityFields[activity.key] || []).map(field => [
-            field.name,
-            field.label || field.name,
-        ])
+        fields.map(field => [field.name, field.label || field.name])
     );
+
+    // field name -> option value -> option label
+    const optionLabelMap = Object.fromEntries(
+        fields
+            .filter(field => field.options)
+            .map(field => [
+                field.name,
+                Object.fromEntries(
+                    field.options.map(opt => [opt.value, opt.label])
+                ),
+            ])
+    );
+
 
     // format email function 
     const formatEmailMessage = (payload) => {
-        const { activity, submittedAt, data } = payload;
+        const { submittedAt, data } = payload;
 
         let message = `
-New form submission
+Hello,
 
-Activity: ${activity}
+You have received a new form submission through the website.
+Activity: ${activity.title}
 Submitted at: ${new Date(submittedAt).toLocaleString()}
 
 ----------------------------------
@@ -71,21 +85,47 @@ Submitted at: ${new Date(submittedAt).toLocaleString()}
         Object.entries(data).forEach(([key, value]) => {
             const label = fieldLabelMap[key] || key;
 
+            // Checkbox group / multi-select
             if (Array.isArray(value)) {
+                if (value.length === 0) {
+                    message += `${label}: —\n\n`;
+                    return;
+                }
+
                 message += `${label}:\n`;
                 value.forEach(v => {
-                    message += `- ${v}\n`;
+                    const displayValue =
+                        optionLabelMap[key]?.[v] || v;
+                    message += `- ${displayValue}\n`;
                 });
                 message += "\n";
-            } else if (typeof value === "boolean") {
-                message += `${label}: ${value ? "Yes" : "No"}\n\n`;
-            } else {
-                message += `${label}: ${value || "—"}\n\n`;
+                return;
             }
-        });
 
+            // Boolean (single checkbox)
+            if (typeof value === "boolean") {
+                message += `${label}: ${value ? "Yes" : "No"}\n\n`;
+                return;
+            }
+
+            // Text / email / select / radio
+            const displayValue =
+                optionLabelMap[key]?.[value] || value || "—";
+
+            message += `${label}: ${displayValue}\n\n`;
+        });
+        message += `
+----------------------------------
+This message was sent from the church website on the ${activity.title} form.
+Please follow up with the applicant as needed.
+Thank you for serving and supporting this ministry.
+
+Warm regards,  
+Kitisuru SDA Church Website
+`;
         return message;
     };
+
 
 
     const handleSubmit = (e) => {
@@ -133,7 +173,7 @@ Submitted at: ${new Date(submittedAt).toLocaleString()}
         const successAlert = () => {
             Swal.fire({
                 title: 'Success',
-                text: 'Thank you for booking a demo',
+                text: `Thank you for filling out the ${activity.title} form`,
                 icon: 'success',
                 confirmButtonText: 'OK',
             })

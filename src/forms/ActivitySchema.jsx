@@ -103,7 +103,7 @@ export const activityFields = {
                 value: "baptism",
             },
             {
-                label: "Talk to a pastor",
+                label: "Talk to the pastor",
                 value: "talk_to_pastor",
             },
             {
