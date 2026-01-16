@@ -126,8 +126,6 @@ Kitisuru SDA Church Website
         return message;
     };
 
-
-
     const handleSubmit = (e) => {
         e.preventDefault();
 

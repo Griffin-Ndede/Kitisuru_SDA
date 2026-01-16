@@ -43,8 +43,8 @@ const Contact = () => {
         <header className="bg-white py-12 text-center shadow-sm">
           <div className="container mx-auto px-4 mt-16 md:mt-32">
             <h1 className="text-3xl md:text-4xl font-bold text-custom-blue mb-3">Contact Our Church</h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              We'd love to hear from you! Reach out with questions, prayer requests, or to learn more about our ministries.
+            <p className="text-lg font-light text-gray-600 max-w-3xl mx-auto">
+              We'd love to hear from you! Reach out with questions, or to learn more about our ministries and our programs.
             </p>
           </div>
         </header>

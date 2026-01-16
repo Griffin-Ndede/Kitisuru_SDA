@@ -16,7 +16,7 @@ function GetInvolved() {
             description:
                 "If you would like to have your child dedicated at Kitisuru Seventh-day Adventist Church please submit one form per child.",
             buttonText: "Fill out the form",
-            icon: <Baby  strokeWidth={1} absoluteStrokeWidth  className="w-10 h-10 text-custom-blue" />
+            icon: <Baby strokeWidth={1} absoluteStrokeWidth className="w-10 h-10 text-custom-blue" />
         },
         {
             key: "commitment_form",
@@ -24,7 +24,7 @@ function GetInvolved() {
             description:
                 "Let us know how you would like to take your next step in your faith journey or how we can support you spiritually.",
             buttonText: "Express commitment",
-            icon: <HandHeart  strokeWidth={1} absoluteStrokeWidth className="w-10 h-10 text-custom-blue" />
+            icon: <HandHeart strokeWidth={1} absoluteStrokeWidth className="w-10 h-10 text-custom-blue" />
         },
         {
             key: "membership_transfer",
@@ -32,7 +32,7 @@ function GetInvolved() {
             description:
                 "Moving from another Adventist church? We'll help you transfer your membership to our congregation.",
             buttonText: "Start Transfer",
-            icon: <UserPlus strokeWidth={1} absoluteStrokeWidth  className='w-10 h-10 text-custom-blue' />
+            icon: <UserPlus strokeWidth={1} absoluteStrokeWidth className='w-10 h-10 text-custom-blue' />
         },
 
     ];
@@ -40,7 +40,7 @@ function GetInvolved() {
     return (
         <>
             <Navbar />
-            <div className="min-h-screen bg-gray-200">
+            <div className="min-h-fit bg-gray-200">
                 {/* Hero Section */}
                 <div
                     className="relative bg-cover bg-center py-24"
@@ -49,17 +49,18 @@ function GetInvolved() {
                     }}
                 >
                     <div className="container mx-auto px-4 mt-12 md:mt-32">
-                        <div className="max-w-3xl mx-auto text-center">
+                        <div className="max-w-4xl mx-auto text-center">
                             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
                                 Get Involved at Our Church
                             </h1>
-                            <p className="text-xl text-gray-200 mb-8">
-                                Join our vibrant community and make a difference in God's work
+                            <p className="text-2xl font-light text-gray-200 mb-8">
+                                We&apos;re glad you&apos;re here. Whether you&apos;re interested in serving, learning, or taking the next step in your faith journey,
+                                please complete the form below and our team will be in touch.
                             </p>
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 md:gap-12 md:p-20">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 md:gap-12 md:p-10">
                     {activities.map((activity) => (
                         <div
                             key={activity.key}
