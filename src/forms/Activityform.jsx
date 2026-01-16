@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { activityFields } from "./ActivitySchema";
+import Swal from "sweetalert2";
+import emailjs from '@emailjs/browser';
+
 
 function Activityform({ activity }) {
     const [formData, setFormData] = useState({});
-
 
     useEffect(() => {
         const initialData = {};
@@ -44,6 +46,48 @@ function Activityform({ activity }) {
             return { ...prev, [name]: value };
         });
     };
+
+
+    const fieldLabelMap = Object.fromEntries(
+        (activityFields[activity.key] || []).map(field => [
+            field.name,
+            field.label || field.name,
+        ])
+    );
+
+    // format email function 
+    const formatEmailMessage = (payload) => {
+        const { activity, submittedAt, data } = payload;
+
+        let message = `
+New form submission
+
+Activity: ${activity}
+Submitted at: ${new Date(submittedAt).toLocaleString()}
+
+----------------------------------
+`;
+
+        Object.entries(data).forEach(([key, value]) => {
+            const label = fieldLabelMap[key] || key;
+
+            if (Array.isArray(value)) {
+                message += `${label}:\n`;
+                value.forEach(v => {
+                    message += `- ${v}\n`;
+                });
+                message += "\n";
+            } else if (typeof value === "boolean") {
+                message += `${label}: ${value ? "Yes" : "No"}\n\n`;
+            } else {
+                message += `${label}: ${value || "—"}\n\n`;
+            }
+        });
+
+        return message;
+    };
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -53,13 +97,60 @@ function Activityform({ activity }) {
             data: formData,
         };
 
-        console.log("FINAL PAYLOAD", payload);
+        const emailMessage = formatEmailMessage(payload);
+        // use sendForm if it is a form in which case you have to reference the form and use useRef for that otherwise just use .send if you are formatting your own message
+        emailjs
+            .send(
+                'Kitisuru_comms',
+                'template_fklz9gq',
+                {
+                    subject: `New ${activity.title} Submission`,
+                    activity: activity.key,
+                    message: emailMessage,
+                },
+                'ujzRVhmE5hogh7h9b')
+            .then(
+                () => {
+                    successAlert();
+                    setFormData({
+                        name: '',
+                        email: '',
+                        school: '',
+                        date: '',
+                    })
+                },
+                () => {
+                    failureAlert();
+                    setFormData({
+                        name: '',
+                        email: '',
+                        school: '',
+                        date: '',
+                    })
+                },
+            );
+        // function to show success alert prompt
+        const successAlert = () => {
+            Swal.fire({
+                title: 'Success',
+                text: 'Thank you for booking a demo',
+                icon: 'success',
+                confirmButtonText: 'OK',
+            })
+        };
 
-        // Send to EmailJS, Django API, Firebase, etc
+        // function to show failure alert prompt
+        const failureAlert = (message) => {
+            Swal.fire({
+                title: 'Error',
+                text: message,
+                icon: 'error',
+                confirmButtonText: 'OK',
+            });
+        };
+
     };
 
-
-    console.log(formData)
     return (
         <>
             <div className="max-w-xl mx-auto bg-white rounded-4xl p-8">
@@ -74,7 +165,8 @@ function Activityform({ activity }) {
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit}
+                <form
+                    onSubmit={handleSubmit}
                     className="space-y-5">
                     {(activityFields[activity.key] || []).map((field) => (
                         <div key={field.name} className="mb-4">
@@ -160,7 +252,7 @@ function Activityform({ activity }) {
                                     <input
                                         type="checkbox"
                                         name={field.name}
-  checked={Boolean(formData[field.name])}
+                                        checked={Boolean(formData[field.name])}
                                         onChange={handleChange}
                                         required={field.required}
                                     />
@@ -181,7 +273,7 @@ function Activityform({ activity }) {
                                                 type="checkbox"
                                                 name={field.name}
                                                 value={opt.value}
-  checked={(formData[field.name] || []).includes(opt.value)}
+                                                checked={(formData[field.name] || []).includes(opt.value)}
                                                 onChange={handleChange}
                                             />
                                             <span>{opt.label}</span>

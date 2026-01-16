@@ -16,7 +16,7 @@ function GetInvolved() {
             description:
                 "If you would like to have your child dedicated at Kitisuru Seventh-day Adventist Church please submit one form per child.",
             buttonText: "Fill out the form",
-            icon: <Baby className="w-6 h-6 text-custom-blue" />
+            icon: <Baby  strokeWidth={1} absoluteStrokeWidth  className="w-10 h-10 text-custom-blue" />
         },
         {
             key: "commitment_form",
@@ -24,7 +24,7 @@ function GetInvolved() {
             description:
                 "Let us know how you would like to take your next step in your faith journey or how we can support you spiritually.",
             buttonText: "Express commitment",
-            icon: <HandHeart className="w-6 h-6 text-custom-blue" />
+            icon: <HandHeart  strokeWidth={1} absoluteStrokeWidth className="w-10 h-10 text-custom-blue" />
         },
         {
             key: "membership_transfer",
@@ -32,7 +32,7 @@ function GetInvolved() {
             description:
                 "Moving from another Adventist church? We'll help you transfer your membership to our congregation.",
             buttonText: "Start Transfer",
-            icon: <UserPlus className='w-6 h-6 text-custom-blue' />
+            icon: <UserPlus strokeWidth={1} absoluteStrokeWidth  className='w-10 h-10 text-custom-blue' />
         },
 
     ];
