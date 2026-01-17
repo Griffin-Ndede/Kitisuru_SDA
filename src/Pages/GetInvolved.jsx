@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpen, Droplets, UserPlus, Calendar, MessageSquareText, HandHeart, ChevronRight, X, Baby, } from 'lucide-react';
+import { BookOpen, Droplets, UserPlus, Calendar, MessageSquareText, HandHeart, ChevronRight, X, Baby, Group, } from 'lucide-react';
 import Navbar from '../Components/Navbar';
 import { Link } from 'react-router';
 import ActivityForm from '../forms/Activityform';
@@ -34,6 +34,13 @@ function GetInvolved() {
             buttonText: "Start Transfer",
             icon: <UserPlus strokeWidth={1} absoluteStrokeWidth className='w-10 h-10 text-custom-blue' />
         },
+        {
+            key: "ministry_membership",
+            title: "Join a ministry",
+            description: "if you would wish to join a specific ministry and volunteer do let us know",
+            buttonText: "Join a ministry",
+            icon: <Group strokeWidth={1} absoluteStrokeWidth className='w-10 h-10 text-custom-blue'/>
+        }
 
     ];
 
