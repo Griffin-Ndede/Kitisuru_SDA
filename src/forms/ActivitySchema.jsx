@@ -85,43 +85,43 @@ export const activityFields = {
             label: "Phone number",
             placeholder: "Enter your phone number"
         },
-          {
-        name: "commitment_type",
-        type: "checkbox_group",
-        label: "What would you like to do?",
-        options: [
-            {
-                label: "Renew my commitment to God",
-                value: "renew_commitment",
-            },
-            {
-                label: "Join a Bible study class",
-                value: "bible_study",
-            },
-            {
-                label: "Be baptised",
-                value: "baptism",
-            },
-            {
-                label: "Talk to the pastor",
-                value: "talk_to_pastor",
-            },
-            {
-                label: "Submit a prayer request",
-                value: "prayer_request",
-            },
-        ],
-        required: true,
-    },
-       {
-        name: "message",
-        type: "textarea",
-        label: "Additional Information / Prayer Request",
-        placeholder: "Share any details you would like us to know",
-    },
+        {
+            name: "commitment_type",
+            type: "checkbox_group",
+            label: "What would you like to do?",
+            options: [
+                {
+                    label: "Renew my commitment to God",
+                    value: "renew_commitment",
+                },
+                {
+                    label: "Join a Bible study class",
+                    value: "bible_study",
+                },
+                {
+                    label: "Be baptised",
+                    value: "baptism",
+                },
+                {
+                    label: "Talk to the pastor",
+                    value: "talk_to_pastor",
+                },
+                {
+                    label: "Submit a prayer request",
+                    value: "prayer_request",
+                },
+            ],
+            required: true,
+        },
+        {
+            name: "message",
+            type: "textarea",
+            label: "Additional Information / Prayer Request",
+            placeholder: "Share any details you would like us to know",
+        },
     ],
     membership_transfer: [
-       {
+        {
             name: "Full_name",
             type: "text",
             label: "Full Name",
@@ -140,70 +140,84 @@ export const activityFields = {
             label: "Phone number",
             placeholder: "Enter your phone number"
         },
-           {
-        name: "transfer_type",
-        type: "radio",
-        label: "What would you like to do?",
-        options: [
+        {
+            name: "transfer_type",
+            type: "radio",
+            label: "What would you like to do?",
+            options: [
+                {
+                    label: "Transfer my membership from another church to Newlife SDA Church Nairobi",
+                    value: "transfer_in",
+                },
+                {
+                    label: "Transfer my membership from Newlife SDA Church Nairobi to another church",
+                    value: "transfer_out",
+                },
+            ],
+            required: true,
+        },
+
+        // FROM CHURCH
+        {
+            name: "from_church_name",
+            type: "text",
+            label: "Church You Are Transferring From – Church Name",
+            placeholder: "Enter church name",
+        },
+        {
+            name: "from_church_district",
+            type: "text",
+            label: "Church You Are Transferring From – District",
+            placeholder: "Enter district",
+        },
+        {
+            name: "from_church_conference",
+            type: "text",
+            label: "Church You Are Transferring From – Conference",
+            placeholder: "Enter conference",
+        },
+
+        // TO CHURCH
+        {
+            name: "to_church_name",
+            type: "text",
+            label: "Church You Are Transferring To – Church Name",
+            placeholder: "Enter church name",
+        },
+        {
+            name: "to_church_district",
+            type: "text",
+            label: "Church You Are Transferring To – District",
+            placeholder: "Enter district",
+        },
+        {
+            name: "to_church_conference",
+            type: "text",
+            label: "Church You Are Transferring To – Conference",
+            placeholder: "Enter conference",
+        },
+
+        {
+            name: "additional_notes",
+            type: "textarea",
+            label: "Additional Information (optional)",
+            placeholder: "Any additional details we should know",
+        },
+
+    ],
+    
+        ministry_membership: [
             {
-                label: "Transfer my membership from another church to Newlife SDA Church Nairobi",
-                value: "transfer_in",
+                name: "Full name",
+                type: "text",
+                label: "Full name",
+                placeholder: "Enter your full name"
             },
             {
-                label: "Transfer my membership from Newlife SDA Church Nairobi to another church",
-                value: "transfer_out",
-            },
-        ],
-        required: true,
-    },
-
-    // FROM CHURCH
-    {
-        name: "from_church_name",
-        type: "text",
-        label: "Church You Are Transferring From – Church Name",
-        placeholder: "Enter church name",
-    },
-    {
-        name: "from_church_district",
-        type: "text",
-        label: "Church You Are Transferring From – District",
-        placeholder: "Enter district",
-    },
-    {
-        name: "from_church_conference",
-        type: "text",
-        label: "Church You Are Transferring From – Conference",
-        placeholder: "Enter conference",
-    },
-
-    // TO CHURCH
-    {
-        name: "to_church_name",
-        type: "text",
-        label: "Church You Are Transferring To – Church Name",
-        placeholder: "Enter church name",
-    },
-    {
-        name: "to_church_district",
-        type: "text",
-        label: "Church You Are Transferring To – District",
-        placeholder: "Enter district",
-    },
-    {
-        name: "to_church_conference",
-        type: "text",
-        label: "Church You Are Transferring To – Conference",
-        placeholder: "Enter conference",
-    },
-
-    {
-        name: "additional_notes",
-        type: "textarea",
-        label: "Additional Information (optional)",
-        placeholder: "Any additional details we should know",
-    },
-]
-
-
+                name: "Phone number",
+                type: "text",
+                label: "Phone number",
+                placeholder: "Enter your phone number"
+            }
+        ]
 };
