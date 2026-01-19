@@ -208,16 +208,33 @@ export const activityFields = {
     
         ministry_membership: [
             {
-                name: "Full name",
+                name: "Full_name",
                 type: "text",
                 label: "Full name",
-                placeholder: "Enter your full name"
+                placeholder: "John Doe"
             },
             {
-                name: "Phone number",
+                name: "Phone_number",
                 type: "text",
                 label: "Phone number",
-                placeholder: "Enter your phone number"
+                placeholder: "+254 712 345 678"
+            },
+            {
+                name: "Email_address",
+                type: "email",
+                label: "Email address",
+                placeholder: "johndoe@gmail.com"
+            },
+            {
+                name: "ministry",
+                type:"select",
+                label: "ministry",
+                options: [
+                { label: "Music ministry", value: "music" },
+                { label: "Children ministry", value: "children" },
+                {label: "Health ministry", value: "health"}
+            ],
+
             }
         ]
 };
