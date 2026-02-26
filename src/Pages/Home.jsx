@@ -4,7 +4,7 @@ import { faBible, faBookOpen, faHandsPraying, faUsers } from '@fortawesome/free-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Footer from '../Components/Footer';
 import Navbar from '../Components/Navbar';
-import videoBg from '../assets/nature video.mp4'
+import videoBg from '../assets/Paint Sweeps Peace - Slow - HD 1080.mp4'
 import { useLoaderData } from 'react-router';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -156,12 +156,12 @@ function Home() {
                       {/* Icon */}
                       <Calendar className="w-8 h-8 text-custom-blue mb-4" />
 
-                      <img
+                      {/* <img
                         src={`${imageUrl}/${event.image}`}
                         alt={event.title}
                         className="h-64 w-fit mx-auto object-cover rounded-2xl shadow-sm mb-4 cursor-pointer"
                         onClick={() => setFullscreenImage(`${imageUrl}/${event.image}`)}
-                      />
+                      /> */}
                       {/* Title */}
                       <h3 className="text-xl font-bold mb-2 text-center">{event.title}</h3>
                       {/* Description */}
