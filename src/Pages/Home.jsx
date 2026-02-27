@@ -1,10 +1,10 @@
 import React from 'react';
-import { Calendar, MapPin, Play } from 'lucide-react';
+import { Calendar, MapPin, Play, Youtube } from 'lucide-react';
 import { faBible, faBookOpen, faHandsPraying, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Footer from '../Components/Footer';
 import Navbar from '../Components/Navbar';
-import videoBg from '../assets/Paint Sweeps Peace - Slow - HD 1080.mp4'
+import videoBg from '../assets/nature video.mp4'
 import { useLoaderData } from 'react-router';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
@@ -39,13 +39,12 @@ function Home() {
 
 
   const futureEvents = upcomingEvents.filter(
-    (event) => new Date(event.end_date) >= new Date()
+    (event) => new Date(event.end_date) >= new Date(event.startDate)
   );
 
-
+  console.log(youtubeContent)
   if (!youtubeContent) return <p>Loading...</p>;
 
-  console.log(upcomingEvents)
 
   // Helper function to extract video ID from any YouTube URL
   const getYoutubeVideoId = (url) => {
@@ -139,14 +138,14 @@ function Home() {
                 <span className="text-custom-blue mt-2">Stay tuned — new events will appear here soon!</span>
               </div>
             ) : (
-              <div className="flex flex-wrap mx-auto gap-8 h-fit">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto gap-8 h-fit">
                 {futureEvents
-                  .filter((event) => new Date(event.end_date) >= new Date())
+                  .filter((event) => new Date(event.end_date) >= new Date(event.startDate))
                   .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
                   .map((event, index) => (
                     <div
                       key={index}
-                      className="relative bg-white  p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 mx-auto w-fit h-fit md:w-1/3 mb-6"
+                      className="relative bg-white  p-6 rounded-4xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 mx-auto w-fit h-full mb-6"
                     >
                       {/* Category Badge */}
                       <span className="absolute top-4 right-4 bg-blue-100 text-custom-orange text-xs font-bold px-3 py-1 rounded-full">
@@ -156,27 +155,27 @@ function Home() {
                       {/* Icon */}
                       <Calendar className="w-8 h-8 text-custom-blue mb-4" />
 
-                      {/* <img
+                      <img
                         src={`${imageUrl}/${event.image}`}
                         alt={event.title}
                         className="h-64 w-fit mx-auto object-cover rounded-2xl shadow-sm mb-4 cursor-pointer"
                         onClick={() => setFullscreenImage(`${imageUrl}/${event.image}`)}
-                      /> */}
+                      />
                       {/* Title */}
                       <h3 className="text-xl font-bold mb-2 text-center">{event.title}</h3>
                       {/* Description */}
-                      <p className="font-light mb-6 text-center text-base">{event.description}</p>
+                      <p className="font-light mb-6 text-center text-sm mb:text-base">{event.description}</p>
                       {/* Location & Dates */}
                       <div className="border-t border-gray-200 w-full pt-4 flex flex-col md:justify-between text-sm text-gray-600">
                         {/* Location */}
                         <div className="flex items-center gap-2 mb-2 md:mb-0">
                           <MapPin strokeWidth={1} size={24} absoluteStrokeWidth className='text-custom-blue' />
-                          <span className="font-light text-base">{event.location}</span>
+                          <span className="font-light text-sm md:text-base">{event.location}</span>
                         </div>
                         {/* Dates */}
                         <div className="flex items-center gap-2">
                           <Calendar strokeWidth={1} size={24} absoluteStrokeWidth className="text-custom-blue" />
-                          <span className="text-gray-700">
+                          <span className="text-gray-700 text-sm md:text-base">
                             {event.start_date} <span className="text-gray-400">–</span> {event.end_date}
                           </span>
                         </div>
@@ -208,13 +207,13 @@ function Home() {
                 <span className="text-custom-blue mt-2">Please check back later.</span>
               </div>
             ) : (
-              <div className="gap-8 grid md:grid-cols-3">
+              <div className="gap-8 grid grid-cols-1 md:grid-cols-4 max-w-7xl mx-auto">
                 {youtubeContent.map((video, index) => {
                   const videoId = getYoutubeVideoId(video.youtube_url);
                   return (
                     <div
                       key={video.id}
-                      className="rounded-3xl overflow-hidden  h-fit border border-slate-200 hover:shadow-2xl transition-all duration-500"
+                      className="rounded-3xl overflow-hidden h-full border border-slate-200 hover:shadow-2xl transition-all duration-500"
                     >
                       <div className="">
                         {/* 🎞️ Embedded Player */}
@@ -229,18 +228,30 @@ function Home() {
                         </div>
                       </div>
                       <div className=" p-2 justify-center text-center border-t border-t-slate-200">
-                        <h3 className="text-lg font-bold mb-3 w-2/3 mx-auto">
+                        <h3 className="text-base mb-3 w-full mx-auto">
                           {video.title}
                         </h3>
-                        <p className=" text-sm mx-auto text-custom-blue leading-relaxed">
+                        {/* <p className=" text-sm mx-auto text-custom-blue leading-relaxed">
                           {video.description}
-                        </p>
+                        </p> */}
                       </div>
                     </div>
+
                   );
                 })}
+
               </div>
             )}
+            <a
+              href="https://www.youtube.com/@SDAchurchKitisuru"
+              target="_blank"
+              rel="noopener noreferrer">
+              <button className='bg-custom-blue mt-4 py-2 px-3 gap-3 flex justify-center mx-auto text-white rounded-3xl hover:bg-custom-yellow hover:text-black hover:cursor-pointer transition-colors duration-300'>
+                <Youtube strokeWidth={1.5} absoluteStrokeWidth className='text-white'/>
+                Watch more videos on our YouTube channel
+              </button>
+            </a>
+
           </div>
         </section>
         {

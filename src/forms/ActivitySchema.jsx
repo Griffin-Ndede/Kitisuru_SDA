@@ -226,9 +226,9 @@ export const activityFields = {
                 placeholder: "johndoe@gmail.com"
             },
             {
-                name: "ministry",
+                name: "Ministry",
                 type:"select",
-                label: "ministry",
+                label: "Ministry",
                 options: [
                 { label: "Music ministry", value: "music" },
                 { label: "Children ministry", value: "children" },
