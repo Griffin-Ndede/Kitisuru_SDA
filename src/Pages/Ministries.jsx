@@ -41,8 +41,7 @@ const Ministries = () => {
                         alt={ministry.title}
                         className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                      </div>
+                       <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                       <div className="absolute inset-0  from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                         <div className="absolute bottom-0 left-0 right-0 p-6 space-y-2">
                           <h3 className="text-xl font-bold text-white line-clamp-2">

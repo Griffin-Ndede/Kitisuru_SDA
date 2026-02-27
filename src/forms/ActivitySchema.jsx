@@ -146,11 +146,11 @@ export const activityFields = {
             label: "What would you like to do?",
             options: [
                 {
-                    label: "Transfer my membership from another church to Newlife SDA Church Nairobi",
+                    label: "Transfer my membership from another church to SDA Kitisuru",
                     value: "transfer_in",
                 },
                 {
-                    label: "Transfer my membership from Newlife SDA Church Nairobi to another church",
+                    label: "Transfer my membership from SDA Kitisuru to another church",
                     value: "transfer_out",
                 },
             ],

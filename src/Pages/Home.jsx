@@ -39,10 +39,9 @@ function Home() {
 
 
   const futureEvents = upcomingEvents.filter(
-    (event) => new Date(event.end_date) >= new Date(event.startDate)
+    (event) => new Date(event.end_date) >= new Date()
   );
 
-  console.log(youtubeContent)
   if (!youtubeContent) return <p>Loading...</p>;
 
 
@@ -140,8 +139,8 @@ function Home() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto gap-8 h-fit">
                 {futureEvents
-                  .filter((event) => new Date(event.end_date) >= new Date(event.startDate))
-                  .sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+                  .filter((event) => new Date(event.end_date) >= new Date())
+                  .sort((a, b) => new Date(a.start_date) - new Date(b.start_date))
                   .map((event, index) => (
                     <div
                       key={index}
@@ -162,21 +161,28 @@ function Home() {
                         onClick={() => setFullscreenImage(`${imageUrl}/${event.image}`)}
                       />
                       {/* Title */}
-                      <h3 className="text-xl font-bold mb-2 text-center">{event.title}</h3>
+                      <h3 className="text-xl md:text-2xl font-semibold text-gray-900 text-center mb-3 leading-snug">
+                        {event.title}
+                      </h3>
+
                       {/* Description */}
-                      <p className="font-light mb-6 text-center text-sm mb:text-base">{event.description}</p>
-                      {/* Location & Dates */}
-                      <div className="border-t border-gray-200 w-full pt-4 flex flex-col md:justify-between text-sm text-gray-600">
+                      <p className="text-gray-600 text-sm md:text-base font-light text-center mb-6 leading-relaxed grow">
+                        {event.description}
+                      </p>
+
+                      {/* Divider */}
+                      <div className="border-t border-gray-200 pt-4 space-y-3 text-sm md:text-base">
                         {/* Location */}
-                        <div className="flex items-center gap-2 mb-2 md:mb-0">
-                          <MapPin strokeWidth={1} size={24} absoluteStrokeWidth className='text-custom-blue' />
-                          <span className="font-light text-sm md:text-base">{event.location}</span>
+                        <div className="flex items-center gap-3 text-gray-700">
+                          <MapPin size={20} className="text-custom-blue" />
+                          <span className="font-medium">{event.location}</span>
                         </div>
+
                         {/* Dates */}
-                        <div className="flex items-center gap-2">
-                          <Calendar strokeWidth={1} size={24} absoluteStrokeWidth className="text-custom-blue" />
-                          <span className="text-gray-700 text-sm md:text-base">
-                            {event.start_date} <span className="text-gray-400">–</span> {event.end_date}
+                        <div className="flex items-center gap-3 text-gray-700">
+                          <Calendar size={20} className="text-custom-blue" />
+                          <span className="font-medium">
+                            {event.start_date} – {event.end_date}
                           </span>
                         </div>
                       </div>
@@ -207,47 +213,47 @@ function Home() {
                 <span className="text-custom-blue mt-2">Please check back later.</span>
               </div>
             ) : (
-              <div className="gap-8 grid grid-cols-1 md:grid-cols-4 max-w-7xl mx-auto">
-                {youtubeContent.map((video, index) => {
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-7xl mx-auto px-4">
+                {youtubeContent.map((video) => {
                   const videoId = getYoutubeVideoId(video.youtube_url);
+
                   return (
                     <div
                       key={video.id}
-                      className="rounded-3xl overflow-hidden h-full border border-slate-200 hover:shadow-2xl transition-all duration-500"
+                      className="group bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500"
                     >
-                      <div className="">
-                        {/* 🎞️ Embedded Player */}
-                        <div className="relative aspect-video">
-                          <iframe
-                            className="w-full h-full rounded-none"
-                            src={`https://www.youtube.com/embed/${videoId}`}
-                            title={video.title}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                          />
-                        </div>
-                      </div>
-                      <div className=" p-2 justify-center text-center border-t border-t-slate-200">
-                        <h3 className="text-base mb-3 w-full mx-auto">
-                          {video.title}
-                        </h3>
-                        {/* <p className=" text-sm mx-auto text-custom-blue leading-relaxed">
-                          {video.description}
-                        </p> */}
-                      </div>
-                    </div>
+                      {/* Video Container */}
+                      <div className="relative aspect-video overflow-hidden">
+                        <iframe
+                          className="w-full h-full"
+                          src={`https://www.youtube.com/embed/${videoId}`}
+                          title={video.title}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
 
+                        {/* Gradient Overlay */}
+                        <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                      </div>
+
+                        {/* Title Overlay */}
+                        <div className="absolute bottom-0 left-0 right-0 p-5 opacity-0 group-hover:opacity-100 hover:cursor-pointer transition-all duration-500 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                          <h3 className="text-white text-lg font-semibold text-center leading-snug">
+                            {video.title}
+                          </h3>
+                        </div>
+                    </div>
                   );
                 })}
-
               </div>
-            )}
+            )
+            }
             <a
               href="https://www.youtube.com/@SDAchurchKitisuru"
               target="_blank"
               rel="noopener noreferrer">
               <button className='bg-custom-blue mt-4 py-2 px-3 gap-3 flex justify-center mx-auto text-white rounded-3xl hover:bg-custom-yellow hover:text-black hover:cursor-pointer transition-colors duration-300'>
-                <Youtube strokeWidth={1.5} absoluteStrokeWidth className='text-white'/>
+                <Youtube strokeWidth={1.5} absoluteStrokeWidth className='text-white' />
                 Watch more videos on our YouTube channel
               </button>
             </a>
