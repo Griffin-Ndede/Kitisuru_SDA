@@ -39,7 +39,7 @@ function Home() {
 
 
   const futureEvents = upcomingEvents.filter(
-    (event) => new Date(event.end_date) >= new Date()
+    (event) => new Date(event.end_date) > new Date()
   );
 
   if (!youtubeContent) return <p>Loading...</p>;
@@ -139,7 +139,7 @@ function Home() {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto gap-8 h-fit">
                 {futureEvents
-                  .filter((event) => new Date(event.end_date) >= new Date())
+                  .filter((event) => new Date(event.end_date) > new Date())
                   .sort((a, b) => new Date(a.start_date) - new Date(b.start_date))
                   .map((event, index) => (
                     <div
@@ -153,7 +153,6 @@ function Home() {
 
                       {/* Icon */}
                       <Calendar className="w-8 h-8 text-custom-blue mb-4" />
-
                       <img
                         src={`${imageUrl}/${event.image}`}
                         alt={event.title}
@@ -236,12 +235,12 @@ function Home() {
                         <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                       </div>
 
-                        {/* Title Overlay */}
-                        <div className="absolute bottom-0 left-0 right-0 p-5 opacity-0 group-hover:opacity-100 hover:cursor-pointer transition-all duration-500 translate-y-4 group-hover:translate-y-0 pointer-events-none">
-                          <h3 className="text-white text-lg font-semibold text-center leading-snug">
-                            {video.title}
-                          </h3>
-                        </div>
+                      {/* Title Overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 p-5 opacity-0 group-hover:opacity-100 hover:cursor-pointer transition-all duration-500 translate-y-4 group-hover:translate-y-0 pointer-events-none">
+                        <h3 className="text-white text-lg font-semibold text-center leading-snug">
+                          {video.title}
+                        </h3>
+                      </div>
                     </div>
                   );
                 })}
@@ -251,13 +250,12 @@ function Home() {
             <a
               href="https://www.youtube.com/@SDAchurchKitisuru"
               target="_blank"
-              rel="noopener noreferrer">
-              <button className='bg-custom-blue mt-4 py-2 px-3 gap-3 flex justify-center mx-auto text-white rounded-3xl hover:bg-custom-yellow hover:text-black hover:cursor-pointer transition-colors duration-300'>
-                <Youtube strokeWidth={1.5} absoluteStrokeWidth className='text-white' />
-                Watch more videos on our YouTube channel
-              </button>
+              rel="noopener noreferrer"
+              className="bg-custom-blue w-fit mt-4 py-2 px-3 sm:py-3 sm:px-5 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 mx-auto text-white rounded-3xl hover:bg-custom-yellow hover:text-black hover:cursor-pointer transition-colors duration-300 text-sm sm:text-base"
+            >
+              <Youtube strokeWidth={1.5} absoluteStrokeWidth className="text-white mb-1 sm:mb-0 hidden md:block" />
+              <span className="text-center">Watch more videos on our YouTube channel</span>
             </a>
-
           </div>
         </section>
         {

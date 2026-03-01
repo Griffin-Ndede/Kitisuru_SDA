@@ -46,14 +46,7 @@ function Giving() {
       question: "What's the difference between tithe and offerings?",
       answer: "Tithe is 10% of your income returned to God, while offerings are additional voluntary gifts for specific purposes or projects.",
     },
-    {
-      question: "Are my donations tax-deductible?",
-      answer: "Yes, all donations are tax-deductible. You will receive a yearly statement for your tax records.",
-    },
-    {
-      question: "Is online giving secure?",
-      answer: "Yes, we use industry-standard encryption and secure payment processors to protect your financial information.",
-    },
+   
   ];
 
   const totalGoal = 375000;
@@ -71,7 +64,7 @@ function Giving() {
 
   // ✅ One return block only
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 ">
       <Navbar />
 
       {/* Hero Section */}
@@ -95,7 +88,7 @@ function Giving() {
       </div>
 
       {/* Main Content */}
-      <div className=" mx-auto p-6 mb:p-16">
+      <div className=" mx-auto p-6 mb:p-16 max-w-7xl">
 
         {/* Giving Options */}
         <div className="space-y-6 mb-16">
@@ -191,7 +184,7 @@ function Giving() {
         </div>
 
         {/* FAQs */}
-        <div className="bg-white rounded-4xl shadow-2xl p-8 mb-16">
+        <div className="bg-white rounded-4xl shadow-2xl p-8 mb-32">
           <h2 className="text-2xl font-bold text-gray-800 mb-6">Frequently Asked Questions</h2>
           <div className="space-y-2">
             {faqs.map((faq, index) => {
@@ -216,7 +209,7 @@ function Giving() {
         </div>
 
         {/* Accountability Section */}
-        <div className="bg-white rounded-4xl shadow-2xl p-8 mb-20">
+        {/* <div className="bg-white rounded-4xl shadow-2xl p-8 mb-20">
           <div className="items-start space-x-4">
             <div className="bg-green-50 p-3 rounded-full w-fit flex mx-auto">
               <ShieldCheck className="w-6 h-6 text-green-600" />
@@ -236,7 +229,7 @@ function Giving() {
               </ul>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* Footer */}
