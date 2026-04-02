@@ -47,7 +47,7 @@ const Resources = () => {
                 key={doc.id}
                 className={`p-4 rounded-3xl border mb-4 cursor-pointer transition-colors ${currentDocument?.id === doc.id
                     ? 'bg-blue-50 border-blue-200'
-                    : 'bg-white border-gray-200 hover:bg-gray-50 hover:shadow-xl'
+                    : 'bg-custom-blue/20 border-gray-200 hover:bg-gray-50 hover:shadow-xl'
                     }`}
                 onClick={() => handleDocumentSelect(doc)}
             >
@@ -91,14 +91,14 @@ const Resources = () => {
 
     return (
         <>
-            <div className="h-screen overflow-hidden">
+            <div className="h-fit overflow-hidden">
                 <Navbar />
 
                 {/* MAIN CONTENT */}
-                <div className="w-full min-h-screen bg-gray-50 pt-24">
+                <div className="w-full h-fit bg-gray-50 pt-24">
 
                     {/* LEFT: Documents */}
-                    <div className="bg-white border-b md:border-b-0 md:border-r border-gray-200 w-full">
+                    <div className="bg-white w-full p-4">
                         {/* Header */}
                         <div className="p-4 md:p-6 border-b border-gray-100">
                             <h2 className="text-lg md:text-xl font-semibold text-gray-800 text-center">
@@ -107,7 +107,7 @@ const Resources = () => {
                         </div>
 
                         {/* Scrollable List */}
-                        <ul className=" w-full  p-3 md:p-4 space-y-2 max-h-[80vh] grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        <ul className=" w-full h-full p-3 md:p-4 space-y-2 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
                             {documents
                                 .sort((a, b) => a.title.localeCompare(b.title))
                                 .map((doc) => (
@@ -146,7 +146,7 @@ const Resources = () => {
                             </div>
 
                             {/* PDF */}
-                            <div className="h-fit">
+                            <div className="">
                                 <iframe
                                     src={`${BASE_URL}/library/documents/${currentDocument.slug}/#toolbar=1&navpanes=0&zoom=page-width`}
                                     className="w-full h-[90vh]"
