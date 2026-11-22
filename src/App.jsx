@@ -10,11 +10,20 @@ import Contact from './Pages/Contact'
 import Resources from './Pages/Resources'
 import MinistriesDetails from './Pages/MinistriesDetails'
 import ErrorPage from './Pages/ErrorPage'
+import SignIn from './Pages/SignIn'
+import ForgotPassword from './Pages/ForgotPassword'
+import ResetPassword from './Pages/ResetPassword'
+import PortalLayout from './Pages/Portal/PortalLayout'
+import PortalHome from './Pages/Portal/PortalHome'
+import People from './Pages/Portal/People'
 import {
   homeLoader,
   ministriesLoader,
   ministryDetailsLoader,
   resourcesLoader,
+  signInLoader,
+  portalLoader,
+  peopleLoader,
 } from './Loaders/loaders'
 
 // All the site's pages. The root route's errorElement is shown instead of a
@@ -33,6 +42,20 @@ const router = createBrowserRouter([
       { path: 'giving', element: <Giving /> },
       { path: 'getinvolved', element: <GetInvolved /> },
       { path: 'contact', element: <Contact /> },
+      { path: 'signin', element: <SignIn />, loader: signInLoader },
+      { path: 'forgot-password', element: <ForgotPassword /> },
+      { path: 'reset-password', element: <ResetPassword /> },
+      {
+        // The member portal. portalLoader sends signed-out people to /signin.
+        path: 'app',
+        id: 'portal',
+        element: <PortalLayout />,
+        loader: portalLoader,
+        children: [
+          { index: true, element: <PortalHome /> },
+          { path: 'people', element: <People />, loader: peopleLoader },
+        ],
+      },
     ],
   },
 ])

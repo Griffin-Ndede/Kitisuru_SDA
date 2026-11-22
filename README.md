@@ -15,7 +15,7 @@ npm run dev        # http://localhost:5173
 VITE_API_URL=https://api.kitisurusda.org/ npm run dev
 ```
 
-`npm run build` always uses the live API (`https://api.kitisurusda.org/`). There are no environment variables to set, and you do not need to edit `src/config.jsx` when switching between the two.
+`npm run build` always uses the live API (`https://api.kitisurusda.org/`). You do not need to edit `src/config.jsx` when switching between the two. The only environment variables are the optional Google sign-in keys: copy `.env.example` to `.env` and fill in the `VITE_FIREBASE_*` values from the Firebase console. Without them the "Continue with Google" button is hidden and email sign-in still works. Restart `npm run dev` after editing `.env`.
 
 | Command | What it does |
 | --- | --- |
@@ -44,6 +44,11 @@ The site is built for Netlify (`netlify.toml`): publish `dist/`, and every addre
 | `/giving` | Giving options and M-Pesa paybill details | static |
 | `/getinvolved` | Ways to get involved, with a form that sends email (EmailJS) | static |
 | `/contact` | Contact details and social links | static |
+| `/signin` | Sign in with email and password, or Google | API (action) |
+| `/forgot-password` | Ask for a password reset email | API (action) |
+| `/reset-password` | Choose a password from an invitation or reset link | API (action) |
+| `/app` | Member portal home, for signed-in people (others go to `/signin`) | API (loader) |
+| `/app/people` | Admins only: invite people, change roles, switch accounts off | API (loader) |
 
 ## How pages get their data
 
@@ -63,7 +68,8 @@ The rules:
    - anything else (API down, timeout) -> "This page didn't load", with a Try again button
 4. **Requests time out after 10 seconds**, so a hanging API shows the error page instead of freezing navigation.
 5. **Refreshing** a page's data means asking the router to run its loader again (`useRevalidator().revalidate()`), not fetching by hand.
-6. **Actions the visitor triggers** (the contact and activity forms) are made from the page's event handler, and their errors are shown next to the form.
+6. **Actions the visitor triggers** (the contact, activity and sign-in forms) are made from the page's event handler, and their errors are shown next to the form.
+7. **Signing in:** the tokens live in `localStorage` (`getSession`, `saveSession` and `clearSession` in `src/Api/client.js`). A request marked `auth: true` sends the token and renews it once automatically if it has expired. `/app` has a loader (`portalLoader`) that sends signed-out people to `/signin`; pages inside it read the person with `useRouteLoaderData("portal")`. A page only the admin may open gets a 403 from the API, which the error page explains.
 
 To add a page that needs data: add the endpoint to `src/Api/index.js`, add a loader in `src/Loaders/loaders.js`, attach it to the route in `src/App.jsx`, and read it with `useLoaderData()`.
 
@@ -74,7 +80,8 @@ src/
   Api/          client.js (HTTP client) and index.js (all endpoints)
   Loaders/      loaders.js - one loader per route that needs data
   Components/   shared pieces: Navbar, Footer, the activity form and its schema
-  Pages/        one file per route, plus ErrorPage
+  Pages/        one file per route, plus ErrorPage; Pages/Portal/ holds the signed-in area
+  firebase.jsx  Google sign-in (loaded only when the button is used)
   App.jsx       the router: every route and its loader
   config.jsx    backend address (local in development, live in production; see the file's comments)
 ```
@@ -84,6 +91,13 @@ src/
 Work on a branch, keep pull requests small and focused, and make sure `npm run lint` and `npm run build` pass before opening one. Update this README and add a dated entry to the changelog below after every significant change.
 
 ## Changelog
+
+### 2026-11-22: Sign-in and the member portal (Phase 1)
+
+- New pages: `/signin` (email and password, or Google), `/forgot-password`, `/reset-password` (also used to accept an invitation) and the portal under `/app`, with an admin-only People page for inviting people and changing roles.
+- `src/Api/client.js` gained `post`, `patch`, stored sign-in tokens and a one-time automatic token renewal; the new endpoints are in `src/Api/index.js`, the guards are loaders in `src/Loaders/loaders.js`.
+- The error page now explains 403 ("You don't have access to this page"). The navbar shows Sign in, or Portal when signed in.
+- Needs the backend's Phase 1 release. After pulling: `npm install`. Google sign-in needs the `VITE_FIREBASE_*` values (see `.env.example`).
 
 ### 2026-11-22: Remove unused files and dependencies
 

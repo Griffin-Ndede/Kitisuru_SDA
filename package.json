@@ -15,6 +15,7 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@tailwindcss/vite": "^4.1.17",
     "axios": "^1.12.2",
+    "firebase": "^13.4.0",
     "framer-motion": "^12.23.24",
     "lucide-react": "^0.483.0",
     "react": "^19.0.0",
