@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useLoaderData } from 'react-router';
-import axios from 'axios';
 import Navbar from '../Components/Navbar';
 
 const Ministries = () => {
