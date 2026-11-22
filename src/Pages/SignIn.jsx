@@ -50,8 +50,8 @@ export default function SignIn() {
       footer={<Link to="/forgot-password" className="underline">Forgot your password?</Link>}
     >
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input className={inputClass} type="email" placeholder="Email" autoComplete="email"
-          value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <input className={inputClass} type="text" inputMode="email" placeholder="Email or username" autoComplete="username"
+          autoCapitalize="none" value={email} onChange={(e) => setEmail(e.target.value)} required />
         <input className={inputClass} type="password" placeholder="Password" autoComplete="current-password"
           value={password} onChange={(e) => setPassword(e.target.value)} required />
         {error && <p role="alert" className="text-red-600 text-sm">{error}</p>}
