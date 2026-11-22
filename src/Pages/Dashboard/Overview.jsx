@@ -1,7 +1,8 @@
 import React from "react";
-import { Link, useRouteLoaderData } from "react-router";
-import { ArrowRight, BookOpenText, Clock, HeartHandshake, Link2, UserPen, Users, UsersRound } from "lucide-react";
+import { Link, useLoaderData, useRouteLoaderData } from "react-router";
+import { ArrowRight, BookOpenText, Megaphone, Clock, HeartHandshake, Link2, UserPen, Users, UsersRound } from "lucide-react";
 import { roleLabels } from "./roles";
+import { formatDate } from "./ministryHelpers";
 import Card from "../../Components/ui/Card";
 import PageHeader from "../../Components/ui/PageHeader";
 import { Notice } from "../../Components/ui/States";
@@ -29,6 +30,7 @@ const adminCards = [
 
 export default function Overview() {
   const { user } = useRouteLoaderData("dashboard");
+  const { announcements } = useLoaderData();
   const missing = missingDetails(user);
 
   return (
@@ -68,6 +70,28 @@ export default function Overview() {
             </div>
           )}
         </div>
+      )}
+
+      {announcements.length > 0 && (
+        <section className="mb-8">
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="inline-flex items-center gap-2 text-xl font-semibold"><Megaphone className="size-5 text-forest-700" />Latest announcements</h2>
+            <Link to="/dashboard/announcements" className="text-sm font-semibold text-forest-700 hover:underline">See all</Link>
+          </div>
+          <ul className="space-y-3">
+            {announcements.map((a) => (
+              <li key={a.id}>
+                <Link to="/dashboard/announcements" className="block">
+                  <Card className="transition hover:shadow-lift">
+                    <h3 className="font-semibold">{a.title}</h3>
+                    <p className="mt-0.5 line-clamp-2 text-sm text-muted">{a.body}</p>
+                    <p className="mt-2 text-xs text-muted">{formatDate(a.created_at)}</p>
+                  </Card>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
       )}
 
       {user.approved && (

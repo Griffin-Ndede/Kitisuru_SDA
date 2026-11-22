@@ -5,6 +5,7 @@
 // the same way.
 import { redirect } from "react-router";
 import {
+  getAnnouncements,
   getDocuments,
   checkJoinLink,
   getClusters,
@@ -57,6 +58,20 @@ export const membersLoader = async () => {
     getMinistries(),
   ]);
   return { members, clusters, ministries };
+};
+
+// --- Announcements (any approved member) -----------------------------------
+
+export const announcementsLoader = async () => ({
+  announcements: await getAnnouncements(),
+});
+
+// The overview shows the latest announcements, but only approved people may
+// read them, so check first instead of letting the request fail.
+export const overviewLoader = async () => {
+  const user = await getMe();
+  const announcements = user.approved ? await getAnnouncements() : [];
+  return { announcements: announcements.slice(0, 3) };
 };
 
 // --- Ministries and the library (any approved member) ----------------------

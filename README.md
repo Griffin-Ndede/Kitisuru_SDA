@@ -100,6 +100,7 @@ Work on a branch, keep pull requests small and focused, and make sure `npm run l
 | --- | --- | --- |
 | `/dashboard` | Everyone signed in | Overview |
 | `/dashboard/profile` | Everyone | My profile, my data |
+| `/dashboard/announcements` | Approved members | Announcements from the church office. Admins post, edit and remove; the latest three also show on the overview |
 | `/dashboard/ministries`, `/dashboard/ministries/:id` | Approved members | Ministries (Youth, Children, Women...) with programs, events, contacts and photos. Admins add, edit, delete and manage members |
 | `/dashboard/library` | Approved members | Study documents (PDFs). Opened through the API with the sign-in token, so they cannot be reached without signing in |
 | `/dashboard/members`, `/dashboard/clusters`, `/dashboard/sign-up` | Admins | Member register, location and fundraising groups, sign-up link and invitations |
@@ -113,6 +114,11 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 - Build new dashboard screens from `src/Components/ui/`. Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
+
+### 2026-11-22: Announcements
+
+- New dashboard page for announcements, readable by every approved member. Admins post, edit, pin and remove them and can set a last day to show. The latest three appear on the overview.
+- Needs the backend's announcements release (`migrate`).
 
 ### 2026-11-22: Ministries and Library move into the dashboard
 
