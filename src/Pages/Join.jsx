@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router";
-import AuthCard, { buttonClass, inputClass } from "../Components/AuthCard";
+import AuthLayout from "../Components/ui/AuthLayout";
+import Button from "../Components/ui/Button";
+import { Input, Checkbox } from "../Components/ui/Fields";
+import { FormError, Notice } from "../Components/ui/States";
+import { Link2 } from "lucide-react";
 import { register } from "../Api";
 import { errorMessage, saveSession } from "../Api/client";
 
@@ -37,50 +41,44 @@ export default function Join() {
 
   if (!valid) {
     return (
-      <AuthCard
+      <AuthLayout
         title="This sign-up link is not valid"
-        footer={<Link to="/signin" className="underline">Already have an account? Sign in</Link>}
+        footer={<Link to="/signin" className="font-medium text-forest-700 underline">Already have an account? Sign in</Link>}
       >
-        <p className="text-gray-600">
-          The link may be old or switched off. Please ask the church office for the current link.
-        </p>
-      </AuthCard>
+        <Notice icon={Link2} tone="warm" title="The link may be old or switched off">
+          Please ask the church office for the current link.
+        </Notice>
+      </AuthLayout>
     );
   }
 
   return (
-    <AuthCard
-      title="Join the Kitisuru SDA church family online"
-      intro="Fill in your details and choose a password. The church office will approve your account."
-      footer={<Link to="/signin" className="underline">Already have an account? Sign in</Link>}
+    <AuthLayout
+      title="Join our church family online"
+      subtitle="Fill in your details and choose a password. The church office will approve your account."
+      footer={<Link to="/signin" className="font-medium text-forest-700 underline">Already have an account? Sign in</Link>}
     >
+      <meta name="robots" content="noindex" />
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-2 gap-3">
-          <input className={inputClass} name="first_name" placeholder="First name" autoComplete="given-name"
-            value={form.first_name} onChange={change} required />
-          <input className={inputClass} name="last_name" placeholder="Last name" autoComplete="family-name"
-            value={form.last_name} onChange={change} required />
+          <Input label="First name" name="first_name" autoComplete="given-name" value={form.first_name} onChange={change} required />
+          <Input label="Last name" name="last_name" autoComplete="family-name" value={form.last_name} onChange={change} required />
         </div>
-        <input className={inputClass} type="email" name="email" placeholder="Email" autoComplete="email"
-          value={form.email} onChange={change} required />
-        <input className={inputClass} type="tel" name="phone" placeholder="Phone number (e.g. 0712 345 678)" autoComplete="tel"
+        <Input label="Email" type="email" name="email" autoComplete="email" value={form.email} onChange={change} required />
+        <Input label="Phone number" type="tel" name="phone" placeholder="e.g. 0712 345 678" autoComplete="tel"
           value={form.phone} onChange={change} required />
-        <input className={inputClass} type="password" name="password" placeholder="Choose a password" autoComplete="new-password"
+        <Input label="Choose a password" type="password" name="password" autoComplete="new-password"
           value={form.password} onChange={change} required />
-        <input className={inputClass} type="password" name="confirm" placeholder="Repeat the password" autoComplete="new-password"
+        <Input label="Repeat the password" type="password" name="confirm" autoComplete="new-password"
           value={form.confirm} onChange={change} required />
-        <label className="flex items-start gap-2 text-sm text-gray-700">
-          <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1" required />
-          <span>
-            I agree to the church keeping these details to run its member register.{" "}
-            <a href="/privacy" target="_blank" rel="noreferrer" className="text-custom-blue underline">How we use your details</a>
-          </span>
-        </label>
-        {error && <p role="alert" className="text-red-600 text-sm">{error}</p>}
-        <button type="submit" disabled={busy} className={buttonClass}>
-          {busy ? "Please wait…" : "Sign up"}
-        </button>
+        <Checkbox
+          required checked={consent} onChange={(e) => setConsent(e.target.checked)}
+          label="I agree to the church keeping these details to run its member register."
+          hint={<a href="/privacy" target="_blank" rel="noreferrer" className="text-forest-700 underline">How we use your details</a>}
+        />
+        <FormError>{error}</FormError>
+        <Button type="submit" size="lg" className="w-full" loading={busy}>Sign up</Button>
       </form>
-    </AuthCard>
+    </AuthLayout>
   );
 }

@@ -84,7 +84,8 @@ To add a page that needs data: add the endpoint to `src/Api/index.js`, add a loa
 src/
   Api/          client.js (HTTP client) and index.js (all endpoints)
   Loaders/      loaders.js - one loader per route that needs data
-  Components/   shared pieces: Navbar, Footer, the activity form and its schema
+  Components/   shared pieces: Navbar, Footer, the activity form and its schema; ui/ holds the dashboard's building blocks (Button, Card, Fields, Modal, DataTable, Badge, Avatar, AuthLayout...)
+  Context/      ToastContext.jsx - the small "Saved" messages
   Pages/        one file per route, plus ErrorPage; Pages/Dashboard/ holds the signed-in area (layout with sidebar, overview, profile, members, clusters, sign-up)
   firebase.jsx  Google sign-in (loaded only when the button is used)
   App.jsx       the router: every route and its loader
@@ -95,7 +96,21 @@ src/
 
 Work on a branch, keep pull requests small and focused, and make sure `npm run lint` and `npm run build` pass before opening one. Update this README and add a dated entry to the changelog below after every significant change.
 
+## Dashboard look
+
+The dashboard and the sign-in pages (sign in, join, forgot and choose password) use a forest-green, marigold and warm-paper design with icons (lucide). The public church website keeps its own blue style.
+
+- Colours, fonts and radii are defined once in `src/index.css` (`forest-*`, `marigold-*`, `clay-*`, `paper`, `ink`, `muted`, `line`). Fonts: Fraunces for headings and Instrument Sans for text.
+- Wrap a page in the `app-theme` class to get the look (`AuthLayout` and `DashboardLayout` already do). Pages outside it are untouched.
+- Build new dashboard screens from `src/Components/ui/`. Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
+
 ## Changelog
+
+### 2026-11-22: New look for the dashboard and sign-in pages
+
+- Restyled with the design from the church's reference UI: dark icon sidebar (a drawer on phones), top bar with an account menu, split-screen sign-in, cards, badges, tables and dialogs that become bottom sheets on phones.
+- Added `src/Components/ui/` and `src/Context/ToastContext.jsx`; removed `AuthCard` and the old dashboard `Modal`. The data fetching (loaders and `src/Api/`) is unchanged.
+- Added the `@fontsource-variable/fraunces` and `@fontsource-variable/instrument-sans` packages. After pulling: `npm install`.
 
 ### 2026-11-22: Dashboard, member register, clusters and privacy (Phase 2)
 

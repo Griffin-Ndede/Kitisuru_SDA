@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Link, useSearchParams } from "react-router";
-import AuthCard, { buttonClass, inputClass } from "../Components/AuthCard";
+import AuthLayout from "../Components/ui/AuthLayout";
+import Button from "../Components/ui/Button";
+import { Input } from "../Components/ui/Fields";
+import { FormError, Notice } from "../Components/ui/States";
+import { KeyRound, CircleCheck, Link2 } from "lucide-react";
 import { setPassword } from "../Api";
 import { errorMessage } from "../Api/client";
 
@@ -34,33 +38,32 @@ export default function ResetPassword() {
 
   if (!uid || !token) {
     return (
-      <AuthCard title="This link is incomplete" footer={<Link to="/forgot-password" className="underline">Ask for a new link</Link>}>
-        <p className="text-gray-600">Open the link from your email again, or ask for a new one.</p>
-      </AuthCard>
+      <AuthLayout title="This link is incomplete" footer={<Link to="/forgot-password" className="font-medium text-forest-700 underline">Ask for a new link</Link>}>
+        <Notice icon={Link2} title="Open the link from your email again">Or ask for a new one.</Notice>
+      </AuthLayout>
     );
   }
 
   if (done) {
     return (
-      <AuthCard title="Password saved">
-        <p className="text-gray-600 mb-6">You can sign in now.</p>
-        <Link to="/signin" className={`${buttonClass} block text-center`}>Go to sign in</Link>
-      </AuthCard>
+      <AuthLayout title="Password saved">
+        <Notice icon={CircleCheck} title="All set">You can sign in now.</Notice>
+        <Button to="/signin" size="lg" className="w-full">Go to sign in</Button>
+      </AuthLayout>
     );
   }
 
   return (
-    <AuthCard title="Choose your password" intro="Use at least 8 characters that are not all numbers.">
+    <AuthLayout title="Choose your password" subtitle="Use at least 8 characters that are not all numbers.">
+      <meta name="robots" content="noindex" />
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input className={inputClass} type="password" placeholder="New password" autoComplete="new-password"
+        <Input label="New password" type="password" autoComplete="new-password"
           value={password} onChange={(e) => setPasswordValue(e.target.value)} required />
-        <input className={inputClass} type="password" placeholder="Repeat the password" autoComplete="new-password"
+        <Input label="Repeat the password" type="password" autoComplete="new-password"
           value={confirm} onChange={(e) => setConfirm(e.target.value)} required />
-        {error && <p role="alert" className="text-red-600 text-sm">{error}</p>}
-        <button type="submit" disabled={busy} className={buttonClass}>
-          {busy ? "Please wait…" : "Save password"}
-        </button>
+        <FormError>{error}</FormError>
+        <Button type="submit" size="lg" className="w-full" icon={KeyRound} loading={busy}>Save password</Button>
       </form>
-    </AuthCard>
+    </AuthLayout>
   );
 }

@@ -1,11 +1,101 @@
 @import "tailwindcss";
-
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/instrument-sans";
 
 html {
   scroll-behavior: smooth;
 }
 
 @theme {
+  /* The church website's own colours */
   --color-custom-blue: #2e8eb4;
   --color-custom-yellow: #ffc700;
+
+  /* The dashboard and sign-in pages: forest green, marigold and warm paper.
+     Every colour, font and radius those pages use comes from here. */
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-app: "Instrument Sans Variable", system-ui, sans-serif;
+
+  --color-forest-950: #0e2a22;
+  --color-forest-900: #143a2e;
+  --color-forest-800: #1b4d3d;
+  --color-forest-700: #24634e;
+  --color-forest-600: #2f7a60;
+  --color-forest-200: #c3ddd0;
+  --color-forest-100: #dcebe3;
+  --color-forest-50: #eef5f1;
+
+  --color-marigold-600: #b97c0a;
+  --color-marigold-500: #e3a320;
+  --color-marigold-400: #edb84a;
+  --color-marigold-100: #fbefd0;
+
+  --color-clay-700: #8f3a1f;
+  --color-clay-600: #b04a2a;
+  --color-clay-100: #f6e1d8;
+
+  --color-paper: #f8f4ec;
+  --color-paper-deep: #f0e9da;
+  --color-ink: #17211d;
+  --color-muted: #5d6b64;
+  --color-line: #e2dac8;
+
+  --radius-card: 1.25rem;
+  --shadow-card: 0 1px 2px rgb(20 58 46 / 0.05), 0 8px 24px -12px rgb(20 58 46 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(20 58 46 / 0.06), 0 24px 48px -20px rgb(20 58 46 / 0.35);
+}
+
+/* Wrap a page in .app-theme to get the dashboard look. The public pages are
+   not wrapped, so they keep their own style. */
+@layer base {
+  .app-theme {
+    @apply bg-paper text-ink antialiased;
+    font-family: var(--font-app);
+  }
+  .app-theme h1,
+  .app-theme h2,
+  .app-theme h3 {
+    @apply font-display tracking-tight;
+  }
+  .app-theme :focus-visible {
+    @apply outline-2 outline-offset-2 outline-marigold-500;
+  }
+  .app-theme button,
+  .app-theme a,
+  .app-theme select,
+  .app-theme input[type="checkbox"] {
+    cursor: pointer;
+  }
+  .app-theme button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@layer components {
+  /* The arch is the brand shape: a rounded doorway used for badges and panels. */
+  .arch {
+    border-radius: 999px 999px var(--radius-card) var(--radius-card);
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-forest-600;
+  }
+  .input {
+    @apply w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-muted/70
+      transition focus:border-forest-600 focus:ring-2 focus:ring-forest-100 focus:outline-none disabled:bg-paper-deep;
+  }
+  .input-error {
+    @apply border-clay-600 focus:border-clay-600 focus:ring-clay-100;
+  }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.rise {
+  animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise { animation: none; }
+  html { scroll-behavior: auto; }
 }

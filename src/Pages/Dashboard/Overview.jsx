@@ -1,6 +1,11 @@
 import React from "react";
 import { Link, useRouteLoaderData } from "react-router";
+import { ArrowRight, Clock, Link2, UserPen, Users, UsersRound } from "lucide-react";
 import { roleLabels } from "./roles";
+import Card from "../../Components/ui/Card";
+import PageHeader from "../../Components/ui/PageHeader";
+import { Notice } from "../../Components/ui/States";
+import Badge from "../../Components/ui/Badge";
 
 // Which details a member is still asked to add on "My profile".
 const missingDetails = (user) =>
@@ -12,9 +17,9 @@ const missingDetails = (user) =>
   ].filter(Boolean);
 
 const cards = [
-  { to: "/dashboard/members", title: "Members", text: "The register: search, add, edit, import and export." },
-  { to: "/dashboard/clusters", title: "Clusters", text: "Prayer cells and departments, and who belongs to each." },
-  { to: "/dashboard/sign-up", title: "Sign-up & invitations", text: "The church's sign-up link, approvals and invitations." },
+  { to: "/dashboard/members", title: "Members", text: "The register: search, add, edit, import and export.", icon: Users },
+  { to: "/dashboard/clusters", title: "Clusters", text: "Prayer cells and departments, and who belongs to each.", icon: UsersRound },
+  { to: "/dashboard/sign-up", title: "Sign-up & invitations", text: "The church's sign-up link, approvals and invitations.", icon: Link2 },
 ];
 
 export default function Overview() {
@@ -23,52 +28,50 @@ export default function Overview() {
 
   return (
     <div>
-      <h1 className="text-3xl font-extrabold text-custom-blue mb-2">
-        Welcome{user.first_name ? `, ${user.first_name}` : ""}
-      </h1>
-      <p className="text-gray-600 mb-8">
-        You are signed in as <strong>{roleLabels[user.role]}</strong>
-        {user.email ? ` (${user.email})` : ""}.
-      </p>
+      <PageHeader
+        title={`Welcome${user.first_name ? `, ${user.first_name}` : ""}`}
+        description={`You are signed in as ${roleLabels[user.role]}${user.email ? ` (${user.email})` : ""}.`}
+      />
 
       {!user.approved && (
-        <div role="status" className="rounded-2xl bg-yellow-50 border border-yellow-200 p-6 mb-6">
-          <h2 className="font-bold text-lg">Thank you for signing up</h2>
-          <p className="text-gray-700 mt-1">
-            The church office will approve your account shortly. Once they do, your member tools will appear here.
-          </p>
-        </div>
+        <Notice icon={Clock} tone="warm" title="Thank you for signing up">
+          The church office will approve your account shortly. Once they do, your member tools will appear here.
+        </Notice>
       )}
 
       {missing.length > 0 && (
-        <div role="status" className="rounded-2xl bg-blue-50 border border-blue-200 p-6 mb-6">
-          <h2 className="font-bold text-lg">Complete your profile</h2>
-          <p className="text-gray-700 mt-1">
-            The church office still needs your {missing.join(", ")}.{" "}
-            <Link to="/dashboard/profile" className="text-custom-blue underline">Add them on My profile</Link>.
-          </p>
-        </div>
+        <Notice icon={UserPen} title="Complete your profile">
+          The church office still needs your {missing.join(", ")}.{" "}
+          <Link to="/dashboard/profile" className="font-medium text-forest-700 underline">Add them on My profile</Link>.
+        </Notice>
       )}
 
       {user.clusters.length > 0 && (
-        <p className="mb-6 text-gray-700">
-          Your groups: <strong>{user.clusters.map((c) => c.name).join(", ")}</strong>
-        </p>
+        <div className="mb-6 flex flex-wrap items-center gap-2">
+          <span className="text-sm text-muted">Your groups</span>
+          {user.clusters.map((c) => <Badge key={c.id} tone="green">{c.name}</Badge>)}
+        </div>
       )}
 
       {user.approved && user.role === "admin" && (
-        <div className="grid gap-4 sm:grid-cols-2">
-          {cards.map((card) => (
-            <Link key={card.to} to={card.to} className="block rounded-2xl bg-white border border-gray-200 p-6 hover:shadow">
-              <h2 className="font-bold text-lg text-custom-blue">{card.title}</h2>
-              <p className="text-gray-600 text-sm mt-1">{card.text}</p>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {cards.map(({ to, title, text, icon: Icon }) => (
+            <Link key={to} to={to} className="group block">
+              <Card className="h-full transition group-hover:-translate-y-0.5 group-hover:shadow-lift">
+                <span className="grid size-11 place-items-center rounded-full bg-forest-50 text-forest-700"><Icon className="size-5" /></span>
+                <h2 className="mt-4 text-xl font-semibold">{title}</h2>
+                <p className="mt-1 text-sm text-muted">{text}</p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-forest-700">
+                  Open <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+                </span>
+              </Card>
             </Link>
           ))}
         </div>
       )}
 
       {user.approved && user.role !== "admin" && (
-        <p className="text-gray-600">Your member tools will appear here as the church dashboard grows.</p>
+        <p className="text-muted">Your member tools will appear here as the church dashboard grows.</p>
       )}
     </div>
   );

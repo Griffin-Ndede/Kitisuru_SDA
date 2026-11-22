@@ -1,5 +1,6 @@
 import React from 'react'
-import { createBrowserRouter, redirect, RouterProvider } from 'react-router'
+import { createBrowserRouter, Outlet, redirect, RouterProvider } from 'react-router'
+import { ToastProvider } from './Context/ToastContext'
 import Home from './Pages/Home'
 import About from './Pages/About'
 import './index.css'
@@ -39,6 +40,8 @@ import {
 const router = createBrowserRouter([
   {
     path: '/',
+    // Wraps every page so any of them can show a toast
+    element: <ToastProvider><Outlet /></ToastProvider>,
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Home />, loader: homeLoader },

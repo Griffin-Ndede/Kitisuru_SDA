@@ -2,10 +2,17 @@ import React, { useMemo, useState } from "react";
 import { useLoaderData, useRevalidator, useRouteLoaderData } from "react-router";
 import { exportMembers } from "../../Api";
 import { errorMessage } from "../../Api/client";
-import { inputClass } from "../../Components/AuthCard";
+import { Download, Pencil, Plus, Upload, Users } from "lucide-react";
+import Button from "../../Components/ui/Button";
+import Badge from "../../Components/ui/Badge";
+import Avatar from "../../Components/ui/Avatar";
+import DataTable from "../../Components/ui/DataTable";
+import PageHeader from "../../Components/ui/PageHeader";
+import { Select, SearchInput } from "../../Components/ui/Fields";
+import { EmptyState, FormError } from "../../Components/ui/States";
 import ImportDialog from "./ImportDialog";
 import MemberDialog from "./MemberDialog";
-import Modal from "./Modal";
+import Modal from "../../Components/ui/Modal";
 import { fullName, genderLabels, matchesSearch, statusLabels, statusOf } from "./memberHelpers";
 
 // Admin only: the member register.
@@ -44,73 +51,64 @@ export default function Members() {
     }
   };
 
-  const button = "px-4 py-2 rounded-full cursor-pointer text-sm";
+  const statusTone = { active: "green", waiting: "gold", record: "grey", off: "clay" };
+
+  const columns = [
+    {
+      key: "name", header: "Name",
+      render: (m) => (
+        <div className="flex items-center gap-3">
+          <Avatar name={fullName(m)} size="sm" />
+          <div className="min-w-0">
+            <p className="truncate font-medium">{fullName(m)}</p>
+            <p className="truncate text-xs text-muted">{m.email || "no email"}</p>
+          </div>
+        </div>
+      ),
+    },
+    { key: "phone", header: "Phone", hideOnMobile: true },
+    { key: "gender", header: "Gender", hideOnMobile: true, render: (m) => genderLabels[m.gender] },
+    { key: "clusters", header: "Clusters", hideOnMobile: true, render: (m) => m.clusters.map((id) => clusterNames[id]).join(", ") || "—" },
+    { key: "status", header: "Status", render: (m) => <Badge tone={statusTone[statusOf(m)]}>{statusLabels[statusOf(m)]}</Badge> },
+    {
+      key: "edit", header: <span className="sr-only">Edit</span>, className: "text-right",
+      render: (m) => (
+        <Button variant="ghost" size="sm" icon={Pencil} onClick={() => setDialog(m.id)} aria-label={`Edit ${fullName(m)}`}>Edit</Button>
+      ),
+    },
+  ];
 
   return (
     <div>
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-        <h1 className="text-3xl font-extrabold text-custom-blue">Members</h1>
-        <div className="flex flex-wrap gap-2">
-          <button onClick={() => setDialog("add")} className={`${button} bg-custom-blue text-white`}>Add member</button>
-          <button onClick={() => setDialog("import")} className={`${button} border border-custom-blue text-custom-blue`}>Import</button>
-          <button onClick={handleExport} className={`${button} border border-custom-blue text-custom-blue`}>Export CSV</button>
-        </div>
-      </div>
-      {error && <p role="alert" className="text-red-600 text-sm mb-3">{error}</p>}
+      <PageHeader
+        title="Members"
+        description="The church register. Only admins can see this page."
+        actions={
+          <>
+            <Button icon={Plus} onClick={() => setDialog("add")}>Add member</Button>
+            <Button variant="secondary" icon={Upload} onClick={() => setDialog("import")}>Import</Button>
+            <Button variant="secondary" icon={Download} onClick={handleExport}>Export CSV</Button>
+          </>
+        }
+      />
+      <div className="mb-4"><FormError>{error}</FormError></div>
 
-      <div className="grid gap-3 sm:grid-cols-4 mb-3">
-        <input className={`${inputClass} sm:col-span-1`} type="search" placeholder="Search name, email, phone" aria-label="Search members"
-          value={search} onChange={(e) => setSearch(e.target.value)} />
-        <select className={inputClass} aria-label="Filter by cluster" value={cluster} onChange={(e) => setCluster(e.target.value)}>
-          <option value="">All clusters</option>
-          {clusters.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
-        </select>
-        <select className={inputClass} aria-label="Filter by gender" value={gender} onChange={(e) => setGender(e.target.value)}>
-          <option value="">All genders</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-        <select className={inputClass} aria-label="Filter by status" value={status} onChange={(e) => setStatus(e.target.value)}>
-          <option value="">Any status</option>
-          {Object.entries(statusLabels).map(([value, text]) => <option key={value} value={value}>{text}</option>)}
-        </select>
+      <div className="mb-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <SearchInput value={search} onChange={setSearch} placeholder="Search name, email, phone" />
+        <Select aria-label="Filter by cluster" value={cluster} onChange={(e) => setCluster(e.target.value)}
+          placeholder="All clusters" options={clusters.map((c) => ({ value: c.id, label: c.name }))} />
+        <Select aria-label="Filter by gender" value={gender} onChange={(e) => setGender(e.target.value)}
+          placeholder="All genders" options={[{ value: "male", label: "Male" }, { value: "female", label: "Female" }]} />
+        <Select aria-label="Filter by status" value={status} onChange={(e) => setStatus(e.target.value)}
+          placeholder="Any status" options={Object.entries(statusLabels).map(([value, label]) => ({ value, label }))} />
       </div>
-      <p className="text-sm text-gray-500 mb-3" aria-live="polite">Showing {shown.length} of {members.length}</p>
+      <p className="mb-3 text-sm text-muted" aria-live="polite">Showing {shown.length} of {members.length}</p>
 
-      <div className="overflow-x-auto bg-white rounded-2xl border border-gray-200">
-        <table className="w-full text-left text-sm">
-          <thead>
-            <tr className="border-b border-gray-300 text-gray-600">
-              <th className="py-3 px-4">Name</th>
-              <th className="py-3 pr-4">Phone</th>
-              <th className="py-3 pr-4">Gender</th>
-              <th className="py-3 pr-4">Clusters</th>
-              <th className="py-3 pr-4">Status</th>
-              <th className="py-3 pr-4" />
-            </tr>
-          </thead>
-          <tbody>
-            {shown.map((m) => (
-              <tr key={m.id} className="border-b border-gray-100">
-                <td className="py-2 px-4">
-                  <span className="font-medium">{fullName(m)}</span>
-                  <span className="block text-gray-500">{m.email || "no email"}</span>
-                </td>
-                <td className="py-2 pr-4">{m.phone || "—"}</td>
-                <td className="py-2 pr-4">{genderLabels[m.gender]}</td>
-                <td className="py-2 pr-4">{m.clusters.map((id) => clusterNames[id]).join(", ") || "—"}</td>
-                <td className="py-2 pr-4">{statusLabels[statusOf(m)]}</td>
-                <td className="py-2 pr-4 text-right">
-                  <button onClick={() => setDialog(m.id)} className="text-custom-blue underline cursor-pointer" aria-label={`Edit ${fullName(m)}`}>Edit</button>
-                </td>
-              </tr>
-            ))}
-            {shown.length === 0 && (
-              <tr><td colSpan="6" className="py-8 text-center text-gray-500">No one matches. Try clearing a filter.</td></tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+      <DataTable
+        columns={columns}
+        rows={shown}
+        empty={<EmptyState icon={Users} title="No one matches">Try clearing a filter or the search.</EmptyState>}
+      />
 
       {dialog === "add" && (
         <Modal title="Add a member" onClose={() => setDialog(null)}>

@@ -7,7 +7,15 @@ import {
   updateUser,
 } from "../../Api";
 import { errorMessage } from "../../Api/client";
-import { inputClass } from "../../Components/AuthCard";
+import { Check, Link2, MessageCircle, Power, RefreshCw, Send, X } from "lucide-react";
+import Card from "../../Components/ui/Card";
+import Button from "../../Components/ui/Button";
+import Badge from "../../Components/ui/Badge";
+import Avatar from "../../Components/ui/Avatar";
+import PageHeader from "../../Components/ui/PageHeader";
+import { Input, Select } from "../../Components/ui/Fields";
+import { FormError } from "../../Components/ui/States";
+import { useToast } from "../../Context/ToastContext";
 import CopyLink from "./CopyLink";
 import { roleLabels } from "./roles";
 
@@ -25,7 +33,7 @@ export default function SignUpAccess() {
   const { people, signupLink } = useLoaderData();
   const revalidator = useRevalidator();
   const [form, setForm] = useState(emptyForm);
-  const [message, setMessage] = useState("");
+  const toast = useToast();
   // The link to send by hand after inviting someone one-to-one.
   const [invite, setInvite] = useState(null);
   const [error, setError] = useState("");
@@ -36,12 +44,11 @@ export default function SignUpAccess() {
   // Runs an action, shows its result, then reloads the list.
   const run = async (action, success) => {
     setError("");
-    setMessage("");
     setInvite(null);
     setBusy(true);
     try {
       const result = await action();
-      setMessage(success);
+      toast.success(success);
       if (result?.invite_link) setInvite(result);
       revalidator.revalidate();
       return true;
@@ -55,117 +62,107 @@ export default function SignUpAccess() {
 
   const handleInvite = async (e) => {
     e.preventDefault();
-    const sent = await run(() => inviteUser(form), `${form.email} is invited.`);
+    const sent = await run(() => inviteUser(form), `${form.email} is invited`);
     if (sent) setForm(emptyForm);
   };
 
   const waiting = people.filter((p) => !p.approved && p.is_active);
   return (
     <div>
-      <h1 className="text-3xl font-extrabold text-custom-blue mb-6">Sign-up & invitations</h1>
+      <PageHeader title="Sign-up & invitations" description="How people join the dashboard, and who is waiting for you to approve them." />
+      <div className="mb-4"><FormError>{error}</FormError></div>
 
-      {(message || error) && (
-        <p role={error ? "alert" : "status"} className={`mb-4 text-sm ${error ? "text-red-600" : "text-green-700"}`}>
-          {error || message}
-        </p>
-      )}
-
-      <section className="rounded-2xl border border-gray-200 p-6 mb-8">
-        <h2 className="font-bold text-lg mb-1">Sign-up link for the church</h2>
-        <p className="text-gray-600 text-sm mb-4">
+      <Card className="mb-6">
+        <div className="flex items-center gap-3">
+          <span className="grid size-10 place-items-center rounded-full bg-forest-50 text-forest-700"><Link2 className="size-5" /></span>
+          <h2 className="text-xl font-semibold">Sign-up link for the church</h2>
+          {signupLink.link && <Badge tone={signupLink.is_active ? "green" : "clay"}>{signupLink.is_active ? "On" : "Switched off"}</Badge>}
+        </div>
+        <p className="mt-2 mb-4 text-sm text-muted">
           Post this one link in the church WhatsApp group. Everyone who uses it fills in their details and waits here for your approval.
         </p>
         {signupLink.link ? (
           <>
             <CopyLink link={signupLink.link}>
               {signupLink.is_active && (
-                <a href={whatsappShare(signupLink.link)} target="_blank" rel="noreferrer"
-                  className="px-4 py-2 rounded-full border border-green-600 text-green-700">
+                <Button size="sm" variant="secondary" icon={MessageCircle} href={whatsappShare(signupLink.link)} target="_blank" rel="noreferrer">
                   Share on WhatsApp
-                </a>
+                </Button>
               )}
             </CopyLink>
-            <p className="text-sm mt-3">
-              Status: <strong>{signupLink.is_active ? "On" : "Switched off"}</strong>
-              {" · "}
-              <button disabled={busy} className="text-custom-blue underline cursor-pointer"
-                onClick={() => run(() => setSignupLinkActive(!signupLink.is_active), signupLink.is_active ? "Sign-up link switched off." : "Sign-up link switched on.")}>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Button size="sm" variant="secondary" icon={Power} disabled={busy}
+                onClick={() => run(() => setSignupLinkActive(!signupLink.is_active), signupLink.is_active ? "Sign-up link switched off" : "Sign-up link switched on")}>
                 {signupLink.is_active ? "Switch off" : "Switch on"}
-              </button>
-              {" · "}
-              <button disabled={busy} className="text-custom-blue underline cursor-pointer"
+              </Button>
+              <Button size="sm" variant="secondary" icon={RefreshCw} disabled={busy}
                 onClick={() => {
                   if (window.confirm("Make a new link? The old link will stop working.")) {
-                    run(makeNewSignupLink, "New sign-up link made. The old one no longer works.");
+                    run(makeNewSignupLink, "New sign-up link made. The old one no longer works");
                   }
                 }}>
                 Make a new link
-              </button>
-            </p>
+              </Button>
+            </div>
           </>
         ) : (
-          <button disabled={busy} onClick={() => run(makeNewSignupLink, "Sign-up link made.")}
-            className="px-6 py-3 rounded-full bg-custom-blue text-white font-semibold cursor-pointer disabled:opacity-60">
-            Make the sign-up link
-          </button>
+          <Button size="lg" disabled={busy} onClick={() => run(makeNewSignupLink, "Sign-up link made")}>Make the sign-up link</Button>
         )}
-      </section>
+      </Card>
 
       {waiting.length > 0 && (
-        <section className="rounded-2xl bg-yellow-50 border border-yellow-200 p-6 mb-8">
-          <h2 className="font-bold text-lg mb-3">Waiting for approval ({waiting.length})</h2>
-          <ul className="divide-y divide-yellow-200">
+        <Card className="mb-6 !border-marigold-400/50 !bg-marigold-100/50">
+          <h2 className="mb-2 text-xl font-semibold">Waiting for approval ({waiting.length})</h2>
+          <ul className="divide-y divide-marigold-400/30">
             {waiting.map((person) => (
-              <li key={person.id} className="py-2 flex flex-wrap items-center justify-between gap-3">
-                <span>
-                  <strong>{fullName(person)}</strong>
-                  <span className="text-gray-600 text-sm"> · {person.email} · {person.phone || "no phone"}</span>
+              <li key={person.id} className="flex flex-wrap items-center justify-between gap-3 py-3">
+                <span className="flex items-center gap-3">
+                  <Avatar name={fullName(person)} size="sm" />
+                  <span>
+                    <span className="block text-sm font-semibold">{fullName(person)}</span>
+                    <span className="block text-xs text-muted">{person.email} · {person.phone || "no phone"}</span>
+                  </span>
                 </span>
-                <span className="space-x-3">
-                  <button disabled={busy} onClick={() => run(() => updateUser(person.id, { approved: true }), `${fullName(person)} approved.`)}
-                    className="px-4 py-1 rounded-full bg-custom-blue text-white cursor-pointer">
+                <span className="flex gap-2">
+                  <Button size="sm" icon={Check} disabled={busy} onClick={() => run(() => updateUser(person.id, { approved: true }), `${fullName(person)} approved`)}>
                     Approve
-                  </button>
-                  <button disabled={busy} onClick={() => run(() => updateUser(person.id, { is_active: false }), `${fullName(person)}'s account switched off.`)}
-                    className="text-red-600 underline cursor-pointer">
+                  </Button>
+                  <Button size="sm" variant="ghost" icon={X} disabled={busy} onClick={() => run(() => updateUser(person.id, { is_active: false }), `${fullName(person)}'s account switched off`)}>
                     Reject
-                  </button>
+                  </Button>
                 </span>
               </li>
             ))}
           </ul>
-        </section>
+        </Card>
       )}
 
-      <form onSubmit={handleInvite} className="rounded-2xl border border-gray-200 p-6 mb-8 grid gap-3 sm:grid-cols-2">
-        <h2 className="sm:col-span-2 font-bold text-lg">Invite one person with a role</h2>
-        <p className="sm:col-span-2 text-gray-600 text-sm -mt-2">
-          For leaders and treasurers, or anyone who needs a role other than member. They are approved straight away.
-        </p>
-        <input className={inputClass} name="first_name" placeholder="First name" value={form.first_name} onChange={change} />
-        <input className={inputClass} name="last_name" placeholder="Last name" value={form.last_name} onChange={change} />
-        <input className={inputClass} type="email" name="email" placeholder="Email" value={form.email} onChange={change} required />
-        <select className={inputClass} name="role" value={form.role} onChange={change}>
-          {Object.entries(roleLabels).map(([value, label]) => (
-            <option key={value} value={value}>{label}</option>
-          ))}
-        </select>
+      <Card as="form" onSubmit={handleInvite} className="mb-6 grid gap-4 sm:grid-cols-2">
         <div className="sm:col-span-2">
-          <button type="submit" disabled={busy} className="px-6 py-3 rounded-full bg-custom-blue text-white font-semibold cursor-pointer disabled:opacity-60">
-            Create invitation
-          </button>
+          <h2 className="text-xl font-semibold">Invite one person with a role</h2>
+          <p className="mt-1 text-sm text-muted">
+            For leaders and treasurers, or anyone who needs a role other than member. They are approved straight away.
+          </p>
         </div>
-      </form>
+        <Input label="First name" name="first_name" value={form.first_name} onChange={change} />
+        <Input label="Last name" name="last_name" value={form.last_name} onChange={change} />
+        <Input label="Email" type="email" name="email" value={form.email} onChange={change} required />
+        <Select label="Role" name="role" value={form.role} onChange={change}
+          options={Object.entries(roleLabels).map(([value, label]) => ({ value, label }))} />
+        <div className="sm:col-span-2">
+          <Button type="submit" icon={Send} loading={busy}>Create invitation</Button>
+        </div>
+      </Card>
 
       {invite && (
-        <div role="status" className="rounded-2xl bg-blue-50 p-4 mb-8 text-sm">
-          <p className="mb-2">
+        <div role="status" className="mb-6 rounded-card bg-forest-50 p-5 text-sm">
+          <p className="mb-3">
             {invite.email_sent
               ? `We emailed ${invite.email}. You can also send them this link yourself:`
               : `No email was sent. Send ${invite.email} this link yourself (WhatsApp, for example). It works for them only:`}
           </p>
           <CopyLink link={invite.invite_link} />
-          <p className="text-gray-500 mt-2">The link works once and expires in 7 days.</p>
+          <p className="mt-2 text-muted">The link works once and expires in 7 days.</p>
         </div>
       )}
     </div>
