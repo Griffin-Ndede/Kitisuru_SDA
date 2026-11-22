@@ -98,9 +98,9 @@ Work on a branch, keep pull requests small and focused, and make sure `npm run l
 
 ## Dashboard look
 
-The dashboard and the sign-in pages (sign in, join, forgot and choose password) use a forest-green, marigold and warm-paper design with icons (lucide). The public church website keeps its own blue style.
+The dashboard and the sign-in pages (sign in, join, forgot and choose password) use the website's own blue (`#2e8eb4`) and yellow (`#ffc700`) on a light grey page, with icons (lucide). The token names are still `forest-*` (the blues) and `marigold-*` (the yellows).
 
-- Colours, fonts and radii are defined once in `src/index.css` (`forest-*`, `marigold-*`, `clay-*`, `paper`, `ink`, `muted`, `line`). Fonts: Fraunces for headings and Instrument Sans for text.
+- Colours, fonts and radii are defined once in `src/index.css` (`forest-*` = blues, `marigold-*` = yellows, `clay-*` = errors, `paper`, `ink`, `muted`, `line`). Fonts: Fraunces for headings and Instrument Sans for text.
 - Wrap a page in the `app-theme` class to get the look (`AuthLayout` and `DashboardLayout` already do). Pages outside it are untouched.
 - Build new dashboard screens from `src/Components/ui/`. Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
