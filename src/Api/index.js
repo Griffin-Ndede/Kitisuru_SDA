@@ -1,7 +1,7 @@
 // Every backend endpoint the site reads from, in one place.
 // Loaders import from here. No UI logic and no error handling: errors are
 // handled by the router's error page.
-import { get, patch, post } from "./client";
+import { del, download, get, patch, post } from "./client";
 
 export const getMinistries = () => get("ministries/ministries/");
 export const getMinistryDetails = (id) => get(`ministries/ministries/${id}/`);
@@ -40,3 +40,40 @@ export const updateUser = (id, changes) =>
   patch(`accounts/users/${id}/`, changes, { auth: true });
 export const resendInvitation = (id) =>
   post(`accounts/users/${id}/resend-invitation/`, {}, { auth: true });
+
+// --- My profile and privacy ---------------------------------------------------
+export const updateMe = (details) => patch("accounts/me/", details, { auth: true });
+export const downloadMyData = () =>
+  download("accounts/me/data/", "my-kitisuru-details.json");
+export const deleteMyAccount = (confirm) =>
+  post("accounts/me/delete/", { confirm }, { auth: true });
+
+// --- Members and clusters (admins) ----------------------------------------------
+export const getMembers = () => get("members/", { auth: true });
+export const addMember = (details) => post("members/", details, { auth: true });
+export const updateMember = (id, details) =>
+  patch(`members/${id}/`, details, { auth: true });
+export const deleteMember = (id) => del(`members/${id}/`, { auth: true });
+
+export const getClusters = () => get("members/clusters/", { auth: true });
+export const createCluster = (cluster) =>
+  post("members/clusters/", cluster, { auth: true });
+export const updateCluster = (id, changes) =>
+  patch(`members/clusters/${id}/`, changes, { auth: true });
+export const deleteCluster = (id) => del(`members/clusters/${id}/`, { auth: true });
+// changes: { add: [memberIds], remove: [memberIds] }
+export const changeClusterMembers = (id, changes) =>
+  post(`members/clusters/${id}/members/`, changes, { auth: true });
+
+export const exportMembers = () =>
+  download("members/export/", "kitisuru-members.csv");
+export const downloadImportTemplate = () =>
+  download("members/import-template/", "members-template.csv");
+// dryRun true: check the file and report, save nothing.
+export const importMembers = (file, { dryRun, confirmPermission = false }) => {
+  const form = new FormData();
+  form.append("file", file);
+  form.append("dry_run", dryRun ? "true" : "false");
+  form.append("confirm_permission", confirmPermission ? "true" : "false");
+  return post("members/import/", form, { auth: true });
+};

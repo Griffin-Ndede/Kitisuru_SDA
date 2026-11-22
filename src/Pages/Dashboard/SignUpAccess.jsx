@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { useLoaderData, useRevalidator, useRouteLoaderData } from "react-router";
+import { useLoaderData, useRevalidator } from "react-router";
 import {
   inviteUser,
   makeNewSignupLink,
-  resendInvitation,
   setSignupLinkActive,
   updateUser,
 } from "../../Api";
@@ -16,15 +15,14 @@ const emptyForm = { email: "", first_name: "", last_name: "", role: "member" };
 
 const whatsappShare = (link) =>
   "https://wa.me/?text=" +
-  encodeURIComponent(`Join the Kitisuru SDA Church portal. Sign up here: ${link}`);
+  encodeURIComponent(`Join the Kitisuru SDA Church family online. Sign up here: ${link}`);
 
 const fullName = (p) => `${p.first_name} ${p.last_name}`.trim() || "—";
 
-// Admin only: the shared sign-up link, people waiting for approval, everyone
-// with an account, and individual invitations.
-export default function People() {
+// Admin only: the shared sign-up link, people waiting for approval, and
+// individual invitations. Everyone else is managed on the Members page.
+export default function SignUpAccess() {
   const { people, signupLink } = useLoaderData();
-  const { user: me } = useRouteLoaderData("portal");
   const revalidator = useRevalidator();
   const [form, setForm] = useState(emptyForm);
   const [message, setMessage] = useState("");
@@ -61,24 +59,10 @@ export default function People() {
     if (sent) setForm(emptyForm);
   };
 
-  const waiting = people.filter((p) => !p.approved);
-  const roleSelect = (person, isMe) => (
-    <select
-      value={person.role}
-      disabled={busy || isMe}
-      aria-label={`Role for ${person.email}`}
-      onChange={(e) => run(() => updateUser(person.id, { role: e.target.value }), "Role changed.")}
-      className="border border-gray-300 rounded px-2 py-1"
-    >
-      {Object.entries(roleLabels).map(([value, label]) => (
-        <option key={value} value={value}>{label}</option>
-      ))}
-    </select>
-  );
-
+  const waiting = people.filter((p) => !p.approved && p.is_active);
   return (
     <div>
-      <h1 className="text-3xl font-extrabold text-custom-blue mb-6">People</h1>
+      <h1 className="text-3xl font-extrabold text-custom-blue mb-6">Sign-up & invitations</h1>
 
       {(message || error) && (
         <p role={error ? "alert" : "status"} className={`mb-4 text-sm ${error ? "text-red-600" : "text-green-700"}`}>
@@ -184,52 +168,6 @@ export default function People() {
           <p className="text-gray-500 mt-2">The link works once and expires in 7 days.</p>
         </div>
       )}
-
-      <div className="overflow-x-auto">
-        <table className="w-full text-left text-sm">
-          <thead>
-            <tr className="border-b border-gray-300 text-gray-600">
-              <th className="py-2 pr-4">Name</th>
-              <th className="py-2 pr-4">Email</th>
-              <th className="py-2 pr-4">Phone</th>
-              <th className="py-2 pr-4">Role</th>
-              <th className="py-2 pr-4">Account</th>
-              <th className="py-2" />
-            </tr>
-          </thead>
-          <tbody>
-            {people.map((person) => {
-              const isMe = person.id === me.id;
-              return (
-                <tr key={person.id} className="border-b border-gray-100">
-                  <td className="py-2 pr-4">{fullName(person)}</td>
-                  <td className="py-2 pr-4">{person.email || "—"}</td>
-                  <td className="py-2 pr-4">{person.phone || "—"}</td>
-                  <td className="py-2 pr-4">{roleSelect(person, isMe)}</td>
-                  <td className="py-2 pr-4">
-                    {!person.is_active ? "Switched off" : person.approved ? "Active" : "Waiting for approval"}
-                  </td>
-                  <td className="py-2 space-x-3 whitespace-nowrap">
-                    {!isMe && (
-                      <button disabled={busy} className="text-custom-blue underline cursor-pointer"
-                        onClick={() => run(() => updateUser(person.id, { is_active: !person.is_active }),
-                          person.is_active ? "Account switched off." : "Account switched on.")}>
-                        {person.is_active ? "Switch off" : "Switch on"}
-                      </button>
-                    )}
-                    {person.is_active && !isMe && person.approved && person.email && (
-                      <button disabled={busy} className="text-custom-blue underline cursor-pointer"
-                        onClick={() => run(() => resendInvitation(person.id), `New invitation link for ${person.email}.`)}>
-                        New invitation link
-                      </button>
-                    )}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
     </div>
   );
 }

@@ -12,10 +12,10 @@ export default function SignIn() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
-  // Both ways of signing in end the same way: keep the tokens, open the portal.
+  // Both ways of signing in end the same way: keep the tokens, open the dashboard.
   const finish = (session) => {
     saveSession(session);
-    navigate("/app");
+    navigate("/dashboard");
   };
 
   const handleSubmit = async (e) => {

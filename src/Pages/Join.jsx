@@ -11,6 +11,7 @@ export default function Join() {
   const [form, setForm] = useState({
     first_name: "", last_name: "", email: "", phone: "", password: "", confirm: "",
   });
+  const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -26,8 +27,8 @@ export default function Join() {
     setBusy(true);
     try {
       const { first_name, last_name, email, phone, password } = form;
-      saveSession(await register({ first_name, last_name, email, phone, password, code }));
-      navigate("/app");
+      saveSession(await register({ first_name, last_name, email, phone, password, consent, code }));
+      navigate("/dashboard");
     } catch (err) {
       setError(errorMessage(err));
       setBusy(false);
@@ -49,7 +50,7 @@ export default function Join() {
 
   return (
     <AuthCard
-      title="Join the Kitisuru SDA portal"
+      title="Join the Kitisuru SDA church family online"
       intro="Fill in your details and choose a password. The church office will approve your account."
       footer={<Link to="/signin" className="underline">Already have an account? Sign in</Link>}
     >
@@ -68,6 +69,13 @@ export default function Join() {
           value={form.password} onChange={change} required />
         <input className={inputClass} type="password" name="confirm" placeholder="Repeat the password" autoComplete="new-password"
           value={form.confirm} onChange={change} required />
+        <label className="flex items-start gap-2 text-sm text-gray-700">
+          <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1" required />
+          <span>
+            I agree to the church keeping these details to run its member register.{" "}
+            <a href="/privacy" target="_blank" rel="noreferrer" className="text-custom-blue underline">How we use your details</a>
+          </span>
+        </label>
         {error && <p role="alert" className="text-red-600 text-sm">{error}</p>}
         <button type="submit" disabled={busy} className={buttonClass}>
           {busy ? "Please wait…" : "Sign up"}

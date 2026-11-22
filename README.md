@@ -48,8 +48,12 @@ The site is built for Netlify (`netlify.toml`): publish `dist/`, and every addre
 | `/signin` | Sign in with email and password, or Google | API (action) |
 | `/forgot-password` | Ask for a password reset email | API (action) |
 | `/reset-password` | Choose a password from an invitation or reset link | API (action) |
-| `/app` | Member portal home, for signed-in people (others go to `/signin`); people who just signed up see a "waiting for approval" message | API (loader) |
-| `/app/people` | Admins only: the shared sign-up link (copy, share on WhatsApp, switch off, make a new one), approve or reject sign-ups, invite one person with a role, change roles, switch accounts off | API (loader) |
+| `/dashboard` | Dashboard overview, for signed-in people (others go to `/signin`). People who just signed up see a "waiting for approval" message; members see a "complete your profile" reminder. `/app` redirects here | API (loader) |
+| `/dashboard/profile` | My profile: members add and edit their name, phone, gender, date of birth and address; download their data; delete their account | API (action) |
+| `/dashboard/members` | Admins only: the member register with search and filters; add and edit members, their clusters, role and approval; import (CSV or Excel, with a preview) and export | API (loader + actions) |
+| `/dashboard/clusters` | Admins only: create prayer cells and departments and add or remove members | API (loader + actions) |
+| `/dashboard/sign-up` | Admins only: the shared sign-up link (copy, share on WhatsApp, switch off, make a new one), approve or reject sign-ups, invite one person with a role | API (loader + actions) |
+| `/privacy` | How the church uses members' details (read it with the church leadership and adjust it) | static |
 
 ## How pages get their data
 
@@ -70,7 +74,7 @@ The rules:
 4. **Requests time out after 10 seconds**, so a hanging API shows the error page instead of freezing navigation.
 5. **Refreshing** a page's data means asking the router to run its loader again (`useRevalidator().revalidate()`), not fetching by hand.
 6. **Actions the visitor triggers** (the contact, activity and sign-in forms) are made from the page's event handler, and their errors are shown next to the form.
-7. **Signing in:** the tokens live in `localStorage` (`getSession`, `saveSession` and `clearSession` in `src/Api/client.js`). A request marked `auth: true` sends the token and renews it once automatically if it has expired. `/app` has a loader (`portalLoader`) that sends signed-out people to `/signin`; pages inside it read the person with `useRouteLoaderData("portal")`. A page only the admin may open gets a 403 from the API, which the error page explains.
+7. **Signing in:** the tokens live in `localStorage` (`getSession`, `saveSession` and `clearSession` in `src/Api/client.js`). A request marked `auth: true` sends the token and renews it once automatically if it has expired. `/dashboard` has a loader (`dashboardLoader`) that sends signed-out people to `/signin`; pages inside it read the person with `useRouteLoaderData("dashboard")`. A page only the admin may open gets a 403 from the API, which the error page explains.
 
 To add a page that needs data: add the endpoint to `src/Api/index.js`, add a loader in `src/Loaders/loaders.js`, attach it to the route in `src/App.jsx`, and read it with `useLoaderData()`.
 
@@ -81,7 +85,7 @@ src/
   Api/          client.js (HTTP client) and index.js (all endpoints)
   Loaders/      loaders.js - one loader per route that needs data
   Components/   shared pieces: Navbar, Footer, the activity form and its schema
-  Pages/        one file per route, plus ErrorPage; Pages/Portal/ holds the signed-in area
+  Pages/        one file per route, plus ErrorPage; Pages/Dashboard/ holds the signed-in area (layout with sidebar, overview, profile, members, clusters, sign-up)
   firebase.jsx  Google sign-in (loaded only when the button is used)
   App.jsx       the router: every route and its loader
   config.jsx    backend address (local in development, live in production; see the file's comments)
@@ -92,6 +96,14 @@ src/
 Work on a branch, keep pull requests small and focused, and make sure `npm run lint` and `npm run build` pass before opening one. Update this README and add a dated entry to the changelog below after every significant change.
 
 ## Changelog
+
+### 2026-11-22: Dashboard, member register, clusters and privacy (Phase 2)
+
+- The portal is now the **Dashboard** (`/dashboard`, with a menu on the left; `/app` redirects). New pages: My profile, Members (register with search, filters, add/edit, import and export), Clusters, and Sign-up & invitations (the old People page, without the account table, which moved into the member dialog).
+- Sign-up asks people to agree to the church keeping their details; there is a public Privacy page; members can download or delete their own data.
+- `src/Api/client.js` gained `del` and `download` (for CSV and JSON files that need the sign-in token); the new endpoints are in `src/Api/index.js`.
+- Needs the backend's Phase 2 release. After pulling: `npm install`.
+
 
 ### 2026-11-22: Sign-in accepts a username
 
