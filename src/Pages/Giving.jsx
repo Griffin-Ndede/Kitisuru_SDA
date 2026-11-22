@@ -5,7 +5,6 @@ import {
   CreditCard,
   Phone,
   Building,
-  ShieldCheck,
   ChevronDown,
 } from 'lucide-react';
 import Navbar from '../Components/Navbar';
@@ -13,6 +12,7 @@ import Navbar from '../Components/Navbar';
 function Giving() {
   const [expandedOption, setExpandedOption] = useState(null);
   const [openFAQ, setOpenFAQ] = useState(null);
+  // eslint-disable-next-line no-unused-vars -- read by the fundraising progress bar that is commented out below
   const [value, setValue] = useState(0);
 
   const givingOptions = [
@@ -78,10 +78,10 @@ function Giving() {
         <div className="container mx-auto px-4 mt-8 md:mt-32">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Supporting God's Work Through Giving
+              Supporting God&apos;s Work Through Giving
             </h1>
             <p className="text-xl mx-auto font-light text-gray-200 mb-8">
-              "Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver." - 2 Corinthians 9:7
+              &quot;Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.&quot; - 2 Corinthians 9:7
             </p>
           </div>
         </div>
@@ -235,7 +235,7 @@ function Giving() {
       {/* Footer */}
       <footer className="bg-black fixed bottom-0 w-full text-white py-8 mt-16">
         <div className="container text-lg text-white font-light mx-auto px-4 text-center">
-          <p>"Bring the whole tithe into the storehouse..." - Malachi 3:10</p>
+          <p>&quot;Bring the whole tithe into the storehouse...&quot; - Malachi 3:10</p>
         </div>
       </footer>
     </div>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Church, Menu, X } from 'lucide-react'; // Added Menu and X icons for mobile toggle
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Menu, X } from 'lucide-react'; // Added Menu and X icons for mobile toggle
 import { Link } from 'react-router';
 
 function Navbar() {

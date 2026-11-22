@@ -1,37 +1,33 @@
-// What each page needs, fetched before the page renders.
-// Loaders do not catch errors: a failure reaches the router's ErrorPage.
+// What data each page needs. React Router runs these before showing a page.
+//
+// Loaders don't catch errors: if a request fails, the error goes to
+// <ErrorPage /> (errorElement in App.jsx), so every page handles failures
+// the same way.
 import {
   getDocuments,
   getMinistries,
-  getMinistry,
+  getMinistryDetails,
   getUpcomingEvents,
   getYoutubeLinks,
 } from "../Api";
 
-export async function homeLoader() {
+// Sermons and events are fetched at the same time.
+export const homeLoader = async () => {
   const [youtubeContent, upcomingEvents] = await Promise.all([
     getYoutubeLinks(),
     getUpcomingEvents(),
   ]);
   return { youtubeContent, upcomingEvents };
-}
+};
 
-export async function ministriesLoader() {
-  return { ministries: await getMinistries() };
-}
+export const ministriesLoader = async () => ({
+  ministries: await getMinistries(),
+});
 
-export async function ministryLoader({ params }) {
-  try {
-    return { ministry: await getMinistry(params.id) };
-  } catch (error) {
-    // A missing ministry is a 404 page, not a "didn't load" error.
-    if (error?.response?.status === 404) {
-      throw new Response("Ministry not found", { status: 404 });
-    }
-    throw error;
-  }
-}
+export const ministryDetailsLoader = async ({ params }) => ({
+  ministry: await getMinistryDetails(params.id),
+});
 
-export async function resourcesLoader() {
-  return { documents: await getDocuments() };
-}
+export const resourcesLoader = async () => ({
+  documents: await getDocuments(),
+});

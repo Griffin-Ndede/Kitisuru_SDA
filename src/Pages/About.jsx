@@ -1,6 +1,6 @@
 import React from 'react'
 import Footer from '../Components/Footer'
-import { Clock, History, } from 'lucide-react';
+import { History, } from 'lucide-react';
 import { Book, Users, Cross, Heart, Sun, CloudSun, Moon, Church, Target, Globe } from "lucide-react";
 
 import Navbar from '../Components/Navbar';
@@ -134,7 +134,7 @@ function About() {
                                     <h3 className="font-semibold text-lg mb-4">Our Ministries</h3>
                                     <ul className="space-y-2 text-gray-600">
                                         <li>• Children & Youth Ministries</li>
-                                        <li>• Women's and Men's Ministries</li>
+                                        <li>• Women&apos;s and Men&apos;s Ministries</li>
                                         <li>• Health and Wellness Outreach</li>
                                         <li>• Evangelism and Bible Study</li>
                                         <li>• Music and Worship Programs</li>

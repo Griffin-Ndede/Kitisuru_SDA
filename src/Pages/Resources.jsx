@@ -114,7 +114,7 @@ const Resources = () => {
                             {/* PDF */}
                             <div className="">
                                 <iframe
-                                    src={`${BASE_URL}/library/documents/${currentDocument.slug}/#toolbar=1&navpanes=0&zoom=page-width`}
+                                    src={`${BASE_URL}library/documents/${currentDocument.slug}/#toolbar=1&navpanes=0&zoom=page-width`}
                                     className="w-full h-[90vh]"
                                     title={currentDocument.title}
                                 />

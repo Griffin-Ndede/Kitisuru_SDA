@@ -1,5 +1,4 @@
 import React from 'react'
-import { MapPin } from 'lucide-react'
 import { Link } from 'react-router'
 function Footer() {
     return (
@@ -9,7 +8,7 @@ function Footer() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         <div>
                             <h3 className="text-xl font-semibold mb-4">About Us</h3>
-                            <p className="text-blue-200">A welcoming Seventh-day Adventist community dedicated to sharing God's love.</p>
+                            <p className="text-blue-200">A welcoming Seventh-day Adventist community dedicated to sharing God&apos;s love.</p>
                         </div>
                         <div>
                             <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
