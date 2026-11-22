@@ -92,6 +92,14 @@ export async function download(endpoint, filename) {
   URL.revokeObjectURL(url);
 }
 
+// Fetches a file the API protects (a PDF) and returns an address the browser can
+// show in a frame. A plain frame cannot send the sign-in token, so the file is
+// fetched here first. Give the address back with URL.revokeObjectURL when done.
+export async function fetchFileUrl(endpoint) {
+  const blob = await request("get", endpoint, { auth: true, responseType: "blob" });
+  return URL.createObjectURL(blob);
+}
+
 // A readable message from a failed request, for showing next to a form.
 export function errorMessage(error, fallback = "Something went wrong. Please try again.") {
   const data = error?.response?.data;

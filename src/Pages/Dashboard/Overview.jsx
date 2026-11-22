@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useRouteLoaderData } from "react-router";
-import { ArrowRight, Clock, Link2, UserPen, Users, UsersRound } from "lucide-react";
+import { ArrowRight, BookOpenText, Clock, HeartHandshake, Link2, UserPen, Users, UsersRound } from "lucide-react";
 import { roleLabels } from "./roles";
 import Card from "../../Components/ui/Card";
 import PageHeader from "../../Components/ui/PageHeader";
@@ -16,9 +16,14 @@ const missingDetails = (user) =>
     !user.address && "address",
   ].filter(Boolean);
 
-const cards = [
+const churchCards = [
+  { to: "/dashboard/ministries", title: "Ministries", text: "Youth, children, women and the rest: who to talk to and what is on.", icon: HeartHandshake },
+  { to: "/dashboard/library", title: "Library", text: "Study materials and documents from the church.", icon: BookOpenText },
+];
+
+const adminCards = [
   { to: "/dashboard/members", title: "Members", text: "The register: search, add, edit, import and export.", icon: Users },
-  { to: "/dashboard/clusters", title: "Clusters", text: "Prayer cells and departments, and who belongs to each.", icon: UsersRound },
+  { to: "/dashboard/clusters", title: "Clusters", text: "Location and fundraising groups, and who belongs to each.", icon: UsersRound },
   { to: "/dashboard/sign-up", title: "Sign-up & invitations", text: "The church's sign-up link, approvals and invitations.", icon: Link2 },
 ];
 
@@ -46,33 +51,55 @@ export default function Overview() {
         </Notice>
       )}
 
-      {user.clusters.length > 0 && (
-        <div className="mb-6 flex flex-wrap items-center gap-2">
-          <span className="text-sm text-muted">Your groups</span>
-          {user.clusters.map((c) => <Badge key={c.id} tone="green">{c.name}</Badge>)}
+      {(user.clusters.length > 0 || user.ministries.length > 0) && (
+        <div className="mb-6 space-y-2">
+          {user.ministries.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-sm text-muted">Your ministries</span>
+              {user.ministries.map((m) => (
+                <Link key={m.id} to={`/dashboard/ministries/${m.id}`}><Badge tone="gold">{m.title}</Badge></Link>
+              ))}
+            </div>
+          )}
+          {user.clusters.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-sm text-muted">Your groups</span>
+              {user.clusters.map((c) => <Badge key={c.id} tone="green">{c.name}</Badge>)}
+            </div>
+          )}
         </div>
       )}
 
-      {user.approved && user.role === "admin" && (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {cards.map(({ to, title, text, icon: Icon }) => (
-            <Link key={to} to={to} className="group block">
-              <Card className="h-full transition group-hover:-translate-y-0.5 group-hover:shadow-lift">
-                <span className="grid size-11 place-items-center rounded-full bg-forest-50 text-forest-700"><Icon className="size-5" /></span>
-                <h2 className="mt-4 text-xl font-semibold">{title}</h2>
-                <p className="mt-1 text-sm text-muted">{text}</p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-forest-700">
-                  Open <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
-                </span>
-              </Card>
-            </Link>
-          ))}
-        </div>
+      {user.approved && (
+        <>
+          <CardGrid cards={churchCards} />
+          {user.role === "admin" && (
+            <>
+              <h2 className="mt-8 mb-3 text-xl font-semibold">Administration</h2>
+              <CardGrid cards={adminCards} />
+            </>
+          )}
+        </>
       )}
+    </div>
+  );
+}
 
-      {user.approved && user.role !== "admin" && (
-        <p className="text-muted">Your member tools will appear here as the church dashboard grows.</p>
-      )}
+function CardGrid({ cards }) {
+  return (
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {cards.map(({ to, title, text, icon: Icon }) => (
+        <Link key={to} to={to} className="group block">
+          <Card className="h-full transition group-hover:-translate-y-0.5 group-hover:shadow-lift">
+            <span className="grid size-11 place-items-center rounded-full bg-forest-50 text-forest-700"><Icon className="size-5" /></span>
+            <h2 className="mt-4 text-xl font-semibold">{title}</h2>
+            <p className="mt-1 text-sm text-muted">{text}</p>
+            <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-forest-700">
+              Open <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+            </span>
+          </Card>
+        </Link>
+      ))}
     </div>
   );
 }

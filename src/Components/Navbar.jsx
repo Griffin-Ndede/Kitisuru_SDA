@@ -28,9 +28,7 @@ function Navbar() {
           <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
             <Link to="/" className="text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">Home</Link>
             <Link to='/about' className="text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">About</Link>
-            <Link to="/ministries" className="text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">Ministries</Link>
             <Link to='/giving' className='text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer'>Giving</Link>
-            <a href="/resources" className="text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">Library</a>
             <Link to='/contact' className="text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">Contact</Link>
             <Link to={dashboardLink.to} className="text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">{dashboardLink.label}</Link>
             <Link to='/getinvolved'>
@@ -52,9 +50,7 @@ function Navbar() {
           <div className="md:hidden mt-4 pb-4 space-y-3 rounded-3xl">
             <Link to="/" className="block text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">Home</Link>
             <Link to="/about" className="block text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">About</Link>
-            <Link to="/ministries" className="block text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">Ministries</Link>
             <Link to='/giving' className='text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer'>Giving</Link>
-            <a href="/resources" className="block text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">Library</a>
             <Link to='/contact' className="block text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">Contact</Link>
             <Link to={dashboardLink.to} className="block text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">{dashboardLink.label}</Link>
             <Link to='/getinvolved' className='text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer'><button>Get Involved</button></Link>

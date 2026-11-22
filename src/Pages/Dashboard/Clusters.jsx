@@ -11,7 +11,7 @@ import PageHeader from "../../Components/ui/PageHeader";
 import { Input, Select, SearchInput } from "../../Components/ui/Fields";
 import { EmptyState, FormError } from "../../Components/ui/States";
 import { useToast } from "../../Context/ToastContext";
-import { fullName, kindLabels, matchesSearch } from "./memberHelpers";
+import { fullName, kindLabels, matchesSearch, newKinds } from "./memberHelpers";
 
 // One person in a list, with a button on the right.
 function PersonRow({ person, action }) {
@@ -29,7 +29,7 @@ function PersonRow({ person, action }) {
   );
 }
 
-// Admin only: prayer cells and departments, and who belongs to each.
+// Admin only: location groups and fundraising groups, and who belongs to each.
 export default function Clusters() {
   const { members, clusters } = useLoaderData();
   const revalidator = useRevalidator();
@@ -90,17 +90,17 @@ export default function Clusters() {
 
   return (
     <div>
-      <PageHeader title="Clusters" description="Prayer cells and departments. A member can belong to several." />
+      <PageHeader title="Clusters" description="Groups by location (prayer cells) and for fundraising. A member can belong to several." />
       <div className="mb-4"><FormError>{error}</FormError></div>
 
       <div className="grid gap-6 md:grid-cols-3">
         <section className="space-y-4 md:col-span-1">
           <Card as="form" onSubmit={handleCreate} className="space-y-3">
             <h2 className="text-lg font-semibold">New cluster</h2>
-            <Input aria-label="Cluster name" placeholder="e.g. Youth or Kitisuru Cell" value={form.name}
+            <Input aria-label="Cluster name" placeholder="e.g. Kitisuru Cell or Building Fund" value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })} required />
             <Select aria-label="Kind" value={form.kind} onChange={(e) => setForm({ ...form, kind: e.target.value })}
-              options={Object.entries(kindLabels).map(([value, label]) => ({ value, label }))} />
+              options={newKinds.map((value) => ({ value, label: kindLabels[value] }))} />
             <Button type="submit" icon={Plus} loading={busy}>Create</Button>
           </Card>
 

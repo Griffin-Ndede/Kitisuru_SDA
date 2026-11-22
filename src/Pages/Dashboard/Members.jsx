@@ -17,27 +17,30 @@ import { fullName, genderLabels, matchesSearch, statusLabels, statusOf } from ".
 
 // Admin only: the member register.
 export default function Members() {
-  const { members, clusters } = useLoaderData();
+  const { members, clusters, ministries } = useLoaderData();
   const { user: me } = useRouteLoaderData("dashboard");
   const revalidator = useRevalidator();
   const [search, setSearch] = useState("");
   const [cluster, setCluster] = useState("");
+  const [ministry, setMinistry] = useState("");
   const [gender, setGender] = useState("");
   const [status, setStatus] = useState("");
   const [dialog, setDialog] = useState(null); // "add", "import", or a member's id
   const [error, setError] = useState("");
 
   const clusterNames = useMemo(() => Object.fromEntries(clusters.map((c) => [c.id, c.name])), [clusters]);
+  const ministryNames = useMemo(() => Object.fromEntries(ministries.map((m) => [m.id, m.title])), [ministries]);
   const shown = useMemo(
     () =>
       members.filter(
         (m) =>
           matchesSearch(m, search) &&
           (!cluster || m.clusters.includes(Number(cluster))) &&
+          (!ministry || m.ministries.includes(Number(ministry))) &&
           (!gender || m.gender === gender) &&
           (!status || statusOf(m) === status)
       ),
-    [members, search, cluster, gender, status]
+    [members, search, cluster, ministry, gender, status]
   );
   const editing = typeof dialog === "number" ? members.find((m) => m.id === dialog) : null;
   const refresh = () => revalidator.revalidate();
@@ -69,6 +72,7 @@ export default function Members() {
     { key: "phone", header: "Phone", hideOnMobile: true },
     { key: "gender", header: "Gender", hideOnMobile: true, render: (m) => genderLabels[m.gender] },
     { key: "clusters", header: "Clusters", hideOnMobile: true, render: (m) => m.clusters.map((id) => clusterNames[id]).join(", ") || "—" },
+    { key: "ministries", header: "Ministries", hideOnMobile: true, render: (m) => m.ministries.map((id) => ministryNames[id]).join(", ") || "—" },
     { key: "status", header: "Status", render: (m) => <Badge tone={statusTone[statusOf(m)]}>{statusLabels[statusOf(m)]}</Badge> },
     {
       key: "edit", header: <span className="sr-only">Edit</span>, className: "text-right",
@@ -93,10 +97,12 @@ export default function Members() {
       />
       <div className="mb-4"><FormError>{error}</FormError></div>
 
-      <div className="mb-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mb-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         <SearchInput value={search} onChange={setSearch} placeholder="Search name, email, phone" />
         <Select aria-label="Filter by cluster" value={cluster} onChange={(e) => setCluster(e.target.value)}
           placeholder="All clusters" options={clusters.map((c) => ({ value: c.id, label: c.name }))} />
+        <Select aria-label="Filter by ministry" value={ministry} onChange={(e) => setMinistry(e.target.value)}
+          placeholder="All ministries" options={ministries.map((m) => ({ value: m.id, label: m.title }))} />
         <Select aria-label="Filter by gender" value={gender} onChange={(e) => setGender(e.target.value)}
           placeholder="All genders" options={[{ value: "male", label: "Male" }, { value: "female", label: "Female" }]} />
         <Select aria-label="Filter by status" value={status} onChange={(e) => setStatus(e.target.value)}
@@ -112,7 +118,7 @@ export default function Members() {
 
       {dialog === "add" && (
         <Modal title="Add a member" onClose={() => setDialog(null)}>
-          <MemberDialog member={null} clusters={clusters} me={me} onSaved={refresh} onClose={() => setDialog(null)} />
+          <MemberDialog member={null} clusters={clusters} ministries={ministries} me={me} onSaved={refresh} onClose={() => setDialog(null)} />
         </Modal>
       )}
       {dialog === "import" && (
@@ -122,7 +128,7 @@ export default function Members() {
       )}
       {editing && (
         <Modal title={fullName(editing)} onClose={() => setDialog(null)}>
-          <MemberDialog key={editing.id} member={editing} clusters={clusters} me={me} onSaved={refresh} onClose={() => setDialog(null)} />
+          <MemberDialog key={editing.id} member={editing} clusters={clusters} ministries={ministries} me={me} onSaved={refresh} onClose={() => setDialog(null)} />
         </Modal>
       )}
     </div>

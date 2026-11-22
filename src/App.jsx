@@ -4,12 +4,9 @@ import { ToastProvider } from './Context/ToastContext'
 import Home from './Pages/Home'
 import About from './Pages/About'
 import './index.css'
-import Ministries from './Pages/Ministries'
 import GetInvolved from './Pages/GetInvolved'
 import Giving from './Pages/Giving'
 import Contact from './Pages/Contact'
-import Resources from './Pages/Resources'
-import MinistriesDetails from './Pages/MinistriesDetails'
 import ErrorPage from './Pages/ErrorPage'
 import SignIn from './Pages/SignIn'
 import ForgotPassword from './Pages/ForgotPassword'
@@ -20,13 +17,16 @@ import Overview from './Pages/Dashboard/Overview'
 import Profile from './Pages/Dashboard/Profile'
 import Members from './Pages/Dashboard/Members'
 import Clusters from './Pages/Dashboard/Clusters'
+import Ministries from './Pages/Dashboard/Ministries'
+import MinistryDetail from './Pages/Dashboard/MinistryDetail'
+import Library from './Pages/Dashboard/Library'
 import SignUpAccess from './Pages/Dashboard/SignUpAccess'
 import Privacy from './Pages/Privacy'
 import {
   homeLoader,
   ministriesLoader,
   ministryDetailsLoader,
-  resourcesLoader,
+  libraryLoader,
   signInLoader,
   dashboardLoader,
   membersLoader,
@@ -46,9 +46,9 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home />, loader: homeLoader },
       { path: 'about', element: <About /> },
-      { path: 'ministries', element: <Ministries />, loader: ministriesLoader },
-      { path: 'ministries/:id', element: <MinistriesDetails />, loader: ministryDetailsLoader },
-      { path: 'resources', element: <Resources />, loader: resourcesLoader },
+      // Ministries and the library moved into the dashboard
+      { path: 'ministries/*', loader: () => redirect('/dashboard/ministries') },
+      { path: 'resources', loader: () => redirect('/dashboard/library') },
       { path: 'giving', element: <Giving /> },
       { path: 'getinvolved', element: <GetInvolved /> },
       { path: 'contact', element: <Contact /> },
@@ -68,6 +68,9 @@ const router = createBrowserRouter([
         children: [
           { index: true, element: <Overview /> },
           { path: 'profile', element: <Profile /> },
+          { path: 'ministries', element: <Ministries />, loader: ministriesLoader },
+          { path: 'ministries/:id', element: <MinistryDetail />, loader: ministryDetailsLoader },
+          { path: 'library', element: <Library />, loader: libraryLoader },
           // Admin only: the API answers 403 to anyone else and the error page explains
           { path: 'members', element: <Members />, loader: membersLoader },
           { path: 'clusters', element: <Clusters />, loader: membersLoader },

@@ -38,9 +38,7 @@ The site is built for Netlify (`netlify.toml`): publish `dist/`, and every addre
 | --- | --- | --- |
 | `/` | Home: hero, upcoming events, YouTube sermons | API (loader) |
 | `/about` | About | static |
-| `/ministries` | Ministries list | API (loader) |
-| `/ministries/:id` | Ministry detail: programs, contacts, gallery | API (loader) |
-| `/resources` | Document library with PDF viewer | API (loader) |
+| `/ministries`, `/resources` | Old addresses; they redirect to `/dashboard/ministries` and `/dashboard/library` | none |
 | `/giving` | Giving options and M-Pesa paybill details | static |
 | `/getinvolved` | Ways to get involved, with a form that sends email (EmailJS) | static |
 | `/contact` | Contact details and social links | static |
@@ -96,6 +94,16 @@ src/
 
 Work on a branch, keep pull requests small and focused, and make sure `npm run lint` and `npm run build` pass before opening one. Update this README and add a dated entry to the changelog below after every significant change.
 
+## Dashboard pages
+
+| Address | Who | What |
+| --- | --- | --- |
+| `/dashboard` | Everyone signed in | Overview |
+| `/dashboard/profile` | Everyone | My profile, my data |
+| `/dashboard/ministries`, `/dashboard/ministries/:id` | Approved members | Ministries (Youth, Children, Women...) with programs, events, contacts and photos. Admins add, edit, delete and manage members |
+| `/dashboard/library` | Approved members | Study documents (PDFs). Opened through the API with the sign-in token, so they cannot be reached without signing in |
+| `/dashboard/members`, `/dashboard/clusters`, `/dashboard/sign-up` | Admins | Member register, location and fundraising groups, sign-up link and invitations |
+
 ## Dashboard look
 
 The dashboard and the sign-in pages (sign in, join, forgot and choose password) use the website's own blue (`#2e8eb4`) and yellow (`#ffc700`) on a light grey page, with icons (lucide). The token names are still `forest-*` (the blues) and `marigold-*` (the yellows).
@@ -105,6 +113,12 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 - Build new dashboard screens from `src/Components/ui/`. Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
+
+### 2026-11-22: Ministries and Library move into the dashboard
+
+- Ministries and the Library are now dashboard pages for approved members, with an admin view for ministries (add, edit, delete, manage members). The public Ministries and Library pages, menu links and footer links are gone; old addresses redirect to the dashboard.
+- Members can be put into ministries from the member dialog and filtered by ministry on the register. Clusters are now location groups and fundraising groups.
+- Needs the backend's ministries release (`migrate`).
 
 ### 2026-11-22: New look for the dashboard and sign-in pages
 
