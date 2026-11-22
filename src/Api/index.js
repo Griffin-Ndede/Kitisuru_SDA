@@ -20,6 +20,13 @@ export const changeMinistryMembers = (id, changes) =>
 export const getDocuments = () => get("library/documents/", { auth: true });
 export const getDocumentFileUrl = (slug) => fetchFileUrl(`library/documents/${slug}/`);
 
+export const getAnnouncements = () => get("announcements/", { auth: true });
+export const createAnnouncement = (details) =>
+  post("announcements/", details, { auth: true });
+export const updateAnnouncement = (id, details) =>
+  patch(`announcements/${id}/`, details, { auth: true });
+export const deleteAnnouncement = (id) => del(`announcements/${id}/`, { auth: true });
+
 // --- Home page content (public) ---------------------------------------------
 
 export const getUpcomingEvents = () => get("content-library/upcoming-events/");

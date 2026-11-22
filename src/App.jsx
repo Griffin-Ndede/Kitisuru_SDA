@@ -20,6 +20,7 @@ import Clusters from './Pages/Dashboard/Clusters'
 import Ministries from './Pages/Dashboard/Ministries'
 import MinistryDetail from './Pages/Dashboard/MinistryDetail'
 import Library from './Pages/Dashboard/Library'
+import Announcements from './Pages/Dashboard/Announcements'
 import SignUpAccess from './Pages/Dashboard/SignUpAccess'
 import Privacy from './Pages/Privacy'
 import {
@@ -27,6 +28,8 @@ import {
   ministriesLoader,
   ministryDetailsLoader,
   libraryLoader,
+  announcementsLoader,
+  overviewLoader,
   signInLoader,
   dashboardLoader,
   membersLoader,
@@ -66,7 +69,8 @@ const router = createBrowserRouter([
         element: <DashboardLayout />,
         loader: dashboardLoader,
         children: [
-          { index: true, element: <Overview /> },
+          { index: true, element: <Overview />, loader: overviewLoader },
+          { path: 'announcements', element: <Announcements />, loader: announcementsLoader },
           { path: 'profile', element: <Profile /> },
           { path: 'ministries', element: <Ministries />, loader: ministriesLoader },
           { path: 'ministries/:id', element: <MinistryDetail />, loader: ministryDetailsLoader },
