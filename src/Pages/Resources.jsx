@@ -1,29 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useLoaderData } from 'react-router';
 import Navbar from '../Components/Navbar';
 import BASE_URL from '../config';
 
 const Resources = () => {
-    const [documents, setDocuments] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { documents } = useLoaderData();
     const [currentDocument, setCurrentDocument] = useState(null);
-
-    useEffect(() => {
-        const fetchDocuments = async () => {
-            try {
-                const response = await fetch(`${BASE_URL}/library/documents/`);
-                if (!response.ok) throw new Error('Failed to fetch documents');
-                const data = await response.json();
-                setDocuments(data);
-                console.log(response.data)
-                setIsLoading(false);
-            } catch (err) {
-                setError(err.message);
-                setIsLoading(false);
-            }
-        };
-        fetchDocuments();
-    }, []);
 
     const handleDocumentSelect = (doc) => {
         setCurrentDocument(doc);
@@ -72,22 +54,6 @@ const Resources = () => {
             </li>
         );
     };
-
-    if (isLoading) {
-        return (
-            <div className="flex justify-center items-center h-64">
-                <p className="text-lg text-gray-600">Loading documents...</p>
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div className="flex justify-center items-center h-64">
-                <p className="text-lg text-red-500">Error loading documents: {error}</p>
-            </div>
-        );
-    }
 
     return (
         <>

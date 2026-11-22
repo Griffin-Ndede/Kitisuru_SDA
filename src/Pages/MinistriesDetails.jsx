@@ -8,9 +8,6 @@ export default function MinistriesDetail() {
   const { ministry } = useLoaderData()
   const [fullscreenImage, setFullscreenImage] = useState(null);
 
-  if (!ministry) {
-    return <div className="text-center mt-20">Loading ministry details...</div>;
-  }
   const cloudName = "dfycvaiv7";
   const imageUrl = `https://res.cloudinary.com/${cloudName}`;
 
