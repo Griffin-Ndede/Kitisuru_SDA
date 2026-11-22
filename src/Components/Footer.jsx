@@ -14,9 +14,7 @@ function Footer() {
                             <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
                             <ul className="space-y-2 text-white">
                                 <Link to="/about"><li className="hover:text-custom-yellow">Beliefs</li></Link>
-                                <Link to="/ministries"><li className="hover:text-custom-yellow">Ministries</li></Link>
                                 <Link to="/giving"><li className='hover:text-custom-yellow'>Give online</li></Link>
-                                <Link to="/resources"><li className='hover:text-custom-yellow'>Library</li></Link>
                                 <Link to='/contact'><li className='hover:text-custom-yellow'>Get in touch</li></Link>
                                 <Link to='/privacy'><li className='hover:text-custom-yellow'>Privacy</li></Link>
                             </ul>

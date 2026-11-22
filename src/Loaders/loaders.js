@@ -28,18 +28,6 @@ export const homeLoader = async () => {
   return { youtubeContent, upcomingEvents };
 };
 
-export const ministriesLoader = async () => ({
-  ministries: await getMinistries(),
-});
-
-export const ministryDetailsLoader = async ({ params }) => ({
-  ministry: await getMinistryDetails(params.id),
-});
-
-export const resourcesLoader = async () => ({
-  documents: await getDocuments(),
-});
-
 // --- Sign-in and the dashboard -------------------------------------------
 
 // Someone who is already signed in has no reason to see the sign-in page.
@@ -60,12 +48,34 @@ export const dashboardLoader = async () => {
   }
 };
 
-// The member register and the clusters. Admin-only: anyone else gets a 403
-// from the API, which the error page explains.
+// The member register, the clusters and the ministries. Admin-only: anyone else
+// gets a 403 from the API, which the error page explains.
 export const membersLoader = async () => {
-  const [members, clusters] = await Promise.all([getMembers(), getClusters()]);
-  return { members, clusters };
+  const [members, clusters, ministries] = await Promise.all([
+    getMembers(),
+    getClusters(),
+    getMinistries(),
+  ]);
+  return { members, clusters, ministries };
 };
+
+// --- Ministries and the library (any approved member) ----------------------
+
+export const ministriesLoader = async () => ({
+  ministries: await getMinistries(),
+});
+
+// Only admins get a member list with the ministry, and only they may read the
+// register, so only they need it here (to add people to the ministry).
+export const ministryDetailsLoader = async ({ params }) => {
+  const ministry = await getMinistryDetails(params.id);
+  const members = ministry.members ? await getMembers() : [];
+  return { ministry, members };
+};
+
+export const libraryLoader = async () => ({
+  documents: await getDocuments(),
+});
 
 // Admin-only: the shared sign-up link, people waiting for approval, invitations.
 export const signUpAccessLoader = async () => {

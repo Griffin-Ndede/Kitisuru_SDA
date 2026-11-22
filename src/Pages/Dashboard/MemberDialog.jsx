@@ -13,18 +13,18 @@ import { roleLabels } from "./roles";
 
 const blank = {
   first_name: "", last_name: "", email: "", phone: "", gender: "",
-  date_of_birth: "", address: "", clusters: [],
+  date_of_birth: "", address: "", clusters: [], ministries: [],
 };
 
 // Add a member, or edit one: their details, their clusters, and their account.
 // `member` is null when adding.
-export default function MemberDialog({ member, clusters, me, onSaved, onClose }) {
+export default function MemberDialog({ member, clusters, ministries = [], me, onSaved, onClose }) {
   const [form, setForm] = useState(
     member
       ? {
           first_name: member.first_name, last_name: member.last_name, email: member.email,
           phone: member.phone, gender: member.gender, date_of_birth: member.date_of_birth || "",
-          address: member.address, clusters: member.clusters,
+          address: member.address, clusters: member.clusters, ministries: member.ministries,
         }
       : blank
   );
@@ -36,10 +36,10 @@ export default function MemberDialog({ member, clusters, me, onSaved, onClose })
   const isMe = member?.id === me.id;
   const canEditEmail = !member || member.record_only;
   const change = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-  const toggleCluster = (id) =>
+  const toggle = (field, id) =>
     setForm({
       ...form,
-      clusters: form.clusters.includes(id) ? form.clusters.filter((c) => c !== id) : [...form.clusters, id],
+      [field]: form[field].includes(id) ? form[field].filter((x) => x !== id) : [...form[field], id],
     });
 
   const run = async (action, success) => {
@@ -91,6 +91,20 @@ export default function MemberDialog({ member, clusters, me, onSaved, onClose })
         <Input className="sm:col-span-2" label="Address" name="address" value={form.address} onChange={change} />
 
         <fieldset className="sm:col-span-2">
+          <legend className="mb-2 text-sm font-medium">Ministries</legend>
+          {ministries.length === 0 ? (
+            <p className="text-muted">No ministries yet. Add them on the Ministries page.</p>
+          ) : (
+            <div className="grid gap-2 sm:grid-cols-2">
+              {ministries.map((m) => (
+                <Checkbox key={m.id} label={m.title}
+                  checked={form.ministries.includes(m.id)} onChange={() => toggle("ministries", m.id)} />
+              ))}
+            </div>
+          )}
+        </fieldset>
+
+        <fieldset className="sm:col-span-2">
           <legend className="mb-2 text-sm font-medium">Clusters</legend>
           {clusters.length === 0 ? (
             <p className="text-muted">No clusters yet. Create them on the Clusters page.</p>
@@ -98,7 +112,7 @@ export default function MemberDialog({ member, clusters, me, onSaved, onClose })
             <div className="grid gap-2 sm:grid-cols-2">
               {clusters.map((c) => (
                 <Checkbox key={c.id} label={c.name} hint={kindLabels[c.kind]}
-                  checked={form.clusters.includes(c.id)} onChange={() => toggleCluster(c.id)} />
+                  checked={form.clusters.includes(c.id)} onChange={() => toggle("clusters", c.id)} />
               ))}
             </div>
           )}

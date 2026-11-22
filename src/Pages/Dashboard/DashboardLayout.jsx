@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, Outlet, useLoaderData, useLocation, useNavigate } from "react-router";
 import {
-  LayoutDashboard, UserRound, Users, UsersRound, Link2, Globe, ShieldCheck, LogOut, Menu, X, ChevronDown,
+  LayoutDashboard, UserRound, Users, UsersRound, Link2, HeartHandshake, BookOpenText, Globe, ShieldCheck, LogOut, Menu, X, ChevronDown,
 } from "lucide-react";
 import { clearSession } from "../../Api/client";
 import { googleSignOut } from "../../firebase";
@@ -32,6 +32,15 @@ export default function DashboardLayout() {
         { to: "/dashboard/profile", label: "My profile", icon: UserRound },
       ],
     },
+    ...(user.approved
+      ? [{
+          label: "Church",
+          items: [
+            { to: "/dashboard/ministries", label: "Ministries", icon: HeartHandshake },
+            { to: "/dashboard/library", label: "Library", icon: BookOpenText },
+          ],
+        }]
+      : []),
     ...(isAdmin
       ? [{
           label: "Administration",

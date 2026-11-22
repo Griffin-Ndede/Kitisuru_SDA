@@ -17,7 +17,15 @@ export const statusLabels = {
 
 export const genderLabels = { male: "Male", female: "Female", "": "—" };
 
-export const kindLabels = { prayer_cell: "Prayer cell", department: "Department" };
+// Clusters are groups by place (a prayer cell) or for raising funds. "Department"
+// is the old name for what are now ministries and only shows on old clusters.
+export const kindLabels = {
+  prayer_cell: "Location group",
+  fundraising: "Fundraising group",
+  department: "Department",
+};
+// The kinds an admin can pick when making a new cluster
+export const newKinds = ["prayer_cell", "fundraising"];
 
 // A person matches a search if every word appears in their name, email or phone.
 export const matchesSearch = (m, search) => {

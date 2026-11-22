@@ -94,13 +94,14 @@ export default function Profile() {
         </div>
       </Card>
 
-      {user.clusters.length > 0 && (
+      {(user.clusters.length > 0 || user.ministries.length > 0) && (
         <Card className="mt-6">
-          <h2 className="text-xl font-semibold">Your groups</h2>
+          <h2 className="text-xl font-semibold">Your groups and ministries</h2>
           <div className="mt-3 flex flex-wrap gap-2">
-            {user.clusters.map((c) => <Badge key={c.id} tone="green">{c.name}</Badge>)}
+            {user.ministries.map((m) => <Badge key={`m${m.id}`} tone="gold">{m.title}</Badge>)}
+            {user.clusters.map((c) => <Badge key={`c${c.id}`} tone="green">{c.name}</Badge>)}
           </div>
-          <p className="mt-3 text-sm text-muted">The church office adds you to groups.</p>
+          <p className="mt-3 text-sm text-muted">The church office adds you to groups and ministries.</p>
         </Card>
       )}
 

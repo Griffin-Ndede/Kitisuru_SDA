@@ -1,15 +1,30 @@
 // Every backend endpoint the site reads from, in one place.
 // Loaders import from here. No UI logic and no error handling: errors are
 // handled by the router's error page.
-import { del, download, get, patch, post } from "./client";
+import { del, download, fetchFileUrl, get, patch, post } from "./client";
 
-export const getMinistries = () => get("ministries/ministries/");
-export const getMinistryDetails = (id) => get(`ministries/ministries/${id}/`);
+// --- Ministries and the library (approved members only) -----------------------
+
+export const getMinistries = () => get("ministries/ministries/", { auth: true });
+export const getMinistryDetails = (id) =>
+  get(`ministries/ministries/${id}/`, { auth: true });
+export const createMinistry = (details) =>
+  post("ministries/ministries/", details, { auth: true });
+export const updateMinistry = (id, details) =>
+  patch(`ministries/ministries/${id}/`, details, { auth: true });
+export const deleteMinistry = (id) =>
+  del(`ministries/ministries/${id}/`, { auth: true });
+export const changeMinistryMembers = (id, changes) =>
+  post(`ministries/ministries/${id}/members/`, changes, { auth: true });
+
+export const getDocuments = () => get("library/documents/", { auth: true });
+export const getDocumentFileUrl = (slug) => fetchFileUrl(`library/documents/${slug}/`);
+
+// --- Home page content (public) ---------------------------------------------
 
 export const getUpcomingEvents = () => get("content-library/upcoming-events/");
 export const getYoutubeLinks = () => get("content-library/youtube-links/");
 
-export const getDocuments = () => get("library/documents/");
 
 // --- Accounts and sign-in ---------------------------------------------------
 
