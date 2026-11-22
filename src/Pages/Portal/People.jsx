@@ -14,6 +14,9 @@ export default function People() {
   const revalidator = useRevalidator();
   const [form, setForm] = useState(emptyForm);
   const [message, setMessage] = useState("");
+  // The link to send by hand (WhatsApp, for example) after inviting someone.
+  const [invite, setInvite] = useState(null);
+  const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -23,10 +26,15 @@ export default function People() {
   const run = async (action, success) => {
     setError("");
     setMessage("");
+    setInvite(null);
     setBusy(true);
     try {
-      await action();
+      const result = await action();
       setMessage(success);
+      if (result?.invite_link) {
+        setInvite(result);
+        setCopied(false);
+      }
       revalidator.revalidate();
       return true;
     } catch (err) {
@@ -37,9 +45,18 @@ export default function People() {
     }
   };
 
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(invite.invite_link);
+      setCopied(true);
+    } catch {
+      setError("Could not copy. Select the link and copy it by hand.");
+    }
+  };
+
   const handleInvite = async (e) => {
     e.preventDefault();
-    const sent = await run(() => inviteUser(form), `Invitation sent to ${form.email}.`);
+    const sent = await run(() => inviteUser(form), `${form.email} is invited.`);
     if (sent) setForm(emptyForm);
   };
 
@@ -65,6 +82,25 @@ export default function People() {
           {error && <span role="alert" className="text-red-600 text-sm">{error}</span>}
         </div>
       </form>
+
+      {invite && (
+        <div role="status" className="rounded-2xl bg-blue-50 p-4 mb-8 text-sm">
+          <p className="mb-2">
+            {invite.email_sent
+              ? `We emailed ${invite.email}. You can also send them this link yourself:`
+              : `No email was sent. Send ${invite.email} this link yourself (WhatsApp, for example):`}
+          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <input readOnly value={invite.invite_link} onFocus={(e) => e.target.select()}
+              className="flex-1 min-w-60 border border-gray-300 rounded px-3 py-2 bg-white" />
+            <button type="button" onClick={copyLink}
+              className="px-4 py-2 rounded-full bg-custom-blue text-white cursor-pointer">
+              {copied ? "Copied" : "Copy link"}
+            </button>
+          </div>
+          <p className="text-gray-500 mt-2">The link works once and expires in 7 days.</p>
+        </div>
+      )}
 
       <div className="overflow-x-auto">
         <table className="w-full text-left text-sm">
@@ -115,9 +151,9 @@ export default function People() {
                       <button
                         disabled={busy}
                         className="text-custom-blue underline cursor-pointer"
-                        onClick={() => run(() => resendInvitation(person.id), `Invitation sent again to ${person.email}.`)}
+                        onClick={() => run(() => resendInvitation(person.id), `New invitation link for ${person.email}.`)}
                       >
-                        Resend invitation
+                        New invitation link
                       </button>
                     )}
                   </td>

@@ -94,6 +94,8 @@ Work on a branch, keep pull requests small and focused, and make sure `npm run l
 
 ### 2026-11-22: Sign-in and the member portal (Phase 1)
 
+- Invitations work before email is set up: after inviting someone, the People page shows a link with a Copy button to send by WhatsApp. Once the backend has email set up, the email goes out as well.
+
 - New pages: `/signin` (email and password, or Google), `/forgot-password`, `/reset-password` (also used to accept an invitation) and the portal under `/app`, with an admin-only People page for inviting people and changing roles.
 - `src/Api/client.js` gained `post`, `patch`, stored sign-in tokens and a one-time automatic token renewal; the new endpoints are in `src/Api/index.js`, the guards are loaders in `src/Loaders/loaders.js`.
 - The error page now explains 403 ("You don't have access to this page"). The navbar shows Sign in, or Portal when signed in.
