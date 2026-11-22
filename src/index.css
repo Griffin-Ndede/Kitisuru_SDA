@@ -11,34 +11,34 @@ html {
   --color-custom-blue: #2e8eb4;
   --color-custom-yellow: #ffc700;
 
-  /* The dashboard and sign-in pages: forest green, marigold and warm paper.
+  /* The dashboard and sign-in pages: the website's blue and yellow on a light grey page.
      Every colour, font and radius those pages use comes from here. */
   --font-display: "Fraunces Variable", Georgia, serif;
   --font-app: "Instrument Sans Variable", system-ui, sans-serif;
 
-  --color-forest-950: #0e2a22;
-  --color-forest-900: #143a2e;
-  --color-forest-800: #1b4d3d;
-  --color-forest-700: #24634e;
-  --color-forest-600: #2f7a60;
-  --color-forest-200: #c3ddd0;
-  --color-forest-100: #dcebe3;
-  --color-forest-50: #eef5f1;
+  --color-forest-950: #0f3447;
+  --color-forest-900: #2e8eb4;
+  --color-forest-800: #267a9c;
+  --color-forest-700: #1f6a88;
+  --color-forest-600: #2379a0;
+  --color-forest-200: #bfe0ee;
+  --color-forest-100: #dbeef6;
+  --color-forest-50: #eef7fb;
 
-  --color-marigold-600: #b97c0a;
-  --color-marigold-500: #e3a320;
-  --color-marigold-400: #edb84a;
-  --color-marigold-100: #fbefd0;
+  --color-marigold-600: #8a6d00;
+  --color-marigold-500: #ffc700;
+  --color-marigold-400: #ffd633;
+  --color-marigold-100: #fff4cc;
 
   --color-clay-700: #8f3a1f;
   --color-clay-600: #b04a2a;
   --color-clay-100: #f6e1d8;
 
-  --color-paper: #f8f4ec;
-  --color-paper-deep: #f0e9da;
-  --color-ink: #17211d;
-  --color-muted: #5d6b64;
-  --color-line: #e2dac8;
+  --color-paper: #f9fafb;
+  --color-paper-deep: #eef0f2;
+  --color-ink: #1f2937;
+  --color-muted: #6b7280;
+  --color-line: #e5e7eb;
 
   --radius-card: 1.25rem;
   --shadow-card: 0 1px 2px rgb(20 58 46 / 0.05), 0 8px 24px -12px rgb(20 58 46 / 0.18);
