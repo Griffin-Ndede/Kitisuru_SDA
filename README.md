@@ -93,6 +93,10 @@ Work on a branch, keep pull requests small and focused, and make sure `npm run l
 
 ## Changelog
 
+### 2026-11-22: Sign-in accepts a username
+
+- The sign-in box accepted only an email, so the original admin account (username only, no email) could not sign in. It now takes an email or a username. Add an email to that account in the admin panel so Google sign-in can find it too.
+
 ### 2026-11-22: Sign-in and the member portal (Phase 1)
 
 - One shared sign-up link for the whole church: `/join?code=…` collects name, email, phone and a password. New sign-ups wait for an admin's approval; the People page has the link (Copy, Share on WhatsApp, switch off, make a new one), a "Waiting for approval" list and Approve/Reject buttons. Individual invitations remain for leaders and treasurers.
