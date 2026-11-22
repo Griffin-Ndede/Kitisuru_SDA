@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { UserPlus, HandHeart, ChevronRight, X, Baby, Group, } from 'lucide-react';
 import Navbar from '../Components/Navbar';
 import { Link } from 'react-router';
-import ActivityForm from '../forms/Activityform';
+import ActivityForm from '../Components/ActivityForm';
 
 
 function GetInvolved() {

@@ -73,9 +73,8 @@ To add a page that needs data: add the endpoint to `src/Api/index.js`, add a loa
 src/
   Api/          client.js (HTTP client) and index.js (all endpoints)
   Loaders/      loaders.js - one loader per route that needs data
-  Components/   shared pieces: Navbar, Footer
+  Components/   shared pieces: Navbar, Footer, the activity form and its schema
   Pages/        one file per route, plus ErrorPage
-  forms/        the activity form and its validation schema
   App.jsx       the router: every route and its loader
   config.jsx    backend address (local in development, live in production; see the file's comments)
 ```
@@ -85,6 +84,12 @@ src/
 Work on a branch, keep pull requests small and focused, and make sure `npm run lint` and `npm run build` pass before opening one. Update this README and add a dated entry to the changelog below after every significant change.
 
 ## Changelog
+
+### 2026-11-22: Remove unused files and dependencies
+
+- Deleted `tailwind.config.js` (Tailwind 4 reads `@theme` in `src/index.css`, not this file) and an unused 39 MB background video.
+- Removed unused packages: react-pdf, @react-pdf/renderer, react-pageflip, react-full-screen, two Font Awesome icon sets, postcss, @vitejs/plugin-react and the @types packages. Removed leftover template fields from `package.json`.
+- Moved the activity form out of the one-off `src/forms/` folder into `src/Components/`.
 
 Newest first.
 
