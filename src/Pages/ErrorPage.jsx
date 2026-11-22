@@ -15,8 +15,10 @@ export default function ErrorPage() {
     ? error.status
     : error?.response?.status;
   const notFound = status === 404;
+  const forbidden = status === 403;
+  const tooMany = status === 429;
 
-  if (!notFound) console.error(error);
+  if (!notFound && !forbidden && !tooMany) console.error(error);
 
   return (
     <>
@@ -24,15 +26,25 @@ export default function ErrorPage() {
       <Navbar />
       <section className="min-h-screen pt-32 px-6 text-center">
         <h1 className="text-3xl md:text-5xl font-extrabold text-custom-blue mb-4">
-          {notFound ? "We couldn't find that page" : "This page didn't load"}
+          {notFound
+            ? "We couldn't find that page"
+            : forbidden
+              ? "You don't have access to this page"
+              : tooMany
+                ? "Please wait a moment"
+                : "This page didn't load"}
         </h1>
         <p className="text-lg max-w-xl mx-auto text-gray-700 mb-8">
           {notFound
             ? "The address may have changed or the page may no longer exist."
-            : "We could not reach the church server. Please check your internet connection and try again."}
+            : forbidden
+              ? "This page is for church admins. If you think you should have access, please ask the church office."
+              : tooMany
+                ? "A lot of people are using this right now. Wait a minute, then try again."
+                : "We could not reach the church server. Please check your internet connection and try again."}
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          {!notFound && (
+          {!notFound && !forbidden && (
             <button
               onClick={() => revalidator.revalidate()}
               className="px-6 py-3 rounded-full bg-custom-blue text-white font-semibold cursor-pointer"
