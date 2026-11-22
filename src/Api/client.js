@@ -1,15 +1,18 @@
 import axios from "axios";
 import BASE_URL from "../config";
 
-// One HTTP client for the whole site. The timeout makes a hanging API show
-// the error page instead of freezing navigation.
-export const client = axios.create({
+// The one HTTP client for the whole site. No page or component builds URLs
+// or imports axios itself.
+const api = axios.create({
   baseURL: BASE_URL,
+  // Loaders run before a page shows, so a request that hangs would make links
+  // look broken. After 10 seconds the request fails and the error page shows.
   timeout: 10000,
 });
 
-// get(path) returns just the response body.
-export async function get(path) {
-  const response = await client.get(path);
+export async function get(endpoint) {
+  const response = await api.get(endpoint);
   return response.data;
 }
+
+export default api;

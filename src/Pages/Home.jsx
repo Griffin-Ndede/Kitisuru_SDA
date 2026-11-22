@@ -90,7 +90,7 @@ function Home() {
                 Welcome to Seventh Day Adventist Church Kitisuru
               </h1>
               <p className="text-4xl font-bold text-white mb-8 leading-10 max-w-xl mx-auto">
-                "Remember the Sabbath day, to keep it holy." <br />
+                &quot;Remember the Sabbath day, to keep it holy.&quot; <br />
                 <span className='text-2xl font-light'>Exodus 20:8</span>
               </p>
             </motion.div>

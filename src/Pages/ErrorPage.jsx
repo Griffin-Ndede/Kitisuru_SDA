@@ -1,15 +1,22 @@
-import React from 'react';
-import { isRouteErrorResponse, Link, useRevalidator, useRouteError } from 'react-router';
-import Navbar from '../Components/Navbar';
+import React from "react";
+import { isRouteErrorResponse, Link, useRevalidator, useRouteError } from "react-router";
+import Navbar from "../Components/Navbar";
 
-// Shown by the router for any loader or render failure.
-// Two cases: the page does not exist (404), or the data did not load.
-const ErrorPage = () => {
+// Shown whenever a page can't load (errorElement in App.jsx):
+// - an address that doesn't exist, or a ministry the API doesn't have (404)
+// - the API is down, slow or returns an error
+// Instead of a blank crash screen, visitors get a way back home.
+export default function ErrorPage() {
   const error = useRouteError();
   const revalidator = useRevalidator();
-  const notFound = isRouteErrorResponse(error) && error.status === 404;
 
-  if (!notFound) console.error('Page failed to load:', error);
+  // Unknown addresses come from the router; a missing ministry comes from the API.
+  const status = isRouteErrorResponse(error)
+    ? error.status
+    : error?.response?.status;
+  const notFound = status === 404;
+
+  if (!notFound) console.error(error);
 
   return (
     <>
@@ -21,8 +28,8 @@ const ErrorPage = () => {
         </h1>
         <p className="text-lg max-w-xl mx-auto text-gray-700 mb-8">
           {notFound
-            ? 'The address may have changed or the page may no longer exist.'
-            : 'We could not reach the church server. Please check your internet connection and try again.'}
+            ? "The address may have changed or the page may no longer exist."
+            : "We could not reach the church server. Please check your internet connection and try again."}
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           {!notFound && (
@@ -43,6 +50,4 @@ const ErrorPage = () => {
       </section>
     </>
   );
-};
-
-export default ErrorPage;
+}

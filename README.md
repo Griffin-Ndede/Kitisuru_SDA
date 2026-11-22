@@ -1,122 +1,108 @@
-# Kitisuru SDA Church: website
+# Kitisuru SDA Church
 
-React 19 + Vite + Tailwind front end for the Kitisuru SDA Church website. It talks to the Django API in the separate `Kitisuru_SDA_backend` repository.
+The website for Kitisuru SDA Church: services and events, sermons, ministries, the church document library and ways to give and get involved. This repository is the website (React + Vite + Tailwind). The backend lives in the `Kitisuru_SDA_backend` repository.
 
-## Contents
-
-- [Setup](#setup)
-- [Configuration](#configuration)
-- [Pages and routes](#pages-and-routes)
-- [How pages get their data](#how-pages-get-their-data)
-- [Project layout](#project-layout)
-- [Deployment](#deployment)
-- [Known issues](#known-issues)
-- [Roadmap](#roadmap)
-- [Changelog](#changelog)
-
-## Setup
-
-Requires Node 20 or newer, and the backend running for pages that load data (see the backend README).
+## Running it locally
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173, expects the API on http://127.0.0.1:8000
-npm test           # unit tests (Vitest)
-npm run lint       # ESLint
-npm run build      # production build into dist/
-npm run preview    # serve the production build locally
+npm run dev        # http://localhost:5173
 ```
 
-## Configuration
+`npm run dev` talks to the backend on your own computer (`http://127.0.0.1:8000`), so start `Kitisuru_SDA_backend` first (see its README). To use the live API instead, without running the backend:
 
-| Variable | Purpose | Default |
-|---|---|---|
-| `VITE_API_BASE_URL` | API address, no trailing slash | `http://127.0.0.1:8000` in development, `https://api.kitisurusda.org` in production builds |
+```bash
+VITE_API_URL=https://api.kitisurusda.org/ npm run dev
+```
 
-Copy `.env.example` to `.env.local` to override. `.env` files are not committed.
+`npm run build` always uses the live API (`https://api.kitisurusda.org/`). There are no environment variables to set, and you do not need to edit `src/config.jsx` when switching between the two.
 
-## Pages and routes
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Build the site into `dist/` |
+| `npm run lint` | Check the code (should report zero problems) |
+| `npm run preview` | Preview the built site |
 
-| Route | Page | Data |
-|---|---|---|
-| `/` | Home: hero, upcoming events, YouTube sermons | events and sermon links from the API |
+## Building and uploading the site
+
+```bash
+npm run build
+```
+
+The site is built for Netlify (`netlify.toml`): publish `dist/`, and every address falls back to `index.html` so client-side routing works. For another static host, upload `dist/` and configure the host to serve `index.html` for unknown addresses. Add the site's address to `CORS_ALLOWED_ORIGINS` in the backend's `settings.py`.
+
+## Pages
+
+| Address | Page | Data |
+| --- | --- | --- |
+| `/` | Home: hero, upcoming events, YouTube sermons | API (loader) |
 | `/about` | About | static |
-| `/ministries` | Ministries list | API |
-| `/ministries/:id` | Ministry detail with programs, contacts and gallery | API |
+| `/ministries` | Ministries list | API (loader) |
+| `/ministries/:id` | Ministry detail: programs, contacts, gallery | API (loader) |
 | `/resources` | Document library with PDF viewer | API (loader) |
 | `/giving` | Giving options and M-Pesa paybill details | static |
-| `/getinvolved` | Ways to get involved, with a form that sends email | EmailJS |
+| `/getinvolved` | Ways to get involved, with a form that sends email (EmailJS) | static |
 | `/contact` | Contact details and social links | static |
 
 ## How pages get their data
 
 ```
-Api/  ->  Loaders/loaders.js  ->  Pages/*        ->  Components/*
-how to    what each page needs    useLoaderData()    receive props,
-call the  (runs before render)                       never fetch
-backend
+src/Api/client   ->  src/Api/index   ->  src/Loaders/loaders  ->  Pages            ->  Components
+how to call the      every backend       what each page needs     read it with         receive props,
+backend (one         endpoint as a       (runs BEFORE the page    useLoaderData()      never fetch
+HTTP client)         named function      shows)
 ```
 
-- **`src/Api/client.js`** is the one HTTP client: base URL from config and a 10 second timeout.
-- **`src/Api/index.js`** lists every endpoint the site reads as a small named function (`getMinistries()`, `getMinistry(id)`, ...). No UI logic, no try/catch.
-- **`src/Loaders/loaders.js`** has one loader per route that needs data. Independent requests run in parallel. Loaders do not catch errors; the only translation is an API 404 for a missing ministry, which becomes a 404 response.
-- **Pages** read their data with `useLoaderData()` and only display it. There is no loading or error state inside pages.
-- **Components** get data as props and do not fetch.
-- **`src/Pages/ErrorPage.jsx`** is the root route's `errorElement`. It shows "We couldn't find that page" for 404s and unknown addresses, and "This page didn't load" (with Try again) when the API cannot be reached. Both offer Home and Contact.
+The rules:
 
-To add a page that needs data: add the endpoint to `Api/index.js`, add a loader in `Loaders/loaders.js`, attach it to the route in `App.jsx`, and read it with `useLoaderData()`.
+1. **Only `src/Api` talks to the backend.** No page or component imports `axios` or builds a URL. To call a new endpoint, add a small function to `src/Api/index.js`.
+2. **Loaders fetch, pages display.** Each route that needs data has a loader in `src/Loaders/loaders.js`, wired up in `src/App.jsx`. The page reads the result with `useLoaderData()` and passes it to components as props. Pages do not fetch in `useEffect` and do not keep their own loading or error state.
+3. **Loaders do not swallow errors.** A failure is thrown and shown by the single error page (`src/Pages/ErrorPage.jsx`):
+   - 404 (an address that does not exist, or a ministry the API does not have) -> "We couldn't find that page"
+   - anything else (API down, timeout) -> "This page didn't load", with a Try again button
+4. **Requests time out after 10 seconds**, so a hanging API shows the error page instead of freezing navigation.
+5. **Refreshing** a page's data means asking the router to run its loader again (`useRevalidator().revalidate()`), not fetching by hand.
+6. **Actions the visitor triggers** (the contact and activity forms) are made from the page's event handler, and their errors are shown next to the form.
+
+To add a page that needs data: add the endpoint to `src/Api/index.js`, add a loader in `src/Loaders/loaders.js`, attach it to the route in `src/App.jsx`, and read it with `useLoaderData()`.
 
 ## Project layout
 
 ```
 src/
   Api/          client.js (HTTP client) and index.js (all endpoints)
-  Components/   Navbar, Footer
-  Loaders/      loaders.js (one loader per data route)
+  Loaders/      loaders.js - one loader per route that needs data
+  Components/   shared pieces: Navbar, Footer
   Pages/        one file per route, plus ErrorPage
-  forms/        activity form and its validation schema
-  config.jsx    API base URL
-  __tests__/    unit tests
+  forms/        the activity form and its validation schema
+  App.jsx       the router: every route and its loader
+  config.jsx    backend address (local in development, live in production; see the file's comments)
 ```
 
-## Deployment
+## Contributing
 
-Built for Netlify (`netlify.toml`): `npm run build`, publish `dist/`, and every path falls back to `index.html` for client-side routing.
-
-For another static host, build with `VITE_API_BASE_URL=https://your-api-host npm run build`, upload `dist/`, and configure the host to serve `index.html` for unknown paths. Add the site's origin to the backend's `CORS_ALLOWED_ORIGINS`.
-
-## Known issues
-
-- The production bundle is large (about 640 kB) because everything loads at once; route-level code splitting would help.
-- Lint reports two unused-variable warnings (`value` in `Giving.jsx`, `motion` in `Home.jsx`). They belong to commented-out or unfinished code.
-- Several installed packages are not clearly used yet (`react-pageflip`, `react-pdf`, `@react-pdf/renderer`, `react-full-screen`).
-
-## Roadmap
-
-0. Housekeeping (done)
-1. Accounts and sign-in (login, password reset, role-aware portal under `/app`)
-2. Member register and clusters (admin screens)
-3. Role-based dashboards
-4. Hymnal
-5. Light features: attendance, announcements, birthdays, visitor follow-up, notifications, giving records
+Work on a branch, keep pull requests small and focused, and make sure `npm run lint` and `npm run build` pass before opening one. Update this README and add a dated entry to the changelog below after every significant change.
 
 ## Changelog
 
-Newest first. Update this section with every significant change.
+Newest first.
+
+### 2026-11-22: Match the Bluprint and ShareSpace conventions
+- `src/config.jsx` now works like theirs: development uses the local backend (or `VITE_API_URL`), builds always use `https://api.kitisurusda.org/`. The `VITE_API_BASE_URL` variable and `.env.example` are gone.
+- The HTTP client, API file and loaders follow the same shape; endpoints are written without a leading slash.
+- The error page works out a 404 itself, whether it comes from the router or the API.
+- Removed the test setup (Vitest and its files) and `CLAUDE.md`.
+- ESLint now uses the same rule set as Bluprint (with the React plugin) and reports zero problems. Cleaned up unused imports and unescaped quotes in page text.
 
 ### 2026-11-22: Data fetching cleanup
 - One HTTP client (with a 10 second timeout) and one API module replace four separate endpoint files.
-- Loaders live in one file. They no longer swallow errors: the home page used to show empty lists and the ministries page returned nothing when the API failed.
-- The Resources page now loads its documents through a loader instead of fetching inside the page, and lost its own loading and error screens.
-- Added an error page as the router's `errorElement`: a friendly 404, and a "didn't load" screen with Try again. An unknown ministry id now shows the 404 page.
+- Loaders live in one file and no longer swallow errors: the home page used to show empty lists and the ministries page returned nothing when the API failed.
+- The Resources page loads its documents through a loader instead of fetching inside the page.
+- Added an error page as the router's `errorElement`: a friendly 404, and a "didn't load" screen with Try again.
 - The router is created once outside the component, and routes are nested under the root route.
-- Added 6 loader tests (9 in total) and a "How pages get their data" section.
 
-### 2026-11-22: Phase 0 housekeeping
-- The API address now comes from `VITE_API_BASE_URL`, with development and production defaults (previously hardcoded and switched by editing comments).
-- Enabled the ESLint config that had been commented out.
-- Fixed a React hook that was called after an early return in `MinistriesDetails.jsx`; removed an unused import.
-- Added Vitest with 3 tests, `.env.example`, `.gitignore` entries and this README.
-
-### 2026-11-22: Dependency updates
-- Refreshed the lockfile to the newest versions within the existing ranges (React 19.3, Vite 6.4, axios 1.21, Tailwind 4.3, react-router 7.18). `npm audit` reports no vulnerabilities.
+### 2026-11-22: Housekeeping and dependency updates
+- API address no longer hardcoded and switched by editing comments.
+- Enabled the ESLint config that had been commented out; fixed a React hook called after an early return in `MinistriesDetails.jsx`.
+- Refreshed the lockfile within the existing version ranges; `npm audit` reports no vulnerabilities.

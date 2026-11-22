@@ -13,11 +13,13 @@ import ErrorPage from './Pages/ErrorPage'
 import {
   homeLoader,
   ministriesLoader,
-  ministryLoader,
+  ministryDetailsLoader,
   resourcesLoader,
 } from './Loaders/loaders'
 
-// The root route's errorElement catches every loader failure and unknown address.
+// All the site's pages. The root route's errorElement is shown instead of a
+// page if its loader fails or the address doesn't exist.
+// To add a page, add it here and give it a loader in src/Loaders/loaders.js.
 const router = createBrowserRouter([
   {
     path: '/',
@@ -26,7 +28,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home />, loader: homeLoader },
       { path: 'about', element: <About /> },
       { path: 'ministries', element: <Ministries />, loader: ministriesLoader },
-      { path: 'ministries/:id', element: <MinistriesDetails />, loader: ministryLoader },
+      { path: 'ministries/:id', element: <MinistriesDetails />, loader: ministryDetailsLoader },
       { path: 'resources', element: <Resources />, loader: resourcesLoader },
       { path: 'giving', element: <Giving /> },
       { path: 'getinvolved', element: <GetInvolved /> },
