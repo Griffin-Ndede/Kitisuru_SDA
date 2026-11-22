@@ -7,6 +7,7 @@ React 19 + Vite + Tailwind front end for the Kitisuru SDA Church website. It tal
 - [Setup](#setup)
 - [Configuration](#configuration)
 - [Pages and routes](#pages-and-routes)
+- [How pages get their data](#how-pages-get-their-data)
 - [Project layout](#project-layout)
 - [Deployment](#deployment)
 - [Known issues](#known-issues)
@@ -42,19 +43,37 @@ Copy `.env.example` to `.env.local` to override. `.env` files are not committed.
 | `/about` | About | static |
 | `/ministries` | Ministries list | API |
 | `/ministries/:id` | Ministry detail with programs, contacts and gallery | API |
-| `/resources` | Document library with PDF viewer | API |
+| `/resources` | Document library with PDF viewer | API (loader) |
 | `/giving` | Giving options and M-Pesa paybill details | static |
 | `/getinvolved` | Ways to get involved, with a form that sends email | EmailJS |
 | `/contact` | Contact details and social links | static |
+
+## How pages get their data
+
+```
+Api/  ->  Loaders/loaders.js  ->  Pages/*        ->  Components/*
+how to    what each page needs    useLoaderData()    receive props,
+call the  (runs before render)                       never fetch
+backend
+```
+
+- **`src/Api/client.js`** is the one HTTP client: base URL from config and a 10 second timeout.
+- **`src/Api/index.js`** lists every endpoint the site reads as a small named function (`getMinistries()`, `getMinistry(id)`, ...). No UI logic, no try/catch.
+- **`src/Loaders/loaders.js`** has one loader per route that needs data. Independent requests run in parallel. Loaders do not catch errors; the only translation is an API 404 for a missing ministry, which becomes a 404 response.
+- **Pages** read their data with `useLoaderData()` and only display it. There is no loading or error state inside pages.
+- **Components** get data as props and do not fetch.
+- **`src/Pages/ErrorPage.jsx`** is the root route's `errorElement`. It shows "We couldn't find that page" for 404s and unknown addresses, and "This page didn't load" (with Try again) when the API cannot be reached. Both offer Home and Contact.
+
+To add a page that needs data: add the endpoint to `Api/index.js`, add a loader in `Loaders/loaders.js`, attach it to the route in `App.jsx`, and read it with `useLoaderData()`.
 
 ## Project layout
 
 ```
 src/
-  Api/          small fetch helpers for the API
+  Api/          client.js (HTTP client) and index.js (all endpoints)
   Components/   Navbar, Footer
-  Loaders/      react-router data loaders (home, ministries, ministry detail)
-  Pages/        one file per route
+  Loaders/      loaders.js (one loader per data route)
+  Pages/        one file per route, plus ErrorPage
   forms/        activity form and its validation schema
   config.jsx    API base URL
   __tests__/    unit tests
@@ -84,6 +103,14 @@ For another static host, build with `VITE_API_BASE_URL=https://your-api-host npm
 ## Changelog
 
 Newest first. Update this section with every significant change.
+
+### 2026-11-22: Data fetching cleanup
+- One HTTP client (with a 10 second timeout) and one API module replace four separate endpoint files.
+- Loaders live in one file. They no longer swallow errors: the home page used to show empty lists and the ministries page returned nothing when the API failed.
+- The Resources page now loads its documents through a loader instead of fetching inside the page, and lost its own loading and error screens.
+- Added an error page as the router's `errorElement`: a friendly 404, and a "didn't load" screen with Try again. An unknown ministry id now shows the 404 page.
+- The router is created once outside the component, and routes are nested under the root route.
+- Added 6 loader tests (9 in total) and a "How pages get their data" section.
 
 ### 2026-11-22: Phase 0 housekeeping
 - The API address now comes from `VITE_API_BASE_URL`, with development and production defaults (previously hardcoded and switched by editing comments).

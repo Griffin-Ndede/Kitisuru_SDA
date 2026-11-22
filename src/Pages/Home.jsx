@@ -42,8 +42,6 @@ function Home() {
     (event) => new Date(event.end_date) > new Date()
   );
 
-  if (!youtubeContent) return <p>Loading...</p>;
-
 
   // Helper function to extract video ID from any YouTube URL
   const getYoutubeVideoId = (url) => {
