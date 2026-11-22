@@ -13,6 +13,7 @@ import ErrorPage from './Pages/ErrorPage'
 import SignIn from './Pages/SignIn'
 import ForgotPassword from './Pages/ForgotPassword'
 import ResetPassword from './Pages/ResetPassword'
+import Join from './Pages/Join'
 import PortalLayout from './Pages/Portal/PortalLayout'
 import PortalHome from './Pages/Portal/PortalHome'
 import People from './Pages/Portal/People'
@@ -24,6 +25,7 @@ import {
   signInLoader,
   portalLoader,
   peopleLoader,
+  joinLoader,
 } from './Loaders/loaders'
 
 // All the site's pages. The root route's errorElement is shown instead of a
@@ -43,6 +45,7 @@ const router = createBrowserRouter([
       { path: 'getinvolved', element: <GetInvolved /> },
       { path: 'contact', element: <Contact /> },
       { path: 'signin', element: <SignIn />, loader: signInLoader },
+      { path: 'join', element: <Join />, loader: joinLoader },
       { path: 'forgot-password', element: <ForgotPassword /> },
       { path: 'reset-password', element: <ResetPassword /> },
       {

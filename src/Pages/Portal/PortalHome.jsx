@@ -14,7 +14,14 @@ export default function PortalHome() {
         You are signed in as <strong>{roleLabels[user.role]}</strong> ({user.email}).
       </p>
 
-      {user.role === "admin" ? (
+      {!user.approved ? (
+        <div role="status" className="rounded-2xl bg-yellow-50 border border-yellow-200 p-6">
+          <h2 className="font-bold text-lg">Thank you for signing up</h2>
+          <p className="text-gray-700 mt-1">
+            The church office will approve your account shortly. Once they do, your member tools will appear here.
+          </p>
+        </div>
+      ) : user.role === "admin" ? (
         <div className="grid gap-4 sm:grid-cols-2">
           <Link to="/app/people" className="block rounded-2xl border border-gray-200 p-6 hover:shadow">
             <h2 className="font-bold text-lg text-custom-blue">People</h2>

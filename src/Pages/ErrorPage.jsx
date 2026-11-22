@@ -16,8 +16,9 @@ export default function ErrorPage() {
     : error?.response?.status;
   const notFound = status === 404;
   const forbidden = status === 403;
+  const tooMany = status === 429;
 
-  if (!notFound && !forbidden) console.error(error);
+  if (!notFound && !forbidden && !tooMany) console.error(error);
 
   return (
     <>
@@ -29,14 +30,18 @@ export default function ErrorPage() {
             ? "We couldn't find that page"
             : forbidden
               ? "You don't have access to this page"
-              : "This page didn't load"}
+              : tooMany
+                ? "Please wait a moment"
+                : "This page didn't load"}
         </h1>
         <p className="text-lg max-w-xl mx-auto text-gray-700 mb-8">
           {notFound
             ? "The address may have changed or the page may no longer exist."
             : forbidden
               ? "This page is for church admins. If you think you should have access, please ask the church office."
-              : "We could not reach the church server. Please check your internet connection and try again."}
+              : tooMany
+                ? "A lot of people are using this right now. Wait a minute, then try again."
+                : "We could not reach the church server. Please check your internet connection and try again."}
         </p>
         <div className="flex flex-wrap justify-center gap-4">
           {!notFound && !forbidden && (

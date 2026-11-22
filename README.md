@@ -44,11 +44,12 @@ The site is built for Netlify (`netlify.toml`): publish `dist/`, and every addre
 | `/giving` | Giving options and M-Pesa paybill details | static |
 | `/getinvolved` | Ways to get involved, with a form that sends email (EmailJS) | static |
 | `/contact` | Contact details and social links | static |
+| `/join?code=…` | The shared sign-up page: name, email, phone and password (the link is posted in the church WhatsApp group) | API (loader + action) |
 | `/signin` | Sign in with email and password, or Google | API (action) |
 | `/forgot-password` | Ask for a password reset email | API (action) |
 | `/reset-password` | Choose a password from an invitation or reset link | API (action) |
-| `/app` | Member portal home, for signed-in people (others go to `/signin`) | API (loader) |
-| `/app/people` | Admins only: invite people, change roles, switch accounts off | API (loader) |
+| `/app` | Member portal home, for signed-in people (others go to `/signin`); people who just signed up see a "waiting for approval" message | API (loader) |
+| `/app/people` | Admins only: the shared sign-up link (copy, share on WhatsApp, switch off, make a new one), approve or reject sign-ups, invite one person with a role, change roles, switch accounts off | API (loader) |
 
 ## How pages get their data
 
@@ -93,6 +94,9 @@ Work on a branch, keep pull requests small and focused, and make sure `npm run l
 ## Changelog
 
 ### 2026-11-22: Sign-in and the member portal (Phase 1)
+
+- One shared sign-up link for the whole church: `/join?code=…` collects name, email, phone and a password. New sign-ups wait for an admin's approval; the People page has the link (Copy, Share on WhatsApp, switch off, make a new one), a "Waiting for approval" list and Approve/Reject buttons. Individual invitations remain for leaders and treasurers.
+- The error page explains "too many requests" (429).
 
 - Invitations work before email is set up: after inviting someone, the People page shows a link with a Copy button to send by WhatsApp. Once the backend has email set up, the email goes out as well.
 

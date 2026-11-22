@@ -23,7 +23,7 @@ export default function PortalLayout() {
         <div className="max-w-5xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
           <Link to="/app" className="font-bold text-lg">Kitisuru SDA Portal</Link>
           <nav className="flex flex-wrap items-center gap-4 text-sm">
-            {user.role === "admin" && <Link to="/app/people" className="hover:underline">People</Link>}
+            {user.approved && user.role === "admin" && <Link to="/app/people" className="hover:underline">People</Link>}
             <Link to="/" className="hover:underline">Church website</Link>
             <span className="opacity-80">
               {user.first_name || user.email} · {roleLabels[user.role]}

@@ -69,7 +69,7 @@ export default function SignIn() {
         </>
       )}
       <p className="text-xs text-gray-500 mt-6">
-        New here? The church office invites each person by email. Use the link in your invitation to choose a password.
+        New here? Use the sign-up link the church shared in the WhatsApp group.
       </p>
     </AuthCard>
   );

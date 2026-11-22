@@ -6,9 +6,11 @@
 import { redirect } from "react-router";
 import {
   getDocuments,
+  checkJoinLink,
   getMe,
   getMinistries,
   getMinistryDetails,
+  getSignupLink,
   getUpcomingEvents,
   getUsers,
   getYoutubeLinks,
@@ -58,4 +60,15 @@ export const portalLoader = async () => {
 
 // Admin-only. A member opening this address gets a 403 from the API, which
 // the error page explains.
-export const peopleLoader = async () => ({ people: await getUsers() });
+export const peopleLoader = async () => {
+  const [people, signupLink] = await Promise.all([getUsers(), getSignupLink()]);
+  return { people, signupLink };
+};
+
+// The shared sign-up page: asks the API whether the link in the address is
+// still the current one, so the page can say so before anyone types anything.
+export const joinLoader = async ({ request }) => {
+  const code = new URL(request.url).searchParams.get("code") || "";
+  const { valid } = code ? await checkJoinLink(code) : { valid: false };
+  return { code, valid };
+};
