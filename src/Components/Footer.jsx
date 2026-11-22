@@ -18,6 +18,7 @@ function Footer() {
                                 <Link to="/giving"><li className='hover:text-custom-yellow'>Give online</li></Link>
                                 <Link to="/resources"><li className='hover:text-custom-yellow'>Library</li></Link>
                                 <Link to='/contact'><li className='hover:text-custom-yellow'>Get in touch</li></Link>
+                                <Link to='/privacy'><li className='hover:text-custom-yellow'>Privacy</li></Link>
                             </ul>
                         </div>
                         <div>

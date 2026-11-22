@@ -7,7 +7,9 @@ import { redirect } from "react-router";
 import {
   getDocuments,
   checkJoinLink,
+  getClusters,
   getMe,
+  getMembers,
   getMinistries,
   getMinistryDetails,
   getSignupLink,
@@ -38,14 +40,14 @@ export const resourcesLoader = async () => ({
   documents: await getDocuments(),
 });
 
-// --- Sign-in and the member portal -------------------------------------------
+// --- Sign-in and the dashboard -------------------------------------------
 
 // Someone who is already signed in has no reason to see the sign-in page.
-export const signInLoader = () => (getSession() ? redirect("/app") : null);
+export const signInLoader = () => (getSession() ? redirect("/dashboard") : null);
 
-// Guards everything under /app: signed-out people go to the sign-in page.
+// Guards everything under /dashboard: signed-out people go to the sign-in page.
 // A token the server no longer accepts counts as signed out.
-export const portalLoader = async () => {
+export const dashboardLoader = async () => {
   if (!getSession()) throw redirect("/signin");
   try {
     return { user: await getMe() };
@@ -58,9 +60,15 @@ export const portalLoader = async () => {
   }
 };
 
-// Admin-only. A member opening this address gets a 403 from the API, which
-// the error page explains.
-export const peopleLoader = async () => {
+// The member register and the clusters. Admin-only: anyone else gets a 403
+// from the API, which the error page explains.
+export const membersLoader = async () => {
+  const [members, clusters] = await Promise.all([getMembers(), getClusters()]);
+  return { members, clusters };
+};
+
+// Admin-only: the shared sign-up link, people waiting for approval, invitations.
+export const signUpAccessLoader = async () => {
   const [people, signupLink] = await Promise.all([getUsers(), getSignupLink()]);
   return { people, signupLink };
 };

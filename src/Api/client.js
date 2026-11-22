@@ -35,12 +35,13 @@ export function clearSession() {
 // --- Requests --------------------------------------------------------------
 // `auth: true` sends the access token. It is opt-in so public endpoints never
 // fail just because an old token is sitting in the browser.
-async function send(method, endpoint, { auth = false, data } = {}) {
+async function send(method, endpoint, { auth = false, data, responseType } = {}) {
   const session = auth ? getSession() : null;
   const response = await api.request({
     method,
     url: endpoint,
     data,
+    responseType,
     headers: session?.access ? { Authorization: `Bearer ${session.access}` } : {},
   });
   return response.data;
@@ -74,6 +75,22 @@ export const post = (endpoint, data, options) =>
   request("post", endpoint, { ...options, data });
 export const patch = (endpoint, data, options) =>
   request("patch", endpoint, { ...options, data });
+export const del = (endpoint, options) => request("delete", endpoint, options);
+
+// Downloads a file the API makes (a CSV, a JSON copy of someone's details) and
+// hands it to the browser to save. A plain link cannot do this because the
+// request has to carry the sign-in token.
+export async function download(endpoint, filename) {
+  const blob = await request("get", endpoint, { auth: true, responseType: "blob" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
 
 // A readable message from a failed request, for showing next to a form.
 export function errorMessage(error, fallback = "Something went wrong. Please try again.") {

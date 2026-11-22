@@ -1,5 +1,5 @@
 import React from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router'
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router'
 import Home from './Pages/Home'
 import About from './Pages/About'
 import './index.css'
@@ -14,17 +14,22 @@ import SignIn from './Pages/SignIn'
 import ForgotPassword from './Pages/ForgotPassword'
 import ResetPassword from './Pages/ResetPassword'
 import Join from './Pages/Join'
-import PortalLayout from './Pages/Portal/PortalLayout'
-import PortalHome from './Pages/Portal/PortalHome'
-import People from './Pages/Portal/People'
+import DashboardLayout from './Pages/Dashboard/DashboardLayout'
+import Overview from './Pages/Dashboard/Overview'
+import Profile from './Pages/Dashboard/Profile'
+import Members from './Pages/Dashboard/Members'
+import Clusters from './Pages/Dashboard/Clusters'
+import SignUpAccess from './Pages/Dashboard/SignUpAccess'
+import Privacy from './Pages/Privacy'
 import {
   homeLoader,
   ministriesLoader,
   ministryDetailsLoader,
   resourcesLoader,
   signInLoader,
-  portalLoader,
-  peopleLoader,
+  dashboardLoader,
+  membersLoader,
+  signUpAccessLoader,
   joinLoader,
 } from './Loaders/loaders'
 
@@ -48,15 +53,22 @@ const router = createBrowserRouter([
       { path: 'join', element: <Join />, loader: joinLoader },
       { path: 'forgot-password', element: <ForgotPassword /> },
       { path: 'reset-password', element: <ResetPassword /> },
+      { path: 'privacy', element: <Privacy /> },
+      // The old address of the dashboard
+      { path: 'app/*', loader: () => redirect('/dashboard') },
       {
-        // The member portal. portalLoader sends signed-out people to /signin.
-        path: 'app',
-        id: 'portal',
-        element: <PortalLayout />,
-        loader: portalLoader,
+        // The dashboard. dashboardLoader sends signed-out people to /signin.
+        path: 'dashboard',
+        id: 'dashboard',
+        element: <DashboardLayout />,
+        loader: dashboardLoader,
         children: [
-          { index: true, element: <PortalHome /> },
-          { path: 'people', element: <People />, loader: peopleLoader },
+          { index: true, element: <Overview /> },
+          { path: 'profile', element: <Profile /> },
+          // Admin only: the API answers 403 to anyone else and the error page explains
+          { path: 'members', element: <Members />, loader: membersLoader },
+          { path: 'clusters', element: <Clusters />, loader: membersLoader },
+          { path: 'sign-up', element: <SignUpAccess />, loader: signUpAccessLoader },
         ],
       },
     ],

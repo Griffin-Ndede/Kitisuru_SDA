@@ -5,8 +5,8 @@ import { getSession } from '../Api/client';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  // Signed-in people see a link to the portal instead of "Sign in".
-  const portalLink = getSession() ? { to: '/app', label: 'Portal' } : { to: '/signin', label: 'Sign in' };
+  // Signed-in people see a link to the dashboard instead of "Sign in".
+  const dashboardLink = getSession() ? { to: '/dashboard', label: 'Dashboard' } : { to: '/signin', label: 'Sign in' };
 
   return (
     <nav className="fixed w-full z-50 ">
@@ -32,7 +32,7 @@ function Navbar() {
             <Link to='/giving' className='text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer'>Giving</Link>
             <a href="/resources" className="text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">Library</a>
             <Link to='/contact' className="text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">Contact</Link>
-            <Link to={portalLink.to} className="text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">{portalLink.label}</Link>
+            <Link to={dashboardLink.to} className="text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">{dashboardLink.label}</Link>
             <Link to='/getinvolved'>
               <button className='bg-white text-custom-blue py-2 px-3 rounded-3xl cursor-pointer transition-all duration-200 ease-in-out hover:cursor-pointer'>Get Involved</button>
             </Link>
@@ -56,7 +56,7 @@ function Navbar() {
             <Link to='/giving' className='text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer'>Giving</Link>
             <a href="/resources" className="block text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">Library</a>
             <Link to='/contact' className="block text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">Contact</Link>
-            <Link to={portalLink.to} className="block text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">{portalLink.label}</Link>
+            <Link to={dashboardLink.to} className="block text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer">{dashboardLink.label}</Link>
             <Link to='/getinvolved' className='text-white font-light hover:text-custom-blue transition-colors duration-200 hover:cursor-pointer'><button>Get Involved</button></Link>
           </div>
         )}
