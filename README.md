@@ -1,12 +1,20 @@
-# React + Vite
+# Kitisuru SDA Church: website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 19 + Vite + Tailwind front end for the church website. It talks to the Django API in `Kitisuru_SDA_backend`.
 
-Currently, two official plugins are available:
+## Setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm install
+npm run dev        # http://localhost:5173 (expects the API on http://127.0.0.1:8000)
+npm test           # unit tests
+npm run lint
+npm run build      # production build into dist/
+```
 
-## Expanding the ESLint configuration
+## Configuration
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The API address is read from `VITE_API_BASE_URL` (see `.env.example`). Without it, development uses
+`http://127.0.0.1:8000` and production builds use `https://api.kitisurusda.org`.
+
+Netlify settings are in `netlify.toml`.

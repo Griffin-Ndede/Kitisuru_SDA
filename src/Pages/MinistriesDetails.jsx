@@ -1,19 +1,18 @@
 import React from 'react';
 import { useState } from 'react';
 import { ArrowLeft, Calendar, Clock, MapPin, Users, Phone, Mail, UserPlus, Target, Heart, Image, CircleCheckBig } from 'lucide-react';
-import { Link, useLoaderData, useParams } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 
 export default function MinistriesDetail() {
 
   const { ministry } = useLoaderData()
+  const [fullscreenImage, setFullscreenImage] = useState(null);
 
   if (!ministry) {
     return <div className="text-center mt-20">Loading ministry details...</div>;
   }
   const cloudName = "dfycvaiv7";
   const imageUrl = `https://res.cloudinary.com/${cloudName}`;
-
-  const [fullscreenImage, setFullscreenImage] = useState(null);
 
 
 
