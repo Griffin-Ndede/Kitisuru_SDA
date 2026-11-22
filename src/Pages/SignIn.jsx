@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import AuthCard, { buttonClass, inputClass } from "../Components/AuthCard";
+import AuthLayout from "../Components/ui/AuthLayout";
+import Button from "../Components/ui/Button";
+import { Input } from "../Components/ui/Fields";
+import { FormError } from "../Components/ui/States";
 import { googleLogin, login } from "../Api";
 import { errorMessage, saveSession } from "../Api/client";
 import { googleEnabled, googleSignIn } from "../firebase";
@@ -44,33 +47,31 @@ export default function SignIn() {
   };
 
   return (
-    <AuthCard
-      title="Sign in"
-      intro="For members and church leaders."
-      footer={<Link to="/forgot-password" className="underline">Forgot your password?</Link>}
+    <AuthLayout
+      title="Welcome back"
+      subtitle="Sign in to the church dashboard."
+      footer={<Link to="/forgot-password" className="font-medium text-forest-700 underline">Forgot your password?</Link>}
     >
+      <meta name="robots" content="noindex" />
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input className={inputClass} type="text" inputMode="email" placeholder="Email or username" autoComplete="username"
-          autoCapitalize="none" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        <input className={inputClass} type="password" placeholder="Password" autoComplete="current-password"
+        <Input label="Email or username" type="text" inputMode="email" autoComplete="username" autoCapitalize="none"
+          value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <Input label="Password" type="password" autoComplete="current-password"
           value={password} onChange={(e) => setPassword(e.target.value)} required />
-        {error && <p role="alert" className="text-red-600 text-sm">{error}</p>}
-        <button type="submit" disabled={busy} className={buttonClass}>
-          {busy ? "Please wait…" : "Sign in"}
-        </button>
+        <FormError>{error}</FormError>
+        <Button type="submit" size="lg" className="w-full" loading={busy}>Sign in</Button>
       </form>
       {googleEnabled && (
         <>
-          <p className="text-center text-gray-400 text-sm my-4">or</p>
-          <button type="button" onClick={handleGoogle} disabled={busy}
-            className="w-full px-6 py-3 rounded-full border border-gray-300 font-semibold cursor-pointer disabled:opacity-60">
+          <p className="my-4 text-center text-sm text-muted">or</p>
+          <Button variant="secondary" size="lg" className="w-full" onClick={handleGoogle} disabled={busy}>
             Continue with Google
-          </button>
+          </Button>
         </>
       )}
-      <p className="text-xs text-gray-500 mt-6">
+      <p className="mt-6 text-center text-xs text-muted">
         New here? Use the sign-up link the church shared in the WhatsApp group.
       </p>
-    </AuthCard>
+    </AuthLayout>
   );
 }

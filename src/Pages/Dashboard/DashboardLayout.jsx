@@ -1,30 +1,50 @@
-import React, { useState } from "react";
-import { Link, NavLink, Outlet, useLoaderData, useNavigate } from "react-router";
-import { Menu, X } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { NavLink, Outlet, useLoaderData, useLocation, useNavigate } from "react-router";
+import {
+  LayoutDashboard, UserRound, Users, UsersRound, Link2, Globe, ShieldCheck, LogOut, Menu, X, ChevronDown,
+} from "lucide-react";
 import { clearSession } from "../../Api/client";
 import { googleSignOut } from "../../firebase";
 import { roleLabels } from "./roles";
+import { fullName } from "./memberHelpers";
+import Logo from "../../Components/ui/Logo";
+import Avatar from "../../Components/ui/Avatar";
+import Dropdown, { DropdownItem } from "../../Components/ui/Dropdown";
 
-// The frame around every page under /dashboard: a menu on the left (a drawer on
-// phones) and the page on the right. Its loader (dashboardLoader) has already
-// checked that someone is signed in.
+// The frame around every page under /dashboard: a dark menu on the left (a drawer
+// on phones), a top bar with the account menu, and the page itself. Its loader
+// (dashboardLoader) has already checked that someone is signed in.
 export default function DashboardLayout() {
   const { user } = useLoaderData();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
 
+  // Close the drawer when moving to another page
+  useEffect(() => setOpen(false), [pathname]);
+
   const isAdmin = user.approved && user.role === "admin";
-  const links = [
-    { to: "/dashboard", label: "Overview", end: true },
-    { to: "/dashboard/profile", label: "My profile" },
+  const sections = [
+    {
+      label: "Home",
+      items: [
+        { to: "/dashboard", label: "Overview", icon: LayoutDashboard, end: true },
+        { to: "/dashboard/profile", label: "My profile", icon: UserRound },
+      ],
+    },
     ...(isAdmin
-      ? [
-          { to: "/dashboard/members", label: "Members" },
-          { to: "/dashboard/clusters", label: "Clusters" },
-          { to: "/dashboard/sign-up", label: "Sign-up & invitations" },
-        ]
+      ? [{
+          label: "Administration",
+          items: [
+            { to: "/dashboard/members", label: "Members", icon: Users },
+            { to: "/dashboard/clusters", label: "Clusters", icon: UsersRound },
+            { to: "/dashboard/sign-up", label: "Sign-up & invitations", icon: Link2 },
+          ],
+        }]
       : []),
   ];
+
+  const name = fullName(user);
 
   const handleSignOut = async () => {
     clearSession();
@@ -32,56 +52,93 @@ export default function DashboardLayout() {
     navigate("/");
   };
 
-  const linkClass = ({ isActive }) =>
-    `block rounded-lg px-4 py-2 text-sm ${
-      isActive ? "bg-white text-custom-blue font-semibold" : "text-white hover:bg-white/15"
+  const itemClass = ({ isActive }) =>
+    `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
+      isActive ? "bg-marigold-500 text-forest-950" : "text-forest-100 hover:bg-white/10"
     }`;
 
+  const menu = (
+    <nav aria-label="Dashboard" className="flex-1 space-y-6 overflow-y-auto px-4 py-6">
+      {sections.map((section) => (
+        <div key={section.label}>
+          <p className="mb-2 px-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-forest-200/70">{section.label}</p>
+          <div className="space-y-1">
+            {section.items.map(({ to, label, icon: Icon, end }) => (
+              <NavLink key={to} to={to} end={end} className={itemClass}>
+                <Icon className="size-[1.1rem]" />{label}
+              </NavLink>
+            ))}
+          </div>
+        </div>
+      ))}
+    </nav>
+  );
+
   return (
-    <div className="min-h-screen bg-gray-50 md:flex">
+    <div className="app-theme min-h-screen">
       <meta name="robots" content="noindex" />
 
-      {/* Top bar on phones */}
-      <div className="md:hidden bg-custom-blue text-white flex items-center justify-between px-4 py-3">
-        <Link to="/dashboard" className="font-bold">Kitisuru SDA Dashboard</Link>
-        <button aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen(!open)} className="cursor-pointer">
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      <aside
-        className={`${open ? "block" : "hidden"} md:flex md:flex-col md:w-64 md:min-h-screen bg-custom-blue text-white p-4 md:sticky md:top-0 md:h-screen`}
-      >
-        <Link to="/dashboard" className="hidden md:block font-bold text-lg px-4 py-3">
-          Kitisuru SDA Dashboard
-        </Link>
-        <nav className="space-y-1 mt-2 flex-1" onClick={() => setOpen(false)}>
-          {links.map((link) => (
-            <NavLink key={link.to} to={link.to} end={link.end} className={linkClass}>
-              {link.label}
-            </NavLink>
-          ))}
-        </nav>
-        <div className="border-t border-white/30 pt-4 mt-4 text-sm space-y-2" onClick={() => setOpen(false)}>
-          <p className="px-4">
-            <span className="block font-semibold truncate">
-              {`${user.first_name} ${user.last_name}`.trim() || user.email || user.username}
-            </span>
-            <span className="opacity-80">{roleLabels[user.role]}</span>
-          </p>
-          <Link to="/" className="block px-4 py-1 hover:underline">Church website</Link>
-          <Link to="/privacy" className="block px-4 py-1 hover:underline">Privacy</Link>
-          <button onClick={handleSignOut} className="mx-4 mt-2 bg-white text-custom-blue px-4 py-1 rounded-full cursor-pointer">
-            Sign out
-          </button>
-        </div>
+      {/* Fixed menu on large screens */}
+      <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-forest-950 lg:flex">
+        <div className="px-6 pt-6"><Logo to="/dashboard" tone="light" /></div>
+        {menu}
       </aside>
 
-      <main className="flex-1 min-w-0 p-4 md:p-8">
-        <div className="max-w-5xl mx-auto">
-          <Outlet />
+      {/* Drawer on phones */}
+      {open && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div className="absolute inset-0 bg-forest-950/60" onClick={() => setOpen(false)} aria-hidden="true" />
+          <aside className="rise relative flex h-full w-72 max-w-[85vw] flex-col bg-forest-950">
+            <div className="flex items-center justify-between px-6 pt-6">
+              <Logo to="/dashboard" tone="light" />
+              <button type="button" onClick={() => setOpen(false)} aria-label="Close menu" className="rounded-full p-1.5 text-forest-100 hover:bg-white/10">
+                <X className="size-5" />
+              </button>
+            </div>
+            {menu}
+          </aside>
         </div>
-      </main>
+      )}
+
+      <div className="lg:pl-64">
+        <header className="sticky top-0 z-30 flex items-center justify-between gap-3 border-b border-line bg-paper/90 px-4 py-3 backdrop-blur sm:px-8">
+          <button type="button" onClick={() => setOpen(true)} aria-label="Open menu" className="rounded-full p-2 hover:bg-paper-deep lg:hidden">
+            <Menu className="size-5" />
+          </button>
+          <div className="lg:hidden"><Logo to="/dashboard" compact /></div>
+          <p className="eyebrow hidden lg:block">{roleLabels[user.role]} dashboard</p>
+
+          <Dropdown
+            label="Account menu"
+            buttonClassName="flex items-center gap-2.5 rounded-full py-1 pr-2 pl-1 hover:bg-paper-deep"
+            trigger={
+              <>
+                <Avatar name={name} size="sm" />
+                <span className="hidden max-w-40 truncate text-sm font-medium sm:block">{name}</span>
+                <ChevronDown className="size-4 text-muted" />
+              </>
+            }
+          >
+            {(close) => (
+              <>
+                <div className="border-b border-line px-4 pb-3 pt-2">
+                  <p className="truncate text-sm font-semibold">{name}</p>
+                  <p className="truncate text-xs text-muted">{user.email || user.username}</p>
+                  <p className="mt-1 text-xs text-forest-700">{roleLabels[user.role]}</p>
+                </div>
+                <DropdownItem icon={UserRound} onClick={() => { close(); navigate("/dashboard/profile"); }}>My profile</DropdownItem>
+                <DropdownItem icon={Globe} onClick={() => { close(); navigate("/"); }}>Church website</DropdownItem>
+                <DropdownItem icon={ShieldCheck} onClick={() => { close(); navigate("/privacy"); }}>Privacy</DropdownItem>
+                <DropdownItem icon={LogOut} danger onClick={handleSignOut}>Sign out</DropdownItem>
+              </>
+            )}
+          </Dropdown>
+        </header>
+
+        <main className="px-4 py-8 sm:px-8">
+          <div className="mx-auto max-w-5xl"><Outlet /></div>
+        </main>
+      </div>
     </div>
   );
 }

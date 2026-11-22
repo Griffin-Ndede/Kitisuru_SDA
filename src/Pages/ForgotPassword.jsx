@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import AuthCard, { buttonClass, inputClass } from "../Components/AuthCard";
+import AuthLayout from "../Components/ui/AuthLayout";
+import Button from "../Components/ui/Button";
+import { Input } from "../Components/ui/Fields";
+import { FormError, Notice } from "../Components/ui/States";
+import { MailCheck } from "lucide-react";
 import { requestPasswordReset } from "../Api";
 import { errorMessage } from "../Api/client";
 
@@ -24,23 +28,21 @@ export default function ForgotPassword() {
   };
 
   return (
-    <AuthCard
+    <AuthLayout
       title="Forgot your password?"
-      intro="Enter your email and we will send you a link to choose a new one."
-      footer={<Link to="/signin" className="underline">Back to sign in</Link>}
+      subtitle="Enter your email and we will send you a link to choose a new one."
+      footer={<Link to="/signin" className="font-medium text-forest-700 underline">Back to sign in</Link>}
     >
+      <meta name="robots" content="noindex" />
       {message ? (
-        <p role="status" className="text-green-700">{message}</p>
+        <Notice icon={MailCheck} title="Check your email">{message}</Notice>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input className={inputClass} type="email" placeholder="Email" autoComplete="email"
-            value={email} onChange={(e) => setEmail(e.target.value)} required />
-          {error && <p role="alert" className="text-red-600 text-sm">{error}</p>}
-          <button type="submit" disabled={busy} className={buttonClass}>
-            {busy ? "Please wait…" : "Send reset link"}
-          </button>
+          <Input label="Email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <FormError>{error}</FormError>
+          <Button type="submit" size="lg" className="w-full" loading={busy}>Send reset link</Button>
         </form>
       )}
-    </AuthCard>
+    </AuthLayout>
   );
 }

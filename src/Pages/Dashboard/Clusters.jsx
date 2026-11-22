@@ -1,18 +1,42 @@
 import React, { useMemo, useState } from "react";
 import { useLoaderData, useRevalidator } from "react-router";
+import { Pencil, Plus, Trash2, UserMinus, UserPlus, UsersRound } from "lucide-react";
 import { changeClusterMembers, createCluster, deleteCluster, updateCluster } from "../../Api";
 import { errorMessage } from "../../Api/client";
-import { inputClass } from "../../Components/AuthCard";
+import Card from "../../Components/ui/Card";
+import Button from "../../Components/ui/Button";
+import Badge from "../../Components/ui/Badge";
+import Avatar from "../../Components/ui/Avatar";
+import PageHeader from "../../Components/ui/PageHeader";
+import { Input, Select, SearchInput } from "../../Components/ui/Fields";
+import { EmptyState, FormError } from "../../Components/ui/States";
+import { useToast } from "../../Context/ToastContext";
 import { fullName, kindLabels, matchesSearch } from "./memberHelpers";
+
+// One person in a list, with a button on the right.
+function PersonRow({ person, action }) {
+  return (
+    <li className="flex items-center justify-between gap-3 py-2.5">
+      <span className="flex min-w-0 items-center gap-3">
+        <Avatar name={fullName(person)} size="sm" />
+        <span className="min-w-0">
+          <span className="block truncate text-sm font-medium">{fullName(person)}</span>
+          <span className="block truncate text-xs text-muted">{person.phone || person.email}</span>
+        </span>
+      </span>
+      {action}
+    </li>
+  );
+}
 
 // Admin only: prayer cells and departments, and who belongs to each.
 export default function Clusters() {
   const { members, clusters } = useLoaderData();
   const revalidator = useRevalidator();
+  const toast = useToast();
   const [selectedId, setSelectedId] = useState(clusters[0]?.id ?? null);
   const [form, setForm] = useState({ name: "", kind: "prayer_cell" });
   const [search, setSearch] = useState("");
-  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -28,11 +52,10 @@ export default function Clusters() {
 
   const run = async (action, success) => {
     setError("");
-    setMessage("");
     setBusy(true);
     try {
       const result = await action();
-      setMessage(success);
+      toast.success(success);
       revalidator.revalidate();
       return result ?? true;
     } catch (err) {
@@ -45,7 +68,7 @@ export default function Clusters() {
 
   const handleCreate = async (e) => {
     e.preventDefault();
-    const made = await run(() => createCluster(form), `${form.name} created.`);
+    const made = await run(() => createCluster(form), `${form.name} created`);
     if (made) {
       setForm({ name: "", kind: form.kind });
       if (made.id) setSelectedId(made.id);
@@ -55,95 +78,102 @@ export default function Clusters() {
   const handleRename = () => {
     const name = window.prompt("New name for this cluster:", selected.name);
     if (name && name.trim() && name.trim() !== selected.name) {
-      run(() => updateCluster(selected.id, { name: name.trim() }), "Renamed.");
+      run(() => updateCluster(selected.id, { name: name.trim() }), "Renamed");
     }
   };
 
   const handleDelete = async () => {
     if (window.confirm(`Delete "${selected.name}"? The people in it stay in the register.`)) {
-      if (await run(() => deleteCluster(selected.id), "Cluster deleted.")) setSelectedId(null);
+      if (await run(() => deleteCluster(selected.id), "Cluster deleted")) setSelectedId(null);
     }
   };
 
   return (
     <div>
-      <h1 className="text-3xl font-extrabold text-custom-blue mb-2">Clusters</h1>
-      <p className="text-gray-600 mb-6">Prayer cells and departments. A member can belong to several.</p>
-      {(message || error) && (
-        <p role={error ? "alert" : "status"} className={`mb-4 text-sm ${error ? "text-red-600" : "text-green-700"}`}>{error || message}</p>
-      )}
+      <PageHeader title="Clusters" description="Prayer cells and departments. A member can belong to several." />
+      <div className="mb-4"><FormError>{error}</FormError></div>
 
       <div className="grid gap-6 md:grid-cols-3">
-        <section className="md:col-span-1 space-y-4">
-          <form onSubmit={handleCreate} className="rounded-2xl bg-white border border-gray-200 p-4 space-y-3">
-            <h2 className="font-bold">New cluster</h2>
-            <input className={inputClass} placeholder="Name, e.g. Youth or Kitisuru Cell" aria-label="Cluster name" value={form.name}
+        <section className="space-y-4 md:col-span-1">
+          <Card as="form" onSubmit={handleCreate} className="space-y-3">
+            <h2 className="text-lg font-semibold">New cluster</h2>
+            <Input aria-label="Cluster name" placeholder="e.g. Youth or Kitisuru Cell" value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-            <select className={inputClass} aria-label="Kind" value={form.kind} onChange={(e) => setForm({ ...form, kind: e.target.value })}>
-              {Object.entries(kindLabels).map(([value, text]) => <option key={value} value={value}>{text}</option>)}
-            </select>
-            <button type="submit" disabled={busy} className="px-5 py-2 rounded-full bg-custom-blue text-white cursor-pointer disabled:opacity-60">Create</button>
-          </form>
+            <Select aria-label="Kind" value={form.kind} onChange={(e) => setForm({ ...form, kind: e.target.value })}
+              options={Object.entries(kindLabels).map(([value, label]) => ({ value, label }))} />
+            <Button type="submit" icon={Plus} loading={busy}>Create</Button>
+          </Card>
 
-          <ul className="rounded-2xl bg-white border border-gray-200 divide-y divide-gray-100">
-            {clusters.length === 0 && <li className="p-4 text-gray-500 text-sm">No clusters yet.</li>}
-            {clusters.map((c) => (
-              <li key={c.id}>
-                <button onClick={() => { setSelectedId(c.id); setSearch(""); }}
-                  className={`w-full text-left px-4 py-3 cursor-pointer ${c.id === selectedId ? "bg-blue-50 font-semibold" : ""}`}>
-                  {c.name}
-                  <span className="block text-xs text-gray-500 font-normal">{kindLabels[c.kind]} · {c.member_count} members</span>
-                </button>
-              </li>
-            ))}
-          </ul>
+          <Card padded={false}>
+            {clusters.length === 0 ? (
+              <p className="p-5 text-sm text-muted">No clusters yet.</p>
+            ) : (
+              <ul className="divide-y divide-line/70">
+                {clusters.map((c) => (
+                  <li key={c.id}>
+                    <button
+                      type="button" aria-current={c.id === selectedId}
+                      onClick={() => { setSelectedId(c.id); setSearch(""); }}
+                      className={`w-full px-5 py-3.5 text-left transition first:rounded-t-card last:rounded-b-card ${c.id === selectedId ? "bg-forest-50" : "hover:bg-paper"}`}
+                    >
+                      <span className={`block ${c.id === selectedId ? "font-semibold text-forest-900" : "font-medium"}`}>{c.name}</span>
+                      <span className="block text-xs text-muted">{kindLabels[c.kind]} · {c.member_count} members</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </Card>
         </section>
 
-        <section className="md:col-span-2 rounded-2xl bg-white border border-gray-200 p-6">
+        <Card className="md:col-span-2">
           {!selected ? (
-            <p className="text-gray-500">Create or choose a cluster to manage its members.</p>
+            <EmptyState icon={UsersRound} title="No cluster chosen">Create or choose a cluster to manage its members.</EmptyState>
           ) : (
             <>
-              <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-                <h2 className="text-xl font-bold">{selected.name} <span className="text-sm font-normal text-gray-500">{kindLabels[selected.kind]}</span></h2>
-                <span className="space-x-4 text-sm">
-                  <button onClick={handleRename} disabled={busy} className="text-custom-blue underline cursor-pointer">Rename</button>
-                  <button onClick={handleDelete} disabled={busy} className="text-red-600 underline cursor-pointer">Delete</button>
-                </span>
+              <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <h2 className="text-2xl font-semibold">{selected.name}</h2>
+                  <Badge tone="green">{kindLabels[selected.kind]}</Badge>
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="secondary" size="sm" icon={Pencil} onClick={handleRename} disabled={busy}>Rename</Button>
+                  <Button variant="danger" size="sm" icon={Trash2} onClick={handleDelete} disabled={busy}>Delete</Button>
+                </div>
               </div>
 
-              <label htmlFor="add_member" className="block text-sm font-medium text-gray-700 mb-1">Add people</label>
-              <input id="add_member" className={inputClass} type="search" placeholder="Type a name, email or phone" value={search} onChange={(e) => setSearch(e.target.value)} />
+              <h3 className="mb-2 text-sm font-medium">Add people</h3>
+              <SearchInput value={search} onChange={setSearch} placeholder="Type a name, email or phone" />
               {candidates.length > 0 && (
-                <ul className="mt-2 border border-gray-200 rounded-lg divide-y divide-gray-100">
+                <ul className="mt-2 divide-y divide-line/70 rounded-xl border border-line px-3">
                   {candidates.map((m) => (
-                    <li key={m.id} className="flex items-center justify-between px-3 py-2">
-                      <span>{fullName(m)} <span className="text-gray-500 text-sm">{m.phone || m.email}</span></span>
-                      <button disabled={busy} onClick={() => run(() => changeClusterMembers(selected.id, { add: [m.id] }), `${fullName(m)} added.`)}
-                        className="text-custom-blue underline cursor-pointer">Add</button>
-                    </li>
+                    <PersonRow key={m.id} person={m} action={
+                      <Button size="sm" variant="secondary" icon={UserPlus} disabled={busy}
+                        aria-label={`Add ${fullName(m)}`}
+                        onClick={() => run(() => changeClusterMembers(selected.id, { add: [m.id] }), `${fullName(m)} added`)}>Add</Button>
+                    } />
                   ))}
                 </ul>
               )}
-              {search.trim() && candidates.length === 0 && <p className="text-sm text-gray-500 mt-2">No one else matches.</p>}
+              {search.trim() && candidates.length === 0 && <p className="mt-2 text-sm text-muted">No one else matches.</p>}
 
-              <h3 className="font-semibold mt-6 mb-2">In this cluster ({inCluster.length})</h3>
+              <h3 className="mt-6 mb-1 font-display text-lg font-semibold">In this cluster ({inCluster.length})</h3>
               {inCluster.length === 0 ? (
-                <p className="text-sm text-gray-500">No one yet. Search above to add people.</p>
+                <p className="text-sm text-muted">No one yet. Search above to add people.</p>
               ) : (
-                <ul className="divide-y divide-gray-100">
+                <ul className="divide-y divide-line/70">
                   {inCluster.map((m) => (
-                    <li key={m.id} className="flex items-center justify-between py-2">
-                      <span>{fullName(m)} <span className="text-gray-500 text-sm">{m.phone || m.email}</span></span>
-                      <button disabled={busy} onClick={() => run(() => changeClusterMembers(selected.id, { remove: [m.id] }), `${fullName(m)} removed.`)}
-                        className="text-red-600 underline cursor-pointer text-sm" aria-label={`Remove ${fullName(m)}`}>Remove</button>
-                    </li>
+                    <PersonRow key={m.id} person={m} action={
+                      <Button size="sm" variant="ghost" icon={UserMinus} disabled={busy}
+                        aria-label={`Remove ${fullName(m)}`}
+                        onClick={() => run(() => changeClusterMembers(selected.id, { remove: [m.id] }), `${fullName(m)} removed`)}>Remove</Button>
+                    } />
                   ))}
                 </ul>
               )}
             </>
           )}
-        </section>
+        </Card>
       </div>
     </div>
   );
