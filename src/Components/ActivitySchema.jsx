@@ -206,35 +206,58 @@ export const activityFields = {
 
     ],
     
-        ministry_membership: [
-            {
-                name: "Full_name",
-                type: "text",
-                label: "Full name",
-                placeholder: "John Doe"
-            },
-            {
-                name: "Phone_number",
-                type: "text",
-                label: "Phone number",
-                placeholder: "+254 712 345 678"
-            },
-            {
-                name: "Email_address",
-                type: "email",
-                label: "Email address",
-                placeholder: "johndoe@gmail.com"
-            },
-            {
-                name: "Ministry",
-                type:"select",
-                label: "Ministry",
-                options: [
-                { label: "Music ministry", value: "music" },
-                { label: "Children ministry", value: "children" },
-                {label: "Health ministry", value: "health"}
-            ],
+    ministry_membership: [
+        {
+            name: "Full_name",
+            type: "text",
+            label: "Full name",
+            placeholder: "John Doe",
+            required: true,
+        },
+        {
+            name: "Phone_number",
+            type: "text",
+            label: "Phone number",
+            placeholder: "+254 712 345 678"
+        },
+        {
+            name: "Email_address",
+            type: "email",
+            label: "Email address",
+            placeholder: "johndoe@gmail.com"
+        },
+        {
+            // The options are the church's real ministries, added by ActivityForm
+            name: "ministries",
+            type: "checkbox_group",
+            label: "Which ministries would you like to join?",
+            options: [],
+        },
+    ],
+};
 
-            }
-        ]
+// Every form that is about a person asks where they live, so the church office
+// can put them in the right location group.
+const areaField = {
+    name: "area",
+    type: "text",
+    label: "Estate or area where you live (optional)",
+    placeholder: "e.g. Kitisuru, Runda",
+};
+["commitment_form", "membership_transfer", "ministry_membership"].forEach((key) => {
+    activityFields[key].push(areaField);
+});
+
+// Which form field holds the contact details the church needs, per form. When a
+// form has several candidates (mother, father) the first filled one is used.
+export const activityContacts = {
+    Child_dedication: {
+        kind: "child_dedication",
+        name: ["mother_name", "father_name", "child_name"],
+        email: ["mother_email", "father_email"],
+        phone: ["mother_phone", "father_phone"],
+    },
+    commitment_form: { kind: "commitment", name: ["Full_name"], email: ["Email"], phone: ["Phone_number"] },
+    membership_transfer: { kind: "membership_transfer", name: ["Full_name"], email: ["Email"], phone: ["Phone_number"] },
+    ministry_membership: { kind: "ministry", name: ["Full_name"], email: ["Email_address"], phone: ["Phone_number"] },
 };

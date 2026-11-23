@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLoaderData, useRouteLoaderData } from "react-router";
-import { ArrowRight, BookOpenText, Megaphone, Clock, HeartHandshake, Link2, UserPen, Users, UsersRound } from "lucide-react";
+import { ArrowRight, BookOpenText, HandHeart, Megaphone, Clock, HeartHandshake, Link2, UserPen, Users, UsersRound } from "lucide-react";
 import { roleLabels } from "./roles";
 import { formatDate } from "./ministryHelpers";
 import Card from "../../Components/ui/Card";
@@ -24,13 +24,14 @@ const churchCards = [
 
 const adminCards = [
   { to: "/dashboard/members", title: "Members", text: "The register: search, add, edit, import and export.", icon: Users },
+  { to: "/dashboard/requests", title: "Get involved requests", text: "Add people who filled in a form to the register, ministries and clusters.", icon: HandHeart },
   { to: "/dashboard/clusters", title: "Clusters", text: "Location and fundraising groups, and who belongs to each.", icon: UsersRound },
   { to: "/dashboard/sign-up", title: "Sign-up & invitations", text: "The church's sign-up link, approvals and invitations.", icon: Link2 },
 ];
 
 export default function Overview() {
   const { user } = useRouteLoaderData("dashboard");
-  const { announcements } = useLoaderData();
+  const { announcements, newRequests } = useLoaderData();
   const missing = missingDetails(user);
 
   return (
@@ -43,6 +44,13 @@ export default function Overview() {
       {!user.approved && (
         <Notice icon={Clock} tone="warm" title="Thank you for signing up">
           The church office will approve your account shortly. Once they do, your member tools will appear here.
+        </Notice>
+      )}
+
+      {newRequests > 0 && (
+        <Notice icon={HandHeart} tone="warm" title={`${newRequests} new Get involved ${newRequests === 1 ? "request" : "requests"}`}>
+          People are waiting to hear from the church.{" "}
+          <Link to="/dashboard/requests" className="font-medium text-forest-700 underline">Review them</Link>.
         </Notice>
       )}
 

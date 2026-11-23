@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { UserPlus, HandHeart, ChevronRight, X, Baby, Group, } from 'lucide-react';
 import Navbar from '../Components/Navbar';
-import { Link } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import ActivityForm from '../Components/ActivityForm';
 
 
 function GetInvolved() {
 
+    const { ministries } = useLoaderData()
     const [selectedActivity, setSelectedActivity] = useState(null)
 
     const activities = [
@@ -37,7 +38,7 @@ function GetInvolved() {
         {
             key: "ministry_membership",
             title: "Join a ministry",
-            description: "if you would wish to join a specific ministry and volunteer do let us know",
+            description: "If you would like to join a ministry and volunteer, let us know. The church office will add you.",
             buttonText: "Join a ministry",
             icon: <Group strokeWidth={1} absoluteStrokeWidth className='w-10 h-10 text-custom-blue'/>
         }
@@ -104,6 +105,7 @@ function GetInvolved() {
                             {/* Your form */}
                             <ActivityForm
                                 activity={selectedActivity}
+                                ministries={ministries}
                                 onClose={() => setSelectedActivity(null)}
                             />
                         </div>

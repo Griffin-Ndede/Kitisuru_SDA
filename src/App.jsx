@@ -22,6 +22,7 @@ import MinistryDetail from './Pages/Dashboard/MinistryDetail'
 import Library from './Pages/Dashboard/Library'
 import Announcements from './Pages/Dashboard/Announcements'
 import SignUpAccess from './Pages/Dashboard/SignUpAccess'
+import Requests from './Pages/Dashboard/Requests'
 import Privacy from './Pages/Privacy'
 import {
   homeLoader,
@@ -30,6 +31,8 @@ import {
   libraryLoader,
   announcementsLoader,
   overviewLoader,
+  getInvolvedLoader,
+  requestsLoader,
   signInLoader,
   dashboardLoader,
   membersLoader,
@@ -53,7 +56,7 @@ const router = createBrowserRouter([
       { path: 'ministries/*', loader: () => redirect('/dashboard/ministries') },
       { path: 'resources', loader: () => redirect('/dashboard/library') },
       { path: 'giving', element: <Giving /> },
-      { path: 'getinvolved', element: <GetInvolved /> },
+      { path: 'getinvolved', element: <GetInvolved />, loader: getInvolvedLoader },
       { path: 'contact', element: <Contact /> },
       { path: 'signin', element: <SignIn />, loader: signInLoader },
       { path: 'join', element: <Join />, loader: joinLoader },
@@ -78,6 +81,7 @@ const router = createBrowserRouter([
           // Admin only: the API answers 403 to anyone else and the error page explains
           { path: 'members', element: <Members />, loader: membersLoader },
           { path: 'clusters', element: <Clusters />, loader: membersLoader },
+          { path: 'requests', element: <Requests />, loader: requestsLoader },
           { path: 'sign-up', element: <SignUpAccess />, loader: signUpAccessLoader },
         ],
       },

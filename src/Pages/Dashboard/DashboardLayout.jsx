@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, Outlet, useLoaderData, useLocation, useNavigate } from "react-router";
 import {
-  LayoutDashboard, UserRound, Users, UsersRound, Link2, HeartHandshake, BookOpenText, Megaphone, Globe, ShieldCheck, LogOut, Menu, X, ChevronDown,
+  LayoutDashboard, UserRound, Users, UsersRound, Link2, HeartHandshake, BookOpenText, Megaphone, HandHeart, Globe, ShieldCheck, LogOut, Menu, X, ChevronDown,
 } from "lucide-react";
 import { clearSession } from "../../Api/client";
 import { googleSignOut } from "../../firebase";
@@ -48,6 +48,7 @@ export default function DashboardLayout() {
           items: [
             { to: "/dashboard/members", label: "Members", icon: Users },
             { to: "/dashboard/clusters", label: "Clusters", icon: UsersRound },
+            { to: "/dashboard/requests", label: "Get involved requests", icon: HandHeart },
             { to: "/dashboard/sign-up", label: "Sign-up & invitations", icon: Link2 },
           ],
         }]

@@ -7,6 +7,8 @@ import { redirect } from "react-router";
 import {
   getAnnouncements,
   getDocuments,
+  getInvolvedMinistries,
+  getRequests,
   checkJoinLink,
   getClusters,
   getMe,
@@ -70,8 +72,32 @@ export const announcementsLoader = async () => ({
 // read them, so check first instead of letting the request fail.
 export const overviewLoader = async () => {
   const user = await getMe();
-  const announcements = user.approved ? await getAnnouncements() : [];
-  return { announcements: announcements.slice(0, 3) };
+  const isAdmin = user.approved && user.role === "admin";
+  const [announcements, requests] = await Promise.all([
+    user.approved ? getAnnouncements() : [],
+    isAdmin ? getRequests() : [],
+  ]);
+  return {
+    announcements: announcements.slice(0, 3),
+    newRequests: requests.filter((r) => r.status === "new").length,
+  };
+};
+
+// --- Get involved ----------------------------------------------------------
+
+// The public page: the ministry names for the "Join a ministry" form.
+export const getInvolvedLoader = async () => ({
+  ministries: await getInvolvedMinistries(),
+});
+
+// Admin only: what people sent, and the groups they can be added to.
+export const requestsLoader = async () => {
+  const [requests, clusters, ministries] = await Promise.all([
+    getRequests(),
+    getClusters(),
+    getMinistries(),
+  ]);
+  return { requests, clusters, ministries };
 };
 
 // --- Ministries and the library (any approved member) ----------------------
