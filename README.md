@@ -103,6 +103,7 @@ Work on a branch, keep pull requests small and focused, and make sure `npm run l
 | `/dashboard/announcements` | Approved members | Announcements from the church office. Admins post, edit and remove; the latest three also show on the overview |
 | `/dashboard/ministries`, `/dashboard/ministries/:id` | Approved members | Ministries (Youth, Children, Women...) with programs, events, contacts and photos. Admins add, edit, delete and manage members |
 | `/dashboard/library` | Approved members | Study documents (PDFs). Opened through the API with the sign-in token, so they cannot be reached without signing in |
+| `/dashboard/requests` | Admins | What people sent through the public Get involved forms; add them to the register, ministries and clusters, or mark them done |
 | `/dashboard/members`, `/dashboard/clusters`, `/dashboard/sign-up` | Admins | Member register, location and fundraising groups, sign-up link and invitations |
 
 ## Dashboard look
@@ -114,6 +115,13 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 - Build new dashboard screens from `src/Components/ui/`. Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
+
+### 2026-11-23: Get involved forms feed the dashboard
+
+- The public Get involved forms now save their answers (they used to only email the church; the email is still sent). Every form asks for consent, and the ministry form offers the church's real ministries.
+- New dashboard page "Get involved requests" for admins: review, add a person to the register and chosen ministries and clusters (people already in the register are only added to the groups), or mark done. New requests are flagged on the overview.
+- The Privacy page mentions the forms.
+- Needs the backend's Get involved release (`migrate`).
 
 ### 2026-11-22: Announcements
 

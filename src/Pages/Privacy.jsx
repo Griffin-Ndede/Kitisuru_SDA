@@ -13,6 +13,7 @@ const sections = [
       "Your gender, date of birth and address, once you add them on My profile.",
       "The groups (prayer cells and departments) you belong to, and your role on the dashboard.",
       "When you signed up and when you agreed to us keeping your details.",
+      "If you fill in a form on the Get involved page: what you write in it (for example the ministries you want to join, or your child's details for a dedication). The church office reads it, follows up, and may add you to the register.",
       "Your password is stored scrambled, so nobody can read it, not even the church admins. If you sign in with Google, we receive only your email address from Google.",
     ],
   },

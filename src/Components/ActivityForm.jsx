@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { activityFields } from "./ActivitySchema";
+import { activityContacts, activityFields } from "./ActivitySchema";
+import { sendGetInvolved } from "../Api";
+import { errorMessage } from "../Api/client";
 import Swal from "sweetalert2";
 import emailjs from '@emailjs/browser';
 
 
-function Activityform({ activity }) {
+function Activityform({ activity, ministries = [], onClose }) {
     const [formData, setFormData] = useState({});
+    const [consent, setConsent] = useState(false);
+    const [busy, setBusy] = useState(false);
 
     useEffect(() => {
         const initialData = {};
@@ -48,7 +52,12 @@ function Activityform({ activity }) {
     };
 
 
-    const fields = activityFields[activity.key] || [];
+    // The ministry list comes from the church's real ministries
+    const fields = (activityFields[activity.key] || []).map((field) =>
+        field.name === "ministries"
+            ? { ...field, options: ministries.map((m) => ({ label: m.title, value: String(m.id) })) }
+            : field
+    );
 
     // field name -> field label
     const fieldLabelMap = Object.fromEntries(
@@ -126,17 +135,51 @@ Kitisuru SDA Church Website
         return message;
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    // The first filled-in field out of a list of candidates (mother, father...)
+    const firstFilled = (names = []) => names.map((n) => formData[n]).find((v) => v && String(v).trim()) || "";
 
-        const payload = {
-            activity: activity.key,
-            submittedAt: new Date().toISOString(),
-            data: formData,
+    // What the church office needs to follow up, sent to the backend
+    const buildSubmission = () => {
+        const contact = activityContacts[activity.key];
+        const used = new Set(["ministries", "area"]);
+        ["name", "email", "phone"].forEach((k) => contact[k].forEach((n) => used.add(n)));
+        const details = fields
+            .filter((f) => !used.has(f.name))
+            .map((f) => {
+                const value = formData[f.name];
+                const show = (v) => optionLabelMap[f.name]?.[v] || v;
+                return {
+                    label: f.label || f.name,
+                    value: Array.isArray(value) ? value.map(show) : typeof value === "boolean" ? (value ? "Yes" : "No") : show(value || ""),
+                };
+            });
+        return {
+            kind: contact.kind,
+            name: firstFilled(contact.name),
+            email: firstFilled(contact.email),
+            phone: firstFilled(contact.phone),
+            area: formData.area || "",
+            ministries: (formData.ministries || []).map(Number),
+            details,
+            consent,
+            website: formData.website || "", // hidden field: only bots fill it in
         };
+    };
 
-        const emailMessage = formatEmailMessage(payload);
-        // use sendForm if it is a form in which case you have to reference the form and use useRef for that otherwise just use .send if you are formatting your own message
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setBusy(true);
+        try {
+            await sendGetInvolved(buildSubmission());
+        } catch (err) {
+            setBusy(false);
+            Swal.fire({ title: "Error", text: errorMessage(err), icon: "error", confirmButtonText: "OK" });
+            return;
+        }
+
+        // The church also still gets an email about it. This is only a courtesy:
+        // the request is already saved, so a failed email is not shown as an error.
+        const payload = { activity: activity.key, submittedAt: new Date().toISOString(), data: formData };
         emailjs
             .send(
                 'Kitisuru_comms',
@@ -144,49 +187,18 @@ Kitisuru SDA Church Website
                 {
                     subject: `New ${activity.title} Submission`,
                     activity: activity.key,
-                    message: emailMessage,
+                    message: formatEmailMessage(payload),
                 },
                 'ujzRVhmE5hogh7h9b')
-            .then(
-                () => {
-                    successAlert();
-                    setFormData({
-                        name: '',
-                        email: '',
-                        school: '',
-                        date: '',
-                    })
-                },
-                () => {
-                    failureAlert();
-                    setFormData({
-                        name: '',
-                        email: '',
-                        school: '',
-                        date: '',
-                    })
-                },
-            );
-        // function to show success alert prompt
-        const successAlert = () => {
-            Swal.fire({
-                title: 'Success',
-                text: `Thank you for filling out the ${activity.title} form`,
-                icon: 'success',
-                confirmButtonText: 'OK',
-            })
-        };
+            .catch(() => {});
 
-        // function to show failure alert prompt
-        const failureAlert = (message) => {
-            Swal.fire({
-                title: 'Error',
-                text: message,
-                icon: 'error',
-                confirmButtonText: 'OK',
-            });
-        };
-
+        await Swal.fire({
+            title: 'Success',
+            text: `Thank you for filling out the ${activity.title} form. The church office will be in touch.`,
+            icon: 'success',
+            confirmButtonText: 'OK',
+        });
+        onClose?.();
     };
 
     return (
@@ -206,7 +218,7 @@ Kitisuru SDA Church Website
                 <form
                     onSubmit={handleSubmit}
                     className="space-y-5">
-                    {(activityFields[activity.key] || []).map((field) => (
+                    {fields.map((field) => (
                         <div key={field.name} className="mb-4">
 
                             {/* Label */}
@@ -322,11 +334,32 @@ Kitisuru SDA Church Website
                         </div>
                     ))}
 
+                    {/* Hidden from people; bots tend to fill every field */}
+                    <input
+                        type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true"
+                        value={formData.website || ""} onChange={handleChange}
+                        className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                    />
+
+                    <label className="flex items-start gap-2 text-sm text-gray-700">
+                        <input
+                            type="checkbox" required checked={consent}
+                            onChange={(e) => setConsent(e.target.checked)} className="mt-1"
+                        />
+                        <span>
+                            I agree that the church may keep these details to follow up with me.{" "}
+                            <a href="/privacy" target="_blank" rel="noreferrer" className="text-custom-blue underline">
+                                How we use your details
+                            </a>
+                        </span>
+                    </label>
+
                     <button
                         type="submit"
-                        className="w-full bg-custom-blue text-white py-3 rounded-xl font-medium"
+                        disabled={busy}
+                        className="w-full bg-custom-blue text-white py-3 rounded-xl font-medium disabled:opacity-60"
                     >
-                        Submit
+                        {busy ? "Sending..." : "Submit"}
                     </button>
                 </form>
 

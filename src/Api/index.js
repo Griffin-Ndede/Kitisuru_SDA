@@ -27,6 +27,16 @@ export const updateAnnouncement = (id, details) =>
   patch(`announcements/${id}/`, details, { auth: true });
 export const deleteAnnouncement = (id) => del(`announcements/${id}/`, { auth: true });
 
+// --- Get involved: the public forms and the admin's requests ------------------
+
+export const getInvolvedMinistries = () => get("get-involved/ministries/");
+export const sendGetInvolved = (form) => post("get-involved/", form);
+export const getRequests = () => get("get-involved/requests/", { auth: true });
+export const updateRequest = (id, changes) =>
+  patch(`get-involved/requests/${id}/`, changes, { auth: true });
+export const addRequestToRegister = (id, groups) =>
+  post(`get-involved/requests/${id}/add-member/`, groups, { auth: true });
+
 // --- Home page content (public) ---------------------------------------------
 
 export const getUpcomingEvents = () => get("content-library/upcoming-events/");
