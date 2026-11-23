@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { Link, useLoaderData, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import AuthLayout from "../Components/ui/AuthLayout";
 import Button from "../Components/ui/Button";
 import { Input, Checkbox } from "../Components/ui/Fields";
-import { FormError, Notice } from "../Components/ui/States";
-import { Link2 } from "lucide-react";
-import { register } from "../Api";
+import { FormError } from "../Components/ui/States";
+import { googleLogin, register } from "../Api";
 import { errorMessage, saveSession } from "../Api/client";
+import { googleEnabled, googleSignIn } from "../firebase";
 
-// The page behind the shared sign-up link the church puts in its WhatsApp group.
+// Anyone can create their own account here. The church's shared link (posted in
+// the WhatsApp group) just opens this same page.
 export default function Join() {
-  const { code, valid } = useLoaderData();
   const navigate = useNavigate();
   const [form, setForm] = useState({
     first_name: "", last_name: "", email: "", phone: "", password: "", confirm: "",
@@ -31,7 +31,7 @@ export default function Join() {
     setBusy(true);
     try {
       const { first_name, last_name, email, phone, password } = form;
-      saveSession(await register({ first_name, last_name, email, phone, password, consent, code }));
+      saveSession(await register({ first_name, last_name, email, phone, password, consent }));
       navigate("/dashboard");
     } catch (err) {
       setError(errorMessage(err));
@@ -39,22 +39,27 @@ export default function Join() {
     }
   };
 
-  if (!valid) {
-    return (
-      <AuthLayout
-        title="This sign-up link is not valid"
-        footer={<Link to="/signin" className="font-medium text-forest-700 underline">Already have an account? Sign in</Link>}
-      >
-        <Notice icon={Link2} tone="warm" title="The link may be old or switched off">
-          Please ask the church office for the current link.
-        </Notice>
-      </AuthLayout>
-    );
-  }
+  const handleGoogle = async () => {
+    setError("");
+    if (!consent) {
+      setError("Please tick the box to agree to the church keeping your details.");
+      return;
+    }
+    setBusy(true);
+    try {
+      saveSession(await googleLogin(await googleSignIn(), true));
+      navigate("/dashboard");
+    } catch (err) {
+      // closing Google's popup is not an error worth showing
+      const closed = err?.code === "auth/popup-closed-by-user" || err?.code === "auth/cancelled-popup-request";
+      setError(closed ? "" : errorMessage(err, "Google sign-in failed. Please try again."));
+      setBusy(false);
+    }
+  };
 
   return (
     <AuthLayout
-      title="Join our church family online"
+      title="Create your account"
       subtitle="Fill in your details and choose a password. The church office will approve your account."
       footer={<Link to="/signin" className="font-medium text-forest-700 underline">Already have an account? Sign in</Link>}
     >
@@ -79,6 +84,14 @@ export default function Join() {
         <FormError>{error}</FormError>
         <Button type="submit" size="lg" className="w-full" loading={busy}>Sign up</Button>
       </form>
+      {googleEnabled && (
+        <>
+          <p className="my-4 text-center text-sm text-muted">or</p>
+          <Button variant="secondary" size="lg" className="w-full" onClick={handleGoogle} disabled={busy}>
+            Sign up with Google
+          </Button>
+        </>
+      )}
     </AuthLayout>
   );
 }

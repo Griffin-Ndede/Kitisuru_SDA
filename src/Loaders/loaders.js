@@ -9,13 +9,11 @@ import {
   getDocuments,
   getInvolvedMinistries,
   getRequests,
-  checkJoinLink,
   getClusters,
   getMe,
   getMembers,
   getMinistries,
   getMinistryDetails,
-  getSignupLink,
   getUpcomingEvents,
   getUsers,
   getYoutubeLinks,
@@ -120,14 +118,5 @@ export const libraryLoader = async () => ({
 
 // Admin-only: the shared sign-up link, people waiting for approval, invitations.
 export const signUpAccessLoader = async () => {
-  const [people, signupLink] = await Promise.all([getUsers(), getSignupLink()]);
-  return { people, signupLink };
-};
-
-// The shared sign-up page: asks the API whether the link in the address is
-// still the current one, so the page can say so before anyone types anything.
-export const joinLoader = async ({ request }) => {
-  const code = new URL(request.url).searchParams.get("code") || "";
-  const { valid } = code ? await checkJoinLink(code) : { valid: false };
-  return { code, valid };
+  return { people: await getUsers() };
 };

@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { useLoaderData, useRevalidator } from "react-router";
 import {
   inviteUser,
-  makeNewSignupLink,
-  setSignupLinkActive,
   updateUser,
 } from "../../Api";
 import { errorMessage } from "../../Api/client";
-import { Check, Link2, MessageCircle, Power, RefreshCw, Send, X } from "lucide-react";
+import { Check, Link2, MessageCircle, Send, X } from "lucide-react";
 import Card from "../../Components/ui/Card";
 import Button from "../../Components/ui/Button";
 import Badge from "../../Components/ui/Badge";
@@ -30,7 +28,8 @@ const fullName = (p) => `${p.first_name} ${p.last_name}`.trim() || "—";
 // Admin only: the shared sign-up link, people waiting for approval, and
 // individual invitations. Everyone else is managed on the Members page.
 export default function SignUpAccess() {
-  const { people, signupLink } = useLoaderData();
+  const { people } = useLoaderData();
+  const signupLink = `${window.location.origin}/join`;
   const revalidator = useRevalidator();
   const [form, setForm] = useState(emptyForm);
   const toast = useToast();
@@ -75,39 +74,17 @@ export default function SignUpAccess() {
       <Card className="mb-6">
         <div className="flex items-center gap-3">
           <span className="grid size-10 place-items-center rounded-full bg-forest-50 text-forest-700"><Link2 className="size-5" /></span>
-          <h2 className="text-xl font-semibold">Sign-up link for the church</h2>
-          {signupLink.link && <Badge tone={signupLink.is_active ? "green" : "clay"}>{signupLink.is_active ? "On" : "Switched off"}</Badge>}
+          <h2 className="text-xl font-semibold">Sign-up page</h2>
+          <Badge tone="green">Open to everyone</Badge>
         </div>
         <p className="mt-2 mb-4 text-sm text-muted">
-          Post this one link in the church WhatsApp group. Everyone who uses it fills in their details and waits here for your approval.
+          People create their own account on the Sign in page (&ldquo;Create an account&rdquo;), with an email and password or with Google, and then wait here for your approval. This link opens the same page. It is only a backup you can post in the church WhatsApp group.
         </p>
-        {signupLink.link ? (
-          <>
-            <CopyLink link={signupLink.link}>
-              {signupLink.is_active && (
-                <Button size="sm" variant="secondary" icon={MessageCircle} href={whatsappShare(signupLink.link)} target="_blank" rel="noreferrer">
-                  Share on WhatsApp
-                </Button>
-              )}
-            </CopyLink>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <Button size="sm" variant="secondary" icon={Power} disabled={busy}
-                onClick={() => run(() => setSignupLinkActive(!signupLink.is_active), signupLink.is_active ? "Sign-up link switched off" : "Sign-up link switched on")}>
-                {signupLink.is_active ? "Switch off" : "Switch on"}
-              </Button>
-              <Button size="sm" variant="secondary" icon={RefreshCw} disabled={busy}
-                onClick={() => {
-                  if (window.confirm("Make a new link? The old link will stop working.")) {
-                    run(makeNewSignupLink, "New sign-up link made. The old one no longer works");
-                  }
-                }}>
-                Make a new link
-              </Button>
-            </div>
-          </>
-        ) : (
-          <Button size="lg" disabled={busy} onClick={() => run(makeNewSignupLink, "Sign-up link made")}>Make the sign-up link</Button>
-        )}
+        <CopyLink link={signupLink}>
+          <Button size="sm" variant="secondary" icon={MessageCircle} href={whatsappShare(signupLink)} target="_blank" rel="noreferrer">
+            Share on WhatsApp
+          </Button>
+        </CopyLink>
       </Card>
 
       {waiting.length > 0 && (

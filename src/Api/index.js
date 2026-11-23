@@ -46,18 +46,13 @@ export const getYoutubeLinks = () => get("content-library/youtube-links/");
 // --- Accounts and sign-in ---------------------------------------------------
 
 // The shared sign-up link the church puts in its WhatsApp group.
-export const checkJoinLink = (code) =>
-  get(`accounts/join/?code=${encodeURIComponent(code)}`);
 export const register = (details) => post("accounts/register/", details);
-export const getSignupLink = () => get("accounts/signup-link/", { auth: true });
-export const makeNewSignupLink = () =>
-  post("accounts/signup-link/", {}, { auth: true });
-export const setSignupLinkActive = (isActive) =>
-  patch("accounts/signup-link/", { is_active: isActive }, { auth: true });
 
 export const login = (email, password) =>
   post("accounts/login/", { email, password });
-export const googleLogin = (token) => post("accounts/google-login/", { token });
+// `consent` is sent only from the sign-up page, where a Google account may create a new member.
+export const googleLogin = (token, consent) =>
+  post("accounts/google-login/", consent ? { token, consent: true } : { token });
 export const requestPasswordReset = (email) =>
   post("accounts/password-reset/", { email });
 // Used by both "forgot password" and "accept invitation" links.
