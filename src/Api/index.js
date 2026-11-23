@@ -50,9 +50,7 @@ export const register = (details) => post("accounts/register/", details);
 
 export const login = (email, password) =>
   post("accounts/login/", { email, password });
-// `consent` is sent only from the sign-up page, where a Google account may create a new member.
-export const googleLogin = (token, consent) =>
-  post("accounts/google-login/", consent ? { token, consent: true } : { token });
+export const googleLogin = (token) => post("accounts/google-login/", { token });
 export const requestPasswordReset = (email) =>
   post("accounts/password-reset/", { email });
 // Used by both "forgot password" and "accept invitation" links.

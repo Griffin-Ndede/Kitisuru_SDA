@@ -78,7 +78,7 @@ export default function SignUpAccess() {
           <Badge tone="green">Open to everyone</Badge>
         </div>
         <p className="mt-2 mb-4 text-sm text-muted">
-          People create their own account on the Sign in page (&ldquo;Create an account&rdquo;), with an email and password or with Google, and then wait here for your approval. This link opens the same page. It is only a backup you can post in the church WhatsApp group.
+          People create their own account on the Sign in page (&ldquo;Create an account&rdquo;), with an email and password, and then wait here for your approval. This link opens the same page. It is only a backup you can post in the church WhatsApp group.
         </p>
         <CopyLink link={signupLink}>
           <Button size="sm" variant="secondary" icon={MessageCircle} href={whatsappShare(signupLink)} target="_blank" rel="noreferrer">

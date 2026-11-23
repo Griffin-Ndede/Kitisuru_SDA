@@ -4,9 +4,8 @@ import AuthLayout from "../Components/ui/AuthLayout";
 import Button from "../Components/ui/Button";
 import { Input, Checkbox } from "../Components/ui/Fields";
 import { FormError } from "../Components/ui/States";
-import { googleLogin, register } from "../Api";
+import { register } from "../Api";
 import { errorMessage, saveSession } from "../Api/client";
-import { googleEnabled, googleSignIn } from "../firebase";
 
 // Anyone can create their own account here. The church's shared link (posted in
 // the WhatsApp group) just opens this same page.
@@ -39,24 +38,6 @@ export default function Join() {
     }
   };
 
-  const handleGoogle = async () => {
-    setError("");
-    if (!consent) {
-      setError("Please tick the box to agree to the church keeping your details.");
-      return;
-    }
-    setBusy(true);
-    try {
-      saveSession(await googleLogin(await googleSignIn(), true));
-      navigate("/dashboard");
-    } catch (err) {
-      // closing Google's popup is not an error worth showing
-      const closed = err?.code === "auth/popup-closed-by-user" || err?.code === "auth/cancelled-popup-request";
-      setError(closed ? "" : errorMessage(err, "Google sign-in failed. Please try again."));
-      setBusy(false);
-    }
-  };
-
   return (
     <AuthLayout
       title="Create your account"
@@ -84,14 +65,6 @@ export default function Join() {
         <FormError>{error}</FormError>
         <Button type="submit" size="lg" className="w-full" loading={busy}>Sign up</Button>
       </form>
-      {googleEnabled && (
-        <>
-          <p className="my-4 text-center text-sm text-muted">or</p>
-          <Button variant="secondary" size="lg" className="w-full" onClick={handleGoogle} disabled={busy}>
-            Sign up with Google
-          </Button>
-        </>
-      )}
     </AuthLayout>
   );
 }
