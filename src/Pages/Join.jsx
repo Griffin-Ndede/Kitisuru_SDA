@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { Link, useLoaderData, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import AuthLayout from "../Components/ui/AuthLayout";
 import Button from "../Components/ui/Button";
 import { Input, Checkbox } from "../Components/ui/Fields";
-import { FormError, Notice } from "../Components/ui/States";
-import { Link2 } from "lucide-react";
+import { FormError } from "../Components/ui/States";
 import { register } from "../Api";
 import { errorMessage, saveSession } from "../Api/client";
 
-// The page behind the shared sign-up link the church puts in its WhatsApp group.
+// Anyone can create their own account here. The church's shared link (posted in
+// the WhatsApp group) just opens this same page.
 export default function Join() {
-  const { code, valid } = useLoaderData();
   const navigate = useNavigate();
   const [form, setForm] = useState({
     first_name: "", last_name: "", email: "", phone: "", password: "", confirm: "",
@@ -31,7 +30,7 @@ export default function Join() {
     setBusy(true);
     try {
       const { first_name, last_name, email, phone, password } = form;
-      saveSession(await register({ first_name, last_name, email, phone, password, consent, code }));
+      saveSession(await register({ first_name, last_name, email, phone, password, consent }));
       navigate("/dashboard");
     } catch (err) {
       setError(errorMessage(err));
@@ -39,22 +38,9 @@ export default function Join() {
     }
   };
 
-  if (!valid) {
-    return (
-      <AuthLayout
-        title="This sign-up link is not valid"
-        footer={<Link to="/signin" className="font-medium text-forest-700 underline">Already have an account? Sign in</Link>}
-      >
-        <Notice icon={Link2} tone="warm" title="The link may be old or switched off">
-          Please ask the church office for the current link.
-        </Notice>
-      </AuthLayout>
-    );
-  }
-
   return (
     <AuthLayout
-      title="Join our church family online"
+      title="Create your account"
       subtitle="Fill in your details and choose a password. The church office will approve your account."
       footer={<Link to="/signin" className="font-medium text-forest-700 underline">Already have an account? Sign in</Link>}
     >

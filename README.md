@@ -42,7 +42,7 @@ The site is built for Netlify (`netlify.toml`): publish `dist/`, and every addre
 | `/giving` | Giving options and M-Pesa paybill details | static |
 | `/getinvolved` | Ways to get involved, with a form that sends email (EmailJS) | static |
 | `/contact` | Contact details and social links | static |
-| `/join?code=…` | The shared sign-up page: name, email, phone and password (the link is posted in the church WhatsApp group) | API (loader + action) |
+| `/join` | Create your own account: name, email, phone and password. The shared link in the WhatsApp group (`/join?code=…`) opens the same page | API (action) |
 | `/signin` | Sign in with email and password, or Google | API (action) |
 | `/forgot-password` | Ask for a password reset email | API (action) |
 | `/reset-password` | Choose a password from an invitation or reset link | API (action) |
@@ -50,7 +50,7 @@ The site is built for Netlify (`netlify.toml`): publish `dist/`, and every addre
 | `/dashboard/profile` | My profile: members add and edit their name, phone, gender, date of birth and address; download their data; delete their account | API (action) |
 | `/dashboard/members` | Admins only: the member register with search and filters; add and edit members, their clusters, role and approval; import (CSV or Excel, with a preview) and export | API (loader + actions) |
 | `/dashboard/clusters` | Admins only: create prayer cells and departments and add or remove members | API (loader + actions) |
-| `/dashboard/sign-up` | Admins only: the shared sign-up link (copy, share on WhatsApp, switch off, make a new one), approve or reject sign-ups, invite one person with a role | API (loader + actions) |
+| `/dashboard/sign-up` | Admins only: the sign-up page address (copy, share on WhatsApp), approve or reject sign-ups, invite one person with a role | API (loader + actions) |
 | `/privacy` | How the church uses members' details (read it with the church leadership and adjust it) | static |
 
 ## How pages get their data
@@ -115,6 +115,12 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 - Build new dashboard screens from `src/Components/ui/`. Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
+
+### 2026-11-23: People create their own accounts
+
+- The Sign in page has a "Create an account" link to `/join`. Anyone can sign up there with an email and password, with no link needed (Google sign-up comes later). New accounts still wait for an admin's approval.
+- The shared link is now only a backup: `/join` opens the same page, and old links with `?code=` keep working. On Sign-up & invitations the link card shows the plain address with Copy and Share on WhatsApp (the switch off and make-a-new-link buttons are gone, as there is no code to cancel).
+- Needs the backend change from the same day (sign-up without the link code).
 
 ### 2026-11-23: Get involved forms feed the dashboard
 

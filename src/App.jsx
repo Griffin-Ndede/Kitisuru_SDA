@@ -37,7 +37,6 @@ import {
   dashboardLoader,
   membersLoader,
   signUpAccessLoader,
-  joinLoader,
 } from './Loaders/loaders'
 
 // All the site's pages. The root route's errorElement is shown instead of a
@@ -59,7 +58,7 @@ const router = createBrowserRouter([
       { path: 'getinvolved', element: <GetInvolved />, loader: getInvolvedLoader },
       { path: 'contact', element: <Contact /> },
       { path: 'signin', element: <SignIn />, loader: signInLoader },
-      { path: 'join', element: <Join />, loader: joinLoader },
+      { path: 'join', element: <Join /> },
       { path: 'forgot-password', element: <ForgotPassword /> },
       { path: 'reset-password', element: <ResetPassword /> },
       { path: 'privacy', element: <Privacy /> },

@@ -69,8 +69,9 @@ export default function SignIn() {
           </Button>
         </>
       )}
-      <p className="mt-6 text-center text-xs text-muted">
-        New here? Use the sign-up link the church shared in the WhatsApp group.
+      <p className="mt-6 text-center text-sm text-muted">
+        New here?{" "}
+        <Link to="/join" className="font-medium text-forest-700 underline">Create an account</Link>
       </p>
     </AuthLayout>
   );
