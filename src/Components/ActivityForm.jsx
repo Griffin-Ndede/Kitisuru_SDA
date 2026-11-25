@@ -10,6 +10,7 @@ function Activityform({ activity, ministries = [], onClose }) {
     const [formData, setFormData] = useState({});
     const [consent, setConsent] = useState(false);
     const [busy, setBusy] = useState(false);
+    const [formError, setFormError] = useState("");
 
     useEffect(() => {
         const initialData = {};
@@ -30,6 +31,7 @@ function Activityform({ activity, ministries = [], onClose }) {
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
 
+        setFormError("");
         setFormData(prev => {
             // Single checkbox
             if (type === "checkbox" && !Array.isArray(prev[name])) {
@@ -173,9 +175,26 @@ Kitisuru SDA Church Website
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // The church office needs a phone number to reach the person, and a ministry to add them to.
+        // Checked here so the message appears in the form, before anything is sent.
+        const submission = buildSubmission();
+        if (!submission.phone) {
+            setFormError(
+                submission.kind === "child_dedication"
+                    ? "Please give the mother's or the father's phone number so the church office can reach you."
+                    : "Please give a phone number so the church office can reach you."
+            );
+            return;
+        }
+        if (submission.kind === "ministry" && submission.ministries.length === 0) {
+            setFormError("Please choose at least one ministry.");
+            return;
+        }
+
         setBusy(true);
         try {
-            await sendGetInvolved(buildSubmission());
+            await sendGetInvolved(submission);
         } catch (err) {
             setBusy(false);
             Swal.fire({
@@ -368,6 +387,12 @@ Kitisuru SDA Church Website
                             </a>
                         </span>
                     </label>
+
+                    {formError && (
+                        <p role="alert" className="rounded-3xl bg-clay-100 px-4 py-3 text-sm font-medium text-clay-700">
+                            {formError}
+                        </p>
+                    )}
 
                     <button
                         type="submit"

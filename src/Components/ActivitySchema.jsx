@@ -83,6 +83,7 @@ export const activityFields = {
             name: "Phone_number",
             type: "text",
             label: "Phone number",
+            required: true,
             placeholder: "Enter your phone number"
         },
         {
@@ -138,6 +139,7 @@ export const activityFields = {
             name: "Phone_number",
             type: "text",
             label: "Phone number",
+            required: true,
             placeholder: "Enter your phone number"
         },
         {
@@ -218,6 +220,7 @@ export const activityFields = {
             name: "Phone_number",
             type: "text",
             label: "Phone number",
+            required: true,
             placeholder: "+254 712 345 678"
         },
         {
