@@ -1,6 +1,22 @@
-import React, { useMemo, useState, useEffect, useRef } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Link, useLoaderData, useNavigate, useRevalidator } from "react-router";
-import { ArrowLeft, Calendar, CircleCheck, Clock, HeartHandshake, Mail, MapPin, Pencil, Phone, Trash2, UserMinus, UserPlus, LoaderCircle, X, Search, CircleAlert } from "lucide-react";
+import {
+  ArrowLeft,
+  Calendar,
+  CircleCheck,
+  Clock,
+  HeartHandshake,
+  Mail,
+  MapPin,
+  Pencil,
+  Phone,
+  Trash2,
+  UserMinus,
+  UserPlus,
+  X,
+  Search,
+  CircleAlert,
+} from "lucide-react";
 import { changeMinistryMembers, deleteMinistry } from "../../Api";
 import { errorMessage } from "../../Api/client";
 import { useToast } from "../../Context/ToastContext";
@@ -32,7 +48,7 @@ export default function MinistryDetail() {
   const inMinistry = useMemo(() => new Set((ministry.members || []).map((m) => m.id)), [ministry]);
   const candidates = useMemo(
     () => (search.trim() ? members.filter((m) => !inMinistry.has(m.id) && matchesSearch(m, search)).slice(0, 8) : []),
-    [members, inMinistry, search]
+    [members, inMinistry, search],
   );
   const events = [...(ministry.events || [])].sort((a, b) => new Date(a.start_date) - new Date(b.start_date));
 
@@ -58,15 +74,33 @@ export default function MinistryDetail() {
     }
   };
 
+  const modalOpen = Boolean(editing || photo);
+  // A box over the page closes on Escape and stops the page behind it from scrolling
+  useEffect(() => {
+    if (!modalOpen) return undefined;
+    const onKey = (event) => event.key === "Escape" && (photo ? setPhoto(null) : setEditing(false));
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [modalOpen, photo]);
+
   return (
     <div>
-      <Link to="/dashboard/ministries" className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-forest-800 hover:underline">
+      <Link
+        to="/dashboard/ministries"
+        className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-forest-800 hover:underline"
+      >
         <ArrowLeft className="size-4" /> All ministries
       </Link>
 
       <header className="mb-8 flex flex-wrap items-start justify-between gap-4">
         <div className="flex items-start gap-4">
-          <span className="grid size-14 shrink-0 place-items-center rounded-full bg-forest-50 text-forest-700"><HeartHandshake className="size-7" /></span>
+          <span className="grid size-14 shrink-0 place-items-center rounded-full bg-forest-50 text-forest-700">
+            <HeartHandshake className="size-7" />
+          </span>
           <div>
             <h1 className="text-3xl font-semibold sm:text-4xl">{ministry.title}</h1>
             {ministry.mission && <p className="mt-1.5 max-w-2xl text-muted">{ministry.mission}</p>}
@@ -74,12 +108,34 @@ export default function MinistryDetail() {
         </div>
         {isAdmin && (
           <div className="flex gap-2">
-            <Button variant="secondary" size="sm" icon={Pencil} onClick={() => setEditing(true)}>Edit</Button>
-            <Button variant="danger" size="sm" icon={Trash2} onClick={handleDelete} disabled={busy}>Delete</Button>
+            <button
+              type="button"
+              className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 border border-line bg-white text-ink hover:border-forest-600 hover:text-forest-800 px-3 py-1.5 text-sm"
+              onClick={() => setEditing(true)}
+            >
+              <Pencil className="size-4" />
+              Edit
+            </button>
+            <button
+              type="button"
+              className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 bg-clay-600 text-white hover:bg-clay-700 px-3 py-1.5 text-sm"
+              disabled={busy}
+              onClick={handleDelete}
+            >
+              <Trash2 className="size-4" />
+              Delete
+            </button>
           </div>
         )}
       </header>
-      <div className="mb-4"><FormError>{error}</FormError></div>
+      <div className="mb-4">
+        {error && (
+          <p role="alert" className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
+            <CircleAlert className="mt-0.5 size-4 shrink-0" />
+            {error}
+          </p>
+        )}
+      </div>
 
       <div className="grid gap-8 lg:grid-cols-3">
         <div className="space-y-8 lg:col-span-2">
@@ -93,11 +149,14 @@ export default function MinistryDetail() {
             ) : (
               <div className="grid gap-4 sm:grid-cols-2">
                 {ministry.programs.map((p) => (
-                  <Card key={p.id}>
+                  <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6" key={p.id}>
                     <h3 className="text-lg font-semibold">{p.title}</h3>
                     <p className="mt-1 text-sm text-muted">{p.description}</p>
-                    <p className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-forest-800"><Clock className="size-4" />{p.schedule}</p>
-                  </Card>
+                    <p className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-forest-800">
+                      <Clock className="size-4" />
+                      {p.schedule}
+                    </p>
+                  </div>
                 ))}
               </div>
             )}
@@ -109,15 +168,23 @@ export default function MinistryDetail() {
             ) : (
               <div className="grid gap-4 sm:grid-cols-2">
                 {events.map((e) => (
-                  <Card key={e.id}>
+                  <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6" key={e.id}>
                     <div className="flex items-start justify-between gap-2">
                       <h3 className="text-lg font-semibold">{e.title}</h3>
-                      {new Date(e.end_date) < new Date() && <CircleCheck className="size-5 shrink-0 text-forest-600" aria-label="Past event" />}
+                      {new Date(e.end_date) < new Date() && (
+                        <CircleCheck className="size-5 shrink-0 text-forest-600" aria-label="Past event" />
+                      )}
                     </div>
                     <p className="mt-1 text-sm text-muted">{e.description}</p>
-                    <p className="mt-3 flex items-center gap-1.5 text-sm text-forest-800"><MapPin className="size-4" />{e.location}</p>
-                    <p className="mt-1 flex items-center gap-1.5 text-sm text-forest-800"><Calendar className="size-4" />{formatDate(e.start_date)} to {formatDate(e.end_date)}</p>
-                  </Card>
+                    <p className="mt-3 flex items-center gap-1.5 text-sm text-forest-800">
+                      <MapPin className="size-4" />
+                      {e.location}
+                    </p>
+                    <p className="mt-1 flex items-center gap-1.5 text-sm text-forest-800">
+                      <Calendar className="size-4" />
+                      {formatDate(e.start_date)} to {formatDate(e.end_date)}
+                    </p>
+                  </div>
                 ))}
               </div>
             )}
@@ -127,8 +194,18 @@ export default function MinistryDetail() {
             <Section title="Photos">
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                 {ministry.gallery_images.map((g, i) => (
-                  <button key={g.id ?? i} type="button" onClick={() => setPhoto(photoUrl(g.image))} className="overflow-hidden rounded-2xl">
-                    <img src={photoUrl(g.image)} alt={`${ministry.title} photo ${i + 1}`} loading="lazy" className="aspect-square w-full object-cover transition hover:scale-105" />
+                  <button
+                    key={g.id ?? i}
+                    type="button"
+                    onClick={() => setPhoto(photoUrl(g.image))}
+                    className="overflow-hidden rounded-2xl"
+                  >
+                    <img
+                      src={photoUrl(g.image)}
+                      alt={`${ministry.title} photo ${i + 1}`}
+                      loading="lazy"
+                      className="aspect-square w-full object-cover transition hover:scale-105"
+                    />
                   </button>
                 ))}
               </div>
@@ -137,7 +214,7 @@ export default function MinistryDetail() {
         </div>
 
         <aside className="space-y-6">
-          <Card>
+          <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6">
             <h2 className="mb-3 text-xl font-semibold">Get in touch</h2>
             {ministry.contacts.length === 0 ? (
               <p className="text-sm text-muted">No contact people listed yet.</p>
@@ -145,35 +222,77 @@ export default function MinistryDetail() {
               <ul className="space-y-4">
                 {ministry.contacts.map((c) => (
                   <li key={c.id} className="flex items-start gap-3">
-                    <Avatar name={c.name} />
+                    <span
+                      className="size-10 text-sm grid shrink-0 place-items-center rounded-full bg-forest-100 font-semibold text-forest-800"
+                      aria-hidden="true"
+                    >
+                      {(c.name || "")
+                        .trim()
+                        .split(/\s+/)
+                        .slice(0, 2)
+                        .map((part) => part[0]?.toUpperCase())
+                        .join("") || "?"}
+                    </span>
                     <div className="min-w-0 text-sm">
                       <p className="font-semibold">{c.name}</p>
                       {c.role && <p className="text-muted">{c.role}</p>}
-                      {c.phone && <a href={`tel:${c.phone}`} className="mt-1 flex items-center gap-1.5 text-forest-800"><Phone className="size-3.5" />{c.phone}</a>}
-                      {c.email && <a href={`mailto:${c.email}`} className="flex items-center gap-1.5 break-all text-forest-800"><Mail className="size-3.5" />{c.email}</a>}
+                      {c.phone && (
+                        <a href={`tel:${c.phone}`} className="mt-1 flex items-center gap-1.5 text-forest-800">
+                          <Phone className="size-3.5" />
+                          {c.phone}
+                        </a>
+                      )}
+                      {c.email && (
+                        <a href={`mailto:${c.email}`} className="flex items-center gap-1.5 break-all text-forest-800">
+                          <Mail className="size-3.5" />
+                          {c.email}
+                        </a>
+                      )}
                     </div>
                   </li>
                 ))}
               </ul>
             )}
-          </Card>
+          </div>
 
           {isAdmin && (
-            <Card>
+            <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6">
               <h2 className="mb-3 text-xl font-semibold">Members ({ministry.members.length})</h2>
-              <SearchInput value={search} onChange={setSearch} placeholder="Find someone to add" />
+              <div className="relative">
+                <Search className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted" />
+                <input
+                  type="search"
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  placeholder={"Find someone to add"}
+                  aria-label={"Find someone to add"}
+                  className="input pl-10"
+                />
+              </div>
               {candidates.length > 0 && (
                 <ul className="mt-2 divide-y divide-line/70 rounded-xl border border-line px-3">
                   {candidates.map((m) => (
                     <li key={m.id} className="flex items-center justify-between gap-2 py-2">
                       <span className="min-w-0 truncate text-sm">{fullName(m)}</span>
-                      <Button size="sm" variant="secondary" icon={UserPlus} disabled={busy} aria-label={`Add ${fullName(m)}`}
-                        onClick={() => run(() => changeMinistryMembers(ministry.id, { add: [m.id] }), `${fullName(m)} added`)}>Add</Button>
+                      <button
+                        type="button"
+                        className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 border border-line bg-white text-ink hover:border-forest-600 hover:text-forest-800 px-3 py-1.5 text-sm"
+                        disabled={busy}
+                        aria-label={`Add ${fullName(m)}`}
+                        onClick={() =>
+                          run(() => changeMinistryMembers(ministry.id, { add: [m.id] }), `${fullName(m)} added`)
+                        }
+                      >
+                        <UserPlus className="size-4" />
+                        Add
+                      </button>
                     </li>
                   ))}
                 </ul>
               )}
-              {search.trim() && candidates.length === 0 && <p className="mt-2 text-sm text-muted">No one else matches.</p>}
+              {search.trim() && candidates.length === 0 && (
+                <p className="mt-2 text-sm text-muted">No one else matches.</p>
+              )}
               {ministry.members.length === 0 ? (
                 <p className="mt-3 text-sm text-muted">No one yet.</p>
               ) : (
@@ -181,138 +300,115 @@ export default function MinistryDetail() {
                   {ministry.members.map((m) => (
                     <li key={m.id} className="flex items-center justify-between gap-2 py-2.5">
                       <span className="flex min-w-0 items-center gap-2.5">
-                        <Avatar name={m.name} size="sm" />
+                        <span
+                          className="size-8 text-xs grid shrink-0 place-items-center rounded-full bg-forest-100 font-semibold text-forest-800"
+                          aria-hidden="true"
+                        >
+                          {(m.name || "")
+                            .trim()
+                            .split(/\s+/)
+                            .slice(0, 2)
+                            .map((part) => part[0]?.toUpperCase())
+                            .join("") || "?"}
+                        </span>
                         <span className="min-w-0">
                           <span className="block truncate text-sm font-medium">{m.name}</span>
                           <span className="block truncate text-xs text-muted">{m.phone || m.email}</span>
                         </span>
                       </span>
-                      <Button size="sm" variant="ghost" icon={UserMinus} disabled={busy} aria-label={`Remove ${m.name}`}
-                        onClick={() => run(() => changeMinistryMembers(ministry.id, { remove: [m.id] }), `${m.name} removed`)} />
+                      <button
+                        type="button"
+                        className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 text-forest-800 hover:bg-forest-50 px-3 py-1.5 text-sm"
+                        disabled={busy}
+                        aria-label={`Remove ${m.name}`}
+                        onClick={() =>
+                          run(() => changeMinistryMembers(ministry.id, { remove: [m.id] }), `${m.name} removed`)
+                        }
+                      >
+                        <UserMinus className="size-4" />
+                      </button>
                     </li>
                   ))}
                 </ul>
               )}
-            </Card>
+            </div>
           )}
         </aside>
       </div>
 
       {editing && (
-        <Modal title={`Edit ${ministry.title}`} onClose={() => setEditing(false)}>
-          <MinistryForm ministry={ministry} onClose={() => setEditing(false)} onSaved={() => { setEditing(false); revalidator.revalidate(); }} />
-        </Modal>
+        <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-6">
+          <div
+            className="absolute inset-0 bg-forest-950/50 backdrop-blur-[2px]"
+            onClick={() => setEditing(false)}
+            aria-hidden="true"
+          />
+          <div
+            tabIndex={-1}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Edit ${ministry.title}`}
+            className="rise relative flex max-h-[92vh] w-full flex-col rounded-t-3xl bg-white shadow-lift outline-none sm:rounded-3xl sm:max-w-xl"
+          >
+            <header className="flex items-start justify-between gap-4 border-b border-line px-5 py-4 sm:px-6">
+              <div>
+                <h2 className="text-xl font-semibold">{`Edit ${ministry.title}`}</h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setEditing(false)}
+                aria-label="Close"
+                className="rounded-full p-1.5 text-muted hover:bg-paper-deep hover:text-ink"
+              >
+                <X className="size-5" />
+              </button>
+            </header>
+            <div className="overflow-y-auto px-5 py-5 sm:px-6">
+              <MinistryForm
+                ministry={ministry}
+                onClose={() => setEditing(false)}
+                onSaved={() => {
+                  setEditing(false);
+                  revalidator.revalidate();
+                }}
+              />
+            </div>
+          </div>
+        </div>
       )}
       {photo && (
-        <Modal title={ministry.title} size="lg" onClose={() => setPhoto(null)}>
-          <img src={photo} alt="" className="mx-auto max-h-[70vh] rounded-xl object-contain" />
-        </Modal>
+        <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-6">
+          <div
+            className="absolute inset-0 bg-forest-950/50 backdrop-blur-[2px]"
+            onClick={() => setPhoto(null)}
+            aria-hidden="true"
+          />
+          <div
+            tabIndex={-1}
+            role="dialog"
+            aria-modal="true"
+            aria-label={ministry.title}
+            className="rise relative flex max-h-[92vh] w-full flex-col rounded-t-3xl bg-white shadow-lift outline-none sm:rounded-3xl sm:max-w-3xl"
+          >
+            <header className="flex items-start justify-between gap-4 border-b border-line px-5 py-4 sm:px-6">
+              <div>
+                <h2 className="text-xl font-semibold">{ministry.title}</h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPhoto(null)}
+                aria-label="Close"
+                className="rounded-full p-1.5 text-muted hover:bg-paper-deep hover:text-ink"
+              >
+                <X className="size-5" />
+              </button>
+            </header>
+            <div className="overflow-y-auto px-5 py-5 sm:px-6">
+              <img src={photo} alt="" className="mx-auto max-h-[70vh] rounded-xl object-contain" />
+            </div>
+          </div>
+        </div>
       )}
     </div>
-  );
-}
-
-// ---- Small UI pieces used only on this page ----
-
-function Card({ as: Tag = "div", padded = true, className = "", children, ...props }) {
-  return (
-    <Tag className={`rounded-card border border-line bg-white shadow-card ${padded ? "p-5 sm:p-6" : ""} ${className}`} {...props}>
-      {children}
-    </Tag>
-  );
-}
-
-const VARIANTS = {
-  primary: "bg-forest-900 text-paper hover:bg-forest-800 shadow-card",
-  accent: "bg-marigold-500 text-forest-950 hover:bg-marigold-400 shadow-card",
-  secondary: "border border-line bg-white text-ink hover:border-forest-600 hover:text-forest-800",
-  ghost: "text-forest-800 hover:bg-forest-50",
-  danger: "bg-clay-600 text-white hover:bg-clay-700",
-};
-
-const SIZES = { sm: "px-3 py-1.5 text-sm", md: "px-4 py-2.5 text-sm", lg: "px-6 py-3.5 text-base" };
-
-// Renders a <button>, a router <Link> (`to`) or an <a> (`href`) with one look.
-function Button({ variant = "primary", size = "md", to, href, loading, icon: Icon, className = "", children, ...props }) {
-  const classes = `inline-flex items-center justify-center gap-2 rounded-full font-semibold transition
-    active:translate-y-px disabled:opacity-60 ${VARIANTS[variant]} ${SIZES[size]} ${className}`;
-  const content = (
-    <>
-      {loading ? <LoaderCircle className="size-4 animate-spin" /> : Icon ? <Icon className="size-4" /> : null}
-      {children}
-    </>
-  );
-  if (to) return <Link to={to} className={classes} {...props}>{content}</Link>;
-  if (href) return <a href={href} className={classes} {...props}>{content}</a>;
-  return <button type="button" className={classes} disabled={loading || props.disabled} {...props}>{content}</button>;
-}
-
-const initials = (name = "") =>
-  name.trim().split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("") || "?";
-
-function Avatar({ name, size = "md" }) {
-  const sizes = { sm: "size-8 text-xs", md: "size-10 text-sm", lg: "size-16 text-xl" };
-  return (
-    <span className={`${sizes[size]} grid shrink-0 place-items-center rounded-full bg-forest-100 font-semibold text-forest-800`} aria-hidden="true">
-      {initials(name)}
-    </span>
-  );
-}
-
-// A box over a dimmed page (a bottom sheet on phones). Escape or a click outside closes it.
-function Modal({ title, description, size = "md", onClose, children }) {
-  const panel = useRef(null);
-
-  useEffect(() => {
-    const onKey = (event) => event.key === "Escape" && onClose();
-    document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    panel.current?.focus();
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [onClose]);
-
-  const width = { sm: "sm:max-w-md", md: "sm:max-w-xl", lg: "sm:max-w-3xl", xl: "sm:max-w-6xl" }[size];
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-6">
-      <div className="absolute inset-0 bg-forest-950/50 backdrop-blur-[2px]" onClick={onClose} aria-hidden="true" />
-      <div
-        ref={panel} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title}
-        className={`rise relative flex max-h-[92vh] w-full flex-col rounded-t-3xl bg-white shadow-lift outline-none sm:rounded-3xl ${width}`}
-      >
-        <header className="flex items-start justify-between gap-4 border-b border-line px-5 py-4 sm:px-6">
-          <div>
-            <h2 className="text-xl font-semibold">{title}</h2>
-            {description && <p className="mt-0.5 text-sm text-muted">{description}</p>}
-          </div>
-          <button type="button" onClick={onClose} aria-label="Close" className="rounded-full p-1.5 text-muted hover:bg-paper-deep hover:text-ink">
-            <X className="size-5" />
-          </button>
-        </header>
-        <div className="overflow-y-auto px-5 py-5 sm:px-6">{children}</div>
-      </div>
-    </div>
-  );
-}
-
-function SearchInput({ value, onChange, placeholder = "Search", className = "" }) {
-  return (
-    <div className={`relative ${className}`}>
-      <Search className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted" />
-      <input type="search" value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} aria-label={placeholder} className="input pl-10" />
-    </div>
-  );
-}
-
-// A banner for an error next to a form.
-function FormError({ children }) {
-  if (!children) return null;
-  return (
-    <p role="alert" className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
-      <CircleAlert className="mt-0.5 size-4 shrink-0" />{children}
-    </p>
   );
 }
