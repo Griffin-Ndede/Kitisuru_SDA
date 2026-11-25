@@ -87,7 +87,7 @@ To add a page that needs dataTo add a page that needs data: add the endpoint to 
 | `user` | The signed-in person (name, email, role, approved, ministries, groups...), or `null` |
 | `loading` | True only while the first check with the server runs |
 | `isSignedIn`, `role`, `isApproved` | Short forms of the above |
-| `isAdmin`, `hasRole("admin", "treasurer")` | Rights, worked out once: only an approved account has any |
+| `isAdmin`, `hasRole("admin")` | Rights, worked out once: only an approved account has any |
 | `signIn(session)` | Used by the sign-in and sign-up pages: keeps the tokens and makes the person the current user |
 | `signOut()` | Signs out of Google, then removes the session |
 | `refreshUser()` | Asks the server for the current details (used after saving the profile and when moving between dashboard pages) |
@@ -128,6 +128,9 @@ Work on a branch, keep pull requests small and focused, and make sure `npm run l
 | `/dashboard/library` | Approved members | Study documents (PDFs). Opened through the API with the sign-in token, so they cannot be reached without signing in |
 | `/dashboard/hymnal` | Approved members | The hymnal in five books (SDA Hymnal in English; Christ In Song in Kiswahili, Dholuo, Ekegusii and Kikuyu). Search by number, title or words; a Favourites tab. What is shown comes from the page address (`?language=`, `?search=`, `?favourites=true`) |
 | `/dashboard/hymnal/:id` | Approved members | One hymn: numbered verses, the refrain set apart, text size, save as favourite, previous and next |
+| `/dashboard/leaders` | Approved members | Who is serving: each position with its current holders and when the term ends (names only, no phone numbers or emails) |
+| `/dashboard/leadership` | Admins | Create position titles (optionally tied to a ministry), appoint members for two-year terms (one title can have several people), optionally give admin access, end terms, and see terms ending within three months |
+| `/dashboard/activity` | Admins | Activity log: who changed what and when, newest first, grouped by day. Filter by admin, search (for example a member's name) and load older entries. Everything an admin changes is recorded automatically by the backend |
 | `/dashboard/requests` | Admins | What people sent through the public Get involved forms; add them to the register, ministries and clusters, or mark them done |
 | `/dashboard/members`, `/dashboard/clusters`, `/dashboard/sign-up` | Admins | Member register, location and fundraising groups, sign-up link and invitations |
 
@@ -140,6 +143,18 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 - Write each screen's buttons, fields and so on directly in its `return`, with handlers at the top (no shared `ui/` folder, no helper components). Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
+
+### 2026-11-25: Activity log
+
+- New admin page **Activity log** (`/dashboard/activity`, under Administration): who approved or changed what, and when. Admins can filter by admin and search. Members do not see it, and the backend refuses them too.
+- Needs the backend with `Apps.Audit` (run `python manage.py migrate`).
+
+### 2026-11-25: Our leaders and Leadership
+
+- New **Our leaders** page for every signed-in member, and a ministry's page lists its leaders.
+- New admin page **Leadership**: create position titles, appoint members for a two-year term (several people can hold one title, such as the Elders), tie a position to a ministry, tick "Also give admin access", end a term (with the option to take admin access away), and a reminder for terms ending in the next three months.
+- The Members list shows each person's current positions.
+- Only two roles remain, admin and member (treasurer and leader are gone). Needs the backend's `python manage.py migrate` (Accounts 0005, Leadership 0001).
 
 ### 2026-11-25: EmailJS removed; Get involved answers go only to the dashboard
 

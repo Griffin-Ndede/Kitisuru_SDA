@@ -27,6 +27,9 @@ import Library from './Pages/Dashboard/Library'
 import Announcements from './Pages/Dashboard/Announcements'
 import SignUpAccess from './Pages/Dashboard/SignUpAccess'
 import Requests from './Pages/Dashboard/Requests'
+import Leaders from './Pages/Dashboard/Leaders'
+import Leadership from './Pages/Dashboard/Leadership'
+import ActivityLog from './Pages/Dashboard/ActivityLog'
 import Privacy from './Pages/Privacy'
 import {
   homeLoader,
@@ -38,6 +41,9 @@ import {
   ministryDetailsLoader,
   libraryLoader,
   announcementsLoader,
+  leadersLoader,
+  leadershipLoader,
+  auditLoader,
   overviewLoader,
   getInvolvedLoader,
   requestsLoader,
@@ -85,12 +91,15 @@ const router = createBrowserRouter([
           { path: 'ministries', element: <Ministries />, loader: ministriesLoader },
           { path: 'ministries/:id', element: <MinistryDetail />, loader: ministryDetailsLoader },
           { path: 'library', element: <Library />, loader: libraryLoader },
+          { path: 'leaders', element: <Leaders />, loader: leadersLoader },
           { path: 'hymnal', element: <Hymnal />, loader: hymnsLoader },
           { path: 'hymnal/:id', element: <HymnDetail />, loader: hymnDetailsLoader },
           // Admin only: the API answers 403 to anyone else and the error page explains
           { path: 'members', element: <Members />, loader: membersLoader },
           { path: 'clusters', element: <Clusters />, loader: clustersLoader },
           { path: 'clusters/:id', element: <ClusterDetail />, loader: clusterDetailsLoader },
+          { path: 'leadership', element: <Leadership />, loader: leadershipLoader },
+          { path: 'activity', element: <ActivityLog />, loader: auditLoader },
           { path: 'requests', element: <Requests />, loader: requestsLoader },
           { path: 'sign-up', element: <SignUpAccess />, loader: signUpAccessLoader },
         ],

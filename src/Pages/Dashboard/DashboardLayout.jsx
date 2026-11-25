@@ -9,6 +9,9 @@ import {
   HeartHandshake,
   BookOpenText,
   Music2,
+  Award,
+  BadgeCheck,
+  History,
   Megaphone,
   HandHeart,
   Globe,
@@ -93,6 +96,7 @@ export default function DashboardLayout() {
               { to: "/dashboard/announcements", label: "Announcements", icon: Megaphone },
               { to: "/dashboard/ministries", label: "Ministries", icon: HeartHandshake },
               { to: "/dashboard/library", label: "Library", icon: BookOpenText },
+              { to: "/dashboard/leaders", label: "Our leaders", icon: Award },
               { to: "/dashboard/hymnal", label: "Hymnal", icon: Music2 },
             ],
           },
@@ -105,8 +109,10 @@ export default function DashboardLayout() {
             items: [
               { to: "/dashboard/members", label: "Members", icon: Users },
               { to: "/dashboard/clusters", label: "Clusters", icon: UsersRound },
+              { to: "/dashboard/leadership", label: "Leadership", icon: BadgeCheck },
               { to: "/dashboard/requests", label: "Get involved requests", icon: HandHeart },
               { to: "/dashboard/sign-up", label: "Sign-up & invitations", icon: Link2 },
+              { to: "/dashboard/activity", label: "Activity log", icon: History },
             ],
           },
         ]

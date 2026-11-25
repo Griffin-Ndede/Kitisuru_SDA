@@ -10,6 +10,9 @@ import {
   getHymn,
   getHymns,
   getInvolvedMinistries,
+  getLeaders,
+  getPositions,
+  getAuditLog,
   hymnLanguages,
   getRequests,
   getCluster,
@@ -139,11 +142,29 @@ export const ministriesLoader = async () => ({
 // register, so only they need it here (to add people to the ministry).
 export const ministryDetailsLoader = async ({ params }) => {
   const ministry = await getMinistryDetails(params.id);
-  const [members, announcements] = await Promise.all([
+  const [members, announcements, leaders] = await Promise.all([
     ministry.members ? getMembers() : [],
     getAnnouncements(params.id),
+    getLeaders(params.id),
   ]);
-  return { ministry, members, announcements };
+  return { ministry, members, announcements, leaders };
+};
+
+// --- Leadership ---------------------------------------------------------------
+
+// Every approved member: who is serving now.
+export const leadersLoader = async () => ({ leaders: await getLeaders() });
+
+// Admin only: the positions with their holders, the people who can be appointed, the ministries.
+export const leadershipLoader = async () => {
+  const [positions, members, ministries] = await Promise.all([getPositions(), getMembers(), getMinistries()]);
+  return { positions, members, ministries };
+};
+
+// Admin only: the first page of the activity log, and the admins to filter it by.
+export const auditLoader = async () => {
+  const [log, members] = await Promise.all([getAuditLog(), getMembers()]);
+  return { log, admins: members.filter((m) => m.role === "admin") };
 };
 
 export const libraryLoader = async () => ({

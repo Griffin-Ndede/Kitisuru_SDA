@@ -32,7 +32,7 @@ import { fullName, matchesSearch } from "./memberHelpers";
 // One ministry: what it is, its programs, events, photos and contact people.
 // Admins also edit it and manage who belongs to it.
 export default function MinistryDetail() {
-  const { ministry, members, announcements } = useLoaderData();
+  const { ministry, members, announcements, leaders } = useLoaderData();
   const revalidator = useRevalidator();
   const navigate = useNavigate();
   const toast = useToast();
@@ -177,6 +177,24 @@ export default function MinistryDetail() {
             <h2 className="mb-3 text-2xl font-semibold">About us</h2>
             <p className="max-w-2xl leading-relaxed text-ink/80">{ministry.description || "No description yet."}</p>
           </section>
+
+          {leaders.length > 0 && (
+            <section>
+              <h2 className="mb-3 text-2xl font-semibold">Leaders</h2>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {leaders.flatMap((position) =>
+                  position.holders.map((holder) => (
+                    <li key={holder.assignment} className="rounded-3xl border border-line bg-white px-4 py-3 shadow-card">
+                      <p className="font-medium">{holder.name}</p>
+                      <p className="text-xs text-muted">
+                        {position.title}, until {formatDate(holder.term_end)}
+                      </p>
+                    </li>
+                  )),
+                )}
+              </ul>
+            </section>
+          )}
 
           <section>
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
