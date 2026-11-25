@@ -1,9 +1,6 @@
-import React, { useState, useId } from "react";
-import { useLoaderData, useRevalidator, Link } from "react-router";
-import {
-  inviteUser,
-  updateUser,
-} from "../../Api";
+import React, { useState } from "react";
+import { useLoaderData, useRevalidator } from "react-router";
+import { inviteUser, updateUser } from "../../Api";
 import { errorMessage } from "../../Api/client";
 import { Check, Link2, MessageCircle, Send, X, LoaderCircle, CircleAlert } from "lucide-react";
 import { useToast } from "../../Context/ToastContext";
@@ -13,8 +10,7 @@ import { roleLabels } from "./roles";
 const emptyForm = { email: "", first_name: "", last_name: "", role: "member" };
 
 const whatsappShare = (link) =>
-  "https://wa.me/?text=" +
-  encodeURIComponent(`Join the Kitisuru SDA Church family online. Sign up here: ${link}`);
+  "https://wa.me/?text=" + encodeURIComponent(`Join the Kitisuru SDA Church family online. Sign up here: ${link}`);
 
 const fullName = (p) => `${p.first_name} ${p.last_name}`.trim() || "—";
 
@@ -61,68 +57,162 @@ export default function SignUpAccess() {
   const waiting = people.filter((p) => !p.approved && p.is_active);
   return (
     <div>
-      <PageHeader title="Sign-up & invitations" description="How people join the dashboard, and who is waiting for you to approve them." />
-      <div className="mb-4"><FormError>{error}</FormError></div>
+      <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-semibold sm:text-4xl">{"Sign-up & invitations"}</h1>
+          <p className="mt-1.5 max-w-2xl text-muted">
+            How people join the dashboard, and who is waiting for you to approve them.
+          </p>
+        </div>
+      </header>
+      <div className="mb-4">
+        {error && (
+          <p role="alert" className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
+            <CircleAlert className="mt-0.5 size-4 shrink-0" />
+            {error}
+          </p>
+        )}
+      </div>
 
-      <Card className="mb-6">
+      <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 mb-6">
         <div className="flex items-center gap-3">
-          <span className="grid size-10 place-items-center rounded-full bg-forest-50 text-forest-700"><Link2 className="size-5" /></span>
+          <span className="grid size-10 place-items-center rounded-full bg-forest-50 text-forest-700">
+            <Link2 className="size-5" />
+          </span>
           <h2 className="text-xl font-semibold">Sign-up page</h2>
-          <Badge tone="green">Open to everyone</Badge>
+          <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-forest-100 text-forest-800">
+            Open to everyone
+          </span>
         </div>
         <p className="mt-2 mb-4 text-sm text-muted">
-          People create their own account on the Sign in page (&ldquo;Create an account&rdquo;), with an email and password, and then wait here for your approval. This link opens the same page. It is only a backup you can post in the church WhatsApp group.
+          People create their own account on the Sign in page (&ldquo;Create an account&rdquo;), with an email and
+          password, and then wait here for your approval. This link opens the same page. It is only a backup you can
+          post in the church WhatsApp group.
         </p>
         <CopyLink link={signupLink}>
-          <Button size="sm" variant="secondary" icon={MessageCircle} href={whatsappShare(signupLink)} target="_blank" rel="noreferrer">
+          <a
+            href={whatsappShare(signupLink)}
+            className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 border border-line bg-white text-ink hover:border-forest-600 hover:text-forest-800 px-3 py-1.5 text-sm"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <MessageCircle className="size-4" />
             Share on WhatsApp
-          </Button>
+          </a>
         </CopyLink>
-      </Card>
+      </div>
 
       {waiting.length > 0 && (
-        <Card className="mb-6 !border-marigold-400/50 !bg-marigold-100/50">
+        <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 mb-6 !border-marigold-400/50 !bg-marigold-100/50">
           <h2 className="mb-2 text-xl font-semibold">Waiting for approval ({waiting.length})</h2>
           <ul className="divide-y divide-marigold-400/30">
             {waiting.map((person) => (
               <li key={person.id} className="flex flex-wrap items-center justify-between gap-3 py-3">
                 <span className="flex items-center gap-3">
-                  <Avatar name={fullName(person)} size="sm" />
+                  <span
+                    className="size-8 text-xs grid shrink-0 place-items-center rounded-full bg-forest-100 font-semibold text-forest-800"
+                    aria-hidden="true"
+                  >
+                    {(fullName(person) || "")
+                      .trim()
+                      .split(/\s+/)
+                      .slice(0, 2)
+                      .map((part) => part[0]?.toUpperCase())
+                      .join("") || "?"}
+                  </span>
                   <span>
                     <span className="block text-sm font-semibold">{fullName(person)}</span>
-                    <span className="block text-xs text-muted">{person.email} · {person.phone || "no phone"}</span>
+                    <span className="block text-xs text-muted">
+                      {person.email} · {person.phone || "no phone"}
+                    </span>
                   </span>
                 </span>
                 <span className="flex gap-2">
-                  <Button size="sm" icon={Check} disabled={busy} onClick={() => run(() => updateUser(person.id, { approved: true }), `${fullName(person)} approved`)}>
+                  <button
+                    type="button"
+                    className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 bg-forest-900 text-paper hover:bg-forest-800 shadow-card px-3 py-1.5 text-sm"
+                    disabled={busy}
+                    onClick={() => run(() => updateUser(person.id, { approved: true }), `${fullName(person)} approved`)}
+                  >
+                    <Check className="size-4" />
                     Approve
-                  </Button>
-                  <Button size="sm" variant="ghost" icon={X} disabled={busy} onClick={() => run(() => updateUser(person.id, { is_active: false }), `${fullName(person)}'s account switched off`)}>
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 text-forest-800 hover:bg-forest-50 px-3 py-1.5 text-sm"
+                    disabled={busy}
+                    onClick={() =>
+                      run(
+                        () => updateUser(person.id, { is_active: false }),
+                        `${fullName(person)}'s account switched off`,
+                      )
+                    }
+                  >
+                    <X className="size-4" />
                     Reject
-                  </Button>
+                  </button>
                 </span>
               </li>
             ))}
           </ul>
-        </Card>
+        </div>
       )}
 
-      <Card as="form" onSubmit={handleInvite} className="mb-6 grid gap-4 sm:grid-cols-2">
+      <form
+        className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 mb-6 grid gap-4 sm:grid-cols-2"
+        onSubmit={handleInvite}
+      >
         <div className="sm:col-span-2">
           <h2 className="text-xl font-semibold">Invite one person with a role</h2>
           <p className="mt-1 text-sm text-muted">
             For leaders and treasurers, or anyone who needs a role other than member. They are approved straight away.
           </p>
         </div>
-        <Input label="First name" name="first_name" value={form.first_name} onChange={change} />
-        <Input label="Last name" name="last_name" value={form.last_name} onChange={change} />
-        <Input label="Email" type="email" name="email" value={form.email} onChange={change} required />
-        <Select label="Role" name="role" value={form.role} onChange={change}
-          options={Object.entries(roleLabels).map(([value, label]) => ({ value, label }))} />
-        <div className="sm:col-span-2">
-          <Button type="submit" icon={Send} loading={busy}>Create invitation</Button>
+        <div>
+          <label className="block">
+            <span className="mb-1.5 block text-sm font-medium">First name</span>
+            <input className="input" name="first_name" value={form.first_name} onChange={change} />
+          </label>
         </div>
-      </Card>
+        <div>
+          <label className="block">
+            <span className="mb-1.5 block text-sm font-medium">Last name</span>
+            <input className="input" name="last_name" value={form.last_name} onChange={change} />
+          </label>
+        </div>
+        <div>
+          <label className="block">
+            <span className="mb-1.5 block text-sm font-medium">
+              Email <span className="text-clay-600">*</span>
+            </span>
+            <input className="input" required type="email" name="email" value={form.email} onChange={change} />
+          </label>
+        </div>
+        <div>
+          <label className="block">
+            <span className="mb-1.5 block text-sm font-medium">Role</span>
+            <select className="input" name="role" value={form.role} onChange={change}>
+              {Object.entries(roleLabels)
+                .map(([value, label]) => ({ value, label }))
+                .map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+            </select>
+          </label>
+        </div>
+        <div className="sm:col-span-2">
+          <button
+            type="submit"
+            className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 bg-forest-900 text-paper hover:bg-forest-800 shadow-card px-4 py-2.5 text-sm"
+            disabled={busy}
+          >
+            {busy ? <LoaderCircle className="size-4 animate-spin" /> : <Send className="size-4" />}
+            Create invitation
+          </button>
+        </div>
+      </form>
 
       {invite && (
         <div role="status" className="mb-6 rounded-card bg-forest-50 p-5 text-sm">
@@ -136,129 +226,5 @@ export default function SignUpAccess() {
         </div>
       )}
     </div>
-  );
-}
-
-// ---- Small UI pieces used only on this page ----
-
-function Card({ as: Tag = "div", padded = true, className = "", children, ...props }) {
-  return (
-    <Tag className={`rounded-card border border-line bg-white shadow-card ${padded ? "p-5 sm:p-6" : ""} ${className}`} {...props}>
-      {children}
-    </Tag>
-  );
-}
-
-const VARIANTS = {
-  primary: "bg-forest-900 text-paper hover:bg-forest-800 shadow-card",
-  accent: "bg-marigold-500 text-forest-950 hover:bg-marigold-400 shadow-card",
-  secondary: "border border-line bg-white text-ink hover:border-forest-600 hover:text-forest-800",
-  ghost: "text-forest-800 hover:bg-forest-50",
-  danger: "bg-clay-600 text-white hover:bg-clay-700",
-};
-
-const SIZES = { sm: "px-3 py-1.5 text-sm", md: "px-4 py-2.5 text-sm", lg: "px-6 py-3.5 text-base" };
-
-// Renders a <button>, a router <Link> (`to`) or an <a> (`href`) with one look.
-function Button({ variant = "primary", size = "md", to, href, loading, icon: Icon, className = "", children, ...props }) {
-  const classes = `inline-flex items-center justify-center gap-2 rounded-full font-semibold transition
-    active:translate-y-px disabled:opacity-60 ${VARIANTS[variant]} ${SIZES[size]} ${className}`;
-  const content = (
-    <>
-      {loading ? <LoaderCircle className="size-4 animate-spin" /> : Icon ? <Icon className="size-4" /> : null}
-      {children}
-    </>
-  );
-  if (to) return <Link to={to} className={classes} {...props}>{content}</Link>;
-  if (href) return <a href={href} className={classes} {...props}>{content}</a>;
-  return <button type="button" className={classes} disabled={loading || props.disabled} {...props}>{content}</button>;
-}
-
-const TONES = {
-  green: "bg-forest-100 text-forest-800",
-  gold: "bg-marigold-100 text-marigold-600",
-  clay: "bg-clay-100 text-clay-700",
-  grey: "bg-paper-deep text-muted",
-};
-
-function Badge({ tone = "grey", children }) {
-  return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${TONES[tone]}`}>
-      {children}
-    </span>
-  );
-}
-
-const initials = (name = "") =>
-  name.trim().split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("") || "?";
-
-function Avatar({ name, size = "md" }) {
-  const sizes = { sm: "size-8 text-xs", md: "size-10 text-sm", lg: "size-16 text-xl" };
-  return (
-    <span className={`${sizes[size]} grid shrink-0 place-items-center rounded-full bg-forest-100 font-semibold text-forest-800`} aria-hidden="true">
-      {initials(name)}
-    </span>
-  );
-}
-
-function PageHeader({ title, description, actions }) {
-  return (
-    <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
-      <div>
-        <h1 className="text-3xl font-semibold sm:text-4xl">{title}</h1>
-        {description && <p className="mt-1.5 max-w-2xl text-muted">{description}</p>}
-      </div>
-      {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
-    </header>
-  );
-}
-
-// Label, hint and error wrapper shared by every input type.
-function Field({ id, label, hint, error, required, children, className = "" }) {
-  return (
-    <div className={className}>
-      {label && (
-        <label htmlFor={id} className="mb-1.5 block text-sm font-medium">
-          {label}{required && <span className="text-clay-600"> *</span>}
-        </label>
-      )}
-      {children}
-      {error ? <p id={`${id}-error`} className="mt-1.5 text-xs font-medium text-clay-600">{error}</p>
-        : hint ? <p className="mt-1.5 text-xs text-muted">{hint}</p> : null}
-    </div>
-  );
-}
-
-const describe = (id, error) => ({ id, "aria-invalid": Boolean(error), "aria-describedby": error ? `${id}-error` : undefined });
-
-function Input({ label, hint, error, className, required, ...props }) {
-  const id = useId();
-  return (
-    <Field id={id} label={label} hint={hint} error={error} required={required} className={className}>
-      <input className={`input ${error ? "input-error" : ""}`} required={required} {...describe(id, error)} {...props} />
-    </Field>
-  );
-}
-
-// options: [{ value, label }]
-function Select({ label, hint, error, className, required, options = [], placeholder, ...props }) {
-  const id = useId();
-  return (
-    <Field id={id} label={label} hint={hint} error={error} required={required} className={className}>
-      <select className={`input ${error ? "input-error" : ""}`} required={required} {...describe(id, error)} {...props}>
-        {placeholder !== undefined && <option value="">{placeholder}</option>}
-        {options.map(({ value, label: text }) => <option key={value} value={value}>{text}</option>)}
-      </select>
-    </Field>
-  );
-}
-
-// A banner for an error next to a form.
-function FormError({ children }) {
-  if (!children) return null;
-  return (
-    <p role="alert" className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
-      <CircleAlert className="mt-0.5 size-4 shrink-0" />{children}
-    </p>
   );
 }
