@@ -3,7 +3,6 @@ import { activityContacts, activityFields } from "./ActivitySchema";
 import { sendGetInvolved } from "../Api";
 import { errorMessage } from "../Api/client";
 import Swal from "sweetalert2";
-import emailjs from '@emailjs/browser';
 
 
 function Activityform({ activity, ministries = [], onClose }) {
@@ -61,11 +60,6 @@ function Activityform({ activity, ministries = [], onClose }) {
             : field
     );
 
-    // field name -> field label
-    const fieldLabelMap = Object.fromEntries(
-        fields.map(field => [field.name, field.label || field.name])
-    );
-
     // field name -> option value -> option label
     const optionLabelMap = Object.fromEntries(
         fields
@@ -78,64 +72,6 @@ function Activityform({ activity, ministries = [], onClose }) {
             ])
     );
 
-
-    // format email function 
-    const formatEmailMessage = (payload) => {
-        const { submittedAt, data } = payload;
-
-        let message = `
-Hello,
-
-You have received a new form submission through the website.
-Activity: ${activity.title}
-Submitted at: ${new Date(submittedAt).toLocaleString()}
-
-----------------------------------
-`;
-
-        Object.entries(data).forEach(([key, value]) => {
-            const label = fieldLabelMap[key] || key;
-
-            // Checkbox group / multi-select
-            if (Array.isArray(value)) {
-                if (value.length === 0) {
-                    message += `${label}: —\n\n`;
-                    return;
-                }
-
-                message += `${label}:\n`;
-                value.forEach(v => {
-                    const displayValue =
-                        optionLabelMap[key]?.[v] || v;
-                    message += `- ${displayValue}\n`;
-                });
-                message += "\n";
-                return;
-            }
-
-            // Boolean (single checkbox)
-            if (typeof value === "boolean") {
-                message += `${label}: ${value ? "Yes" : "No"}\n\n`;
-                return;
-            }
-
-            // Text / email / select / radio
-            const displayValue =
-                optionLabelMap[key]?.[value] || value || "—";
-
-            message += `${label}: ${displayValue}\n\n`;
-        });
-        message += `
-----------------------------------
-This message was sent from the church website on the ${activity.title} form.
-Please follow up with the applicant as needed.
-Thank you for serving and supporting this ministry.
-
-Warm regards,  
-Kitisuru SDA Church Website
-`;
-        return message;
-    };
 
     // The first filled-in field out of a list of candidates (mother, father...)
     const firstFilled = (names = []) => names.map((n) => formData[n]).find((v) => v && String(v).trim()) || "";
@@ -207,21 +143,6 @@ Kitisuru SDA Church Website
             });
             return;
         }
-
-        // The church also still gets an email about it. This is only a courtesy:
-        // the request is already saved, so a failed email is not shown as an error.
-        const payload = { activity: activity.key, submittedAt: new Date().toISOString(), data: formData };
-        emailjs
-            .send(
-                'Kitisuru_comms',
-                'template_fklz9gq',
-                {
-                    subject: `New ${activity.title} Submission`,
-                    activity: activity.key,
-                    message: formatEmailMessage(payload),
-                },
-                'ujzRVhmE5hogh7h9b')
-            .catch(() => {});
 
         await Swal.fire({
             title: 'Success',
