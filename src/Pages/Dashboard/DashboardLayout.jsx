@@ -8,6 +8,7 @@ import {
   Link2,
   HeartHandshake,
   BookOpenText,
+  Music2,
   Megaphone,
   HandHeart,
   Globe,
@@ -92,6 +93,7 @@ export default function DashboardLayout() {
               { to: "/dashboard/announcements", label: "Announcements", icon: Megaphone },
               { to: "/dashboard/ministries", label: "Ministries", icon: HeartHandshake },
               { to: "/dashboard/library", label: "Library", icon: BookOpenText },
+              { to: "/dashboard/hymnal", label: "Hymnal", icon: Music2 },
             ],
           },
         ]
