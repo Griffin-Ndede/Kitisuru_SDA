@@ -82,7 +82,7 @@ To add a page that needs data: add the endpoint to `src/Api/index.js`, add a loa
 src/
   Api/          client.js (HTTP client) and index.js (all endpoints)
   Loaders/      loaders.js - one loader per route that needs data
-  Components/   shared pieces: Navbar, Footer, the activity form and its schema; ui/ holds the dashboard's building blocks (Button, Card, Fields, Modal, DataTable, Badge, Avatar, AuthLayout...)
+  Components/   Navbar, Footer, the activity form and its schema. There is no shared UI folder: each page or dialog keeps the small pieces it needs (buttons, fields, modal and so on) at the bottom of its own file
   Context/      ToastContext.jsx - the small "Saved" messages
   Pages/        one file per route, plus ErrorPage; Pages/Dashboard/ holds the signed-in area (layout with sidebar, overview, profile, members, clusters, sign-up)
   firebase.jsx  Google sign-in (loaded only when the button is used)
@@ -112,9 +112,13 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 
 - Colours, fonts and radii are defined once in `src/index.css` (`forest-*` = blues, `marigold-*` = yellows, `clay-*` = errors, `paper`, `ink`, `muted`, `line`). Fonts: Fraunces for headings and Instrument Sans for text.
 - Wrap a page in the `app-theme` class to get the look (`AuthLayout` and `DashboardLayout` already do). Pages outside it are untouched.
-- Build new dashboard screens from `src/Components/ui/`. Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
+- Each screen holds its own small UI pieces at the bottom of its file (no shared `ui/` folder). Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
+
+### 2026-11-25: No shared UI files
+
+- Removed `src/Components/ui/`. Every page and dialog now defines the buttons, fields, badges, modal and other pieces it uses at the bottom of its own file. Nothing looks or behaves differently.
 
 ### 2026-11-23: People create their own accounts
 

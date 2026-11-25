@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { NavLink, Outlet, useLoaderData, useLocation, useNavigate } from "react-router";
+import React, { useEffect, useState, useRef } from "react";
+import { NavLink, Outlet, useLoaderData, useLocation, useNavigate, Link } from "react-router";
 import {
   LayoutDashboard, UserRound, Users, UsersRound, Link2, HeartHandshake, BookOpenText, Megaphone, HandHeart, Globe, ShieldCheck, LogOut, Menu, X, ChevronDown,
 } from "lucide-react";
@@ -7,9 +7,6 @@ import { clearSession } from "../../Api/client";
 import { googleSignOut } from "../../firebase";
 import { roleLabels } from "./roles";
 import { fullName } from "./memberHelpers";
-import Logo from "../../Components/ui/Logo";
-import Avatar from "../../Components/ui/Avatar";
-import Dropdown, { DropdownItem } from "../../Components/ui/Dropdown";
 
 // The frame around every page under /dashboard: a dark menu on the left (a drawer
 // on phones), a top bar with the account menu, and the page itself. Its loader
@@ -151,5 +148,82 @@ export default function DashboardLayout() {
         </main>
       </div>
     </div>
+  );
+}
+
+// ---- Small UI pieces used only on this page ----
+
+// The arch-and-sunrise mark with the church name. `tone` flips it for dark backgrounds.
+function Logo({ to = "/", tone = "dark", compact = false }) {
+  const text = tone === "light" ? "text-paper" : "text-forest-900";
+  return (
+    <Link to={to} className={`inline-flex items-center gap-2.5 ${text}`} aria-label="Kitisuru SDA Church, home">
+      <svg viewBox="0 0 32 32" className="size-9 shrink-0" aria-hidden="true">
+        <rect width="32" height="32" rx="9" className={tone === "light" ? "fill-paper/10" : "fill-forest-900"} />
+        <path d="M9 25V15a7 7 0 0 1 14 0v10" fill="none" stroke="#FFFFFF" strokeWidth="2.2" strokeLinecap="round" />
+        <circle cx="16" cy="19" r="3.4" fill="#FFC700" />
+      </svg>
+      {!compact && (
+        <span className="leading-none">
+          <span className="block font-display text-lg font-semibold tracking-tight">Kitisuru</span>
+          <span className="block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-70">SDA Church</span>
+        </span>
+      )}
+    </Link>
+  );
+}
+
+const initials = (name = "") =>
+  name.trim().split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("") || "?";
+
+function Avatar({ name, size = "md" }) {
+  const sizes = { sm: "size-8 text-xs", md: "size-10 text-sm", lg: "size-16 text-xl" };
+  return (
+    <span className={`${sizes[size]} grid shrink-0 place-items-center rounded-full bg-forest-100 font-semibold text-forest-800`} aria-hidden="true">
+      {initials(name)}
+    </span>
+  );
+}
+
+// A button that opens a small menu. `trigger` is the button's content; children get `close`.
+function Dropdown({ trigger, label, align = "right", width = "w-56", buttonClassName = "", children }) {
+  const [open, setOpen] = useState(false);
+  const root = useRef(null);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onClick = (event) => !root.current?.contains(event.target) && setOpen(false);
+    const onKey = (event) => event.key === "Escape" && setOpen(false);
+    document.addEventListener("mousedown", onClick);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div ref={root} className="relative">
+      <button type="button" aria-haspopup="menu" aria-expanded={open} aria-label={label} onClick={() => setOpen((o) => !o)} className={buttonClassName}>
+        {trigger}
+      </button>
+      {open && (
+        <div role="menu" className={`rise absolute z-40 mt-2 ${width} max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-line bg-white py-1.5 shadow-lift ${align === "right" ? "right-0" : "left-0"}`}>
+          {typeof children === "function" ? children(() => setOpen(false)) : children}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DropdownItem({ icon: Icon, danger, children, ...props }) {
+  return (
+    <button
+      type="button" role="menuitem"
+      className={`flex w-full items-center gap-2.5 px-4 py-2 text-left text-sm hover:bg-paper ${danger ? "text-clay-600" : "text-ink"}`}
+      {...props}
+    >
+      {Icon && <Icon className="size-4 opacity-70" />}{children}
+    </button>
   );
 }

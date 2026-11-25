@@ -1,18 +1,11 @@
-import React, { useState } from "react";
-import { useLoaderData, useRevalidator } from "react-router";
+import React, { useState, useId } from "react";
+import { useLoaderData, useRevalidator, Link } from "react-router";
 import {
   inviteUser,
   updateUser,
 } from "../../Api";
 import { errorMessage } from "../../Api/client";
-import { Check, Link2, MessageCircle, Send, X } from "lucide-react";
-import Card from "../../Components/ui/Card";
-import Button from "../../Components/ui/Button";
-import Badge from "../../Components/ui/Badge";
-import Avatar from "../../Components/ui/Avatar";
-import PageHeader from "../../Components/ui/PageHeader";
-import { Input, Select } from "../../Components/ui/Fields";
-import { FormError } from "../../Components/ui/States";
+import { Check, Link2, MessageCircle, Send, X, LoaderCircle, CircleAlert } from "lucide-react";
 import { useToast } from "../../Context/ToastContext";
 import CopyLink from "./CopyLink";
 import { roleLabels } from "./roles";
@@ -143,5 +136,129 @@ export default function SignUpAccess() {
         </div>
       )}
     </div>
+  );
+}
+
+// ---- Small UI pieces used only on this page ----
+
+function Card({ as: Tag = "div", padded = true, className = "", children, ...props }) {
+  return (
+    <Tag className={`rounded-card border border-line bg-white shadow-card ${padded ? "p-5 sm:p-6" : ""} ${className}`} {...props}>
+      {children}
+    </Tag>
+  );
+}
+
+const VARIANTS = {
+  primary: "bg-forest-900 text-paper hover:bg-forest-800 shadow-card",
+  accent: "bg-marigold-500 text-forest-950 hover:bg-marigold-400 shadow-card",
+  secondary: "border border-line bg-white text-ink hover:border-forest-600 hover:text-forest-800",
+  ghost: "text-forest-800 hover:bg-forest-50",
+  danger: "bg-clay-600 text-white hover:bg-clay-700",
+};
+
+const SIZES = { sm: "px-3 py-1.5 text-sm", md: "px-4 py-2.5 text-sm", lg: "px-6 py-3.5 text-base" };
+
+// Renders a <button>, a router <Link> (`to`) or an <a> (`href`) with one look.
+function Button({ variant = "primary", size = "md", to, href, loading, icon: Icon, className = "", children, ...props }) {
+  const classes = `inline-flex items-center justify-center gap-2 rounded-full font-semibold transition
+    active:translate-y-px disabled:opacity-60 ${VARIANTS[variant]} ${SIZES[size]} ${className}`;
+  const content = (
+    <>
+      {loading ? <LoaderCircle className="size-4 animate-spin" /> : Icon ? <Icon className="size-4" /> : null}
+      {children}
+    </>
+  );
+  if (to) return <Link to={to} className={classes} {...props}>{content}</Link>;
+  if (href) return <a href={href} className={classes} {...props}>{content}</a>;
+  return <button type="button" className={classes} disabled={loading || props.disabled} {...props}>{content}</button>;
+}
+
+const TONES = {
+  green: "bg-forest-100 text-forest-800",
+  gold: "bg-marigold-100 text-marigold-600",
+  clay: "bg-clay-100 text-clay-700",
+  grey: "bg-paper-deep text-muted",
+};
+
+function Badge({ tone = "grey", children }) {
+  return (
+    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${TONES[tone]}`}>
+      {children}
+    </span>
+  );
+}
+
+const initials = (name = "") =>
+  name.trim().split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase()).join("") || "?";
+
+function Avatar({ name, size = "md" }) {
+  const sizes = { sm: "size-8 text-xs", md: "size-10 text-sm", lg: "size-16 text-xl" };
+  return (
+    <span className={`${sizes[size]} grid shrink-0 place-items-center rounded-full bg-forest-100 font-semibold text-forest-800`} aria-hidden="true">
+      {initials(name)}
+    </span>
+  );
+}
+
+function PageHeader({ title, description, actions }) {
+  return (
+    <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h1 className="text-3xl font-semibold sm:text-4xl">{title}</h1>
+        {description && <p className="mt-1.5 max-w-2xl text-muted">{description}</p>}
+      </div>
+      {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
+    </header>
+  );
+}
+
+// Label, hint and error wrapper shared by every input type.
+function Field({ id, label, hint, error, required, children, className = "" }) {
+  return (
+    <div className={className}>
+      {label && (
+        <label htmlFor={id} className="mb-1.5 block text-sm font-medium">
+          {label}{required && <span className="text-clay-600"> *</span>}
+        </label>
+      )}
+      {children}
+      {error ? <p id={`${id}-error`} className="mt-1.5 text-xs font-medium text-clay-600">{error}</p>
+        : hint ? <p className="mt-1.5 text-xs text-muted">{hint}</p> : null}
+    </div>
+  );
+}
+
+const describe = (id, error) => ({ id, "aria-invalid": Boolean(error), "aria-describedby": error ? `${id}-error` : undefined });
+
+function Input({ label, hint, error, className, required, ...props }) {
+  const id = useId();
+  return (
+    <Field id={id} label={label} hint={hint} error={error} required={required} className={className}>
+      <input className={`input ${error ? "input-error" : ""}`} required={required} {...describe(id, error)} {...props} />
+    </Field>
+  );
+}
+
+// options: [{ value, label }]
+function Select({ label, hint, error, className, required, options = [], placeholder, ...props }) {
+  const id = useId();
+  return (
+    <Field id={id} label={label} hint={hint} error={error} required={required} className={className}>
+      <select className={`input ${error ? "input-error" : ""}`} required={required} {...describe(id, error)} {...props}>
+        {placeholder !== undefined && <option value="">{placeholder}</option>}
+        {options.map(({ value, label: text }) => <option key={value} value={value}>{text}</option>)}
+      </select>
+    </Field>
+  );
+}
+
+// A banner for an error next to a form.
+function FormError({ children }) {
+  if (!children) return null;
+  return (
+    <p role="alert" className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
+      <CircleAlert className="mt-0.5 size-4 shrink-0" />{children}
+    </p>
   );
 }
