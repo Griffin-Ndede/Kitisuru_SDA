@@ -82,7 +82,7 @@ To add a page that needs data: add the endpoint to `src/Api/index.js`, add a loa
 src/
   Api/          client.js (HTTP client) and index.js (all endpoints)
   Loaders/      loaders.js - one loader per route that needs data
-  Components/   Navbar, Footer, the activity form and its schema. There is no shared UI folder: each page or dialog keeps the small pieces it needs (buttons, fields, modal and so on) at the bottom of its own file
+  Components/   Navbar, Footer, the activity form and its schema. There is no shared UI folder and no helper components: every page or dialog writes its buttons, fields, badges and modal directly in its own `return`, with its handlers at the top of the function
   Context/      ToastContext.jsx - the small "Saved" messages
   Pages/        one file per route, plus ErrorPage; Pages/Dashboard/ holds the signed-in area (layout with sidebar, overview, profile, members, clusters, sign-up)
   firebase.jsx  Google sign-in (loaded only when the button is used)
@@ -112,13 +112,13 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 
 - Colours, fonts and radii are defined once in `src/index.css` (`forest-*` = blues, `marigold-*` = yellows, `clay-*` = errors, `paper`, `ink`, `muted`, `line`). Fonts: Fraunces for headings and Instrument Sans for text.
 - Wrap a page in the `app-theme` class to get the look (`AuthLayout` and `DashboardLayout` already do). Pages outside it are untouched.
-- Each screen holds its own small UI pieces at the bottom of its file (no shared `ui/` folder). Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
+- Write each screen's buttons, fields and so on directly in its `return`, with handlers at the top (no shared `ui/` folder, no helper components). Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
 
 ### 2026-11-25: No shared UI files
 
-- Removed `src/Components/ui/`. Every page and dialog now defines the buttons, fields, badges, modal and other pieces it uses at the bottom of its own file. Nothing looks or behaves differently.
+- Removed `src/Components/ui/`. Every page and dialog now writes the buttons, fields, badges, modal and other pieces it uses directly in its own `return`, and what they do (clicks, submits, closing a box with Escape) is at the top of the function. Nothing looks different.
 
 ### 2026-11-23: People create their own accounts
 
