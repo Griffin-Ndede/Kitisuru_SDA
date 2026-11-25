@@ -8,7 +8,10 @@ import {
   HeartHandshake,
   Mail,
   MapPin,
+  Megaphone,
   Pencil,
+  Pin,
+  Plus,
   Phone,
   Trash2,
   UserMinus,
@@ -17,29 +20,24 @@ import {
   Search,
   CircleAlert,
 } from "lucide-react";
-import { changeMinistryMembers, deleteMinistry } from "../../Api";
+import { changeMinistryMembers, deleteAnnouncement, deleteMinistry } from "../../Api";
 import { errorMessage } from "../../Api/client";
 import { useToast } from "../../Context/ToastContext";
+import AnnouncementForm from "./AnnouncementForm";
 import MinistryForm from "./MinistryForm";
 import { formatDate, photoUrl } from "./ministryHelpers";
 import { fullName, matchesSearch } from "./memberHelpers";
 
-const Section = ({ title, children }) => (
-  <section>
-    <h2 className="mb-3 text-2xl font-semibold">{title}</h2>
-    {children}
-  </section>
-);
-
 // One ministry: what it is, its programs, events, photos and contact people.
 // Admins also edit it and manage who belongs to it.
 export default function MinistryDetail() {
-  const { ministry, members } = useLoaderData();
+  const { ministry, members, announcements } = useLoaderData();
   const revalidator = useRevalidator();
   const navigate = useNavigate();
   const toast = useToast();
   const [editing, setEditing] = useState(false);
   const [photo, setPhoto] = useState(null);
+  const [announcementDialog, setAnnouncementDialog] = useState(null); // "new" or an announcement
   const [search, setSearch] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -74,18 +72,27 @@ export default function MinistryDetail() {
     }
   };
 
-  const modalOpen = Boolean(editing || photo);
+  const handleDeleteAnnouncement = async (item) => {
+    if (window.confirm(`Remove "${item.title}"?`)) await run(() => deleteAnnouncement(item.id), "Announcement removed");
+  };
+
+  const modalOpen = Boolean(editing || photo || announcementDialog);
   // A box over the page closes on Escape and stops the page behind it from scrolling
   useEffect(() => {
     if (!modalOpen) return undefined;
-    const onKey = (event) => event.key === "Escape" && (photo ? setPhoto(null) : setEditing(false));
+    const onKey = (event) => {
+      if (event.key !== "Escape") return;
+      if (photo) setPhoto(null);
+      else if (announcementDialog) setAnnouncementDialog(null);
+      else setEditing(false);
+    };
     document.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [modalOpen, photo]);
+  }, [modalOpen, photo, announcementDialog]);
 
   return (
     <div>
@@ -139,11 +146,92 @@ export default function MinistryDetail() {
 
       <div className="grid gap-8 lg:grid-cols-3">
         <div className="space-y-8 lg:col-span-2">
-          <Section title="About us">
+          <section>
+            <h2 className="mb-3 text-2xl font-semibold">About us</h2>
             <p className="max-w-2xl leading-relaxed text-ink/80">{ministry.description || "No description yet."}</p>
-          </Section>
+          </section>
 
-          <Section title="Programs">
+          <section>
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-2xl font-semibold">Announcements</h2>
+              {isAdmin && (
+                <button
+                  type="button"
+                  className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 border border-line bg-white text-ink hover:border-forest-600 hover:text-forest-800 px-3 py-1.5 text-sm"
+                  onClick={() => setAnnouncementDialog("new")}
+                >
+                  <Plus className="size-4" />
+                  New announcement
+                </button>
+              )}
+            </div>
+            {announcements.length === 0 ? (
+              <p className="flex items-center gap-2 text-sm text-muted">
+                <Megaphone className="size-4" />
+                No announcements for this ministry right now.
+              </p>
+            ) : (
+              <ul className="space-y-4">
+                {announcements.map((item) => (
+                  <li
+                    key={item.id}
+                    className={`rounded-card border border-line bg-white shadow-card p-5 sm:p-6 ${item.pinned ? "!border-marigold-400" : ""}`}
+                  >
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="text-lg font-semibold">{item.title}</h3>
+                          {item.pinned && (
+                            <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-marigold-100 text-marigold-600">
+                              <Pin className="mr-1 size-3" />
+                              Pinned
+                            </span>
+                          )}
+                          {item.is_expired && (
+                            <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-paper-deep text-muted">
+                              Expired
+                            </span>
+                          )}
+                        </div>
+                        <p className="mt-1 text-xs text-muted">
+                          {formatDate(item.created_at)}
+                          {item.author_name && ` · ${item.author_name}`}
+                          {item.expires_on && ` · shown until ${formatDate(item.expires_on)}`}
+                        </p>
+                      </div>
+                      {isAdmin && (
+                        <div className="flex gap-2">
+                          <button
+                            type="button"
+                            className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 border border-line bg-white text-ink hover:border-forest-600 hover:text-forest-800 px-3 py-1.5 text-sm"
+                            disabled={busy}
+                            aria-label={`Edit ${item.title}`}
+                            onClick={() => setAnnouncementDialog(item)}
+                          >
+                            <Pencil className="size-4" />
+                            Edit
+                          </button>
+                          <button
+                            type="button"
+                            className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 text-forest-800 hover:bg-forest-50 px-3 py-1.5 text-sm"
+                            disabled={busy}
+                            aria-label={`Remove ${item.title}`}
+                            onClick={() => handleDeleteAnnouncement(item)}
+                          >
+                            <Trash2 className="size-4" />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                    <p className="mt-3 whitespace-pre-line leading-relaxed text-ink/90">{item.body}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+
+          <section>
+            <h2 className="mb-3 text-2xl font-semibold">Programs</h2>
             {ministry.programs.length === 0 ? (
               <p className="text-sm text-muted">No programs listed yet.</p>
             ) : (
@@ -160,9 +248,10 @@ export default function MinistryDetail() {
                 ))}
               </div>
             )}
-          </Section>
+          </section>
 
-          <Section title="Events">
+          <section>
+            <h2 className="mb-3 text-2xl font-semibold">Events</h2>
             {events.length === 0 ? (
               <p className="text-sm text-muted">No events listed yet.</p>
             ) : (
@@ -188,10 +277,11 @@ export default function MinistryDetail() {
                 ))}
               </div>
             )}
-          </Section>
+          </section>
 
           {ministry.gallery_images.length > 0 && (
-            <Section title="Photos">
+            <section>
+              <h2 className="mb-3 text-2xl font-semibold">Photos</h2>
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                 {ministry.gallery_images.map((g, i) => (
                   <button
@@ -209,7 +299,7 @@ export default function MinistryDetail() {
                   </button>
                 ))}
               </div>
-            </Section>
+            </section>
           )}
         </div>
 
@@ -369,6 +459,50 @@ export default function MinistryDetail() {
                 onClose={() => setEditing(false)}
                 onSaved={() => {
                   setEditing(false);
+                  revalidator.revalidate();
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+      {announcementDialog && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-6">
+          <div
+            className="absolute inset-0 bg-forest-950/50 backdrop-blur-[2px]"
+            onClick={() => setAnnouncementDialog(null)}
+            aria-hidden="true"
+          />
+          <div
+            tabIndex={-1}
+            role="dialog"
+            aria-modal="true"
+            aria-label={announcementDialog === "new" ? "New announcement" : "Edit announcement"}
+            className="rise relative flex max-h-[92vh] w-full flex-col rounded-t-3xl bg-white shadow-lift outline-none sm:rounded-3xl sm:max-w-xl"
+          >
+            <header className="flex items-start justify-between gap-4 border-b border-line px-5 py-4 sm:px-6">
+              <div>
+                <h2 className="text-xl font-semibold">
+                  {announcementDialog === "new" ? "New announcement" : "Edit announcement"}
+                </h2>
+                <p className="mt-0.5 text-sm text-muted">For the {ministry.title} ministry</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setAnnouncementDialog(null)}
+                aria-label="Close"
+                className="rounded-full p-1.5 text-muted hover:bg-paper-deep hover:text-ink"
+              >
+                <X className="size-5" />
+              </button>
+            </header>
+            <div className="overflow-y-auto px-5 py-5 sm:px-6">
+              <AnnouncementForm
+                ministry={ministry.id}
+                announcement={announcementDialog === "new" ? null : announcementDialog}
+                onClose={() => setAnnouncementDialog(null)}
+                onSaved={() => {
+                  setAnnouncementDialog(null);
                   revalidator.revalidate();
                 }}
               />

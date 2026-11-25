@@ -116,6 +116,12 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 
 ## Changelog
 
+### 2026-11-25: Announcements for a ministry
+
+- An announcement can be tied to a ministry. When posting, admins choose "The whole church" or a ministry. The Announcements page shows the ministry as a badge (it links to the ministry) and has a filter.
+- Each ministry page has an Announcements section with only that ministry's announcements. Admins can post, edit and remove them there (the ministry is already chosen). The usual rules apply: members stop seeing an announcement after its "show until" day; admins still see it, marked Expired.
+- Needs the backend change from the same day (`ministry` on announcements, `?ministry=`) and its `migrate`.
+
 ### 2026-11-25: No shared UI files
 
 - Removed `src/Components/ui/`. Every page and dialog now writes the buttons, fields, badges, modal and other pieces it uses directly in its own `return`, and what they do (clicks, submits, closing a box with Escape) is at the top of the function. Nothing looks different.

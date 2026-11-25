@@ -20,7 +20,9 @@ export const changeMinistryMembers = (id, changes) =>
 export const getDocuments = () => get("library/documents/", { auth: true });
 export const getDocumentFileUrl = (slug) => fetchFileUrl(`library/documents/${slug}/`);
 
-export const getAnnouncements = () => get("announcements/", { auth: true });
+// With a ministry id: only that ministry's announcements (its page in the dashboard).
+export const getAnnouncements = (ministryId) =>
+  get(ministryId ? `announcements/?ministry=${ministryId}` : "announcements/", { auth: true });
 export const createAnnouncement = (details) =>
   post("announcements/", details, { auth: true });
 export const updateAnnouncement = (id, details) =>
