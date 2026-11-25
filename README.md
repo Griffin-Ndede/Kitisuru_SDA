@@ -116,6 +116,10 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 
 ## Changelog
 
+### 2026-11-25: Church logo icon
+
+- The sign-in pages and the dashboard now show the church's green K icon (`public/logo-icon.png`) instead of the drawn arch. On the dark menu it sits in a white tile so it stays readable.
+
 ### 2026-11-25: Announcements for a ministry
 
 - An announcement can be tied to a ministry. When posting, admins choose "The whole church" or a ministry. The Announcements page shows the ministry as a badge (it links to the ministry) and has a filter.

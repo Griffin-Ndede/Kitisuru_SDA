@@ -110,17 +110,9 @@ export default function DashboardLayout() {
             className="inline-flex items-center gap-2.5 text-paper"
             aria-label="Kitisuru SDA Church, home"
           >
-            <svg viewBox="0 0 32 32" className="size-9 shrink-0" aria-hidden="true">
-              <rect width="32" height="32" rx="9" className="fill-paper/10" />
-              <path
-                d="M9 25V15a7 7 0 0 1 14 0v10"
-                fill="none"
-                stroke="#FFFFFF"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-              />
-              <circle cx="16" cy="19" r="3.4" fill="#FFC700" />
-            </svg>
+            <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-white">
+              <img src="/logo-icon.png" alt="" aria-hidden="true" className="h-6 w-auto" />
+            </span>
             <span className="leading-none">
               <span className="block font-display text-lg font-semibold tracking-tight">Kitisuru</span>
               <span className="block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-70">
@@ -159,17 +151,9 @@ export default function DashboardLayout() {
                 className="inline-flex items-center gap-2.5 text-paper"
                 aria-label="Kitisuru SDA Church, home"
               >
-                <svg viewBox="0 0 32 32" className="size-9 shrink-0" aria-hidden="true">
-                  <rect width="32" height="32" rx="9" className="fill-paper/10" />
-                  <path
-                    d="M9 25V15a7 7 0 0 1 14 0v10"
-                    fill="none"
-                    stroke="#FFFFFF"
-                    strokeWidth="2.2"
-                    strokeLinecap="round"
-                  />
-                  <circle cx="16" cy="19" r="3.4" fill="#FFC700" />
-                </svg>
+                <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-white">
+                  <img src="/logo-icon.png" alt="" aria-hidden="true" className="h-6 w-auto" />
+                </span>
                 <span className="leading-none">
                   <span className="block font-display text-lg font-semibold tracking-tight">Kitisuru</span>
                   <span className="block text-[0.65rem] font-semibold uppercase tracking-[0.2em] opacity-70">
@@ -223,17 +207,7 @@ export default function DashboardLayout() {
               className="inline-flex items-center gap-2.5 text-forest-900"
               aria-label="Kitisuru SDA Church, home"
             >
-              <svg viewBox="0 0 32 32" className="size-9 shrink-0" aria-hidden="true">
-                <rect width="32" height="32" rx="9" className="fill-forest-900" />
-                <path
-                  d="M9 25V15a7 7 0 0 1 14 0v10"
-                  fill="none"
-                  stroke="#FFFFFF"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                />
-                <circle cx="16" cy="19" r="3.4" fill="#FFC700" />
-              </svg>
+              <img src="/logo-icon.png" alt="" aria-hidden="true" className="h-9 w-auto shrink-0" />
             </Link>
           </div>
           <p className="eyebrow hidden lg:block">{roleLabels[user.role]} dashboard</p>
