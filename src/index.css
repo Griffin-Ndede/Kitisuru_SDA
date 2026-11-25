@@ -1,9 +1,13 @@
 @import "tailwindcss";
-@import "@fontsource-variable/fraunces";
-@import "@fontsource-variable/instrument-sans";
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/400-italic.css";
+@import "@fontsource/poppins/500.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
 
 html {
   scroll-behavior: smooth;
+  font-family: "Poppins", system-ui, sans-serif;
 }
 
 @theme {
@@ -13,8 +17,8 @@ html {
 
   /* The dashboard and sign-in pages: the website's blue and yellow on a light grey page.
      Every colour, font and radius those pages use comes from here. */
-  --font-display: "Fraunces Variable", Georgia, serif;
-  --font-app: "Instrument Sans Variable", system-ui, sans-serif;
+  --font-display: "Poppins", system-ui, sans-serif;
+  --font-app: "Poppins", system-ui, sans-serif;
 
   --color-forest-950: #0f3447;
   --color-forest-900: #2e8eb4;
@@ -75,7 +79,7 @@ html {
   }
 }
 
-/* Wrap a public page in .site-theme to get the cream look with serif headings. */
+/* Wrap a public page in .site-theme to get the cream look with Poppins headings. */
 @layer base {
   .site-theme {
     @apply bg-cream text-ink antialiased;
