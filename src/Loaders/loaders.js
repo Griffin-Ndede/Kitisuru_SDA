@@ -7,7 +7,10 @@ import { redirect } from "react-router";
 import {
   getAnnouncements,
   getDocuments,
+  getHymn,
+  getHymns,
   getInvolvedMinistries,
+  hymnLanguages,
   getRequests,
   getCluster,
   getClusters,
@@ -103,6 +106,27 @@ export const requestsLoader = async () => {
     getMinistries(),
   ]);
   return { requests, clusters, ministries };
+};
+
+// --- Hymnal (any approved member) --------------------------------------------
+
+// The page address says what to show: /dashboard/hymnal?language=sw&search=...&favourites=true
+// Favourites span every language, so the language only filters when it is not the favourites view.
+export const hymnsLoader = async ({ request }) => {
+  const params = new URL(request.url).searchParams;
+  const asked = params.get("language");
+  const language = hymnLanguages.some((l) => l.code === asked) ? asked : "en";
+  const search = (params.get("search") || "").trim();
+  const favourites = params.get("favourites") === "true";
+  const hymns = await getHymns({ language: favourites ? undefined : language, search, favourites });
+  return { hymns, language, search, favourites };
+};
+
+// One hymn with its words, and its language's list so the page can offer the previous and next hymn.
+export const hymnDetailsLoader = async ({ params }) => {
+  const hymn = await getHymn(params.id);
+  const siblings = await getHymns({ language: hymn.language });
+  return { hymn, siblings };
 };
 
 // --- Ministries and the library (any approved member) ----------------------

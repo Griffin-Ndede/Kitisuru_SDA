@@ -126,6 +126,8 @@ Work on a branch, keep pull requests small and focused, and make sure `npm run l
 | `/dashboard/announcements` | Approved members | Announcements from the church office. Admins post, edit and remove; the latest three also show on the overview |
 | `/dashboard/ministries`, `/dashboard/ministries/:id` | Approved members | Ministries (Youth, Children, Women...) with programs, events, contacts and photos. Admins add, edit, delete and manage members |
 | `/dashboard/library` | Approved members | Study documents (PDFs). Opened through the API with the sign-in token, so they cannot be reached without signing in |
+| `/dashboard/hymnal` | Approved members | The hymnal in five books (SDA Hymnal in English; Christ In Song in Kiswahili, Dholuo, Ekegusii and Kikuyu). Search by number, title or words; a Favourites tab. What is shown comes from the page address (`?language=`, `?search=`, `?favourites=true`) |
+| `/dashboard/hymnal/:id` | Approved members | One hymn: numbered verses, the refrain set apart, text size, save as favourite, previous and next |
 | `/dashboard/requests` | Admins | What people sent through the public Get involved forms; add them to the register, ministries and clusters, or mark them done |
 | `/dashboard/members`, `/dashboard/clusters`, `/dashboard/sign-up` | Admins | Member register, location and fundraising groups, sign-up link and invitations |
 
@@ -138,6 +140,13 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 - Write each screen's buttons, fields and so on directly in its `return`, with handlers at the top (no shared `ui/` folder, no helper components). Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
+
+### 2026-11-25: Hymnal
+
+- New **Hymnal** page in the dashboard for every approved member. Five books: the SDA Hymnal (English, 695 hymns), and Christ In Song in Kiswahili, Dholuo, Ekegusii and Kikuyu. Search by number (digits go straight to that hymn) or by words in the title and lyrics; a Favourites tab keeps each person's own list.
+- A hymn's page shows numbered verses with the refrain set apart, a text-size control (remembered in the browser), a save button and previous and next hymn.
+- What is shown comes from the page address (`?language=sw&search=...&favourites=true`), read by `hymnsLoader`, so refresh, back and shared links work.
+- Needs the backend Hymnal PR merged, `migrate`, and the one-off hymn import (see the backend README, "Hymnal content"). Until the import is run, each book shows "The church office has not loaded this book yet."
 
 ### 2026-11-25: New look for the rest of the public pages, and rounder corners everywhere
 

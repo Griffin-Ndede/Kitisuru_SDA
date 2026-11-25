@@ -20,6 +20,30 @@ export const changeMinistryMembers = (id, changes) =>
 export const getDocuments = () => get("library/documents/", { auth: true });
 export const getDocumentFileUrl = (slug) => fetchFileUrl(`library/documents/${slug}/`);
 
+// --- Hymnal (approved members only; hymns are loaded by the backend's import command) ---
+
+// The books the backend holds: English is the SDA Hymnal, the rest are Christ In Song.
+export const hymnLanguages = [
+  { code: "en", label: "English" },
+  { code: "sw", label: "Kiswahili" },
+  { code: "luo", label: "Dholuo" },
+  { code: "guz", label: "Ekegusii" },
+  { code: "ki", label: "Kikuyu" },
+];
+
+// The list has no words. search: digits go to that hymn number, otherwise a word in the title or lyrics.
+export const getHymns = ({ language, search, favourites } = {}) => {
+  const params = new URLSearchParams();
+  if (language) params.set("language", language);
+  if (search) params.set("search", search);
+  if (favourites) params.set("favourites", "true");
+  const query = params.toString();
+  return get(query ? `hymns/?${query}` : "hymns/", { auth: true });
+};
+export const getHymn = (id) => get(`hymns/${id}/`, { auth: true });
+export const favouriteHymn = (id) => post(`hymns/${id}/favourite/`, {}, { auth: true });
+export const unfavouriteHymn = (id) => del(`hymns/${id}/favourite/`, { auth: true });
+
 // With a ministry id: only that ministry's announcements (its page in the dashboard).
 export const getAnnouncements = (ministryId) =>
   get(ministryId ? `announcements/?ministry=${ministryId}` : "announcements/", { auth: true });

@@ -18,6 +18,8 @@ import Overview from './Pages/Dashboard/Overview'
 import Profile from './Pages/Dashboard/Profile'
 import Members from './Pages/Dashboard/Members'
 import Clusters from './Pages/Dashboard/Clusters'
+import Hymnal from './Pages/Dashboard/Hymnal'
+import HymnDetail from './Pages/Dashboard/HymnDetail'
 import ClusterDetail from './Pages/Dashboard/ClusterDetail'
 import Ministries from './Pages/Dashboard/Ministries'
 import MinistryDetail from './Pages/Dashboard/MinistryDetail'
@@ -29,6 +31,8 @@ import Privacy from './Pages/Privacy'
 import {
   homeLoader,
   ministriesLoader,
+  hymnsLoader,
+  hymnDetailsLoader,
   clustersLoader,
   clusterDetailsLoader,
   ministryDetailsLoader,
@@ -81,6 +85,8 @@ const router = createBrowserRouter([
           { path: 'ministries', element: <Ministries />, loader: ministriesLoader },
           { path: 'ministries/:id', element: <MinistryDetail />, loader: ministryDetailsLoader },
           { path: 'library', element: <Library />, loader: libraryLoader },
+          { path: 'hymnal', element: <Hymnal />, loader: hymnsLoader },
+          { path: 'hymnal/:id', element: <HymnDetail />, loader: hymnDetailsLoader },
           // Admin only: the API answers 403 to anyone else and the error page explains
           { path: 'members', element: <Members />, loader: membersLoader },
           { path: 'clusters', element: <Clusters />, loader: clustersLoader },
