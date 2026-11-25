@@ -141,8 +141,13 @@ Kitisuru SDA Church Website
     // What the church office needs to follow up, sent to the backend
     const buildSubmission = () => {
         const contact = activityContacts[activity.key];
+        // Only the fields picked as the contact name, email and phone are left out of the
+        // details. The rest (the child's name, the other parent...) must still be sent.
         const used = new Set(["ministries", "area"]);
-        ["name", "email", "phone"].forEach((k) => contact[k].forEach((n) => used.add(n)));
+        ["name", "email", "phone"].forEach((k) => {
+            const picked = contact[k].find((n) => formData[n] && String(formData[n]).trim());
+            if (picked) used.add(picked);
+        });
         const details = fields
             .filter((f) => !used.has(f.name))
             .map((f) => {
