@@ -199,36 +199,45 @@ export default function Overview() {
 
       {user.approved && (
         <>
-          <CardGrid cards={churchCards} />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {churchCards.map(({ to, title, text, icon: Icon }) => (
+              <Link key={to} to={to} className="group block">
+                <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 h-full transition group-hover:-translate-y-0.5 group-hover:shadow-lift">
+                  <span className="grid size-11 place-items-center rounded-full bg-forest-50 text-forest-700">
+                    <Icon className="size-5" />
+                  </span>
+                  <h2 className="mt-4 text-xl font-semibold">{title}</h2>
+                  <p className="mt-1 text-sm text-muted">{text}</p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-forest-700">
+                    Open <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
           {user.role === "admin" && (
             <>
               <h2 className="mt-8 mb-3 text-xl font-semibold">Administration</h2>
-              <CardGrid cards={adminCards} />
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {adminCards.map(({ to, title, text, icon: Icon }) => (
+                  <Link key={to} to={to} className="group block">
+                    <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 h-full transition group-hover:-translate-y-0.5 group-hover:shadow-lift">
+                      <span className="grid size-11 place-items-center rounded-full bg-forest-50 text-forest-700">
+                        <Icon className="size-5" />
+                      </span>
+                      <h2 className="mt-4 text-xl font-semibold">{title}</h2>
+                      <p className="mt-1 text-sm text-muted">{text}</p>
+                      <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-forest-700">
+                        Open <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </>
           )}
         </>
       )}
-    </div>
-  );
-}
-
-function CardGrid({ cards }) {
-  return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {cards.map(({ to, title, text, icon: Icon }) => (
-        <Link key={to} to={to} className="group block">
-          <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 h-full transition group-hover:-translate-y-0.5 group-hover:shadow-lift">
-            <span className="grid size-11 place-items-center rounded-full bg-forest-50 text-forest-700">
-              <Icon className="size-5" />
-            </span>
-            <h2 className="mt-4 text-xl font-semibold">{title}</h2>
-            <p className="mt-1 text-sm text-muted">{text}</p>
-            <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-forest-700">
-              Open <ArrowRight className="size-4 transition group-hover:translate-x-0.5" />
-            </span>
-          </div>
-        </Link>
-      ))}
     </div>
   );
 }
