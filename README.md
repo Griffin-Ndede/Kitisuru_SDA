@@ -126,8 +126,8 @@ Work on a branch, keep pull requests small and focused, and make sure `npm run l
 | `/dashboard/announcements` | Approved members | Announcements from the church office. Admins post, edit and remove; the latest three also show on the overview |
 | `/dashboard/ministries`, `/dashboard/ministries/:id` | Approved members | Ministries (Youth, Children, Women...) with programs, events, contacts and photos. Admins add, edit, delete and manage members |
 | `/dashboard/library` | Approved members | Study documents (PDFs). Opened through the API with the sign-in token, so they cannot be reached without signing in |
-| `/dashboard/hymnal` | Any approved member: the hymnal in five books (SDA Hymnal in English, and Christ In Song in Kiswahili, Dholuo, Ekegusii and Kikuyu), search by number, title or words, favourites | API (loader, address-driven) |
-| `/dashboard/hymnal/:id` | One hymn: numbered verses, the refrain set apart, text size, save as favourite, previous and next | API (loader + action) |
+| `/dashboard/hymnal` | Approved members | The hymnal in five books (SDA Hymnal in English; Christ In Song in Kiswahili, Dholuo, Ekegusii and Kikuyu). Search by number, title or words; a Favourites tab. What is shown comes from the page address (`?language=`, `?search=`, `?favourites=true`) |
+| `/dashboard/hymnal/:id` | Approved members | One hymn: numbered verses, the refrain set apart, text size, save as favourite, previous and next |
 | `/dashboard/requests` | Admins | What people sent through the public Get involved forms; add them to the register, ministries and clusters, or mark them done |
 | `/dashboard/members`, `/dashboard/clusters`, `/dashboard/sign-up` | Admins | Member register, location and fundraising groups, sign-up link and invitations |
 
