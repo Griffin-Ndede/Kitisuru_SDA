@@ -158,12 +158,14 @@ export default function Overview() {
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-sm text-muted">Your groups</span>
               {user.clusters.map((c) => (
+                <Link key={c.id} to={`/dashboard/clusters/${c.id}`}>
                 <span
                   className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-forest-100 text-forest-800"
                   key={c.id}
                 >
                   {c.name}
                 </span>
+                </Link>
               ))}
             </div>
           )}
