@@ -99,3 +99,11 @@ html {
   .rise { animation: none; }
   html { scroll-behavior: auto; }
 }
+
+/* SweetAlert2 popups render outside .app-theme, so give them the app fonts. */
+.swal2-popup {
+  font-family: var(--font-app);
+}
+.swal2-title {
+  font-family: var(--font-display);
+}

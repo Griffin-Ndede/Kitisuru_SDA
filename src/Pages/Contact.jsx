@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 
 import Navbar from '../Components/Navbar'
+import Swal from 'sweetalert2'
 import { Facebook, Instagram, Youtube, } from 'lucide-react';
 
 const Contact = () => {
@@ -25,7 +26,14 @@ const Contact = () => {
     e.preventDefault();
     // Here you would typically send the form data to your backend
     console.log('Form submitted:', formData);
-    alert('Thank you for your message! We will get back to you soon.');
+    Swal.fire({
+      title: 'Thank you!',
+      text: 'Thank you for your message! We will get back to you soon.',
+      icon: 'success',
+      iconColor: '#2e8eb4', // the website's blue
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#2e8eb4',
+    });
     setFormData({
       name: '',
       email: '',

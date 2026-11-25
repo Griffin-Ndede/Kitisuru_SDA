@@ -173,7 +173,14 @@ Kitisuru SDA Church Website
             await sendGetInvolved(buildSubmission());
         } catch (err) {
             setBusy(false);
-            Swal.fire({ title: "Error", text: errorMessage(err), icon: "error", confirmButtonText: "OK" });
+            Swal.fire({
+                title: "Error",
+                text: errorMessage(err),
+                icon: "error",
+                iconColor: "#b04a2a", // red
+                confirmButtonText: "OK",
+                confirmButtonColor: "#2e8eb4", // the website's blue
+            });
             return;
         }
 
@@ -196,7 +203,9 @@ Kitisuru SDA Church Website
             title: 'Success',
             text: `Thank you for filling out the ${activity.title} form. The church office will be in touch.`,
             icon: 'success',
+            iconColor: '#2e8eb4', // the website's blue
             confirmButtonText: 'OK',
+            confirmButtonColor: '#2e8eb4',
         });
         onClose?.();
     };

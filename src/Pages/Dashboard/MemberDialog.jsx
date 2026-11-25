@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { addMember, deleteMember, resendInvitation, updateMember, updateUser } from "../../Api";
 import { errorMessage } from "../../Api/client";
 import { Check, KeyRound, Power, Trash2, LoaderCircle, CircleAlert } from "lucide-react";
+import Swal from "sweetalert2";
 import { useToast } from "../../Context/ToastContext";
 import CopyLink from "./CopyLink";
 import { kindLabels, statusLabels, statusOf } from "./memberHelpers";
@@ -63,6 +64,26 @@ export default function MemberDialog({ member, clusters, ministries = [], me, on
       return null;
     } finally {
       setBusy(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    const { isConfirmed } = await Swal.fire({
+      title: `Delete ${member.first_name} from the register?`,
+      text: "This removes their entry. It cannot be undone.",
+      icon: "warning",
+      iconColor: "#ffc700", // the website's yellow
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete",
+      cancelButtonText: "Keep them",
+      confirmButtonColor: "#b04a2a", // red: this removes something
+      cancelButtonColor: "#6b7280", // grey
+      reverseButtons: true,
+      focusCancel: true,
+    });
+    if (isConfirmed && (await run(() => deleteMember(member.id), "Deleted"))) {
+      onSaved();
+      onClose();
     }
   };
 
@@ -300,14 +321,7 @@ export default function MemberDialog({ member, clusters, ministries = [], me, on
                 type="button"
                 className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 bg-clay-600 text-white hover:bg-clay-700 px-3 py-1.5 text-sm"
                 disabled={busy}
-                onClick={async () => {
-                  if (window.confirm(`Delete ${member.first_name} from the register?`)) {
-                    if (await run(() => deleteMember(member.id), "Deleted")) {
-                      onSaved();
-                      onClose();
-                    }
-                  }
-                }}
+                onClick={handleDelete}
               >
                 <Trash2 className="size-4" />
                 Delete from the register
