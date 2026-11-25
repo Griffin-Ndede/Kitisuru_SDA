@@ -130,6 +130,7 @@ Work on a branch, keep pull requests small and focused, and make sure `npm run l
 | `/dashboard/hymnal/:id` | Approved members | One hymn: numbered verses, the refrain set apart, text size, save as favourite, previous and next |
 | `/dashboard/leaders` | Approved members | Who is serving: each position with its current holders and when the term ends (names only, no phone numbers or emails) |
 | `/dashboard/leadership` | Admins | Create position titles (optionally tied to a ministry), appoint members for two-year terms (one title can have several people), optionally give admin access, end terms, and see terms ending within three months |
+| `/dashboard/activity` | Admins | Activity log: who changed what and when, newest first, grouped by day. Filter by admin, search (for example a member's name) and load older entries. Everything an admin changes is recorded automatically by the backend |
 | `/dashboard/requests` | Admins | What people sent through the public Get involved forms; add them to the register, ministries and clusters, or mark them done |
 | `/dashboard/members`, `/dashboard/clusters`, `/dashboard/sign-up` | Admins | Member register, location and fundraising groups, sign-up link and invitations |
 
@@ -142,6 +143,11 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 - Write each screen's buttons, fields and so on directly in its `return`, with handlers at the top (no shared `ui/` folder, no helper components). Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
+
+### 2026-11-25: Activity log
+
+- New admin page **Activity log** (`/dashboard/activity`, under Administration): who approved or changed what, and when. Admins can filter by admin and search. Members do not see it, and the backend refuses them too.
+- Needs the backend with `Apps.Audit` (run `python manage.py migrate`).
 
 ### 2026-11-25: Our leaders and Leadership
 

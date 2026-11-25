@@ -67,6 +67,16 @@ export const createAssignment = (details) => post("leadership/assignments/", det
 export const updateAssignment = (id, details) => patch(`leadership/assignments/${id}/`, details, { auth: true });
 export const deleteAssignment = (id) => del(`leadership/assignments/${id}/`, { auth: true });
 
+// The activity log: who changed what. Filters: actor (admin's id), search (words), before (entry id, for the next older page).
+export const getAuditLog = ({ actor = "", search = "", before = "" } = {}) => {
+  const params = new URLSearchParams();
+  if (actor) params.set("actor", actor);
+  if (search) params.set("search", search);
+  if (before) params.set("before", before);
+  const query = params.toString();
+  return get(`audit/${query ? `?${query}` : ""}`, { auth: true });
+};
+
 // --- Get involved: the public forms and the admin's requests ------------------
 
 export const getInvolvedMinistries = () => get("get-involved/ministries/");

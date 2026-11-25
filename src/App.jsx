@@ -29,6 +29,7 @@ import SignUpAccess from './Pages/Dashboard/SignUpAccess'
 import Requests from './Pages/Dashboard/Requests'
 import Leaders from './Pages/Dashboard/Leaders'
 import Leadership from './Pages/Dashboard/Leadership'
+import ActivityLog from './Pages/Dashboard/ActivityLog'
 import Privacy from './Pages/Privacy'
 import {
   homeLoader,
@@ -42,6 +43,7 @@ import {
   announcementsLoader,
   leadersLoader,
   leadershipLoader,
+  auditLoader,
   overviewLoader,
   getInvolvedLoader,
   requestsLoader,
@@ -97,6 +99,7 @@ const router = createBrowserRouter([
           { path: 'clusters', element: <Clusters />, loader: clustersLoader },
           { path: 'clusters/:id', element: <ClusterDetail />, loader: clusterDetailsLoader },
           { path: 'leadership', element: <Leadership />, loader: leadershipLoader },
+          { path: 'activity', element: <ActivityLog />, loader: auditLoader },
           { path: 'requests', element: <Requests />, loader: requestsLoader },
           { path: 'sign-up', element: <SignUpAccess />, loader: signUpAccessLoader },
         ],

@@ -12,6 +12,7 @@ import {
   getInvolvedMinistries,
   getLeaders,
   getPositions,
+  getAuditLog,
   hymnLanguages,
   getRequests,
   getCluster,
@@ -158,6 +159,12 @@ export const leadersLoader = async () => ({ leaders: await getLeaders() });
 export const leadershipLoader = async () => {
   const [positions, members, ministries] = await Promise.all([getPositions(), getMembers(), getMinistries()]);
   return { positions, members, ministries };
+};
+
+// Admin only: the first page of the activity log, and the admins to filter it by.
+export const auditLoader = async () => {
+  const [log, members] = await Promise.all([getAuditLog(), getMembers()]);
+  return { log, admins: members.filter((m) => m.role === "admin") };
 };
 
 export const libraryLoader = async () => ({

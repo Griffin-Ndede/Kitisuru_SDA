@@ -11,6 +11,7 @@ import {
   Music2,
   Award,
   BadgeCheck,
+  History,
   Megaphone,
   HandHeart,
   Globe,
@@ -111,6 +112,7 @@ export default function DashboardLayout() {
               { to: "/dashboard/leadership", label: "Leadership", icon: BadgeCheck },
               { to: "/dashboard/requests", label: "Get involved requests", icon: HandHeart },
               { to: "/dashboard/sign-up", label: "Sign-up & invitations", icon: Link2 },
+              { to: "/dashboard/activity", label: "Activity log", icon: History },
             ],
           },
         ]
