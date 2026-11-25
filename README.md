@@ -40,7 +40,7 @@ npm run build
 | `/about` | About | static |
 | `/ministries`, `/resources` | Old addresses; they redirect to `/dashboard/ministries` and `/dashboard/library` | none |
 | `/giving` | Giving options and M-Pesa paybill details | static |
-| `/getinvolved` | Ways to get involved, with a form that sends email (EmailJS) | static |
+| `/getinvolved` | Ways to get involved, with four forms whose answers are saved and reviewed in the dashboard | static |
 | `/contact` | Contact details and social links | static |
 | `/join` | Create your own account: name, email, phone and password. The shared link in the WhatsApp group (`/join?code=…`) opens the same page | API (action) |
 | `/signin` | Sign in with email and password, or Google | API (action) |
@@ -140,6 +140,10 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 - Write each screen's buttons, fields and so on directly in its `return`, with handlers at the top (no shared `ui/` folder, no helper components). Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
+
+### 2026-11-25: EmailJS removed; Get involved answers go only to the dashboard
+
+The Get involved forms no longer send an email through EmailJS (removed the code and the `@emailjs/browser` package). Every form is saved by the backend and reviewed under Administration > Get involved requests. After pulling: `npm install`.
 
 ### 2026-11-25: Get involved forms ask for a phone number
 
