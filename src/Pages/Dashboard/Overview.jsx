@@ -3,10 +3,6 @@ import { Link, useLoaderData, useRouteLoaderData } from "react-router";
 import { ArrowRight, BookOpenText, HandHeart, Megaphone, Clock, HeartHandshake, Link2, UserPen, Users, UsersRound } from "lucide-react";
 import { roleLabels } from "./roles";
 import { formatDate } from "./ministryHelpers";
-import Card from "../../Components/ui/Card";
-import PageHeader from "../../Components/ui/PageHeader";
-import { Notice } from "../../Components/ui/States";
-import Badge from "../../Components/ui/Badge";
 
 // Which details a member is still asked to add on "My profile".
 const missingDetails = (user) =>
@@ -133,5 +129,59 @@ function CardGrid({ cards }) {
         </Link>
       ))}
     </div>
+  );
+}
+
+// ---- Small UI pieces used only on this page ----
+
+function Card({ as: Tag = "div", padded = true, className = "", children, ...props }) {
+  return (
+    <Tag className={`rounded-card border border-line bg-white shadow-card ${padded ? "p-5 sm:p-6" : ""} ${className}`} {...props}>
+      {children}
+    </Tag>
+  );
+}
+
+function PageHeader({ title, description, actions }) {
+  return (
+    <header className="mb-6 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h1 className="text-3xl font-semibold sm:text-4xl">{title}</h1>
+        {description && <p className="mt-1.5 max-w-2xl text-muted">{description}</p>}
+      </div>
+      {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
+    </header>
+  );
+}
+
+// A notice with an icon: used for "complete your profile", "waiting for approval" and similar.
+function Notice({ icon: Icon, title, tone = "info", children }) {
+  const tones = {
+    info: "border-forest-100 bg-forest-50 text-forest-900",
+    warm: "border-marigold-100 bg-marigold-100/60 text-ink",
+  };
+  return (
+    <div role="status" className={`mb-6 flex gap-4 rounded-card border p-5 ${tones[tone]}`}>
+      {Icon && <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white text-forest-700"><Icon className="size-5" /></span>}
+      <div>
+        <h2 className="font-display text-lg font-semibold">{title}</h2>
+        <div className="mt-0.5 text-sm text-muted">{children}</div>
+      </div>
+    </div>
+  );
+}
+
+const TONES = {
+  green: "bg-forest-100 text-forest-800",
+  gold: "bg-marigold-100 text-marigold-600",
+  clay: "bg-clay-100 text-clay-700",
+  grey: "bg-paper-deep text-muted",
+};
+
+function Badge({ tone = "grey", children }) {
+  return (
+    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${TONES[tone]}`}>
+      {children}
+    </span>
   );
 }
