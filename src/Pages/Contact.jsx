@@ -59,7 +59,7 @@ const Contact = () => {
             className="max-w-3xl"
           >
             <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">Contact</p>
-            <h1 className="mt-4 text-5xl leading-[1.05] font-semibold text-forest-950 sm:text-6xl">
+            <h1 className="mt-4 text-4xl leading-tight font-semibold text-forest-950 sm:text-5xl">
               We&apos;d love to{' '}
               <span className="relative inline-block text-forest-900">
                 hear from you
@@ -86,10 +86,10 @@ const Contact = () => {
         </div>
       </section>
 
-      <main className="mx-auto max-w-7xl px-5 pb-20 sm:px-8 lg:pb-28">
+      <main className="mx-auto max-w-7xl px-5 pb-24 sm:px-8 lg:pb-36">
         <div className="grid gap-8 lg:grid-cols-3">
           {/* Contact form */}
-          <div className="rounded-3xl bg-white p-7 shadow-card sm:p-10 lg:col-span-2">
+          <div className="rounded-3xl bg-white p-6 shadow-card sm:p-8 lg:col-span-2">
             <h2 className="text-3xl font-semibold text-forest-950">Send us a message</h2>
             <form onSubmit={handleSubmit} className="mt-8 space-y-5">
               <div>
@@ -182,7 +182,7 @@ const Contact = () => {
           </div>
 
           {/* Contact information */}
-          <aside className="h-fit rounded-3xl bg-forest-950 p-7 text-white sm:p-10">
+          <aside className="h-fit rounded-3xl bg-forest-950 p-7 text-white sm:p-8">
             <h2 className="text-3xl font-semibold">Our information</h2>
             <ul className="mt-8 space-y-7">
               <li className="flex gap-4">

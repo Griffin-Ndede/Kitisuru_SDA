@@ -50,7 +50,7 @@ function Giving() {
 
       {/* Header */}
       <section className="relative">
-        <div className="mx-auto max-w-7xl px-5 pt-12 pb-16 sm:px-8 lg:pt-20 lg:pb-20">
+        <div className="mx-auto max-w-7xl px-5 pt-12 pb-16 sm:px-8 lg:pt-20 lg:pb-24">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -59,7 +59,7 @@ function Giving() {
           >
             <div>
               <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">Giving</p>
-              <h1 className="mt-4 text-5xl leading-[1.05] font-semibold text-forest-950 sm:text-6xl">
+              <h1 className="mt-4 text-4xl leading-tight font-semibold text-forest-950 sm:text-5xl">
                 Supporting God&apos;s work through{' '}
                 <span className="relative inline-block text-forest-900">
                   giving
@@ -80,7 +80,7 @@ function Giving() {
                 </span>
               </h1>
             </div>
-            <figure className="relative rounded-3xl bg-white p-7 shadow-card">
+            <figure className="relative rounded-3xl bg-white p-6 shadow-card">
               <span className="absolute -top-3 left-7 h-1.5 w-12 rounded-b-full bg-marigold-500" aria-hidden="true" />
               <blockquote className="font-display text-xl leading-relaxed text-forest-950 italic">
                 &ldquo;Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.&rdquo;
@@ -91,13 +91,13 @@ function Giving() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl px-5 pb-20 sm:px-8">
+      <div className="mx-auto max-w-7xl px-5 pb-24 sm:px-8">
         {/* Giving options */}
         <section className="grid gap-6 lg:grid-cols-2">
           {givingOptions.map((option, index) => {
             const isExpanded = expandedOption === index;
             return (
-              <div key={option.title} className="rounded-3xl bg-white p-7 shadow-card">
+              <div key={option.title} className="rounded-3xl bg-white p-6 shadow-card">
                 <button
                   type="button"
                   className="flex w-full items-center justify-between gap-4 text-left"
@@ -131,11 +131,11 @@ function Giving() {
         </section>
 
         {/* Payment methods */}
-        <section className="mt-16">
+        <section className="mt-20">
           <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">How to give</p>
-          <h2 className="mt-3 text-4xl font-semibold text-forest-950">Payment methods</h2>
+          <h2 className="mt-3 text-3xl font-semibold text-forest-950">Payment methods</h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-3xl bg-white p-7 shadow-card">
+            <div className="rounded-3xl bg-white p-6 shadow-card">
               <span className="grid size-12 place-items-center rounded-3xl bg-marigold-100 text-marigold-600">
                 <Phone className="size-6" strokeWidth={1.6} />
               </span>
@@ -150,7 +150,7 @@ function Giving() {
               </p>
             </div>
 
-            <div className="rounded-3xl bg-white p-7 shadow-card">
+            <div className="rounded-3xl bg-white p-6 shadow-card">
               <span className="grid size-12 place-items-center rounded-3xl bg-marigold-100 text-marigold-600">
                 <Building className="size-6" strokeWidth={1.6} />
               </span>
@@ -165,7 +165,7 @@ function Giving() {
               </p>
             </div>
 
-            <div className="rounded-3xl bg-white p-7 shadow-card">
+            <div className="rounded-3xl bg-white p-6 shadow-card">
               <span className="grid size-12 place-items-center rounded-3xl bg-marigold-100 text-marigold-600">
                 <CreditCard className="size-6" strokeWidth={1.6} />
               </span>
@@ -181,7 +181,7 @@ function Giving() {
               </p>
             </div>
 
-            <div className="rounded-3xl bg-white p-7 shadow-card">
+            <div className="rounded-3xl bg-white p-6 shadow-card">
               <span className="grid size-12 place-items-center rounded-3xl bg-marigold-100 text-marigold-600">
                 <CreditCard className="size-6" strokeWidth={1.6} />
               </span>
@@ -200,7 +200,7 @@ function Giving() {
         </section>
 
         {/* FAQs */}
-        <section className="mt-16 rounded-3xl bg-cream-deep/70 p-7 sm:p-10">
+        <section className="mt-20 rounded-3xl bg-cream-deep/70 p-6 sm:p-8">
           <h2 className="text-3xl font-semibold text-forest-950">Frequently asked questions</h2>
           <div className="mt-6 divide-y divide-forest-950/10">
             {faqs.map((faq, index) => {
@@ -228,7 +228,7 @@ function Giving() {
 
       {/* Closing verse, on navy */}
       <section className="bg-forest-950 text-white">
-        <div className="mx-auto max-w-3xl px-5 py-16 text-center sm:px-8">
+        <div className="mx-auto max-w-3xl px-5 py-20 text-center sm:px-8">
           <p className="font-display text-2xl leading-relaxed text-white/90 italic sm:text-3xl">
             &ldquo;Bring the whole tithe into the storehouse...&rdquo;
           </p>

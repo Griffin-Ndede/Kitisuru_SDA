@@ -66,7 +66,7 @@ function GetInvolved() {
 
             {/* Header */}
             <section className="relative">
-                <div className="mx-auto max-w-7xl px-5 pt-12 pb-16 sm:px-8 lg:pt-20 lg:pb-20">
+                <div className="mx-auto max-w-7xl px-5 pt-12 pb-16 sm:px-8 lg:pt-20 lg:pb-24">
                     <motion.div
                         initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -74,7 +74,7 @@ function GetInvolved() {
                         className="max-w-3xl"
                     >
                         <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">Get involved</p>
-                        <h1 className="mt-4 text-5xl leading-[1.05] font-semibold text-forest-950 sm:text-6xl">
+                        <h1 className="mt-4 text-4xl leading-tight font-semibold text-forest-950 sm:text-5xl">
                             Find your place at{' '}
                             <span className="relative inline-block text-forest-900">
                                 Kitisuru
@@ -103,11 +103,11 @@ function GetInvolved() {
 
             {/* The four forms */}
             <section>
-                <div className="mx-auto grid max-w-7xl gap-6 px-5 pb-20 sm:px-8 md:grid-cols-2 lg:pb-28">
+                <div className="mx-auto grid max-w-7xl gap-6 px-5 pb-24 sm:px-8 md:grid-cols-2 lg:pb-36">
                     {activities.map((activity) => (
                         <div
                             key={activity.key}
-                            className="flex flex-col rounded-3xl bg-white p-7 shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-lift sm:p-9"
+                            className="flex flex-col rounded-3xl bg-white p-6 shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card sm:p-7"
                         >
                             <span className="grid size-14 place-items-center rounded-3xl bg-forest-50 text-forest-900">
                                 <activity.icon className="size-7" strokeWidth={1.5} />
@@ -129,8 +129,8 @@ function GetInvolved() {
 
             {/* Need more information */}
             <section className="bg-cream-deep/70">
-                <div className="mx-auto max-w-3xl px-5 py-20 text-center sm:px-8">
-                    <h2 className="text-4xl font-semibold text-forest-950">Need more information?</h2>
+                <div className="mx-auto max-w-3xl px-5 py-24 text-center sm:px-8">
+                    <h2 className="text-3xl font-semibold text-forest-950">Need more information?</h2>
                     <p className="mt-4 text-lg text-ink/70">
                         Our pastoral team is here to help you find your place in our church family.
                     </p>
@@ -145,7 +145,7 @@ function GetInvolved() {
 
             {/* Closing verse, on navy */}
             <section className="bg-forest-950 text-white">
-                <div className="mx-auto max-w-3xl px-5 py-16 text-center sm:px-8">
+                <div className="mx-auto max-w-3xl px-5 py-20 text-center sm:px-8">
                     <p className="font-display text-2xl leading-relaxed text-white/90 italic sm:text-3xl">
                         &ldquo;For where two or three gather in my name, there am I with them.&rdquo;
                     </p>
@@ -165,7 +165,7 @@ function GetInvolved() {
                         role="dialog"
                         aria-modal="true"
                         aria-label={selectedActivity.title}
-                        className="relative max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-3xl bg-cream p-6 shadow-lift"
+                        className="relative max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-3xl bg-cream p-6 shadow-card"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <button

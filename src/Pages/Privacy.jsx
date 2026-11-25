@@ -54,9 +54,9 @@ export default function Privacy() {
       <Navbar />
 
       <section>
-        <div className="mx-auto max-w-4xl px-5 pt-12 pb-20 sm:px-8 lg:pt-20 lg:pb-28">
+        <div className="mx-auto max-w-4xl px-5 pt-12 pb-24 sm:px-8 lg:pt-20 lg:pb-36">
           <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">Privacy</p>
-          <h1 className="mt-4 text-5xl leading-[1.05] font-semibold text-forest-950 sm:text-6xl">
+          <h1 className="mt-4 text-4xl leading-tight font-semibold text-forest-950 sm:text-5xl">
             How we use{' '}
             <span className="relative inline-block text-forest-900">
               your details
@@ -82,7 +82,7 @@ export default function Privacy() {
 
           <div className="mt-12 space-y-6">
             {sections.map((section) => (
-              <div key={section.title} className="rounded-3xl bg-white p-7 shadow-card sm:p-9">
+              <div key={section.title} className="rounded-3xl bg-white p-6 shadow-card sm:p-7">
                 <h2 className="text-2xl font-semibold text-forest-950">{section.title}</h2>
                 <ul className="mt-4 space-y-3 text-ink/75">
                   {section.body.map((line) => (
