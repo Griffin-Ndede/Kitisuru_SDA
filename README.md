@@ -141,6 +141,10 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 
 ## Changelog
 
+### 2026-11-25: Child dedication sends the child's and both parents' details
+
+The Get involved form left the child's name and the second parent's details out of what it sent to the dashboard. Now only the one name, email and phone used as the contact are taken out of "Their answers"; everything else is sent.
+
 ### 2026-11-25: Poppins font
 
 Headings and text now use Poppins, a friendly rounded sans serif, replacing Fraunces and Instrument Sans. Swapped the font packages for `@fontsource/poppins`. After pulling: `npm install`. To try Montserrat instead, change the two `--font-*` lines and the imports in `src/index.css`.
