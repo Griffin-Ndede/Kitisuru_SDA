@@ -54,7 +54,7 @@ export default function ResetPassword() {
             <div className="mt-8">
               <div
                 role="status"
-                className="mb-6 flex gap-4 rounded-card border p-5 border-forest-100 bg-forest-50 text-forest-900"
+                className="mb-6 flex gap-4 rounded-3xl border p-5 border-forest-100 bg-forest-50 text-forest-900"
               >
                 <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white text-forest-700">
                   <Link2 className="size-5" />
@@ -119,7 +119,7 @@ export default function ResetPassword() {
             <div className="mt-8">
               <div
                 role="status"
-                className="mb-6 flex gap-4 rounded-card border p-5 border-forest-100 bg-forest-50 text-forest-900"
+                className="mb-6 flex gap-4 rounded-3xl border p-5 border-forest-100 bg-forest-50 text-forest-900"
               >
                 <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white text-forest-700">
                   <CircleCheck className="size-5" />
@@ -216,7 +216,7 @@ export default function ResetPassword() {
               {error && (
                 <p
                   role="alert"
-                  className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700"
+                  className="flex items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700"
                 >
                   <CircleAlert className="mt-0.5 size-4 shrink-0" />
                   {error}

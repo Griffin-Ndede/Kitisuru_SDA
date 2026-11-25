@@ -87,7 +87,7 @@ export default function Profile() {
       </header>
 
       <form
-        className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 grid gap-4 sm:grid-cols-2"
+        className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6 grid gap-4 sm:grid-cols-2"
         onSubmit={handleSave}
       >
         <div>
@@ -160,7 +160,7 @@ export default function Profile() {
           {error && (
             <p
               role="alert"
-              className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700"
+              className="flex items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700"
             >
               <CircleAlert className="mt-0.5 size-4 shrink-0" />
               {error}
@@ -170,7 +170,7 @@ export default function Profile() {
       </form>
 
       {(user.clusters.length > 0 || user.ministries.length > 0) && (
-        <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 mt-6">
+        <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6 mt-6">
           <h2 className="text-xl font-semibold">Your groups and ministries</h2>
           <div className="mt-3 flex flex-wrap gap-2">
             {user.ministries.map((m) => (
@@ -194,7 +194,7 @@ export default function Profile() {
         </div>
       )}
 
-      <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 mt-6">
+      <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6 mt-6">
         <h2 className="text-xl font-semibold">Your data</h2>
         <p className="mt-1 mb-4 text-sm text-muted">
           You can keep a copy of everything the church holds about you, or have it removed.
@@ -236,7 +236,7 @@ export default function Profile() {
               {deleteError && (
                 <p
                   role="alert"
-                  className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700"
+                  className="flex items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700"
                 >
                   <CircleAlert className="mt-0.5 size-4 shrink-0" />
                   {deleteError}

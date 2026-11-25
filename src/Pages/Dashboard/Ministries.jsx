@@ -51,7 +51,7 @@ export default function Ministries() {
       </header>
 
       {ministries.length === 0 ? (
-        <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6">
+        <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6">
           <div className="flex flex-col items-center px-6 py-12 text-center">
             <span className="arch grid h-16 w-14 place-items-center bg-forest-50 text-forest-600">
               <HeartHandshake className="size-6" />
@@ -66,7 +66,7 @@ export default function Ministries() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {ministries.map((m) => (
             <Link key={m.id} to={`/dashboard/ministries/${m.id}`} className="group block">
-              <div className="rounded-card border border-line bg-white shadow-card h-full overflow-hidden transition group-hover:-translate-y-0.5 group-hover:shadow-lift">
+              <div className="rounded-3xl border border-line bg-white shadow-card h-full overflow-hidden transition group-hover:-translate-y-0.5 group-hover:shadow-lift">
                 <div className="relative h-36 bg-forest-50">
                   {photoUrl(m.image) ? (
                     <img src={photoUrl(m.image)} alt="" loading="lazy" className="size-full object-cover" />

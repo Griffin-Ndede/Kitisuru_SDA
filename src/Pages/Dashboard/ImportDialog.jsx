@@ -68,7 +68,7 @@ export default function ImportDialog({ onClose, onDone }) {
         accept=".csv,.xlsx,.txt"
         onChange={choose}
         aria-label="Member file"
-        className="block w-full rounded-xl border border-dashed border-line bg-paper p-4 file:mr-4 file:rounded-full file:border-0 file:bg-forest-900 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-paper"
+        className="block w-full rounded-3xl border border-dashed border-line bg-paper p-4 file:mr-4 file:rounded-full file:border-0 file:bg-forest-900 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-paper"
       />
 
       {file && !preview && !added && (
@@ -84,14 +84,14 @@ export default function ImportDialog({ onClose, onDone }) {
       )}
 
       {error && (
-        <p role="alert" className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
+        <p role="alert" className="flex items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
           <CircleAlert className="mt-0.5 size-4 shrink-0" />
           {error}
         </p>
       )}
 
       {preview && (
-        <div className="space-y-3 rounded-xl border border-line bg-paper p-4" aria-live="polite">
+        <div className="space-y-3 rounded-3xl border border-line bg-paper p-4" aria-live="polite">
           <p>
             <strong>{preview.count}</strong> of {preview.total} rows will be added
             {preview.names.length > 0 && (

@@ -57,7 +57,7 @@ export default function MinistryForm({ ministry, onSaved, onClose }) {
         <textarea id="description" name="description" className={area} value={form.description} onChange={change} />
       </div>
       {error && (
-        <p role="alert" className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
+        <p role="alert" className="flex items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
           <CircleAlert className="mt-0.5 size-4 shrink-0" />
           {error}
         </p>

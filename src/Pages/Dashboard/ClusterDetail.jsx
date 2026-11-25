@@ -159,7 +159,7 @@ export default function ClusterDetail() {
       </header>
 
       {error && (
-        <p role="alert" className="mb-4 flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
+        <p role="alert" className="mb-4 flex items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
           <CircleAlert className="mt-0.5 size-4 shrink-0" />
           {error}
         </p>
@@ -167,7 +167,7 @@ export default function ClusterDetail() {
 
       <div className="grid gap-6 lg:grid-cols-5">
         <section className="lg:col-span-2">
-          <div className="rounded-card border border-line bg-white p-5 shadow-card sm:p-6">
+          <div className="rounded-3xl border border-line bg-white p-5 shadow-card sm:p-6">
             {editing ? (
               <form className="space-y-4" onSubmit={handleSave}>
                 <h2 className="text-lg font-semibold">Cluster information</h2>
@@ -334,7 +334,7 @@ export default function ClusterDetail() {
         </section>
 
         <section className="lg:col-span-3">
-          <div className="rounded-card border border-line bg-white p-5 shadow-card sm:p-6">
+          <div className="rounded-3xl border border-line bg-white p-5 shadow-card sm:p-6">
             <h2 className="mb-3 text-lg font-semibold">Add people</h2>
             <div className="relative">
               <Search className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted" />
@@ -348,7 +348,7 @@ export default function ClusterDetail() {
               />
             </div>
             {candidates.length > 0 && (
-              <ul className="mt-2 divide-y divide-line/70 rounded-xl border border-line px-3">
+              <ul className="mt-2 divide-y divide-line/70 rounded-3xl border border-line px-3">
                 {candidates.map((m) => (
                   <li key={m.id} className="flex items-center justify-between gap-3 py-2.5">
                     <span className="flex min-w-0 items-center gap-3">

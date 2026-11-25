@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { UserPlus, HandHeart, ChevronRight, X, Baby, Group, } from 'lucide-react';
-import Navbar from '../Components/Navbar';
+import React, { useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router';
+import { motion } from 'framer-motion';
+import { UserPlus, HandHeart, ChevronRight, X, Baby, Group } from 'lucide-react';
 import ActivityForm from '../Components/ActivityForm';
-
+import Footer from '../Components/Footer';
+import Navbar from '../Components/Navbar';
 
 function GetInvolved() {
-
     const { ministries } = useLoaderData()
     const [selectedActivity, setSelectedActivity] = useState(null)
 
@@ -17,7 +17,7 @@ function GetInvolved() {
             description:
                 "If you would like to have your child dedicated at Kitisuru Seventh-day Adventist Church please submit one form per child.",
             buttonText: "Fill out the form",
-            icon: <Baby strokeWidth={1} absoluteStrokeWidth className="w-10 h-10 text-custom-blue" />
+            icon: Baby,
         },
         {
             key: "commitment_form",
@@ -25,7 +25,7 @@ function GetInvolved() {
             description:
                 "Let us know how you would like to take your next step in your faith journey or how we can support you spiritually.",
             buttonText: "Express commitment",
-            icon: <HandHeart strokeWidth={1} absoluteStrokeWidth className="w-10 h-10 text-custom-blue" />
+            icon: HandHeart,
         },
         {
             key: "membership_transfer",
@@ -33,110 +33,154 @@ function GetInvolved() {
             description:
                 "Moving from another Adventist church? We'll help you transfer your membership to our congregation.",
             buttonText: "Start Transfer",
-            icon: <UserPlus strokeWidth={1} absoluteStrokeWidth className='w-10 h-10 text-custom-blue' />
+            icon: UserPlus,
         },
         {
             key: "ministry_membership",
             title: "Join a ministry",
             description: "If you would like to join a ministry and volunteer, let us know. The church office will add you.",
             buttonText: "Join a ministry",
-            icon: <Group strokeWidth={1} absoluteStrokeWidth className='w-10 h-10 text-custom-blue'/>
-        }
-
+            icon: Group,
+        },
     ];
 
+    const handleClose = () => setSelectedActivity(null)
+
+    // Close the form with Escape and stop the page behind it from scrolling
+    useEffect(() => {
+        if (!selectedActivity) return undefined
+        const handleKey = (e) => {
+            if (e.key === 'Escape') setSelectedActivity(null)
+        }
+        document.addEventListener('keydown', handleKey)
+        document.body.style.overflow = 'hidden'
+        return () => {
+            document.removeEventListener('keydown', handleKey)
+            document.body.style.overflow = ''
+        }
+    }, [selectedActivity])
+
     return (
-        <>
+        <div className="site-theme min-h-screen overflow-x-clip">
             <Navbar />
-            <div className="min-h-fit bg-gray-200">
-                {/* Hero Section */}
-                <div
-                    className="relative bg-cover bg-center py-24"
-                    style={{
-                        backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://www.briellemag.com/wp-content/uploads/2021/11/gracious-adebayo-AWIyDHiNKk-unsplash-1600x1067.jpg")',
-                    }}
-                >
-                    <div className="container mx-auto px-4 mt-12 md:mt-32">
-                        <div className="max-w-4xl mx-auto text-center">
-                            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                                Get Involved at Our Church
-                            </h1>
-                            <p className="text-2xl font-light text-gray-200 mb-8">
-                                We&apos;re glad you&apos;re here. Whether you&apos;re interested in serving, learning, or taking the next step in your faith journey,
-                                please complete the form below and our team will be in touch.
-                            </p>
-                        </div>
-                    </div>
+
+            {/* Header */}
+            <section className="relative">
+                <div className="mx-auto max-w-7xl px-5 pt-12 pb-16 sm:px-8 lg:pt-20 lg:pb-20">
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7 }}
+                        className="max-w-3xl"
+                    >
+                        <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">Get involved</p>
+                        <h1 className="mt-4 text-5xl leading-[1.05] font-semibold text-forest-950 sm:text-6xl">
+                            Find your place at{' '}
+                            <span className="relative inline-block text-forest-900">
+                                Kitisuru
+                                <svg
+                                    className="absolute -bottom-2 left-0 h-3 w-full"
+                                    viewBox="0 0 240 14"
+                                    fill="none"
+                                    preserveAspectRatio="none"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M2 9 C 40 2, 80 13, 125 6 S 205 9, 238 4"
+                                        stroke="#ffc700"
+                                        strokeWidth="5"
+                                        strokeLinecap="round"
+                                    />
+                                </svg>
+                            </span>
+                        </h1>
+                        <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink/70">
+                            We&apos;re glad you&apos;re here. Whether you&apos;re interested in serving, learning, or taking the next step in your faith journey, please complete one of the forms below and our team will be in touch.
+                        </p>
+                    </motion.div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6 md:gap-12 md:p-10">
+            </section>
+
+            {/* The four forms */}
+            <section>
+                <div className="mx-auto grid max-w-7xl gap-6 px-5 pb-20 sm:px-8 md:grid-cols-2 lg:pb-28">
                     {activities.map((activity) => (
                         <div
                             key={activity.key}
-                            className="bg-white rounded-4xl shadow-md p-6 transition-all hover:shadow-2xl text-center">
-                            <div className="flex items-center mb-4">
-                                <div className="bg-blue-50 p-3 rounded-full mx-auto">
-                                    {activity.icon}
-                                </div>
-                            </div>
-                            <h3 className="text-xl font-semibold mb-2 text-gray-800 text-center">{activity.title}</h3>
-                            <p className="text-gray-600 mb-4 text-center">{activity.description}</p>
+                            className="flex flex-col rounded-3xl bg-white p-7 shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-lift sm:p-9"
+                        >
+                            <span className="grid size-14 place-items-center rounded-3xl bg-forest-50 text-forest-900">
+                                <activity.icon className="size-7" strokeWidth={1.5} />
+                            </span>
+                            <h2 className="mt-6 text-2xl font-semibold text-forest-950">{activity.title}</h2>
+                            <p className="mt-3 leading-relaxed text-ink/70">{activity.description}</p>
                             <button
+                                type="button"
                                 onClick={() => setSelectedActivity(activity)}
-                                className="flex items-center text-custom-blue hover:text-custom-blue font-medium mx-auto hover:cursor-pointer">
+                                className="mt-7 inline-flex w-fit items-center gap-1.5 rounded-full bg-forest-900 px-5 py-3 font-semibold text-white shadow-card transition hover:bg-forest-800 active:translate-y-px"
+                            >
                                 {activity.buttonText}
-                                <ChevronRight className="w-4 h-4 ml-1" />
+                                <ChevronRight className="size-4" />
                             </button>
                         </div>
                     ))}
-
                 </div>
+            </section>
 
-
-                {/* popup modal */}
-                {selectedActivity && (
-                    <div className="fixed inset-0  z-50  flex items-center justify-center bg-black/30 backdrop-blur-xs">
-                        <div className="bg-white rounded-4xl shadow-lg p-6 w-full max-w-xl mx-4 sm:mx-6 md:mx-0 relative overflow-y-auto max-h-[90vh]">
-                            {/* Close button */}
-                            <X
-                                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 hover:cursor-pointer"
-                                onClick={() => setSelectedActivity(null)}
-                            />
-
-                            {/* Your form */}
-                            <ActivityForm
-                                activity={selectedActivity}
-                                ministries={ministries}
-                                onClose={() => setSelectedActivity(null)}
-                            />
-                        </div>
-                    </div>
-                )}
-
-            </div>
-            {/* Contact Section */}
-            <div className="mt-16 text-center p-10">
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                    Need More Information?
-                </h2>
-                <p className="text-gray-600 mb-8">
-                    Our pastoral team is here to help you find your place in our church family.
-                </p>
-                <Link to="/contact">
-                    <button className="bg-custom-blue text-white px-8 py-3 rounded-4xl font-medium hover:bg-custom-blue hover:cursor-pointer transition-colors">
-                        Contact Us
-                    </button>
-                </Link>
-            </div>
-
-            {/* Footer */}
-            <footer className="bg-gray-800 text-white py-8">
-                <div className=" mx-auto px-4 text-center">
-                    <p className="mb-4">
-                        For where two or three gather in my name, there am I with them. - Mathew 18:20
+            {/* Need more information */}
+            <section className="bg-cream-deep/70">
+                <div className="mx-auto max-w-3xl px-5 py-20 text-center sm:px-8">
+                    <h2 className="text-4xl font-semibold text-forest-950">Need more information?</h2>
+                    <p className="mt-4 text-lg text-ink/70">
+                        Our pastoral team is here to help you find your place in our church family.
                     </p>
+                    <Link
+                        to="/contact"
+                        className="mt-8 inline-flex rounded-full bg-marigold-500 px-8 py-3.5 font-semibold text-forest-950 shadow-card transition hover:bg-marigold-400 active:translate-y-px"
+                    >
+                        Contact us
+                    </Link>
                 </div>
-            </footer>
-        </>
+            </section>
+
+            {/* Closing verse, on navy */}
+            <section className="bg-forest-950 text-white">
+                <div className="mx-auto max-w-3xl px-5 py-16 text-center sm:px-8">
+                    <p className="font-display text-2xl leading-relaxed text-white/90 italic sm:text-3xl">
+                        &ldquo;For where two or three gather in my name, there am I with them.&rdquo;
+                    </p>
+                    <p className="mt-3 text-sm font-semibold tracking-[0.18em] text-marigold-400 uppercase">Matthew 18:20</p>
+                </div>
+            </section>
+
+            <Footer />
+
+            {/* The form, in a pop-up */}
+            {selectedActivity && (
+                <div
+                    className="fixed inset-0 z-[60] flex items-center justify-center bg-forest-950/60 p-4 backdrop-blur-xs"
+                    onClick={handleClose}
+                >
+                    <div
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label={selectedActivity.title}
+                        className="relative max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-3xl bg-cream p-6 shadow-lift"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button
+                            type="button"
+                            aria-label="Close"
+                            className="absolute top-4 right-4 grid size-9 place-items-center rounded-full bg-white text-ink/60 shadow-card transition hover:text-ink"
+                            onClick={handleClose}
+                        >
+                            <X className="size-5" />
+                        </button>
+                        <ActivityForm activity={selectedActivity} ministries={ministries} onClose={handleClose} />
+                    </div>
+                </div>
+            )}
+        </div>
     );
 }
 

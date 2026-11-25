@@ -88,7 +88,7 @@ export default function Announcements() {
       </header>
       <div className="mb-4">
         {error && (
-          <p role="alert" className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
+          <p role="alert" className="flex items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
             <CircleAlert className="mt-0.5 size-4 shrink-0" />
             {error}
           </p>
@@ -115,7 +115,7 @@ export default function Announcements() {
       )}
 
       {shown.length === 0 ? (
-        <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6">
+        <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6">
           <div className="flex flex-col items-center px-6 py-12 text-center">
             <span className="arch grid h-16 w-14 place-items-center bg-forest-50 text-forest-600">
               <Megaphone className="size-6" />
@@ -129,7 +129,7 @@ export default function Announcements() {
           {shown.map((item) => (
             <li key={item.id}>
               <div
-                className={`rounded-card border border-line bg-white shadow-card p-5 sm:p-6 ${item.pinned ? "!border-marigold-400" : ""}`}
+                className={`rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6 ${item.pinned ? "!border-marigold-400" : ""}`}
               >
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>

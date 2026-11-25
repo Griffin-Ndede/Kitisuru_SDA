@@ -97,7 +97,7 @@ export default function Library() {
       </p>
 
       {shown.length === 0 ? (
-        <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6">
+        <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6">
           <div className="flex flex-col items-center px-6 py-12 text-center">
             <span className="arch grid h-16 w-14 place-items-center bg-forest-50 text-forest-600">
               <BookOpenText className="size-6" />
@@ -109,7 +109,7 @@ export default function Library() {
       ) : (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {shown.map((doc) => (
-            <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 flex flex-col" key={doc.id}>
+            <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6 flex flex-col" key={doc.id}>
               <span className="grid size-10 place-items-center rounded-full bg-forest-50 text-forest-700">
                 <FileText className="size-5" />
               </span>
@@ -168,7 +168,7 @@ export default function Library() {
               {open.error ? (
                 <p
                   role="alert"
-                  className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700"
+                  className="flex items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700"
                 >
                   <CircleAlert className="mt-0.5 size-4 shrink-0" />
                   {open.error}
@@ -181,7 +181,7 @@ export default function Library() {
                 <iframe
                   src={`${open.url}#toolbar=1&navpanes=0&zoom=page-width`}
                   title={open.doc.title}
-                  className="h-[70vh] w-full rounded-xl border border-line"
+                  className="h-[70vh] w-full rounded-3xl border border-line"
                 />
               )}
             </div>

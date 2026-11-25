@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 // The dark footer of every public page: logo, links, the map and the verse.
 function Footer() {
     return (
-        <footer className="site-theme bg-forest-950 text-white">
+        <footer className="site-theme border-t border-white/10 bg-forest-950 text-white">
             <div className="mx-auto max-w-7xl px-5 pt-16 pb-8 sm:px-8">
                 <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-12">
                     <div className="lg:col-span-3">

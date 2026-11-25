@@ -106,7 +106,7 @@ export default function Members() {
       </header>
       <div className="mb-4">
         {error && (
-          <p role="alert" className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
+          <p role="alert" className="flex items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
             <CircleAlert className="mt-0.5 size-4 shrink-0" />
             {error}
           </p>
@@ -189,7 +189,7 @@ export default function Members() {
         Showing {shown.length} of {members.length}
       </p>
 
-      <div className="rounded-card border border-line bg-white shadow-card overflow-hidden">
+      <div className="rounded-3xl border border-line bg-white shadow-card overflow-hidden">
         {shown.length === 0 ? (
           <div className="flex flex-col items-center px-6 py-12 text-center">
             <span className="arch grid h-16 w-14 place-items-center bg-forest-50 text-forest-600">
