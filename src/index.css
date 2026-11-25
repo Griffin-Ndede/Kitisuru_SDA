@@ -34,6 +34,10 @@ html {
   --color-clay-600: #b04a2a;
   --color-clay-100: #f6e1d8;
 
+  /* The public website: warm cream pages with the same blue, yellow and navy */
+  --color-cream: #f7f2e8;
+  --color-cream-deep: #ece4d2;
+
   --color-paper: #f9fafb;
   --color-paper-deep: #eef0f2;
   --color-ink: #1f2937;
@@ -68,6 +72,26 @@ html {
   }
   .app-theme button:disabled {
     cursor: not-allowed;
+  }
+}
+
+/* Wrap a public page in .site-theme to get the cream look with serif headings. */
+@layer base {
+  .site-theme {
+    @apply bg-cream text-ink antialiased;
+    font-family: var(--font-app);
+  }
+  .site-theme h1,
+  .site-theme h2,
+  .site-theme h3 {
+    @apply font-display tracking-tight;
+  }
+  .site-theme :focus-visible {
+    @apply outline-2 outline-offset-2 outline-marigold-500;
+  }
+  .site-theme a,
+  .site-theme button {
+    cursor: pointer;
   }
 }
 
@@ -106,4 +130,16 @@ html {
 }
 .swal2-popup:not(.swal2-toast) .swal2-title {
   font-family: var(--font-display);
+}
+
+/* Gentle float for the doodles on the public pages; off for people who ask for less motion. */
+@keyframes doodle-float {
+  0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
+  50% { transform: translateY(-8px) rotate(var(--tilt, 0deg)); }
+}
+.doodle-float {
+  animation: doodle-float 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .doodle-float { animation: none; }
 }
