@@ -1,6 +1,7 @@
 import React from 'react'
 import { createBrowserRouter, Outlet, redirect, RouterProvider } from 'react-router'
 import { ToastProvider } from './Context/ToastContext'
+import { UserProvider } from './Context/UserContext'
 import Home from './Pages/Home'
 import About from './Pages/About'
 import './index.css'
@@ -89,7 +90,12 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  return <RouterProvider router={router} />
+  // The user Context sits outside the router, so every route (and the error page) can use it
+  return (
+    <UserProvider>
+      <RouterProvider router={router} />
+    </UserProvider>
+  )
 }
 
 export default App

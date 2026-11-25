@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { googleLogin, login } from "../Api";
-import { errorMessage, saveSession } from "../Api/client";
+import { errorMessage } from "../Api/client";
+import { useUser } from "../Context/UserContext";
 import { googleEnabled, googleSignIn } from "../firebase";
 import { LoaderCircle, CircleAlert } from "lucide-react";
 
 export default function SignIn() {
   const navigate = useNavigate();
+  const { signIn } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -14,7 +16,7 @@ export default function SignIn() {
 
   // Both ways of signing in end the same way: keep the tokens, open the dashboard.
   const finish = (session) => {
-    saveSession(session);
+    signIn(session);
     navigate("/dashboard");
   };
 

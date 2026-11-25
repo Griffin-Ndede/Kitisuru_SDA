@@ -14,7 +14,12 @@ const api = axios.create({
 // After signing in, the API gives an access token (short-lived) and a refresh
 // token. They are kept in localStorage so a page reload keeps you signed in,
 // and loaders (which run outside React) can read them.
-const SESSION_KEY = "session";
+export const SESSION_KEY = "session";
+
+// Announced on `window` whenever the session is removed (sign-out, deleted
+// account, or tokens the server no longer accepts). The user Context listens
+// for it, so the screen reacts the moment the session ends, wherever it ended.
+export const SESSION_ENDED = "session-ended";
 
 export function getSession() {
   try {
@@ -30,6 +35,7 @@ export function saveSession(session) {
 
 export function clearSession() {
   localStorage.removeItem(SESSION_KEY);
+  window.dispatchEvent(new Event(SESSION_ENDED));
 }
 
 // --- Requests --------------------------------------------------------------

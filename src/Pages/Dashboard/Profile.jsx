@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate, useRevalidator, useRouteLoaderData } from "react-router";
+import { useNavigate } from "react-router";
 import { deleteMyAccount, downloadMyData, updateMe } from "../../Api";
-import { clearSession, errorMessage } from "../../Api/client";
+import { errorMessage } from "../../Api/client";
+import { useUser } from "../../Context/UserContext";
 import { Download, Save, Trash2, LoaderCircle, CircleAlert } from "lucide-react";
 import { useToast } from "../../Context/ToastContext";
-import { googleSignOut } from "../../firebase";
 
 // Members add and correct their own details here. The email is their sign-in
 // name, so it is shown but not editable.
 export default function Profile() {
-  const { user } = useRouteLoaderData("dashboard");
-  const revalidator = useRevalidator();
+  const { user, refreshUser, signOut } = useUser();
   const toast = useToast();
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -35,7 +34,7 @@ export default function Profile() {
     try {
       await updateMe({ ...form, date_of_birth: form.date_of_birth || null });
       toast.success("Your details are saved");
-      revalidator.revalidate();
+      await refreshUser(); // the menu, overview and every other page now show the new details
     } catch (err) {
       setError(errorMessage(err));
     }
@@ -56,8 +55,7 @@ export default function Profile() {
     setDeleteError("");
     try {
       await deleteMyAccount(confirmEmail);
-      clearSession();
-      await googleSignOut();
+      await signOut();
       navigate("/");
     } catch (err) {
       setDeleteError(errorMessage(err));

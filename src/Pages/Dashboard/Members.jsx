@@ -1,6 +1,7 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { useLoaderData, useRevalidator, useRouteLoaderData } from "react-router";
+import { useLoaderData, useRevalidator } from "react-router";
 import { exportMembers } from "../../Api";
+import { useUser } from "../../Context/UserContext";
 import { errorMessage } from "../../Api/client";
 import { Download, Pencil, Plus, Upload, Users, Search, CircleAlert, X } from "lucide-react";
 import ImportDialog from "./ImportDialog";
@@ -10,7 +11,7 @@ import { fullName, genderLabels, matchesSearch, statusLabels, statusOf } from ".
 // Admin only: the member register.
 export default function Members() {
   const { members, clusters, ministries } = useLoaderData();
-  const { user: me } = useRouteLoaderData("dashboard");
+  const { user: me } = useUser();
   const revalidator = useRevalidator();
   const [search, setSearch] = useState("");
   const [cluster, setCluster] = useState("");

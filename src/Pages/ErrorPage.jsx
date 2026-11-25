@@ -1,5 +1,5 @@
 import React from "react";
-import { isRouteErrorResponse, Link, useRevalidator, useRouteError } from "react-router";
+import { isRouteErrorResponse, Link, Navigate, useRevalidator, useRouteError } from "react-router";
 import Navbar from "../Components/Navbar";
 
 // Shown whenever a page can't load (errorElement in App.jsx):
@@ -14,6 +14,9 @@ export default function ErrorPage() {
   const status = isRouteErrorResponse(error)
     ? error.status
     : error?.response?.status;
+  // The API said the person is not signed in (the client has already ended the session): sign in again.
+  if (status === 401) return <Navigate to="/signin" replace />;
+
   const notFound = status === 404;
   const forbidden = status === 403;
   const tooMany = status === 429;
