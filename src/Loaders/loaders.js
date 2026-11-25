@@ -62,9 +62,10 @@ export const membersLoader = async () => {
 
 // --- Announcements (any approved member) -----------------------------------
 
-export const announcementsLoader = async () => ({
-  announcements: await getAnnouncements(),
-});
+export const announcementsLoader = async () => {
+  const [announcements, ministries] = await Promise.all([getAnnouncements(), getMinistries()]);
+  return { announcements, ministries };
+};
 
 // The overview shows the latest announcements, but only approved people may
 // read them, so check first instead of letting the request fail.
@@ -108,8 +109,11 @@ export const ministriesLoader = async () => ({
 // register, so only they need it here (to add people to the ministry).
 export const ministryDetailsLoader = async ({ params }) => {
   const ministry = await getMinistryDetails(params.id);
-  const members = ministry.members ? await getMembers() : [];
-  return { ministry, members };
+  const [members, announcements] = await Promise.all([
+    ministry.members ? getMembers() : [],
+    getAnnouncements(params.id),
+  ]);
+  return { ministry, members, announcements };
 };
 
 export const libraryLoader = async () => ({

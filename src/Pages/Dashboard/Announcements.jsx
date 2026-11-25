@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLoaderData, useRevalidator, useRouteLoaderData } from "react-router";
+import { Link, useLoaderData, useRevalidator, useRouteLoaderData } from "react-router";
 import { Megaphone, Pencil, Pin, Plus, Trash2, X, CircleAlert } from "lucide-react";
 import { deleteAnnouncement } from "../../Api";
 import { errorMessage } from "../../Api/client";
@@ -10,14 +10,18 @@ import { formatDate } from "./ministryHelpers";
 // What the church office wants every member to know. Everyone approved reads;
 // admins post, edit and remove.
 export default function Announcements() {
-  const { announcements } = useLoaderData();
+  const { announcements, ministries } = useLoaderData();
   const { user } = useRouteLoaderData("dashboard");
   const revalidator = useRevalidator();
   const toast = useToast();
   const [dialog, setDialog] = useState(null); // "new" or an announcement
   const [error, setError] = useState("");
+  const [filter, setFilter] = useState(""); // "" = all, "church" = the whole church, or a ministry id
 
   const isAdmin = user.role === "admin";
+  const shown = announcements.filter(
+    (item) => !filter || (filter === "church" ? !item.ministry : item.ministry === Number(filter)),
+  );
 
   const handleDelete = async (item) => {
     if (!window.confirm(`Remove "${item.title}"?`)) return;
@@ -77,7 +81,26 @@ export default function Announcements() {
         )}
       </div>
 
-      {announcements.length === 0 ? (
+      {ministries.length > 0 && (
+        <div className="mb-4 max-w-xs">
+          <select
+            className="input"
+            aria-label="Filter by ministry"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          >
+            <option value="">All announcements</option>
+            <option value="church">Whole church</option>
+            {ministries.map((m) => (
+              <option key={m.id} value={m.id}>
+                {m.title}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      {shown.length === 0 ? (
         <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6">
           <div className="flex flex-col items-center px-6 py-12 text-center">
             <span className="arch grid h-16 w-14 place-items-center bg-forest-50 text-forest-600">
@@ -89,7 +112,7 @@ export default function Announcements() {
         </div>
       ) : (
         <ul className="space-y-4">
-          {announcements.map((item) => (
+          {shown.map((item) => (
             <li key={item.id}>
               <div
                 className={`rounded-card border border-line bg-white shadow-card p-5 sm:p-6 ${item.pinned ? "!border-marigold-400" : ""}`}
@@ -103,6 +126,14 @@ export default function Announcements() {
                           <Pin className="mr-1 size-3" />
                           Pinned
                         </span>
+                      )}
+                      {item.ministry && (
+                        <Link
+                          to={`/dashboard/ministries/${item.ministry}`}
+                          className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-forest-100 text-forest-800 hover:underline"
+                        >
+                          {item.ministry_title}
+                        </Link>
                       )}
                       {item.is_expired && (
                         <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold bg-paper-deep text-muted">
@@ -174,6 +205,7 @@ export default function Announcements() {
             </header>
             <div className="overflow-y-auto px-5 py-5 sm:px-6">
               <AnnouncementForm
+                ministries={ministries}
                 announcement={dialog === "new" ? null : dialog}
                 onSaved={saved}
                 onClose={() => setDialog(null)}

@@ -5,13 +5,15 @@ import { useToast } from "../../Context/ToastContext";
 import { LoaderCircle, CircleAlert } from "lucide-react";
 
 // Post an announcement, or change one. `announcement` is null when posting.
-export default function AnnouncementForm({ announcement, onSaved, onClose }) {
+// `ministries` lets the admin choose a ministry; `ministry` (an id) fixes it, as on a ministry's own page.
+export default function AnnouncementForm({ announcement, ministries, ministry = null, onSaved, onClose }) {
   const toast = useToast();
   const [form, setForm] = useState({
     title: announcement?.title || "",
     body: announcement?.body || "",
     pinned: announcement?.pinned || false,
     expires_on: announcement?.expires_on || "",
+    ministry: announcement ? announcement.ministry || "" : ministry || "",
   });
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -23,7 +25,11 @@ export default function AnnouncementForm({ announcement, onSaved, onClose }) {
     setError("");
     setBusy(true);
     try {
-      const details = { ...form, expires_on: form.expires_on || null };
+      const details = {
+        ...form,
+        expires_on: form.expires_on || null,
+        ministry: form.ministry ? Number(form.ministry) : null,
+      };
       await (announcement ? updateAnnouncement(announcement.id, details) : createAnnouncement(details));
       toast.success(announcement ? "Announcement saved" : "Announcement posted");
       onSaved();
@@ -49,6 +55,22 @@ export default function AnnouncementForm({ announcement, onSaved, onClose }) {
         </label>
         <textarea id="body" name="body" className="input min-h-32" value={form.body} onChange={change} required />
       </div>
+      {ministries && (
+        <div>
+          <label className="block">
+            <span className="mb-1.5 block text-sm font-medium">For</span>
+            <select className="input" name="ministry" value={form.ministry} onChange={change}>
+              <option value="">The whole church</option>
+              {ministries.map((m) => (
+                <option key={m.id} value={m.id}>
+                  {m.title}
+                </option>
+              ))}
+            </select>
+          </label>
+          <p className="mt-1.5 text-xs text-muted">A ministry&apos;s announcements also show on that ministry&apos;s page.</p>
+        </div>
+      )}
       <div>
         <label className="block">
           <span className="mb-1.5 block text-sm font-medium">Show until</span>
