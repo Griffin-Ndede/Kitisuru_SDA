@@ -79,14 +79,14 @@ function About() {
 
             {/* Header */}
             <section className="relative">
-                <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 pt-12 pb-20 sm:px-8 lg:grid-cols-2 lg:pt-20 lg:pb-24">
+                <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 pt-12 pb-24 sm:px-8 lg:grid-cols-2 lg:pt-20 lg:pb-24">
                     <motion.div
                         initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7 }}
                     >
                         <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">About us</p>
-                        <h1 className="mt-4 text-5xl leading-[1.05] font-semibold text-forest-950 sm:text-6xl">
+                        <h1 className="mt-4 text-4xl leading-tight font-semibold text-forest-950 sm:text-5xl">
                             Welcome to{' '}
                             <span className="relative inline-block text-forest-900">
                                 Kitisuru
@@ -131,61 +131,37 @@ function About() {
                         transition={{ duration: 0.8, delay: 0.1 }}
                         className="relative mx-auto w-full max-w-md"
                     >
-                        <div className="absolute -inset-3 -rotate-6 rounded-3xl bg-marigold-500" aria-hidden="true" />
-                        <div className="absolute inset-0 rotate-3 rounded-3xl bg-forest-900/90" aria-hidden="true" />
-                        <div className="relative aspect-4/5 overflow-hidden rounded-3xl bg-forest-950 shadow-lift">
+                        <div className="relative aspect-4/5 overflow-hidden rounded-3xl bg-forest-950 shadow-card">
                             <img
                                 src="https://www.briellemag.com/wp-content/uploads/2021/11/gracious-adebayo-AWIyDHiNKk-unsplash-1600x1067.jpg"
                                 alt="A person in prayer"
                                 className="size-full object-cover"
                             />
                         </div>
-                        <svg
-                            className="absolute -top-8 -left-6 hidden h-8 w-28 sm:block"
-                            viewBox="0 0 110 30"
-                            fill="none"
-                            aria-hidden="true"
-                        >
-                            <path
-                                d="M3 22 Q 14 2 25 22 T 47 22 T 69 22 T 91 22 T 107 14"
-                                stroke="#2e8eb4"
-                                strokeWidth="5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                        </svg>
                     </motion.div>
                 </div>
             </section>
 
             {/* Mission and vision, on navy */}
-            <section className="relative overflow-hidden bg-forest-950 text-white">
-                <svg
-                    className="absolute -top-6 right-0 h-40 w-72 text-marigold-500"
-                    viewBox="0 0 300 160"
-                    fill="currentColor"
-                    aria-hidden="true"
-                >
-                    <path d="M300 0 L300 140 C 250 110, 215 150, 170 118 C 130 90, 120 40, 40 30 C 80 12, 150 20, 200 8 C 240 -2, 270 12, 300 0 Z" />
-                </svg>
-                <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-2 lg:py-28">
+            <section className="relative overflow-hidden bg-cream-deep/70">
+                <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-8 lg:grid-cols-2 lg:py-36">
                     <div>
-                        <span className="grid size-14 place-items-center rounded-3xl bg-white/10 text-marigold-400">
+                        <span className="grid size-14 place-items-center rounded-3xl bg-white text-forest-900 shadow-card">
                             <Church className="size-7" strokeWidth={1.5} />
                         </span>
-                        <p className="mt-6 text-xs font-semibold tracking-[0.22em] text-marigold-400 uppercase">What we are here for</p>
-                        <h2 className="mt-3 text-4xl font-semibold">Our mission</h2>
-                        <blockquote className="mt-6 border-l-4 border-marigold-500 pl-5 font-display text-xl leading-relaxed text-white/85 italic">
+                        <p className="mt-6 text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">What we are here for</p>
+                        <h2 className="mt-3 text-3xl font-semibold text-forest-950">Our mission</h2>
+                        <blockquote className="mt-6 border-l-4 border-marigold-500 pl-5 font-display text-xl leading-relaxed text-ink/80 italic">
                             Make disciples of Jesus Christ who live as His loving witnesses and proclaim to all people the everlasting gospel of the Three Angels&apos; Messages in preparation for His soon return
                         </blockquote>
                     </div>
                     <div>
-                        <span className="grid size-14 place-items-center rounded-3xl bg-white/10 text-marigold-400">
+                        <span className="grid size-14 place-items-center rounded-3xl bg-white text-forest-900 shadow-card">
                             <Target className="size-7" strokeWidth={1.5} />
                         </span>
-                        <p className="mt-6 text-xs font-semibold tracking-[0.22em] text-marigold-400 uppercase">Where we are heading</p>
-                        <h2 className="mt-3 text-4xl font-semibold">Our vision</h2>
-                        <blockquote className="mt-6 border-l-4 border-marigold-500 pl-5 font-display text-xl leading-relaxed text-white/85 italic">
+                        <p className="mt-6 text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">Where we are heading</p>
+                        <h2 className="mt-3 text-3xl font-semibold text-forest-950">Our vision</h2>
+                        <blockquote className="mt-6 border-l-4 border-marigold-500 pl-5 font-display text-xl leading-relaxed text-ink/80 italic">
                             In harmony with Bible revelation, Seventh-day Adventists see as the climax of God&apos;s plan the restoration of all His creation to full harmony with His perfect will and righteousness.
                         </blockquote>
                     </div>
@@ -194,14 +170,14 @@ function About() {
 
             {/* Core beliefs */}
             <section>
-                <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">
+                <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:py-36">
                     <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">What we hold to</p>
-                    <h2 className="mt-3 text-4xl font-semibold text-forest-950 sm:text-5xl">Our core beliefs</h2>
-                    <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <h2 className="mt-3 text-3xl font-semibold text-forest-950 sm:text-3xl">Our core beliefs</h2>
+                    <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         {coreBeliefs.map((belief) => (
                             <div
                                 key={belief.title}
-                                className="rounded-3xl bg-white p-7 shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-lift"
+                                className="rounded-3xl bg-white p-6 shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card"
                             >
                                 <span className="grid size-12 place-items-center rounded-3xl bg-forest-50 text-forest-900">
                                     <belief.icon className="size-6" strokeWidth={1.6} />
@@ -216,10 +192,10 @@ function About() {
 
             {/* Who we are */}
             <section className="bg-cream-deep/70">
-                <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-2 lg:py-28">
+                <div className="mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-8 lg:grid-cols-2 lg:py-36">
                     <div>
                         <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">Who we are</p>
-                        <h2 className="mt-3 text-4xl leading-tight font-semibold text-forest-950 sm:text-5xl">
+                        <h2 className="mt-3 text-3xl leading-tight font-semibold text-forest-950 sm:text-3xl">
                             More than a congregation. A family.
                         </h2>
                         <p className="mt-6 max-w-lg text-lg leading-relaxed text-ink/70">
@@ -227,7 +203,7 @@ function About() {
                         </p>
                     </div>
                     <div className="grid gap-6 sm:grid-cols-2">
-                        <div className="rounded-3xl bg-white p-7 shadow-card">
+                        <div className="rounded-3xl bg-white p-6 shadow-card">
                             <h3 className="text-xl font-semibold text-forest-950">Our ministries</h3>
                             <ul className="mt-4 space-y-3 text-ink/75">
                                 {ministries.map((item) => (
@@ -238,7 +214,7 @@ function About() {
                                 ))}
                             </ul>
                         </div>
-                        <div className="rounded-3xl bg-white p-7 shadow-card">
+                        <div className="rounded-3xl bg-white p-6 shadow-card">
                             <h3 className="text-xl font-semibold text-forest-950">Service times</h3>
                             <div className="mt-4 divide-y divide-forest-950/10">
                                 {serviceTimes.map((item) => (
@@ -255,7 +231,7 @@ function About() {
 
             {/* History and global impact */}
             <section>
-                <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 md:grid-cols-2 lg:py-28">
+                <div className="mx-auto grid max-w-7xl gap-12 px-5 py-24 sm:px-8 md:grid-cols-2 lg:py-36">
                     <div>
                         <span className="grid size-14 place-items-center rounded-3xl bg-marigold-100 text-marigold-600">
                             <History className="size-7" strokeWidth={1.5} />
@@ -285,8 +261,8 @@ function About() {
                     aria-hidden="true"
                 />
                 <img src="/logo-icon.png" alt="" className="absolute top-2 left-1/2 size-14 -translate-x-1/2" />
-                <div className="mx-auto max-w-3xl px-5 pt-36 pb-20 text-center sm:px-8">
-                    <h2 className="text-4xl leading-tight font-semibold sm:text-5xl">
+                <div className="mx-auto max-w-3xl px-5 pt-36 pb-24 text-center sm:px-8">
+                    <h2 className="text-3xl leading-tight font-semibold sm:text-3xl">
                         Come and be part of the <span className="text-marigold-400 italic">family</span>
                     </h2>
                     <p className="mt-5 text-lg text-white/70">Every Sabbath morning. Come as you are, and bring a friend.</p>

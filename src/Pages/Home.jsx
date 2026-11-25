@@ -65,7 +65,7 @@ function Home() {
 
       {/* Hero */}
       <section className="relative">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 pt-12 pb-20 sm:px-8 lg:grid-cols-2 lg:pt-20 lg:pb-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 pt-12 pb-24 sm:px-8 lg:grid-cols-2 lg:pt-20 lg:pb-36">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -73,7 +73,7 @@ function Home() {
             className="relative"
           >
             <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">Welcome to Kitisuru SDA</p>
-            <h1 className="mt-4 text-5xl leading-[1.05] font-semibold text-forest-950 sm:text-6xl xl:text-7xl">
+            <h1 className="mt-4 text-4xl leading-tight font-semibold text-forest-950 sm:text-5xl xl:text-6xl">
               Worship with us <br className="hidden sm:block" />
               this{' '}
               <span className="relative inline-block text-forest-900">
@@ -115,23 +115,6 @@ function Home() {
                 Who we are
               </Link>
             </div>
-
-            {/* hand-drawn spiral arrow */}
-            <svg
-              className="doodle-float absolute -bottom-24 left-0 hidden h-28 w-28 text-forest-950 lg:block"
-              style={{ '--tilt': '-6deg' }}
-              viewBox="0 0 120 120"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M14 18 C 4 52, 20 100, 62 100 C 92 100, 92 62, 66 66 C 46 69, 50 92, 72 90 C 82 89, 92 84, 100 76"
-                stroke="currentColor"
-                strokeWidth="3.5"
-                strokeLinecap="round"
-              />
-              <path d="M88 70 L102 76 L94 90" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
           </motion.div>
 
           <motion.div
@@ -140,10 +123,7 @@ function Home() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="relative mx-auto w-full max-w-lg lg:max-w-none"
           >
-            {/* the coloured shapes behind the picture */}
-            <div className="absolute -inset-3 -rotate-6 rounded-3xl bg-marigold-500 sm:-inset-4" aria-hidden="true" />
-            <div className="absolute inset-0 rotate-3 rounded-3xl bg-forest-900/90" aria-hidden="true" />
-            <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-forest-950 shadow-lift sm:aspect-5/4">
+            <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-forest-950 shadow-card sm:aspect-5/4">
               {/* picture for small screens, video for larger ones */}
               <img
                 src="https://media.istockphoto.com/id/522403165/photo/praying-hands-with-bible.jpg?s=612x612&w=0&k=20&c=-5H0OP-7GKsglDbxalhBUl9klbhImkXjJrsTl7p52J0="
@@ -162,7 +142,7 @@ function Home() {
             </div>
 
             {/* a small card floating over the picture */}
-            <div className="doodle-float absolute -bottom-6 -left-2 flex items-center gap-3 rounded-3xl bg-white px-4 py-3 shadow-lift sm:-left-8" style={{ '--tilt': '-2deg' }}>
+            <div className="doodle-float absolute -bottom-6 -left-2 flex items-center gap-3 rounded-3xl bg-white px-4 py-3 shadow-card sm:-left-8" style={{ '--tilt': '-2deg' }}>
               <span className="grid size-10 place-items-center rounded-full bg-marigold-100 text-marigold-600">
                 <Sunrise className="size-5" />
               </span>
@@ -171,22 +151,6 @@ function Home() {
                 <span className="block font-display text-lg font-semibold text-forest-950">Divine Service 10:45 am</span>
               </span>
             </div>
-
-            {/* squiggle */}
-            <svg
-              className="absolute -top-8 right-6 hidden h-8 w-28 sm:block"
-              viewBox="0 0 110 30"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M3 22 Q 14 2 25 22 T 47 22 T 69 22 T 91 22 T 107 14"
-                stroke="#2e8eb4"
-                strokeWidth="5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
           </motion.div>
         </div>
 
@@ -209,7 +173,7 @@ function Home() {
 
       {/* Who we are */}
       <section className="bg-cream-deep/70">
-        <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 py-20 sm:px-8 lg:grid-cols-2 lg:py-28">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 py-24 sm:px-8 lg:grid-cols-2 lg:py-36">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -218,7 +182,7 @@ function Home() {
             className="relative mx-auto h-96 w-full max-w-md sm:h-[28rem]"
           >
             {/* arch picture, with a diamond overlapping it */}
-            <div className="arch absolute top-0 right-0 h-[85%] w-[72%] overflow-hidden bg-forest-950 shadow-lift">
+            <div className="arch absolute top-0 right-0 h-[85%] w-[72%] overflow-hidden bg-forest-950 shadow-card">
               <img
                 src="https://media.istockphoto.com/id/522403165/photo/praying-hands-with-bible.jpg?s=612x612&w=0&k=20&c=-5H0OP-7GKsglDbxalhBUl9klbhImkXjJrsTl7p52J0="
                 alt="Praying hands resting on an open Bible"
@@ -237,7 +201,7 @@ function Home() {
 
           <div>
             <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">Who we are</p>
-            <h2 className="mt-3 text-4xl leading-tight font-semibold text-forest-950 sm:text-5xl">
+            <h2 className="mt-3 text-3xl leading-tight font-semibold text-forest-950 sm:text-3xl">
               A church family rooted in the Word
             </h2>
             <ul className="mt-9 divide-y divide-forest-950/10 border-y border-forest-950/10">
@@ -266,22 +230,14 @@ function Home() {
       </section>
 
       {/* Upcoming events, on navy */}
-      <section id="upcoming" className="relative overflow-hidden bg-forest-950 text-white">
-        <svg
-          className="absolute -top-6 right-0 h-40 w-72 text-marigold-500"
-          viewBox="0 0 300 160"
-          fill="currentColor"
-          aria-hidden="true"
-        >
-          <path d="M300 0 L300 140 C 250 110, 215 150, 170 118 C 130 90, 120 40, 40 30 C 80 12, 150 20, 200 8 C 240 -2, 270 12, 300 0 Z" />
-        </svg>
-        <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">
-          <p className="text-xs font-semibold tracking-[0.22em] text-marigold-400 uppercase">Events and programs</p>
-          <h2 className="mt-3 text-4xl font-semibold sm:text-5xl">Upcoming events</h2>
-          <p className="mt-3 max-w-xl text-white/70">Keep up to date with what is happening at church.</p>
+      <section id="upcoming" className="relative overflow-hidden bg-cream-deep/70">
+        <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:py-36">
+          <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">Events and programs</p>
+          <h2 className="mt-3 text-3xl font-semibold text-forest-950 sm:text-3xl">Upcoming events</h2>
+          <p className="mt-3 max-w-xl text-ink/70">Keep up to date with what is happening at church.</p>
 
           {!featuredEvent ? (
-            <div className="mt-12 flex flex-col items-center rounded-3xl bg-cream px-6 py-14 text-center text-ink">
+            <div className="mt-12 flex flex-col items-center rounded-3xl bg-white px-6 py-14 text-center text-ink shadow-card">
               <span className="grid size-14 place-items-center rounded-full bg-marigold-100 text-marigold-600">
                 <Calendar className="size-7" />
               </span>
@@ -289,8 +245,8 @@ function Home() {
               <p className="mt-2 max-w-sm text-ink/70">New events will show up here as soon as they are announced.</p>
             </div>
           ) : (
-            <div className="mt-12 grid gap-6 lg:grid-cols-3">
-              <article className="flex flex-col overflow-hidden rounded-3xl bg-cream text-ink lg:col-span-2 lg:flex-row">
+            <div className="mt-14 grid gap-6 lg:grid-cols-3">
+              <article className="flex flex-col overflow-hidden rounded-3xl bg-white text-ink shadow-card lg:col-span-2 lg:flex-row">
                 {featuredEvent.image && (
                   <button
                     type="button"
@@ -305,7 +261,7 @@ function Home() {
                     />
                   </button>
                 )}
-                <div className="flex flex-1 flex-col p-7 sm:p-9">
+                <div className="flex flex-1 flex-col p-6 sm:p-7">
                   <span className="w-fit rounded-3xl bg-clay-100 px-2.5 py-1 text-xs font-semibold text-clay-700">
                     Next up{featuredEvent.ministry_title ? ` · ${featuredEvent.ministry_title}` : ''}
                   </span>
@@ -328,7 +284,7 @@ function Home() {
 
               <div className="flex flex-col gap-6">
                 {otherEvents.map((event) => (
-                  <article key={event.id ?? event.title} className="flex gap-4 rounded-3xl bg-cream p-5 text-ink">
+                  <article key={event.id ?? event.title} className="flex gap-4 rounded-3xl bg-white p-4 text-ink shadow-card">
                     {event.image && (
                       <button
                         type="button"
@@ -354,11 +310,11 @@ function Home() {
 
       {/* Video gallery */}
       <section id="videos">
-        <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">
+        <div className="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:py-36">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">In case you missed it</p>
-              <h2 className="mt-3 text-4xl font-semibold text-forest-950 sm:text-5xl">From the pulpit</h2>
+              <h2 className="mt-3 text-3xl font-semibold text-forest-950 sm:text-3xl">From the pulpit</h2>
             </div>
             <a
               href="https://www.youtube.com/@SDAchurchKitisuru"
@@ -380,13 +336,13 @@ function Home() {
               <p className="mt-2 max-w-sm text-ink/70">Please check back later, or watch on our YouTube channel.</p>
             </div>
           ) : (
-            <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {youtubeContent.map((video) => {
                 const videoId = getYoutubeVideoId(video.youtube_url);
                 return (
                   <div
                     key={video.id}
-                    className="overflow-hidden rounded-3xl bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-lift"
+                    className="overflow-hidden rounded-3xl bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-card"
                   >
                     <div className="aspect-video">
                       <iframe
@@ -415,8 +371,8 @@ function Home() {
           aria-hidden="true"
         />
         <img src="/logo-icon.png" alt="" className="absolute top-2 left-1/2 size-14 -translate-x-1/2" />
-        <div className="mx-auto max-w-3xl px-5 pt-36 pb-20 text-center sm:px-8">
-          <h2 className="text-4xl leading-tight font-semibold sm:text-6xl">
+        <div className="mx-auto max-w-3xl px-5 pt-36 pb-24 text-center sm:px-8">
+          <h2 className="text-4xl leading-tight font-semibold sm:text-5xl">
             Join us for <span className="text-marigold-400 italic">worship</span>
           </h2>
           <p className="mt-5 text-lg text-white/70">

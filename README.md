@@ -141,6 +141,11 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 
 ## Changelog
 
+### 2026-11-25: Lighter public pages, simpler toast
+
+- Public pages (Home, About, Giving, Get involved, Contact, Privacy) have more white space: bigger section spacing, smaller headings, smaller cards with softer shadows, and no doodles or tilted shapes behind pictures. The Upcoming events and Mission/Vision sections are now light instead of navy.
+- The bottom toast is back to the simple dark pill with a tick or alert icon. Delete confirmations and other alerts still use SweetAlert.
+
 ### 2026-11-25: Hymnal
 
 - New **Hymnal** page in the dashboard for every approved member. Five books: the SDA Hymnal (English, 695 hymns), and Christ In Song in Kiswahili, Dholuo, Ekegusii and Kikuyu. Search by number (digits go straight to that hymn) or by words in the title and lyrics; a Favourites tab keeps each person's own list.
