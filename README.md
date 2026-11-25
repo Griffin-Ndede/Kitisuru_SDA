@@ -135,11 +135,15 @@ Work on a branch, keep pull requests small and focused, and make sure `npm run l
 
 The dashboard and the sign-in pages (sign in, join, forgot and choose password) use the website's own blue (`#2e8eb4`) and yellow (`#ffc700`) on a light grey page, with icons (lucide). The token names are still `forest-*` (the blues) and `marigold-*` (the yellows).
 
-- Colours, fonts and radii are defined once in `src/index.css` (`forest-*` = blues, `marigold-*` = yellows, `clay-*` = errors, `paper`, `ink`, `muted`, `line`). Fonts: Fraunces for headings and Instrument Sans for text.
+- Colours, fonts and radii are defined once in `src/index.css` (`forest-*` = blues, `marigold-*` = yellows, `clay-*` = errors, `paper`, `ink`, `muted`, `line`). Font: Poppins everywhere (`--font-display` and `--font-app`).
 - Wrap a page in the `app-theme` class to get the look (`AuthLayout` and `DashboardLayout` already do). Pages outside it are untouched.
 - Write each screen's buttons, fields and so on directly in its `return`, with handlers at the top (no shared `ui/` folder, no helper components). Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
+
+### 2026-11-25: Poppins font
+
+Headings and text now use Poppins, a friendly rounded sans serif, replacing Fraunces and Instrument Sans. Swapped the font packages for `@fontsource/poppins`. After pulling: `npm install`. To try Montserrat instead, change the two `--font-*` lines and the imports in `src/index.css`.
 
 ### 2026-11-25: Hymnal
 
