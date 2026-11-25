@@ -6,32 +6,6 @@ import { errorMessage } from "../../Api/client";
 import { useToast } from "../../Context/ToastContext";
 import { fullName, kindLabels, matchesSearch, newKinds } from "./memberHelpers";
 
-// One person in a list, with a button on the right.
-function PersonRow({ person, action }) {
-  return (
-    <li className="flex items-center justify-between gap-3 py-2.5">
-      <span className="flex min-w-0 items-center gap-3">
-        <span
-          className="size-8 text-xs grid shrink-0 place-items-center rounded-full bg-forest-100 font-semibold text-forest-800"
-          aria-hidden="true"
-        >
-          {(fullName(person) || "")
-            .trim()
-            .split(/\s+/)
-            .slice(0, 2)
-            .map((part) => part[0]?.toUpperCase())
-            .join("") || "?"}
-        </span>
-        <span className="min-w-0">
-          <span className="block truncate text-sm font-medium">{fullName(person)}</span>
-          <span className="block truncate text-xs text-muted">{person.phone || person.email}</span>
-        </span>
-      </span>
-      {action}
-    </li>
-  );
-}
-
 // Admin only: location groups and fundraising groups, and who belongs to each.
 export default function Clusters() {
   const { members, clusters } = useLoaderData();
@@ -242,24 +216,37 @@ export default function Clusters() {
               {candidates.length > 0 && (
                 <ul className="mt-2 divide-y divide-line/70 rounded-xl border border-line px-3">
                   {candidates.map((m) => (
-                    <PersonRow
-                      key={m.id}
-                      person={m}
-                      action={
-                        <button
-                          type="button"
-                          className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 border border-line bg-white text-ink hover:border-forest-600 hover:text-forest-800 px-3 py-1.5 text-sm"
-                          disabled={busy}
-                          aria-label={`Add ${fullName(m)}`}
-                          onClick={() =>
-                            run(() => changeClusterMembers(selected.id, { add: [m.id] }), `${fullName(m)} added`)
-                          }
+                    <li key={m.id} className="flex items-center justify-between gap-3 py-2.5">
+                      <span className="flex min-w-0 items-center gap-3">
+                        <span
+                          className="size-8 text-xs grid shrink-0 place-items-center rounded-full bg-forest-100 font-semibold text-forest-800"
+                          aria-hidden="true"
                         >
-                          <UserPlus className="size-4" />
-                          Add
-                        </button>
-                      }
-                    />
+                          {(fullName(m) || "")
+                            .trim()
+                            .split(/\s+/)
+                            .slice(0, 2)
+                            .map((part) => part[0]?.toUpperCase())
+                            .join("") || "?"}
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block truncate text-sm font-medium">{fullName(m)}</span>
+                          <span className="block truncate text-xs text-muted">{m.phone || m.email}</span>
+                        </span>
+                      </span>
+                      <button
+                        type="button"
+                        className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 border border-line bg-white text-ink hover:border-forest-600 hover:text-forest-800 px-3 py-1.5 text-sm"
+                        disabled={busy}
+                        aria-label={`Add ${fullName(m)}`}
+                        onClick={() =>
+                          run(() => changeClusterMembers(selected.id, { add: [m.id] }), `${fullName(m)} added`)
+                        }
+                      >
+                        <UserPlus className="size-4" />
+                        Add
+                      </button>
+                    </li>
                   ))}
                 </ul>
               )}
@@ -273,24 +260,37 @@ export default function Clusters() {
               ) : (
                 <ul className="divide-y divide-line/70">
                   {inCluster.map((m) => (
-                    <PersonRow
-                      key={m.id}
-                      person={m}
-                      action={
-                        <button
-                          type="button"
-                          className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 text-forest-800 hover:bg-forest-50 px-3 py-1.5 text-sm"
-                          disabled={busy}
-                          aria-label={`Remove ${fullName(m)}`}
-                          onClick={() =>
-                            run(() => changeClusterMembers(selected.id, { remove: [m.id] }), `${fullName(m)} removed`)
-                          }
+                    <li key={m.id} className="flex items-center justify-between gap-3 py-2.5">
+                      <span className="flex min-w-0 items-center gap-3">
+                        <span
+                          className="size-8 text-xs grid shrink-0 place-items-center rounded-full bg-forest-100 font-semibold text-forest-800"
+                          aria-hidden="true"
                         >
-                          <UserMinus className="size-4" />
-                          Remove
-                        </button>
-                      }
-                    />
+                          {(fullName(m) || "")
+                            .trim()
+                            .split(/\s+/)
+                            .slice(0, 2)
+                            .map((part) => part[0]?.toUpperCase())
+                            .join("") || "?"}
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block truncate text-sm font-medium">{fullName(m)}</span>
+                          <span className="block truncate text-xs text-muted">{m.phone || m.email}</span>
+                        </span>
+                      </span>
+                      <button
+                        type="button"
+                        className="inline-flex items-center justify-center gap-2 rounded-full font-semibold transition active:translate-y-px disabled:opacity-60 text-forest-800 hover:bg-forest-50 px-3 py-1.5 text-sm"
+                        disabled={busy}
+                        aria-label={`Remove ${fullName(m)}`}
+                        onClick={() =>
+                          run(() => changeClusterMembers(selected.id, { remove: [m.id] }), `${fullName(m)} removed`)
+                        }
+                      >
+                        <UserMinus className="size-4" />
+                        Remove
+                      </button>
+                    </li>
                   ))}
                 </ul>
               )}

@@ -138,6 +138,10 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 
 ## Changelog
 
+### 2026-11-25: No helper components left
+
+- The last two local helpers (`PersonRow` on the Clusters page, `CardGrid` on the overview) are now written directly in their pages' `return`. No page defines helper components any more.
+
 ### 2026-11-25: The signed-in user lives in a Context
 
 - New `src/Context/UserContext.jsx` and `useUser()`. Pages and the public navbar now read the signed-in person from it instead of the dashboard route's loader or `localStorage`.
