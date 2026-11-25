@@ -139,6 +139,15 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 
 ## Changelog
 
+### 2026-11-25: New look for the public pages (step 1: Home, top bar and footer)
+
+A blend of three reference designs, in the church's blue, yellow and navy:
+
+- Warm cream pages with serif headings and small coloured eyebrow labels (`.site-theme` in `src/index.css`; wrap a public page in it).
+- A top bar with a yellow marker over the current page, a Sign in link and a yellow Get involved button; a dark navy footer with the logo, links, map and the Sabbath verse.
+- Home: a headline with one accent word and a hand-drawn underline, the video in a tilted blob frame with doodles, the Sabbath programme as a row of cells, a "Who we are" section, upcoming events on navy (the next one featured), the video gallery, and a closing call to action with a notch and the church emblem.
+- Still to restyle in the same way: About, Giving, Get involved, Contact, Privacy.
+
 ### 2026-11-25: Cluster pages
 
 - Every cluster has its own page (`/dashboard/clusters/:id`) with an about text, when and where it meets, a contact person and phone, and its members. Admins edit the information with "Edit information" and add or remove people there.
