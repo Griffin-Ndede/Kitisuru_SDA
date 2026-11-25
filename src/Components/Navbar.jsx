@@ -91,7 +91,7 @@ function Navbar() {
                   end={link.end}
                   onClick={handleClose}
                   className={({ isActive }) =>
-                    `block rounded-xl px-4 py-3 font-medium ${isActive ? 'bg-marigold-100 text-forest-950' : 'text-ink/80'}`
+                    `block rounded-3xl px-4 py-3 font-medium ${isActive ? 'bg-marigold-100 text-forest-950' : 'text-ink/80'}`
                   }
                 >
                   {link.label}
@@ -99,7 +99,7 @@ function Navbar() {
               </li>
             ))}
             <li>
-              <Link to={account.to} onClick={handleClose} className="block rounded-xl px-4 py-3 font-medium text-ink/80">
+              <Link to={account.to} onClick={handleClose} className="block rounded-3xl px-4 py-3 font-medium text-ink/80">
                 {account.label}
               </Link>
             </li>

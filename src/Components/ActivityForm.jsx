@@ -212,13 +212,13 @@ Kitisuru SDA Church Website
 
     return (
         <>
-            <div className="max-w-xl mx-auto bg-white rounded-4xl p-8">
+            <div className="mx-auto max-w-xl p-2 pt-6 sm:p-4">
                 {/* Header */}
                 <div className="text-center mb-6">
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+                    <h2 className="font-display text-3xl font-semibold text-forest-950 mb-2">
                         Get Involved
                     </h2>
-                    <p className="text-gray-600">
+                    <p className="text-ink/70">
                         Thank you for your interest in <strong>{activity.title}</strong>. Please complete the form below and our team will be in touch with you soon.
                     </p>
                 </div>
@@ -232,7 +232,7 @@ Kitisuru SDA Church Website
 
                             {/* Label */}
                             {field.label && field.type !== "checkbox" && field.type !== "checkbox_group" && (
-                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <label className="block text-sm font-medium text-ink mb-1">
                                     {field.label}
                                 </label>
                             )}
@@ -246,7 +246,7 @@ Kitisuru SDA Church Website
                                     required={field.required}
                                     value={formData[field.name] || ""}
                                     onChange={handleChange}
-                                    className="w-full rounded-xl border border-gray-300 px-4 py-3"
+                                    className="input"
                                 />
                             )}
 
@@ -259,7 +259,7 @@ Kitisuru SDA Church Website
                                     required={field.required}
                                     value={formData[field.name] || ""}
                                     onChange={handleChange}
-                                    className="w-full rounded-xl border border-gray-300 px-4 py-3"
+                                    className="input"
                                 />
                             )}
 
@@ -270,7 +270,7 @@ Kitisuru SDA Church Website
                                     required={field.required}
                                     value={formData[field.name] || ""}
                                     onChange={handleChange}
-                                    className="w-full rounded-xl border border-gray-300 px-4 py-3"
+                                    className="input"
                                 >
                                     <option value="">
                                         {field.placeholder || `Select ${field.label}`}
@@ -286,14 +286,15 @@ Kitisuru SDA Church Website
                             {/* Radio */}
                             {field.type === "radio" && (
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-ink mb-2">
                                         {field.label}
                                     </label>
 
                                     {field.options.map((option) => (
-                                        <label key={option.value} className="flex items-center gap-2">
+                                        <label key={option.value} className="flex items-center gap-2.5 py-1 text-sm">
                                             <input
                                                 type="radio"
+                                                className="size-4 accent-forest-900"
                                                 name={field.name}
                                                 value={option.value}
                                                 checked={formData[field.name] === option.value}
@@ -307,7 +308,7 @@ Kitisuru SDA Church Website
 
                             {/* Single Checkbox */}
                             {field.type === "checkbox" && (
-                                <label className="flex items-center gap-2">
+                                <label className="flex items-center gap-2.5 text-sm">
                                     <input
                                         type="checkbox"
                                         name={field.name}
@@ -322,12 +323,12 @@ Kitisuru SDA Church Website
                             {/* Checkbox Group */}
                             {field.type === "checkbox_group" && (
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    <label className="block text-sm font-medium text-ink mb-2">
                                         {field.label}
                                     </label>
 
                                     {field.options.map((opt) => (
-                                        <label key={opt.value} className="flex items-center gap-2">
+                                        <label key={opt.value} className="flex items-center gap-2.5 py-1 text-sm">
                                             <input
                                                 type="checkbox"
                                                 name={field.name}
@@ -350,14 +351,14 @@ Kitisuru SDA Church Website
                         className="absolute -left-[9999px] h-0 w-0 opacity-0"
                     />
 
-                    <label className="flex items-start gap-2 text-sm text-gray-700">
+                    <label className="flex items-start gap-2.5 text-sm text-ink/80">
                         <input
                             type="checkbox" required checked={consent}
-                            onChange={(e) => setConsent(e.target.checked)} className="mt-1"
+                            onChange={(e) => setConsent(e.target.checked)} className="mt-1 size-4 accent-forest-900"
                         />
                         <span>
                             I agree that the church may keep these details to follow up with me.{" "}
-                            <a href="/privacy" target="_blank" rel="noreferrer" className="text-custom-blue underline">
+                            <a href="/privacy" target="_blank" rel="noreferrer" className="font-medium text-forest-900 underline">
                                 How we use your details
                             </a>
                         </span>
@@ -366,7 +367,7 @@ Kitisuru SDA Church Website
                     <button
                         type="submit"
                         disabled={busy}
-                        className="w-full bg-custom-blue text-white py-3 rounded-xl font-medium disabled:opacity-60"
+                        className="w-full rounded-full bg-forest-900 py-3.5 font-semibold text-white shadow-card transition hover:bg-forest-800 active:translate-y-px disabled:opacity-60"
                     >
                         {busy ? "Sending..." : "Submit"}
                     </button>

@@ -46,7 +46,7 @@ export default function Clusters() {
       </header>
 
       <form
-        className="mb-8 flex flex-wrap items-end gap-3 rounded-card border border-line bg-white p-5 shadow-card"
+        className="mb-8 flex flex-wrap items-end gap-3 rounded-3xl border border-line bg-white p-5 shadow-card"
         onSubmit={handleCreate}
       >
         <div className="min-w-48 flex-1">
@@ -86,7 +86,7 @@ export default function Clusters() {
         {error && (
           <p
             role="alert"
-            className="flex w-full items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700"
+            className="flex w-full items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700"
           >
             <CircleAlert className="mt-0.5 size-4 shrink-0" />
             {error}
@@ -95,7 +95,7 @@ export default function Clusters() {
       </form>
 
       {clusters.length === 0 ? (
-        <div className="flex flex-col items-center rounded-card border border-line bg-white px-6 py-12 text-center shadow-card">
+        <div className="flex flex-col items-center rounded-3xl border border-line bg-white px-6 py-12 text-center shadow-card">
           <span className="arch grid h-16 w-14 place-items-center bg-forest-50 text-forest-600">
             <UsersRound className="size-6" />
           </span>
@@ -108,7 +108,7 @@ export default function Clusters() {
             <li key={c.id}>
               <Link
                 to={`/dashboard/clusters/${c.id}`}
-                className="group flex h-full flex-col rounded-card border border-line bg-white p-5 shadow-card transition hover:border-forest-600"
+                className="group flex h-full flex-col rounded-3xl border border-line bg-white p-5 shadow-card transition hover:border-forest-600"
               >
                 <span className="flex items-start justify-between gap-3">
                   <span className="min-w-0">

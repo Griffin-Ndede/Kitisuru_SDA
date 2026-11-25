@@ -1,19 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Wallet,
-  Building2,
-  CreditCard,
-  Phone,
-  Building,
-  ChevronDown,
-} from 'lucide-react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Wallet, Building2, CreditCard, Phone, Building, ChevronDown } from 'lucide-react';
+import Footer from '../Components/Footer';
 import Navbar from '../Components/Navbar';
 
 function Giving() {
   const [expandedOption, setExpandedOption] = useState(null);
   const [openFAQ, setOpenFAQ] = useState(null);
-  // eslint-disable-next-line no-unused-vars -- read by the fundraising progress bar that is commented out below
-  const [value, setValue] = useState(0);
 
   const givingOptions = [
     {
@@ -46,83 +39,88 @@ function Giving() {
       question: "What's the difference between tithe and offerings?",
       answer: "Tithe is 10% of your income returned to God, while offerings are additional voluntary gifts for specific purposes or projects.",
     },
-   
   ];
 
-  const totalGoal = 375000;
-  const amountRaised = 234353;
+  const handleToggleOption = (index) => setExpandedOption(expandedOption === index ? null : index);
+  const handleToggleFAQ = (index) => setOpenFAQ(openFAQ === index ? null : index);
 
-  function calculateProgress(raised, goal) {
-    if (goal <= 0) return 0;
-    return Math.min(Math.round((raised / goal) * 100), 100);
-  }
-
-  useEffect(() => {
-    const progress = calculateProgress(amountRaised, totalGoal);
-    setValue(progress);
-  }, [amountRaised, totalGoal]);
-
-  // ✅ One return block only
   return (
-    <div className="min-h-screen bg-gray-50 ">
+    <div className="site-theme min-h-screen overflow-x-clip">
       <Navbar />
 
-      {/* Hero Section */}
-      <div
-        className="relative bg-cover bg-center py-24"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("https://images.unsplash.com/photo-1490730141103-6cac27aaab94?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80")',
-        }}
-      >
-        <div className="container mx-auto px-4 mt-8 md:mt-32">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Supporting God&apos;s Work Through Giving
-            </h1>
-            <p className="text-xl mx-auto font-light text-gray-200 mb-8">
-              &quot;Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.&quot; - 2 Corinthians 9:7
-            </p>
-          </div>
+      {/* Header */}
+      <section className="relative">
+        <div className="mx-auto max-w-7xl px-5 pt-12 pb-16 sm:px-8 lg:pt-20 lg:pb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="grid items-end gap-10 lg:grid-cols-2"
+          >
+            <div>
+              <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">Giving</p>
+              <h1 className="mt-4 text-5xl leading-[1.05] font-semibold text-forest-950 sm:text-6xl">
+                Supporting God&apos;s work through{' '}
+                <span className="relative inline-block text-forest-900">
+                  giving
+                  <svg
+                    className="absolute -bottom-2 left-0 h-3 w-full"
+                    viewBox="0 0 240 14"
+                    fill="none"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M2 9 C 40 2, 80 13, 125 6 S 205 9, 238 4"
+                      stroke="#ffc700"
+                      strokeWidth="5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </span>
+              </h1>
+            </div>
+            <figure className="relative rounded-3xl bg-white p-7 shadow-card">
+              <span className="absolute -top-3 left-7 h-1.5 w-12 rounded-b-full bg-marigold-500" aria-hidden="true" />
+              <blockquote className="font-display text-xl leading-relaxed text-forest-950 italic">
+                &ldquo;Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.&rdquo;
+              </blockquote>
+              <figcaption className="mt-3 text-sm font-semibold tracking-wide text-ink/50">2 Corinthians 9:7</figcaption>
+            </figure>
+          </motion.div>
         </div>
-      </div>
+      </section>
 
-      {/* Main Content */}
-      <div className=" mx-auto p-6 mb:p-16 max-w-7xl">
-
-        {/* Giving Options */}
-        <div className="space-y-6 mb-16">
+      <div className="mx-auto max-w-7xl px-5 pb-20 sm:px-8">
+        {/* Giving options */}
+        <section className="grid gap-6 lg:grid-cols-2">
           {givingOptions.map((option, index) => {
-            const Icon = option.icon;
             const isExpanded = expandedOption === index;
             return (
-              <div key={index} className="bg-white rounded-4xl shadow-2xl p-6 transition-all">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center">
-                    <div className="bg-green-50 p-3 rounded-full mr-4">
-                      <Icon className="w-6 h-6 text-green-600" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-800">{option.title}</h3>
-                  </div>
-                  <button
-                    onClick={() =>
-                      setExpandedOption(isExpanded ? null : index)
-                    }
-                    className="text-white hover:text-gray-700"
-                  >
-                    <ChevronDown
-                      className={`w-5 h-5 transform transition-transform ${isExpanded ? "rotate-180" : ""
-                        }`}
-                    />
-                  </button>
-                </div>
-                <p className="text-gray-600 mb-4">{option.description}</p>
+              <div key={option.title} className="rounded-3xl bg-white p-7 shadow-card">
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between gap-4 text-left"
+                  aria-expanded={isExpanded}
+                  onClick={() => handleToggleOption(index)}
+                >
+                  <span className="flex items-center gap-4">
+                    <span className="grid size-12 shrink-0 place-items-center rounded-3xl bg-forest-50 text-forest-900">
+                      <option.icon className="size-6" strokeWidth={1.6} />
+                    </span>
+                    <span className="font-display text-2xl font-semibold text-forest-950">{option.title}</span>
+                  </span>
+                  <ChevronDown
+                    className={`size-5 shrink-0 text-forest-900 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                <p className="mt-4 leading-relaxed text-ink/70">{option.description}</p>
                 {isExpanded && (
-                  <div className="space-y-3 mt-4 border-t pt-4">
-                    {option.methods.map((method, i) => (
-                      <div key={i} className="bg-gray-50 p-4 rounded-4xl">
-                        <h4 className="font-medium text-gray-800 mb-1">{method.name}</h4>
-                        <p className="text-gray-600 text-sm">{method.details}</p>
+                  <div className="mt-5 space-y-3 border-t border-forest-950/10 pt-5">
+                    {option.methods.map((method) => (
+                      <div key={method.name} className="rounded-3xl bg-cream p-4">
+                        <h4 className="font-semibold text-forest-950">{method.name}</h4>
+                        <p className="mt-1 text-sm text-ink/70">{method.details}</p>
                       </div>
                     ))}
                   </div>
@@ -130,114 +128,115 @@ function Giving() {
               </div>
             );
           })}
-        </div>
+        </section>
 
-        {/* Payment Methods */}
-        <div className="bg-white rounded-4xl shadow-2xl py-8 px-4 mb-16">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Payment Methods</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="flex items-start space-x-4">
-              <Phone className="w-6 h-6 text-green-600 mt-1" />
-              <div>
-                <h3 className="font-semibold text-gray-800 mb-2">M-PESA</h3>
-                <p className="text-gray-600">Church Paybill: <span className='text-lg font-bold text-custom-blue'>406 894 9</span></p>
-                <p className="text-gray-600">Account Name:<span className='text-lg font-bold text-custom-blue'> LCB, Tithe or Offering</span> </p>
-              </div>
+        {/* Payment methods */}
+        <section className="mt-16">
+          <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">How to give</p>
+          <h2 className="mt-3 text-4xl font-semibold text-forest-950">Payment methods</h2>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-3xl bg-white p-7 shadow-card">
+              <span className="grid size-12 place-items-center rounded-3xl bg-marigold-100 text-marigold-600">
+                <Phone className="size-6" strokeWidth={1.6} />
+              </span>
+              <h3 className="mt-5 text-lg font-semibold text-forest-950">M-PESA</h3>
+              <p className="mt-3 text-sm text-ink/70">
+                Church Paybill
+                <span className="mt-0.5 block font-display text-2xl font-semibold text-forest-900">406 894 9</span>
+              </p>
+              <p className="mt-3 text-sm text-ink/70">
+                Account name
+                <span className="mt-0.5 block font-semibold text-forest-900">LCB, Tithe or Offering</span>
+              </p>
             </div>
 
-            <div className="flex items-start space-x-4">
-              <Building className="w-6 h-6 text-green-600 mt-1" />
-              <div>
-                <h3 className="font-semibold text-gray-800 mb-2">Bank Transfer (ABSA bank)</h3>
-                <p className="text-gray-600">Kshs acc: <span className='text-lg font-bold text-custom-blue'>204 532 686 6</span></p>
-                <p className="text-gray-600">Usd acc: <span className='text-lg font-bold text-custom-blue'>204 532 684 8</span> </p>
-              </div>
+            <div className="rounded-3xl bg-white p-7 shadow-card">
+              <span className="grid size-12 place-items-center rounded-3xl bg-marigold-100 text-marigold-600">
+                <Building className="size-6" strokeWidth={1.6} />
+              </span>
+              <h3 className="mt-5 text-lg font-semibold text-forest-950">Bank transfer (ABSA bank)</h3>
+              <p className="mt-3 text-sm text-ink/70">
+                Kshs account
+                <span className="mt-0.5 block font-display text-2xl font-semibold text-forest-900">204 532 686 6</span>
+              </p>
+              <p className="mt-3 text-sm text-ink/70">
+                USD account
+                <span className="mt-0.5 block font-display text-2xl font-semibold text-forest-900">204 532 684 8</span>
+              </p>
             </div>
 
-            <div className="flex items-start space-x-4">
-              <CreditCard className="w-6 h-6 text-green-600 mt-1" />
-              <div>
-                <h3 className="font-semibold text-gray-800 mb-2">Development account</h3>
-                <p className="text-gray-800">
-                  ABSA Account
-                </p>
-                <p className="text-gray-800 items-center">
-                  M-pesa Paybill: <span className='text-lg font-bold text-custom-blue'>303030</span>
-                </p>
-                <p>Account Number: <span className='text-lg font-bold text-custom-blue'>204 532 6813</span></p>
-              </div>
+            <div className="rounded-3xl bg-white p-7 shadow-card">
+              <span className="grid size-12 place-items-center rounded-3xl bg-marigold-100 text-marigold-600">
+                <CreditCard className="size-6" strokeWidth={1.6} />
+              </span>
+              <h3 className="mt-5 text-lg font-semibold text-forest-950">Development account</h3>
+              <p className="mt-1 text-sm font-semibold text-ink/80">ABSA Account</p>
+              <p className="mt-3 text-sm text-ink/70">
+                M-pesa Paybill
+                <span className="mt-0.5 block font-display text-2xl font-semibold text-forest-900">303030</span>
+              </p>
+              <p className="mt-3 text-sm text-ink/70">
+                Account number
+                <span className="mt-0.5 block font-display text-2xl font-semibold text-forest-900">204 532 6813</span>
+              </p>
             </div>
-            <div className="flex items-start space-x-4">
-              <CreditCard className="w-6 h-6 text-green-600 mt-1" />
-              <div>
-                <h3 className="font-semibold text-gray-800 mb-2">Development account </h3>
-                <p className="text-gray-800">
-                  Unaitas Sacco
-                </p>
-                <p className="text-gray-800 items-center">
-                  M-pesa Paybill: <span className='text-lg font-bold text-custom-blue'>544600</span>
-                </p>
-                <p>Account Number: <span className='text-lg font-bold text-custom-blue'>863441#your name</span></p>
-              </div>
+
+            <div className="rounded-3xl bg-white p-7 shadow-card">
+              <span className="grid size-12 place-items-center rounded-3xl bg-marigold-100 text-marigold-600">
+                <CreditCard className="size-6" strokeWidth={1.6} />
+              </span>
+              <h3 className="mt-5 text-lg font-semibold text-forest-950">Development account</h3>
+              <p className="mt-1 text-sm font-semibold text-ink/80">Unaitas Sacco</p>
+              <p className="mt-3 text-sm text-ink/70">
+                M-pesa Paybill
+                <span className="mt-0.5 block font-display text-2xl font-semibold text-forest-900">544600</span>
+              </p>
+              <p className="mt-3 text-sm text-ink/70">
+                Account number
+                <span className="mt-0.5 block font-display text-2xl font-semibold text-forest-900">863441#your name</span>
+              </p>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* FAQs */}
-        <div className="bg-white rounded-4xl shadow-2xl p-8 mb-32">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Frequently Asked Questions</h2>
-          <div className="space-y-2">
+        <section className="mt-16 rounded-3xl bg-cream-deep/70 p-7 sm:p-10">
+          <h2 className="text-3xl font-semibold text-forest-950">Frequently asked questions</h2>
+          <div className="mt-6 divide-y divide-forest-950/10">
             {faqs.map((faq, index) => {
               const isOpen = openFAQ === index;
               return (
-                <div key={index} className="border-b border-gray-200 py-4">
+                <div key={faq.question} className="py-5">
                   <button
-                    className="flex justify-between items-center w-full text-left"
-                    onClick={() => setOpenFAQ(isOpen ? null : index)}
+                    type="button"
+                    className="flex w-full items-center justify-between gap-4 text-left"
+                    aria-expanded={isOpen}
+                    onClick={() => handleToggleFAQ(index)}
                   >
-                    <span className="font-medium text-gray-800">{faq.question}</span>
+                    <span className="font-semibold text-forest-950">{faq.question}</span>
                     <ChevronDown
-                      className={`w-5 h-5 text-white transform transition-transform ${isOpen ? "rotate-180" : ""
-                        }`}
+                      className={`size-5 shrink-0 text-forest-900 transition-transform ${isOpen ? 'rotate-180' : ''}`}
                     />
                   </button>
-                  {isOpen && <p className="mt-2 text-gray-600">{faq.answer}</p>}
+                  {isOpen && <p className="mt-3 max-w-2xl leading-relaxed text-ink/70">{faq.answer}</p>}
                 </div>
               );
             })}
           </div>
-        </div>
-
-        {/* Accountability Section */}
-        {/* <div className="bg-white rounded-4xl shadow-2xl p-8 mb-20">
-          <div className="items-start space-x-4">
-            <div className="bg-green-50 p-3 rounded-full w-fit flex mx-auto">
-              <ShieldCheck className="w-6 h-6 text-green-600" />
-            </div>
-            <div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-4">
-                Our Commitment to Financial Accountability
-              </h2>
-              <p className="text-gray-600 mb-4">
-                We are committed to the highest standards of financial accountability and transparency. All funds are carefully managed and audited according to Seventh-day Adventist Church policy.
-              </p>
-              <ul className="list-disc list-inside text-gray-600 space-y-2">
-                <li>Regular financial reports to church board and business meetings</li>
-                <li>Annual audits by conference auditors</li>
-                <li>Detailed tracking of designated funds</li>
-                <li>Multiple signatories for all accounts</li>
-              </ul>
-            </div>
-          </div>
-        </div> */}
+        </section>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-black fixed bottom-0 w-full text-white py-8 mt-16">
-        <div className="container text-lg text-white font-light mx-auto px-4 text-center">
-          <p>&quot;Bring the whole tithe into the storehouse...&quot; - Malachi 3:10</p>
+      {/* Closing verse, on navy */}
+      <section className="bg-forest-950 text-white">
+        <div className="mx-auto max-w-3xl px-5 py-16 text-center sm:px-8">
+          <p className="font-display text-2xl leading-relaxed text-white/90 italic sm:text-3xl">
+            &ldquo;Bring the whole tithe into the storehouse...&rdquo;
+          </p>
+          <p className="mt-3 text-sm font-semibold tracking-[0.18em] text-marigold-400 uppercase">Malachi 3:10</p>
         </div>
-      </footer>
+      </section>
+
+      <Footer />
     </div>
   );
 }

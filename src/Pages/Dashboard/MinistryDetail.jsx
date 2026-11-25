@@ -164,7 +164,7 @@ export default function MinistryDetail() {
       </header>
       <div className="mb-4">
         {error && (
-          <p role="alert" className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
+          <p role="alert" className="flex items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
             <CircleAlert className="mt-0.5 size-4 shrink-0" />
             {error}
           </p>
@@ -202,7 +202,7 @@ export default function MinistryDetail() {
                 {announcements.map((item) => (
                   <li
                     key={item.id}
-                    className={`rounded-card border border-line bg-white shadow-card p-5 sm:p-6 ${item.pinned ? "!border-marigold-400" : ""}`}
+                    className={`rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6 ${item.pinned ? "!border-marigold-400" : ""}`}
                   >
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
@@ -264,7 +264,7 @@ export default function MinistryDetail() {
             ) : (
               <div className="grid gap-4 sm:grid-cols-2">
                 {ministry.programs.map((p) => (
-                  <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6" key={p.id}>
+                  <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6" key={p.id}>
                     <h3 className="text-lg font-semibold">{p.title}</h3>
                     <p className="mt-1 text-sm text-muted">{p.description}</p>
                     <p className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-forest-800">
@@ -284,7 +284,7 @@ export default function MinistryDetail() {
             ) : (
               <div className="grid gap-4 sm:grid-cols-2">
                 {events.map((e) => (
-                  <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6" key={e.id}>
+                  <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6" key={e.id}>
                     <div className="flex items-start justify-between gap-2">
                       <h3 className="text-lg font-semibold">{e.title}</h3>
                       {new Date(e.end_date) < new Date() && (
@@ -315,7 +315,7 @@ export default function MinistryDetail() {
                     key={g.id ?? i}
                     type="button"
                     onClick={() => setPhoto(photoUrl(g.image))}
-                    className="overflow-hidden rounded-2xl"
+                    className="overflow-hidden rounded-3xl"
                   >
                     <img
                       src={photoUrl(g.image)}
@@ -331,7 +331,7 @@ export default function MinistryDetail() {
         </div>
 
         <aside className="space-y-6">
-          <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6">
+          <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6">
             <h2 className="mb-3 text-xl font-semibold">Get in touch</h2>
             {ministry.contacts.length === 0 ? (
               <p className="text-sm text-muted">No contact people listed yet.</p>
@@ -373,7 +373,7 @@ export default function MinistryDetail() {
           </div>
 
           {isAdmin && (
-            <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6">
+            <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6">
               <h2 className="mb-3 text-xl font-semibold">Members ({ministry.members.length})</h2>
               <div className="relative">
                 <Search className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted" />
@@ -387,7 +387,7 @@ export default function MinistryDetail() {
                 />
               </div>
               {candidates.length > 0 && (
-                <ul className="mt-2 divide-y divide-line/70 rounded-xl border border-line px-3">
+                <ul className="mt-2 divide-y divide-line/70 rounded-3xl border border-line px-3">
                   {candidates.map((m) => (
                     <li key={m.id} className="flex items-center justify-between gap-2 py-2">
                       <span className="min-w-0 truncate text-sm">{fullName(m)}</span>
@@ -565,7 +565,7 @@ export default function MinistryDetail() {
               </button>
             </header>
             <div className="overflow-y-auto px-5 py-5 sm:px-6">
-              <img src={photo} alt="" className="mx-auto max-h-[70vh] rounded-xl object-contain" />
+              <img src={photo} alt="" className="mx-auto max-h-[70vh] rounded-3xl object-contain" />
             </div>
           </div>
         </div>

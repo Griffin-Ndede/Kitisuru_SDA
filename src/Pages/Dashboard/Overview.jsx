@@ -84,7 +84,7 @@ export default function Overview() {
       {!user.approved && (
         <div
           role="status"
-          className="mb-6 flex gap-4 rounded-card border p-5 border-marigold-100 bg-marigold-100/60 text-ink"
+          className="mb-6 flex gap-4 rounded-3xl border p-5 border-marigold-100 bg-marigold-100/60 text-ink"
         >
           <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white text-forest-700">
             <Clock className="size-5" />
@@ -101,7 +101,7 @@ export default function Overview() {
       {newRequests > 0 && (
         <div
           role="status"
-          className="mb-6 flex gap-4 rounded-card border p-5 border-marigold-100 bg-marigold-100/60 text-ink"
+          className="mb-6 flex gap-4 rounded-3xl border p-5 border-marigold-100 bg-marigold-100/60 text-ink"
         >
           <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white text-forest-700">
             <HandHeart className="size-5" />
@@ -122,7 +122,7 @@ export default function Overview() {
       {missing.length > 0 && (
         <div
           role="status"
-          className="mb-6 flex gap-4 rounded-card border p-5 border-forest-100 bg-forest-50 text-forest-900"
+          className="mb-6 flex gap-4 rounded-3xl border p-5 border-forest-100 bg-forest-50 text-forest-900"
         >
           <span className="grid size-10 shrink-0 place-items-center rounded-full bg-white text-forest-700">
             <UserPen className="size-5" />
@@ -185,7 +185,7 @@ export default function Overview() {
             {announcements.map((a) => (
               <li key={a.id}>
                 <Link to="/dashboard/announcements" className="block">
-                  <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 transition hover:shadow-lift">
+                  <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6 transition hover:shadow-lift">
                     <h3 className="font-semibold">{a.title}</h3>
                     <p className="mt-0.5 line-clamp-2 text-sm text-muted">{a.body}</p>
                     <p className="mt-2 text-xs text-muted">{formatDate(a.created_at)}</p>
@@ -202,7 +202,7 @@ export default function Overview() {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {churchCards.map(({ to, title, text, icon: Icon }) => (
               <Link key={to} to={to} className="group block">
-                <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 h-full transition group-hover:-translate-y-0.5 group-hover:shadow-lift">
+                <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6 h-full transition group-hover:-translate-y-0.5 group-hover:shadow-lift">
                   <span className="grid size-11 place-items-center rounded-full bg-forest-50 text-forest-700">
                     <Icon className="size-5" />
                   </span>
@@ -221,7 +221,7 @@ export default function Overview() {
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {adminCards.map(({ to, title, text, icon: Icon }) => (
                   <Link key={to} to={to} className="group block">
-                    <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 h-full transition group-hover:-translate-y-0.5 group-hover:shadow-lift">
+                    <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6 h-full transition group-hover:-translate-y-0.5 group-hover:shadow-lift">
                       <span className="grid size-11 place-items-center rounded-full bg-forest-50 text-forest-700">
                         <Icon className="size-5" />
                       </span>

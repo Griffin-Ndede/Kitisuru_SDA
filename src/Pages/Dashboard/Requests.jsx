@@ -73,7 +73,7 @@ export default function Requests() {
       </header>
       <div className="mb-4">
         {error && (
-          <p role="alert" className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
+          <p role="alert" className="flex items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
             <CircleAlert className="mt-0.5 size-4 shrink-0" />
             {error}
           </p>
@@ -96,7 +96,7 @@ export default function Requests() {
       </div>
 
       {shown.length === 0 ? (
-        <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6">
+        <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6">
           <div className="flex flex-col items-center px-6 py-12 text-center">
             <span className="arch grid h-16 w-14 place-items-center bg-forest-50 text-forest-600">
               <HandHeart className="size-6" />
@@ -111,7 +111,7 @@ export default function Requests() {
         <ul className="space-y-4">
           {shown.map((r) => (
             <li key={r.id}>
-              <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6">
+              <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
@@ -215,7 +215,7 @@ export default function Requests() {
                 {r.details.length > 0 && (
                   <details className="mt-3 text-sm">
                     <summary className="cursor-pointer font-medium text-forest-800">Their answers</summary>
-                    <dl className="mt-2 space-y-2 rounded-xl bg-paper p-4">
+                    <dl className="mt-2 space-y-2 rounded-3xl bg-paper p-4">
                       {r.details.map((d) => (
                         <div key={d.label}>
                           <dt className="text-xs text-muted">{d.label}</dt>

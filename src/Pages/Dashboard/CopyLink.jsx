@@ -38,7 +38,7 @@ export default function CopyLink({ link, children }) {
       </div>
       {failed && (
         <div className="mt-2">
-          <p role="alert" className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
+          <p role="alert" className="flex items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
             <CircleAlert className="mt-0.5 size-4 shrink-0" />
             Could not copy. Select the link and copy it by hand.
           </p>

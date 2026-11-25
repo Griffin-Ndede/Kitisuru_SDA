@@ -44,7 +44,7 @@ html {
   --color-muted: #6b7280;
   --color-line: #e5e7eb;
 
-  --radius-card: 1.25rem;
+  --radius-card: 1.5rem; /* 3xl */
   --shadow-card: 0 1px 2px rgb(20 58 46 / 0.05), 0 8px 24px -12px rgb(20 58 46 / 0.18);
   --shadow-lift: 0 2px 4px rgb(20 58 46 / 0.06), 0 24px 48px -20px rgb(20 58 46 / 0.35);
 }
@@ -104,7 +104,7 @@ html {
     @apply text-xs font-semibold uppercase tracking-[0.18em] text-forest-600;
   }
   .input {
-    @apply w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-muted/70
+    @apply w-full rounded-3xl border border-line bg-white px-4 py-2.5 text-sm text-ink placeholder:text-muted/70
       transition focus:border-forest-600 focus:ring-2 focus:ring-forest-100 focus:outline-none disabled:bg-paper-deep;
   }
   .input-error {

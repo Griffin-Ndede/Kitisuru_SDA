@@ -237,7 +237,7 @@ export default function MemberDialog({ member, clusters, ministries = [], me, on
           {error && (
             <p
               role="alert"
-              className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700"
+              className="flex items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700"
             >
               <CircleAlert className="mt-0.5 size-4 shrink-0" />
               {error}
@@ -332,7 +332,7 @@ export default function MemberDialog({ member, clusters, ministries = [], me, on
             <p className="text-muted">Add an email address above if you want to invite this person to sign in.</p>
           )}
           {invite?.invite_link && (
-            <div className="rounded-xl bg-forest-50 p-4">
+            <div className="rounded-3xl bg-forest-50 p-4">
               <p className="mb-2">
                 Send this link to {member.first_name} yourself. It works for them only and for 7 days:
               </p>

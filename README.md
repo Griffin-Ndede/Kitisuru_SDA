@@ -139,6 +139,14 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 
 ## Changelog
 
+### 2026-11-25: New look for the rest of the public pages, and rounder corners everywhere
+
+- About, Giving, Get involved, Contact and Privacy now match the Home page: cream pages, serif headings, an accent word with a hand-drawn underline, navy bands, and the shared top bar and footer. The Get involved pop-up form and its fields use the same style and close with Escape.
+- Giving: the payment details are unchanged. The unused progress-bar code and the fixed black footer are gone, and the expand arrows are now visible.
+- Contact: the page's own footer was replaced by the shared one; email is a mailto link.
+- Corners: everything uses `rounded-3xl` (cards, panels, inputs, pop-ups) across the public pages and the dashboard. `--radius-card` is now 1.5rem and `.input` is `rounded-3xl`. Round things (buttons, avatars) stay round.
+- Fixed "Mathew 18:20" to "Matthew 18:20".
+
 ### 2026-11-25: New look for the public pages (step 1: Home, top bar and footer)
 
 A blend of three reference designs, in the church's blue, yellow and navy:

@@ -49,30 +49,65 @@ const sections = [
 
 export default function Privacy() {
   return (
-    <>
+    <div className="site-theme min-h-screen overflow-x-clip">
       <meta name="robots" content="noindex" />
       <Navbar />
-      <section className="min-h-screen pt-32 pb-16 px-6">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-3xl md:text-5xl font-extrabold text-custom-blue mb-4">How we use your details</h1>
-          <p className="text-gray-600 mb-8">
+
+      <section>
+        <div className="mx-auto max-w-4xl px-5 pt-12 pb-20 sm:px-8 lg:pt-20 lg:pb-28">
+          <p className="text-xs font-semibold tracking-[0.22em] text-clay-600 uppercase">Privacy</p>
+          <h1 className="mt-4 text-5xl leading-[1.05] font-semibold text-forest-950 sm:text-6xl">
+            How we use{' '}
+            <span className="relative inline-block text-forest-900">
+              your details
+              <svg
+                className="absolute -bottom-2 left-0 h-3 w-full"
+                viewBox="0 0 240 14"
+                fill="none"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M2 9 C 40 2, 80 13, 125 6 S 205 9, 238 4"
+                  stroke="#ffc700"
+                  strokeWidth="5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
+          </h1>
+          <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink/70">
             Seventh Day Adventist Church Kitisuru keeps a register of its members on this website. This page explains what is kept and who can see it.
           </p>
-          {sections.map((section) => (
-            <div key={section.title} className="mb-8">
-              <h2 className="text-xl font-bold mb-2">{section.title}</h2>
-              <ul className="list-disc pl-6 space-y-1 text-gray-700">
-                {section.body.map((line) => <li key={line}>{line}</li>)}
-              </ul>
-            </div>
-          ))}
-          <p className="text-gray-700">
-            Questions about your details? <Link to="/contact" className="text-custom-blue underline">Contact the church office</Link>.
+
+          <div className="mt-12 space-y-6">
+            {sections.map((section) => (
+              <div key={section.title} className="rounded-3xl bg-white p-7 shadow-card sm:p-9">
+                <h2 className="text-2xl font-semibold text-forest-950">{section.title}</h2>
+                <ul className="mt-4 space-y-3 text-ink/75">
+                  {section.body.map((line) => (
+                    <li key={line} className="flex items-start gap-3 leading-relaxed">
+                      <span className="mt-2.5 size-2 shrink-0 rotate-45 rounded-sm bg-marigold-500" aria-hidden="true" />
+                      {line}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-10 text-lg text-ink/80">
+            Questions about your details?{" "}
+            <Link to="/contact" className="font-semibold text-forest-900 underline">
+              Contact the church office
+            </Link>
+            .
           </p>
-          <p className="text-gray-500 text-sm mt-6">Last updated 22 November 2026.</p>
+          <p className="mt-4 text-sm text-ink/50">Last updated 22 November 2026.</p>
         </div>
       </section>
+
       <Footer />
-    </>
+    </div>
   );
 }

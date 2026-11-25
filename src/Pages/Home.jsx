@@ -141,9 +141,9 @@ function Home() {
             className="relative mx-auto w-full max-w-lg lg:max-w-none"
           >
             {/* the coloured shapes behind the picture */}
-            <div className="absolute -inset-3 -rotate-6 rounded-[3rem] bg-marigold-500 sm:-inset-4" aria-hidden="true" />
-            <div className="absolute inset-0 rotate-3 rounded-[3rem] bg-forest-900/90" aria-hidden="true" />
-            <div className="relative aspect-4/3 overflow-hidden rounded-[2.5rem] bg-forest-950 shadow-lift sm:aspect-5/4">
+            <div className="absolute -inset-3 -rotate-6 rounded-3xl bg-marigold-500 sm:-inset-4" aria-hidden="true" />
+            <div className="absolute inset-0 rotate-3 rounded-3xl bg-forest-900/90" aria-hidden="true" />
+            <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-forest-950 shadow-lift sm:aspect-5/4">
               {/* picture for small screens, video for larger ones */}
               <img
                 src="https://media.istockphoto.com/id/522403165/photo/praying-hands-with-bible.jpg?s=612x612&w=0&k=20&c=-5H0OP-7GKsglDbxalhBUl9klbhImkXjJrsTl7p52J0="
@@ -162,7 +162,7 @@ function Home() {
             </div>
 
             {/* a small card floating over the picture */}
-            <div className="doodle-float absolute -bottom-6 -left-2 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-lift sm:-left-8" style={{ '--tilt': '-2deg' }}>
+            <div className="doodle-float absolute -bottom-6 -left-2 flex items-center gap-3 rounded-3xl bg-white px-4 py-3 shadow-lift sm:-left-8" style={{ '--tilt': '-2deg' }}>
               <span className="grid size-10 place-items-center rounded-full bg-marigold-100 text-marigold-600">
                 <Sunrise className="size-5" />
               </span>
@@ -243,7 +243,7 @@ function Home() {
             <ul className="mt-9 divide-y divide-forest-950/10 border-y border-forest-950/10">
               {values.map((value) => (
                 <li key={value.title} className="flex gap-5 py-6">
-                  <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-white text-forest-900 shadow-card">
+                  <span className="grid size-12 shrink-0 place-items-center rounded-3xl bg-white text-forest-900 shadow-card">
                     <value.Icon className="size-6" />
                   </span>
                   <span>
@@ -281,7 +281,7 @@ function Home() {
           <p className="mt-3 max-w-xl text-white/70">Keep up to date with what is happening at church.</p>
 
           {!featuredEvent ? (
-            <div className="mt-12 flex flex-col items-center rounded-4xl bg-cream px-6 py-14 text-center text-ink">
+            <div className="mt-12 flex flex-col items-center rounded-3xl bg-cream px-6 py-14 text-center text-ink">
               <span className="grid size-14 place-items-center rounded-full bg-marigold-100 text-marigold-600">
                 <Calendar className="size-7" />
               </span>
@@ -290,7 +290,7 @@ function Home() {
             </div>
           ) : (
             <div className="mt-12 grid gap-6 lg:grid-cols-3">
-              <article className="flex flex-col overflow-hidden rounded-4xl bg-cream text-ink lg:col-span-2 lg:flex-row">
+              <article className="flex flex-col overflow-hidden rounded-3xl bg-cream text-ink lg:col-span-2 lg:flex-row">
                 {featuredEvent.image && (
                   <button
                     type="button"
@@ -306,7 +306,7 @@ function Home() {
                   </button>
                 )}
                 <div className="flex flex-1 flex-col p-7 sm:p-9">
-                  <span className="w-fit rounded-md bg-clay-100 px-2.5 py-1 text-xs font-semibold text-clay-700">
+                  <span className="w-fit rounded-3xl bg-clay-100 px-2.5 py-1 text-xs font-semibold text-clay-700">
                     Next up{featuredEvent.ministry_title ? ` · ${featuredEvent.ministry_title}` : ''}
                   </span>
                   <h3 className="mt-4 text-3xl leading-tight font-semibold text-forest-950">{featuredEvent.title}</h3>
@@ -332,7 +332,7 @@ function Home() {
                     {event.image && (
                       <button
                         type="button"
-                        className="size-20 shrink-0 overflow-hidden rounded-2xl"
+                        className="size-20 shrink-0 overflow-hidden rounded-3xl"
                         aria-label={`View the picture for ${event.title}`}
                         onClick={() => handleOpenImage(`${imageUrl}/${event.image}`)}
                       >
@@ -372,7 +372,7 @@ function Home() {
           </div>
 
           {youtubeContent.length === 0 ? (
-            <div className="mt-12 flex flex-col items-center rounded-4xl bg-white px-6 py-14 text-center shadow-card">
+            <div className="mt-12 flex flex-col items-center rounded-3xl bg-white px-6 py-14 text-center shadow-card">
               <span className="grid size-14 place-items-center rounded-full bg-forest-50 text-forest-900">
                 <Play className="size-7" />
               </span>
@@ -455,7 +455,7 @@ function Home() {
             src={fullscreenImage}
             alt="Event"
             onContextMenu={(e) => e.preventDefault()}
-            className="max-h-full max-w-full rounded-2xl object-contain"
+            className="max-h-full max-w-full rounded-3xl object-contain"
           />
         </div>
       )}

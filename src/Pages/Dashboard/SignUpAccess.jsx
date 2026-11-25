@@ -67,14 +67,14 @@ export default function SignUpAccess() {
       </header>
       <div className="mb-4">
         {error && (
-          <p role="alert" className="flex items-start gap-2 rounded-xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
+          <p role="alert" className="flex items-start gap-2 rounded-3xl bg-clay-100 px-3.5 py-2.5 text-sm text-clay-700">
             <CircleAlert className="mt-0.5 size-4 shrink-0" />
             {error}
           </p>
         )}
       </div>
 
-      <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 mb-6">
+      <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6 mb-6">
         <div className="flex items-center gap-3">
           <span className="grid size-10 place-items-center rounded-full bg-forest-50 text-forest-700">
             <Link2 className="size-5" />
@@ -103,7 +103,7 @@ export default function SignUpAccess() {
       </div>
 
       {waiting.length > 0 && (
-        <div className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 mb-6 !border-marigold-400/50 !bg-marigold-100/50">
+        <div className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6 mb-6 !border-marigold-400/50 !bg-marigold-100/50">
           <h2 className="mb-2 text-xl font-semibold">Waiting for approval ({waiting.length})</h2>
           <ul className="divide-y divide-marigold-400/30">
             {waiting.map((person) => (
@@ -159,7 +159,7 @@ export default function SignUpAccess() {
       )}
 
       <form
-        className="rounded-card border border-line bg-white shadow-card p-5 sm:p-6 mb-6 grid gap-4 sm:grid-cols-2"
+        className="rounded-3xl border border-line bg-white shadow-card p-5 sm:p-6 mb-6 grid gap-4 sm:grid-cols-2"
         onSubmit={handleInvite}
       >
         <div className="sm:col-span-2">
@@ -215,7 +215,7 @@ export default function SignUpAccess() {
       </form>
 
       {invite && (
-        <div role="status" className="mb-6 rounded-card bg-forest-50 p-5 text-sm">
+        <div role="status" className="mb-6 rounded-3xl bg-forest-50 p-5 text-sm">
           <p className="mb-3">
             {invite.email_sent
               ? `We emailed ${invite.email}. You can also send them this link yourself:`

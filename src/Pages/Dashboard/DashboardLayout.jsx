@@ -119,7 +119,7 @@ export default function DashboardLayout() {
   };
 
   const itemClass = ({ isActive }) =>
-    `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition ${
+    `flex items-center gap-3 rounded-3xl px-3 py-2.5 text-sm font-medium transition ${
       isActive ? "bg-marigold-500 text-forest-950" : "text-forest-100 hover:bg-white/10"
     }`;
 
@@ -135,7 +135,7 @@ export default function DashboardLayout() {
             className="inline-flex items-center gap-2.5 text-paper"
             aria-label="Kitisuru SDA Church, home"
           >
-            <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-white">
+            <span className="grid size-9 shrink-0 place-items-center rounded-3xl bg-white">
               <img src="/logo-icon.png" alt="" aria-hidden="true" className="h-6 w-auto" />
             </span>
             <span className="leading-none">
@@ -176,7 +176,7 @@ export default function DashboardLayout() {
                 className="inline-flex items-center gap-2.5 text-paper"
                 aria-label="Kitisuru SDA Church, home"
               >
-                <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-white">
+                <span className="grid size-9 shrink-0 place-items-center rounded-3xl bg-white">
                   <img src="/logo-icon.png" alt="" aria-hidden="true" className="h-6 w-auto" />
                 </span>
                 <span className="leading-none">
@@ -263,7 +263,7 @@ export default function DashboardLayout() {
             {menuOpen && (
               <div
                 role="menu"
-                className="rise absolute right-0 z-40 mt-2 w-56 max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-line bg-white py-1.5 shadow-lift"
+                className="rise absolute right-0 z-40 mt-2 w-56 max-w-[calc(100vw-2rem)] overflow-hidden rounded-3xl border border-line bg-white py-1.5 shadow-lift"
               >
                 <div className="border-b border-line px-4 pb-3 pt-2">
                   <p className="truncate text-sm font-semibold">{name}</p>
