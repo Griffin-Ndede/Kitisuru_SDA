@@ -30,7 +30,7 @@ VITE_API_URL=https://api.kitisurusda.org/ npm run dev
 npm run build
 ```
 
-The site is built for Netlify (`netlify.toml`): publish `dist/`, and every address falls back to `index.html` so client-side routing works. For another static host, upload `dist/` and configure the host to serve `index.html` for unknown addresses. Add the site's address to `CORS_ALLOWED_ORIGINS` in the backend's `settings.py`.
+`npm run build` makes the site in `dist/`. Upload `dist/` to any static host and set the host to serve `index.html` for addresses that are not real files, so `/dashboard` and other pages still load when the browser is reloaded. Add the site's address to `CORS_ALLOWED_ORIGINS` in the backend's `settings.py`.
 
 ## Pages
 
@@ -137,6 +137,11 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 - Write each screen's buttons, fields and so on directly in its `return`, with handlers at the top (no shared `ui/` folder, no helper components). Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
+
+### 2026-11-25: No Netlify
+
+- Removed `netlify.toml` and the Netlify wording in this README. Build with `npm run build` and upload `dist/` to the static host you use; the host must serve `index.html` for unknown addresses.
+- Removed three test screenshots (`ma_*.png`) that were committed to the repo root by mistake.
 
 ### 2026-11-25: The signed-in user lives in a Context
 
