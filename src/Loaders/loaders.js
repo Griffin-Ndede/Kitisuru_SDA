@@ -9,6 +9,7 @@ import {
   getDocuments,
   getInvolvedMinistries,
   getRequests,
+  getCluster,
   getClusters,
   getMe,
   getMembers,
@@ -41,6 +42,17 @@ export const signInLoader = () => (getSession() ? redirect("/dashboard") : null)
 export const dashboardLoader = () => {
   if (!getSession()) throw redirect("/signin");
   return null;
+};
+
+// The clusters list page. Admin-only, like everything about clusters.
+export const clustersLoader = async () => ({
+  clusters: await getClusters(),
+});
+
+// One cluster's page: its information, and the register to add people from.
+export const clusterDetailsLoader = async ({ params }) => {
+  const [cluster, members] = await Promise.all([getCluster(params.id), getMembers()]);
+  return { cluster, members };
 };
 
 // The member register, the clusters and the ministries. Admin-only: anyone else

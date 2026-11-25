@@ -49,7 +49,8 @@ npm run build
 | `/dashboard` | Dashboard overview, for signed-in people (others go to `/signin`). People who just signed up see a "waiting for approval" message; members see a "complete your profile" reminder. `/app` redirects here | API (loader) |
 | `/dashboard/profile` | My profile: members add and edit their name, phone, gender, date of birth and address; download their data; delete their account | API (action) |
 | `/dashboard/members` | Admins only: the member register with search and filters; add and edit members, their clusters, role and approval; import (CSV or Excel, with a preview) and export | API (loader + actions) |
-| `/dashboard/clusters` | Admins only: create prayer cells and departments and add or remove members | API (loader + actions) |
+| `/dashboard/clusters` | Admins only: every location group and fundraising group as a card; create new ones | API (loader + action) |
+| `/dashboard/clusters/:id` | Admins only: one cluster's page: about text, meeting day and time, place, contact person, and its members (add, remove); edit or delete the cluster | API (loader + actions) |
 | `/dashboard/sign-up` | Admins only: the sign-up page address (copy, share on WhatsApp), approve or reject sign-ups, invite one person with a role | API (loader + actions) |
 | `/privacy` | How the church uses members' details (read it with the church leadership and adjust it) | static |
 
@@ -137,6 +138,14 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 - Write each screen's buttons, fields and so on directly in its `return`, with handlers at the top (no shared `ui/` folder, no helper components). Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
+
+### 2026-11-25: Cluster pages
+
+- Every cluster has its own page (`/dashboard/clusters/:id`) with an about text, when and where it meets, a contact person and phone, and its members. Admins edit the information with "Edit information" and add or remove people there.
+- `/dashboard/clusters` is now a grid of cluster cards (name, kind, member count, meeting time and place). Creating a cluster takes you straight to its page.
+- Renaming moved into the edit form, so the rename pop-up is gone. Delete still asks first (SweetAlert).
+- Needs the backend change that adds the new fields (backend PR "Cluster pages") and its `migrate`.
+- Toast text uses the app font; the serif title font is only for full pop-ups.
 
 ### 2026-11-25: No Netlify
 

@@ -104,6 +104,6 @@ html {
 .swal2-popup {
   font-family: var(--font-app);
 }
-.swal2-title {
+.swal2-popup:not(.swal2-toast) .swal2-title {
   font-family: var(--font-display);
 }

@@ -83,6 +83,7 @@ export const updateMember = (id, details) =>
 export const deleteMember = (id) => del(`members/${id}/`, { auth: true });
 
 export const getClusters = () => get("members/clusters/", { auth: true });
+export const getCluster = (id) => get(`members/clusters/${id}/`, { auth: true });
 export const createCluster = (cluster) =>
   post("members/clusters/", cluster, { auth: true });
 export const updateCluster = (id, changes) =>
