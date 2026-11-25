@@ -176,11 +176,15 @@ Kitisuru SDA Church Website
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // The church office needs a way to reach the person, and a ministry to add them to.
+        // The church office needs a phone number to reach the person, and a ministry to add them to.
         // Checked here so the message appears in the form, before anything is sent.
         const submission = buildSubmission();
-        if (!submission.email && !submission.phone) {
-            setFormError("Please give a phone number or an email address so the church office can reach you.");
+        if (!submission.phone) {
+            setFormError(
+                submission.kind === "child_dedication"
+                    ? "Please give the mother's or the father's phone number so the church office can reach you."
+                    : "Please give a phone number so the church office can reach you."
+            );
             return;
         }
         if (submission.kind === "ministry" && submission.ministries.length === 0) {

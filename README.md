@@ -141,9 +141,9 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 
 ## Changelog
 
-### 2026-11-25: Get involved forms ask for a way to reach the person
+### 2026-11-25: Get involved forms ask for a phone number
 
-The backend refuses a request with no email and no phone number, but none of the forms asked for one, so anyone who filled only the required fields got an error and nothing reached the dashboard. The form now checks this itself and shows a message in the form (and, on the ministry form, asks for at least one ministry) before anything is sent. Tested: all four forms save and appear on Administration > Get involved requests, and the admin can mark them done and add the person to the register.
+The backend refuses a request with no phone number or email, but none of the forms asked for one, so anyone who filled only the required fields got an error and nothing reached the dashboard. Now the phone number is required on the commitment, membership transfer and ministry forms, and on the child dedication form the mother's or the father's phone is needed. The form shows the message inside the form before anything is sent, and the ministry form also asks for at least one ministry. Tested: all four forms save and appear on Administration > Get involved requests, and the admin can mark them done and add the person to the register.
 
 ### 2026-11-25: Child dedication sends the child's and both parents' details
 
