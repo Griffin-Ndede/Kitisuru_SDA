@@ -244,6 +244,9 @@ export default function Members() {
                         </span>
                         <div className="min-w-0">
                           <p className="truncate font-medium">{fullName(m)}</p>
+                          {m.positions?.length > 0 && (
+                            <p className="truncate text-xs font-semibold text-marigold-600">{m.positions.join(", ")}</p>
+                          )}
                           <p className="truncate text-xs text-muted">{m.email || "no email"}</p>
                         </div>
                       </div>

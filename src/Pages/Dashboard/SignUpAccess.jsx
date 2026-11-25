@@ -165,7 +165,7 @@ export default function SignUpAccess() {
         <div className="sm:col-span-2">
           <h2 className="text-xl font-semibold">Invite one person with a role</h2>
           <p className="mt-1 text-sm text-muted">
-            For leaders and treasurers, or anyone who needs a role other than member. They are approved straight away.
+            For someone who should be an admin from the start. They are approved straight away.
           </p>
         </div>
         <div>

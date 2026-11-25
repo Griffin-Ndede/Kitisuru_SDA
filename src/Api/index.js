@@ -53,6 +53,20 @@ export const updateAnnouncement = (id, details) =>
   patch(`announcements/${id}/`, details, { auth: true });
 export const deleteAnnouncement = (id) => del(`announcements/${id}/`, { auth: true });
 
+// --- Leadership: elected positions (Elder, Treasurer...) and two-year terms ---
+
+// Everyone approved can read who is serving; with a ministry id, only that ministry's leaders.
+export const getLeaders = (ministryId) =>
+  get(ministryId ? `leadership/leaders/?ministry=${ministryId}` : "leadership/leaders/", { auth: true });
+// Admin only from here on
+export const getPositions = () => get("leadership/positions/", { auth: true });
+export const createPosition = (details) => post("leadership/positions/", details, { auth: true });
+export const updatePosition = (id, details) => patch(`leadership/positions/${id}/`, details, { auth: true });
+export const deletePosition = (id) => del(`leadership/positions/${id}/`, { auth: true });
+export const createAssignment = (details) => post("leadership/assignments/", details, { auth: true });
+export const updateAssignment = (id, details) => patch(`leadership/assignments/${id}/`, details, { auth: true });
+export const deleteAssignment = (id) => del(`leadership/assignments/${id}/`, { auth: true });
+
 // --- Get involved: the public forms and the admin's requests ------------------
 
 export const getInvolvedMinistries = () => get("get-involved/ministries/");
