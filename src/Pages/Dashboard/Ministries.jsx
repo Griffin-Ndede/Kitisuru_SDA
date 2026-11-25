@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLoaderData, useNavigate, useRouteLoaderData } from "react-router";
+import { Link, useLoaderData, useNavigate } from "react-router";
 import { HeartHandshake, Plus, Users, X } from "lucide-react";
 import MinistryForm from "./MinistryForm";
 import { photoUrl } from "./ministryHelpers";
+import { useUser } from "../../Context/UserContext";
 
 // Every approved member can browse the ministries (Youth, Children, Women...).
 // Admins can add new ones; each ministry's own page has the details.
 export default function Ministries() {
   const { ministries } = useLoaderData();
-  const { user } = useRouteLoaderData("dashboard");
+  const { user, isAdmin } = useUser();
   const navigate = useNavigate();
   const [adding, setAdding] = useState(false);
 
-  const isAdmin = user.role === "admin";
   const mine = new Set(user.ministries.map((m) => m.id));
 
   // A box over the page closes on Escape and stops the page behind it from scrolling

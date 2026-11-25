@@ -72,9 +72,31 @@ The rules:
 4. **Requests time out after 10 seconds**, so a hanging API shows the error page instead of freezing navigation.
 5. **Refreshing** a page's data means asking the router to run its loader again (`useRevalidator().revalidate()`), not fetching by hand.
 6. **Actions the visitor triggers** (the contact, activity and sign-in forms) are made from the page's event handler, and their errors are shown next to the form.
-7. **Signing in:** the tokens live in `localStorage` (`getSession`, `saveSession` and `clearSession` in `src/Api/client.js`). A request marked `auth: true` sends the token and renews it once automatically if it has expired. `/dashboard` has a loader (`dashboardLoader`) that sends signed-out people to `/signin`; pages inside it read the person with `useRouteLoaderData("dashboard")`. A page only the admin may open gets a 403 from the API, which the error page explains.
+7. **Signing in:** the tokens live in `localStorage` (`getSession`, `saveSession` and `clearSession` in `src/Api/client.js`). A request marked `auth: true` sends the token and renews it once automatically if it has expired. `/dashboard` has a loader (`dashboardLoader`) that sends people with no session to `/signin`. A page only the admin may open gets a 403 from the API, which the error page explains.
+8. **Who is signed in lives in one place, the user Context** (`src/Context/UserContext.jsx`, provided around the whole app in `src/App.jsx`). Any page or component reads it with `const { user, isAdmin, ... } = useUser()`; nobody else fetches the user or reads the tokens. See "The signed-in user" below.
 
-To add a page that needs data: add the endpoint to `src/Api/index.js`, add a loader in `src/Loaders/loaders.js`, attach it to the route in `src/App.jsx`, and read it with `useLoaderData()`.
+To add a page that needs dataTo add a page that needs data: add the endpoint to `src/Api/index.js`, add a loader in `src/Loaders/loaders.js`, attach it to the route in `src/App.jsx`, and read it with `useLoaderData()`.
+
+## The signed-in user
+
+`useUser()` gives a component:
+
+| Value | Meaning |
+|---|---|
+| `user` | The signed-in person (name, email, role, approved, ministries, groups...), or `null` |
+| `loading` | True only while the first check with the server runs |
+| `isSignedIn`, `role`, `isApproved` | Short forms of the above |
+| `isAdmin`, `hasRole("admin", "treasurer")` | Rights, worked out once: only an approved account has any |
+| `signIn(session)` | Used by the sign-in and sign-up pages: keeps the tokens and makes the person the current user |
+| `signOut()` | Signs out of Google, then removes the session |
+| `refreshUser()` | Asks the server for the current details (used after saving the profile and when moving between dashboard pages) |
+
+How it behaves:
+
+- On a reload it starts from the user saved with the session, so the page is right at once, then confirms with the server.
+- The session ending anywhere (sign out, or the server refusing the tokens) empties `user` everywhere. The dashboard layout then sends the person to sign in; the public navbar switches back to "Sign in".
+- Signing out in one browser tab signs out the others; signing in as someone else in another tab switches this one.
+- Loaders run outside React and cannot use the Context. The overview loader asks `/accounts/me/` itself because it needs to know if the person is approved or an admin.
 
 ## Project layout
 
@@ -83,7 +105,7 @@ src/
   Api/          client.js (HTTP client) and index.js (all endpoints)
   Loaders/      loaders.js - one loader per route that needs data
   Components/   Navbar, Footer, the activity form and its schema. There is no shared UI folder and no helper components: every page or dialog writes its buttons, fields, badges and modal directly in its own `return`, with its handlers at the top of the function
-  Context/      ToastContext.jsx - the small "Saved" messages
+  Context/      UserContext.jsx - who is signed in, for the whole app; ToastContext.jsx - the small "Saved" messages
   Pages/        one file per route, plus ErrorPage; Pages/Dashboard/ holds the signed-in area (layout with sidebar, overview, profile, members, clusters, sign-up)
   firebase.jsx  Google sign-in (loaded only when the button is used)
   App.jsx       the router: every route and its loader
@@ -115,6 +137,13 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 - Write each screen's buttons, fields and so on directly in its `return`, with handlers at the top (no shared `ui/` folder, no helper components). Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
+
+### 2026-11-25: The signed-in user lives in a Context
+
+- New `src/Context/UserContext.jsx` and `useUser()`. Pages and the public navbar now read the signed-in person from it instead of the dashboard route's loader or `localStorage`.
+- Sign in, sign up, sign out and account deletion go through `signIn` and `signOut`. Saving the profile calls `refreshUser()`, so the menu and overview change straight away.
+- The session ending anywhere signs the person out everywhere on the page, and in other tabs. A refused token sends them to the sign-in page.
+- `dashboardLoader` only checks that a session exists; it no longer fetches the user.
 
 ### 2026-11-25: Church logo icon
 

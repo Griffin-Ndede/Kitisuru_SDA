@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLoaderData, useRouteLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import {
   ArrowRight,
   BookOpenText,
@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { roleLabels } from "./roles";
 import { formatDate } from "./ministryHelpers";
+import { useUser } from "../../Context/UserContext";
 
 // Which details a member is still asked to add on "My profile".
 const missingDetails = (user) =>
@@ -67,7 +68,7 @@ const adminCards = [
 ];
 
 export default function Overview() {
-  const { user } = useRouteLoaderData("dashboard");
+  const { user } = useUser();
   const { announcements, newRequests } = useLoaderData();
   const missing = missingDetails(user);
 

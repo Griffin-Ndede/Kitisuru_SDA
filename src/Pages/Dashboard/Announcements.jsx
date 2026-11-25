@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLoaderData, useRevalidator, useRouteLoaderData } from "react-router";
+import { Link, useLoaderData, useRevalidator } from "react-router";
 import { Megaphone, Pencil, Pin, Plus, Trash2, X, CircleAlert } from "lucide-react";
 import { deleteAnnouncement } from "../../Api";
 import { errorMessage } from "../../Api/client";
 import { useToast } from "../../Context/ToastContext";
+import { useUser } from "../../Context/UserContext";
 import AnnouncementForm from "./AnnouncementForm";
 import { formatDate } from "./ministryHelpers";
 
@@ -11,14 +12,13 @@ import { formatDate } from "./ministryHelpers";
 // admins post, edit and remove.
 export default function Announcements() {
   const { announcements, ministries } = useLoaderData();
-  const { user } = useRouteLoaderData("dashboard");
+  const { isAdmin } = useUser();
   const revalidator = useRevalidator();
   const toast = useToast();
   const [dialog, setDialog] = useState(null); // "new" or an announcement
   const [error, setError] = useState("");
   const [filter, setFilter] = useState(""); // "" = all, "church" = the whole church, or a ministry id
 
-  const isAdmin = user.role === "admin";
   const shown = announcements.filter(
     (item) => !filter || (filter === "church" ? !item.ministry : item.ministry === Number(filter)),
   );

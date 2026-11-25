@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { register } from "../Api";
-import { errorMessage, saveSession } from "../Api/client";
+import { errorMessage } from "../Api/client";
+import { useUser } from "../Context/UserContext";
 import { LoaderCircle, CircleAlert } from "lucide-react";
 
 // Anyone can create their own account here. The church's shared link (posted in
 // the WhatsApp group) just opens this same page.
 export default function Join() {
   const navigate = useNavigate();
+  const { signIn } = useUser();
   const [form, setForm] = useState({
     first_name: "",
     last_name: "",
@@ -32,7 +34,7 @@ export default function Join() {
     setBusy(true);
     try {
       const { first_name, last_name, email, phone, password } = form;
-      saveSession(await register({ first_name, last_name, email, phone, password, consent }));
+      signIn(await register({ first_name, last_name, email, phone, password, consent }));
       navigate("/dashboard");
     } catch (err) {
       setError(errorMessage(err));

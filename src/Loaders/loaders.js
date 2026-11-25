@@ -18,7 +18,7 @@ import {
   getUsers,
   getYoutubeLinks,
 } from "../Api";
-import { clearSession, getSession } from "../Api/client";
+import { getSession } from "../Api/client";
 
 // Sermons and events are fetched at the same time.
 export const homeLoader = async () => {
@@ -35,18 +35,12 @@ export const homeLoader = async () => {
 export const signInLoader = () => (getSession() ? redirect("/dashboard") : null);
 
 // Guards everything under /dashboard: signed-out people go to the sign-in page.
-// A token the server no longer accepts counts as signed out.
-export const dashboardLoader = async () => {
+// Who the person is lives in the user Context (UserContext), not here. If the
+// server later refuses the tokens, the Context signs the person out and the
+// dashboard layout sends them to the sign-in page.
+export const dashboardLoader = () => {
   if (!getSession()) throw redirect("/signin");
-  try {
-    return { user: await getMe() };
-  } catch (error) {
-    if (error.response?.status === 401) {
-      clearSession();
-      throw redirect("/signin");
-    }
-    throw error;
-  }
+  return null;
 };
 
 // The member register, the clusters and the ministries. Admin-only: anyone else

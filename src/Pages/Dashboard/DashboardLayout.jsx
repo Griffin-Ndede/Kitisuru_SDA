@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { NavLink, Outlet, useLoaderData, useLocation, useNavigate, Link } from "react-router";
+import { Navigate, NavLink, Outlet, useLocation, useNavigate, Link } from "react-router";
 import {
   LayoutDashboard,
   UserRound,
@@ -16,22 +16,35 @@ import {
   Menu,
   X,
   ChevronDown,
+  LoaderCircle,
 } from "lucide-react";
-import { clearSession } from "../../Api/client";
-import { googleSignOut } from "../../firebase";
+import { useUser } from "../../Context/UserContext";
 import { roleLabels } from "./roles";
 import { fullName } from "./memberHelpers";
 
 // The frame around every page under /dashboard: a dark menu on the left (a drawer
-// on phones), a top bar with the account menu, and the page itself. Its loader
-// (dashboardLoader) has already checked that someone is signed in.
+// on phones), a top bar with the account menu, and the page itself. The loader
+// (dashboardLoader) sends people with no session to sign in; who the person is comes
+// from the user Context.
 export default function DashboardLayout() {
-  const { user } = useLoaderData();
+  const { user, loading, leaving, isAdmin, isApproved, signOut, refreshUser } = useUser();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
+
+  // Fetch the person's details again when moving to another page, so what the menu
+  // and the overview show (approval, ministries, groups) never goes stale. The
+  // first load is skipped because the Context has just checked.
+  const firstPage = useRef(true);
+  useEffect(() => {
+    if (firstPage.current) {
+      firstPage.current = false;
+      return;
+    }
+    refreshUser().catch(() => {});
+  }, [pathname, refreshUser]);
 
   // Close the drawer when moving to another page
   useEffect(() => setOpen(false), [pathname]);
@@ -49,7 +62,20 @@ export default function DashboardLayout() {
     };
   }, [menuOpen]);
 
-  const isAdmin = user.approved && user.role === "admin";
+  // The session ended (signed out here or in another tab, or the server refused the
+  // tokens): go to the sign-in page. While the first check runs, show a spinner. Someone
+  // who chose to sign out is already heading to the church website, so show nothing.
+  if (!user) {
+    if (loading) {
+      return (
+        <div role="status" className="app-theme flex min-h-screen items-center justify-center gap-2 text-muted">
+          <LoaderCircle className="size-5 animate-spin" /> <span className="text-sm">Loading</span>
+        </div>
+      );
+    }
+    return leaving ? null : <Navigate to="/signin" replace />;
+  }
+
   const sections = [
     {
       label: "Home",
@@ -58,7 +84,7 @@ export default function DashboardLayout() {
         { to: "/dashboard/profile", label: "My profile", icon: UserRound },
       ],
     },
-    ...(user.approved
+    ...(isApproved
       ? [
           {
             label: "Church",
@@ -88,8 +114,7 @@ export default function DashboardLayout() {
   const name = fullName(user);
 
   const handleSignOut = async () => {
-    clearSession();
-    await googleSignOut();
+    await signOut();
     navigate("/");
   };
 

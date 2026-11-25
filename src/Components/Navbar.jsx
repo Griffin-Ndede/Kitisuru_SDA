@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react'; // Added Menu and X icons for mobile toggle
 import { Link } from 'react-router';
-import { getSession } from '../Api/client';
+import { useUser } from '../Context/UserContext';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { isSignedIn } = useUser();
   // Signed-in people see a link to the dashboard instead of "Sign in".
-  const dashboardLink = getSession() ? { to: '/dashboard', label: 'Dashboard' } : { to: '/signin', label: 'Sign in' };
+  const dashboardLink = isSignedIn ? { to: '/dashboard', label: 'Dashboard' } : { to: '/signin', label: 'Sign in' };
 
   return (
     <nav className="fixed w-full z-50 ">
