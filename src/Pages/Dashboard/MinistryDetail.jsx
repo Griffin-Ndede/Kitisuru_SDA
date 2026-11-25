@@ -21,6 +21,7 @@ import {
   CircleAlert,
 } from "lucide-react";
 import { changeMinistryMembers, deleteAnnouncement, deleteMinistry } from "../../Api";
+import Swal from "sweetalert2";
 import { errorMessage } from "../../Api/client";
 import { useToast } from "../../Context/ToastContext";
 import AnnouncementForm from "./AnnouncementForm";
@@ -67,13 +68,39 @@ export default function MinistryDetail() {
   };
 
   const handleDelete = async () => {
-    if (window.confirm(`Delete the ${ministry.title} ministry? The people in it stay in the register.`)) {
-      if (await run(() => deleteMinistry(ministry.id), "Ministry deleted")) navigate("/dashboard/ministries");
+    const { isConfirmed } = await Swal.fire({
+      title: `Delete the ${ministry.title} ministry?`,
+      text: "The people in it stay in the register.",
+      icon: "warning",
+      iconColor: "#ffc700", // the website's yellow
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete",
+      cancelButtonText: "Keep it",
+      confirmButtonColor: "#b04a2a", // red: this removes something
+      cancelButtonColor: "#6b7280", // grey
+      reverseButtons: true,
+      focusCancel: true,
+    });
+    if (isConfirmed && (await run(() => deleteMinistry(ministry.id), "Ministry deleted"))) {
+      navigate("/dashboard/ministries");
     }
   };
 
   const handleDeleteAnnouncement = async (item) => {
-    if (window.confirm(`Remove "${item.title}"?`)) await run(() => deleteAnnouncement(item.id), "Announcement removed");
+    const { isConfirmed } = await Swal.fire({
+      title: `Remove "${item.title}"?`,
+      text: "Members will no longer see it.",
+      icon: "warning",
+      iconColor: "#ffc700", // the website's yellow
+      showCancelButton: true,
+      confirmButtonText: "Yes, remove",
+      cancelButtonText: "Keep it",
+      confirmButtonColor: "#b04a2a", // red: this removes something
+      cancelButtonColor: "#6b7280", // grey
+      reverseButtons: true,
+      focusCancel: true,
+    });
+    if (isConfirmed) await run(() => deleteAnnouncement(item.id), "Announcement removed");
   };
 
   const modalOpen = Boolean(editing || photo || announcementDialog);

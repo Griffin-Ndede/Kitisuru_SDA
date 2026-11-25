@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLoaderData, useRevalidator } from "react-router";
 import { Megaphone, Pencil, Pin, Plus, Trash2, X, CircleAlert } from "lucide-react";
+import Swal from "sweetalert2";
 import { deleteAnnouncement } from "../../Api";
 import { errorMessage } from "../../Api/client";
 import { useToast } from "../../Context/ToastContext";
@@ -24,7 +25,20 @@ export default function Announcements() {
   );
 
   const handleDelete = async (item) => {
-    if (!window.confirm(`Remove "${item.title}"?`)) return;
+    const { isConfirmed } = await Swal.fire({
+      title: `Remove "${item.title}"?`,
+      text: "Members will no longer see it.",
+      icon: "warning",
+      iconColor: "#ffc700", // the website's yellow
+      showCancelButton: true,
+      confirmButtonText: "Yes, remove",
+      cancelButtonText: "Keep it",
+      confirmButtonColor: "#b04a2a", // red: this removes something
+      cancelButtonColor: "#6b7280", // grey
+      reverseButtons: true,
+      focusCancel: true,
+    });
+    if (!isConfirmed) return;
     setError("");
     try {
       await deleteAnnouncement(item.id);

@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { useLoaderData, useRevalidator } from "react-router";
 import { Pencil, Plus, Trash2, UserMinus, UserPlus, UsersRound, LoaderCircle, Search, CircleAlert } from "lucide-react";
 import { changeClusterMembers, createCluster, deleteCluster, updateCluster } from "../../Api";
+import Swal from "sweetalert2";
 import { errorMessage } from "../../Api/client";
 import { useToast } from "../../Context/ToastContext";
 import { fullName, kindLabels, matchesSearch, newKinds } from "./memberHelpers";
@@ -55,17 +56,40 @@ export default function Clusters() {
     }
   };
 
-  const handleRename = () => {
-    const name = window.prompt("New name for this cluster:", selected.name);
-    if (name && name.trim() && name.trim() !== selected.name) {
-      run(() => updateCluster(selected.id, { name: name.trim() }), "Renamed");
+  const handleRename = async () => {
+    const { isConfirmed, value } = await Swal.fire({
+      title: "Rename this cluster",
+      input: "text",
+      inputValue: selected.name,
+      inputAttributes: { "aria-label": "New name for this cluster" },
+      inputValidator: (text) => (!text.trim() ? "Please type a name." : undefined),
+      showCancelButton: true,
+      confirmButtonText: "Save",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#2e8eb4", // the website's blue
+      cancelButtonColor: "#6b7280",
+      reverseButtons: true,
+    });
+    if (isConfirmed && value.trim() !== selected.name) {
+      run(() => updateCluster(selected.id, { name: value.trim() }), "Renamed");
     }
   };
 
   const handleDelete = async () => {
-    if (window.confirm(`Delete "${selected.name}"? The people in it stay in the register.`)) {
-      if (await run(() => deleteCluster(selected.id), "Cluster deleted")) setSelectedId(null);
-    }
+    const { isConfirmed } = await Swal.fire({
+      title: `Delete "${selected.name}"?`,
+      text: "The people in it stay in the register.",
+      icon: "warning",
+      iconColor: "#ffc700", // the website's yellow
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete",
+      cancelButtonText: "Keep it",
+      confirmButtonColor: "#b04a2a", // red: this removes something
+      cancelButtonColor: "#6b7280", // grey
+      reverseButtons: true,
+      focusCancel: true,
+    });
+    if (isConfirmed && (await run(() => deleteCluster(selected.id), "Cluster deleted"))) setSelectedId(null);
   };
 
   return (

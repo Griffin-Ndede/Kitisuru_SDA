@@ -138,6 +138,16 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 
 ## Changelog
 
+### 2026-11-25: SweetAlert for every alert
+
+Every confirmation, prompt and notice now uses SweetAlert2 with the church colours.
+
+- Delete confirmations (announcements, ministries, ministry announcements, clusters, members): yellow warning icon, red "Yes, remove" button, grey "Keep it" button, cancel focused by default.
+- Renaming a cluster uses a SweetAlert text prompt in blue.
+- Toasts (`useToast()`) are SweetAlert toasts in dark blue with a yellow icon.
+- The Contact form and activity form alerts use the blue success and red error icons.
+- Inline form errors stay as text under the form, and the Profile "delete my account" flow is unchanged.
+
 ### 2026-11-25: No helper components left
 
 - The last two local helpers (`PersonRow` on the Clusters page, `CardGrid` on the overview) are now written directly in their pages' `return`. No page defines helper components any more.
