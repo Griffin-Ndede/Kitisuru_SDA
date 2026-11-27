@@ -30,7 +30,7 @@ VITE_API_URL=https://api.kitisurusda.org/ npm run dev
 npm run build
 ```
 
-`npm run build` makes the site in `dist/`. Upload `dist/` to any static host and set the host to serve `index.html` for addresses that are not real files, so `/dashboard` and other pages still load when the browser is reloaded. Add the site's address to `CORS_ALLOWED_ORIGINS` in the backend's `settings.py`.
+`npm run build` makes the site in `dist/`. Upload `dist/` to any static host and set the host to serve `index.html` for addresses that are not real files, so `/dashboard` and other pages still load when the browser is reloaded. Set `VITE_API_URL` (with a trailing slash) to the backend's address when you build, and add the site's address to the backend's `CORS_ALLOWED_ORIGINS` environment variable. `public/_redirects` already makes Netlify-style hosts serve `index.html` for page addresses.
 
 ## Pages
 
@@ -143,6 +143,11 @@ The dashboard and the sign-in pages (sign in, join, forgot and choose password) 
 - Write each screen's buttons, fields and so on directly in its `return`, with handlers at the top (no shared `ui/` folder, no helper components). Things that worked show a toast (`useToast()`); errors stay next to the form (`FormError`).
 
 ## Changelog
+
+### 2026-11-27: Ready to host
+
+- The API address now comes from `VITE_API_URL` at build time (default: the local backend), instead of being written in `src/config.jsx`.
+- `public/_redirects` sends page addresses such as `/dashboard/leadership` to `index.html`, so reloading a page no longer gives a 404.
 
 ### 2026-11-25: Activity log
 
